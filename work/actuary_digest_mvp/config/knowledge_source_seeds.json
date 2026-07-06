@@ -1,0 +1,221 @@
+{
+  "fundamentals-survival": [
+    {
+      "title": "SOA: Actuarial resources",
+      "url": "https://www.soa.org/resources/",
+      "domain": "soa.org"
+    }
+  ],
+  "insurance-fundamentals-business-model": [
+    {
+      "title": "SOA: Actuarial resources",
+      "url": "https://www.soa.org/resources/",
+      "domain": "soa.org"
+    },
+    {
+      "title": "CAS: Publications and research",
+      "url": "https://www.casact.org/publications-research",
+      "domain": "casact.org"
+    }
+  ],
+  "pricing-glm-auto": [
+    {
+      "title": "CAS: Basic Ratemaking",
+      "url": "https://www.casact.org/sites/default/files/database/studynotes_werner_modlin_ratemaking.pdf",
+      "domain": "casact.org"
+    }
+  ],
+  "reserving-chain-ladder": [
+    {
+      "title": "CAS: Publications and research",
+      "url": "https://www.casact.org/publications-research",
+      "domain": "casact.org"
+    }
+  ],
+  "erm-orsa-dashboard": [
+    {
+      "title": "IFoA: Research and knowledge",
+      "url": "https://actuaries.org.uk/learn-and-develop/research-and-knowledge/",
+      "domain": "actuaries.org.uk"
+    },
+    {
+      "title": "EIOPA: Publications",
+      "url": "https://www.eiopa.europa.eu/publications_en",
+      "domain": "eiopa.europa.eu"
+    }
+  ],
+  "capital-raroc": [
+    {
+      "title": "EIOPA: Solvency II regulatory framework",
+      "url": "https://www.eiopa.europa.eu/browse/regulation-and-policy/solvency-ii_en",
+      "domain": "eiopa.europa.eu"
+    }
+  ],
+  "solvency-scr": [
+    {
+      "title": "EIOPA: Solvency II regulatory framework",
+      "url": "https://www.eiopa.europa.eu/browse/regulation-and-policy/solvency-ii_en",
+      "domain": "eiopa.europa.eu"
+    }
+  ],
+  "ifrs17-csm": [
+    {
+      "title": "IFRS Foundation: IFRS 17 Insurance Contracts",
+      "url": "https://www.ifrs.org/issued-standards/list-of-standards/ifrs-17-insurance-contracts/",
+      "domain": "ifrs.org"
+    },
+    {
+      "title": "IFRS Foundation: IFRS 17 supporting materials",
+      "url": "https://www.ifrs.org/supporting-implementation/supporting-materials-by-ifrs-standards/ifrs-17/",
+      "domain": "ifrs.org"
+    }
+  ],
+  "reinsurance-xl": [
+    {
+      "title": "Swiss Re Institute: sigma research",
+      "url": "https://www.swissre.com/institute/research/sigma-research.html",
+      "domain": "swissre.com"
+    },
+    {
+      "title": "Munich Re: Insights",
+      "url": "https://www.munichre.com/en/insights.html",
+      "domain": "munichre.com"
+    }
+  ],
+  "alm-duration": [
+    {
+      "title": "SOA: Actuarial resources",
+      "url": "https://www.soa.org/resources/",
+      "domain": "soa.org"
+    },
+    {
+      "title": "Swiss Re Institute",
+      "url": "https://www.swissre.com/institute/",
+      "domain": "swissre.com"
+    }
+  ],
+  "investment-saa": [
+    {
+      "title": "Swiss Re Institute",
+      "url": "https://www.swissre.com/institute/",
+      "domain": "swissre.com"
+    },
+    {
+      "title": "OECD: Insurance and pensions",
+      "url": "https://www.oecd.org/finance/insurance/",
+      "domain": "oecd.org"
+    }
+  ],
+  "finance-ratio": [
+    {
+      "title": "Swiss Re Institute: sigma research",
+      "url": "https://www.swissre.com/institute/research/sigma-research.html",
+      "domain": "swissre.com"
+    }
+  ],
+  "accounting-ifrs9": [
+    {
+      "title": "IFRS Foundation: IFRS 17 Insurance Contracts",
+      "url": "https://www.ifrs.org/issued-standards/list-of-standards/ifrs-17-insurance-contracts/",
+      "domain": "ifrs.org"
+    }
+  ],
+  "regulation-ai-act": [
+    {
+      "title": "EIOPA: Publications",
+      "url": "https://www.eiopa.europa.eu/publications_en",
+      "domain": "eiopa.europa.eu"
+    },
+    {
+      "title": "ACPR: Publications",
+      "url": "https://acpr.banque-france.fr/publications",
+      "domain": "acpr.banque-france.fr"
+    }
+  ],
+  "data-analytics-feature": [
+    {
+      "title": "MIT OCW: Statistics for Applications",
+      "url": "https://ocw.mit.edu/courses/18-650-statistics-for-applications-fall-2016/",
+      "domain": "ocw.mit.edu"
+    },
+    {
+      "title": "CAS: Publications and research",
+      "url": "https://www.casact.org/publications-research",
+      "domain": "casact.org"
+    }
+  ],
+  "ai-claims-agent": [
+    {
+      "title": "IFoA: Research and knowledge",
+      "url": "https://actuaries.org.uk/learn-and-develop/research-and-knowledge/",
+      "domain": "actuaries.org.uk"
+    },
+    {
+      "title": "Institut des Actuaires",
+      "url": "https://www.institutdesactuaires.com/",
+      "domain": "institutdesactuaires.com"
+    }
+  ],
+  "cat-pml": [
+    {
+      "title": "Munich Re: Natural disasters and climate change",
+      "url": "https://www.munichre.com/en/insights/natural-disaster-and-climate-change.html",
+      "domain": "munichre.com"
+    },
+    {
+      "title": "Swiss Re Institute: sigma research",
+      "url": "https://www.swissre.com/institute/research/sigma-research.html",
+      "domain": "swissre.com"
+    }
+  ],
+  "credit-pd-lgd": [
+    {
+      "title": "OECD: Insurance and pensions",
+      "url": "https://www.oecd.org/finance/insurance/",
+      "domain": "oecd.org"
+    },
+    {
+      "title": "CAS: Publications and research",
+      "url": "https://www.casact.org/publications-research",
+      "domain": "casact.org"
+    }
+  ],
+  "market-risk-interest": [
+    {
+      "title": "EIOPA: Solvency II regulatory framework",
+      "url": "https://www.eiopa.europa.eu/browse/regulation-and-policy/solvency-ii_en",
+      "domain": "eiopa.europa.eu"
+    }
+  ],
+  "operational-model-risk": [
+    {
+      "title": "IFoA: Research and knowledge",
+      "url": "https://actuaries.org.uk/learn-and-develop/research-and-knowledge/",
+      "domain": "actuaries.org.uk"
+    },
+    {
+      "title": "CAS: Publications and research",
+      "url": "https://www.casact.org/publications-research",
+      "domain": "casact.org"
+    }
+  ],
+  "strategy-portfolio": [
+    {
+      "title": "Swiss Re Institute",
+      "url": "https://www.swissre.com/institute/",
+      "domain": "swissre.com"
+    },
+    {
+      "title": "SOA: Actuarial resources",
+      "url": "https://www.soa.org/resources/",
+      "domain": "soa.org"
+    }
+  ],
+  "business-board-writing": [
+    {
+      "title": "IFoA: Research and knowledge",
+      "url": "https://actuaries.org.uk/learn-and-develop/research-and-knowledge/",
+      "domain": "actuaries.org.uk"
+    }
+  ]
+}

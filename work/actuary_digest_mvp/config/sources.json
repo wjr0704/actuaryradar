@@ -1,0 +1,591 @@
+{
+  "rss_sources": [
+    {
+      "name": "CN Google News - 监管/偿付能力/精算",
+      "url": "https://news.google.com/rss/search?q=%E4%BF%9D%E9%99%A9+%E7%9B%91%E7%AE%A1+OR+%E5%81%BF%E4%BB%98%E8%83%BD%E5%8A%9B+OR+%E7%B2%BE%E7%AE%97+when:7d&hl=zh-CN&gl=CN&ceid=CN:zh-Hans",
+      "language": "zh",
+      "region": "中国",
+      "source_type": "News Search"
+    },
+    {
+      "name": "CN Google News - 寿险/健康险/车险/再保险",
+      "url": "https://news.google.com/rss/search?q=%E5%AF%BF%E9%99%A9+OR+%E5%81%A5%E5%BA%B7%E9%99%A9+OR+%E8%BD%A6%E9%99%A9+OR+%E5%86%8D%E4%BF%9D%E9%99%A9+when:7d&hl=zh-CN&gl=CN&ceid=CN:zh-Hans",
+      "language": "zh",
+      "region": "中国",
+      "source_type": "News Search"
+    },
+    {
+      "name": "CN Google News - 保险科技/车企/银行/能源联动",
+      "url": "https://news.google.com/rss/search?q=%E4%BF%9D%E9%99%A9%E7%A7%91%E6%8A%80+OR+%E8%BD%A6%E4%BC%81+%E4%BF%9D%E9%99%A9+OR+%E9%93%B6%E8%A1%8C+%E4%BF%9D%E9%99%A9+OR+%E8%83%BD%E6%BA%90+%E4%BF%9D%E9%99%A9+when:7d&hl=zh-CN&gl=CN&ceid=CN:zh-Hans",
+      "language": "zh",
+      "region": "中国",
+      "source_type": "News Search"
+    },
+    {
+      "name": "EU Google News - EIOPA/Solvency II/Insurance",
+      "url": "https://news.google.com/rss/search?q=EIOPA+OR+Solvency+II+OR+European+insurance+supervision+when:7d&hl=en-US&gl=US&ceid=US:en",
+      "language": "en",
+      "region": "欧洲",
+      "source_type": "News Search"
+    },
+    {
+      "name": "EU Google News - InsurTech/Climate/Reinsurance",
+      "url": "https://news.google.com/rss/search?q=European+insurance+insurtech+OR+climate+risk+OR+reinsurance+when:7d&hl=en-US&gl=US&ceid=US:en",
+      "language": "en",
+      "region": "欧洲",
+      "source_type": "News Search"
+    },
+    {
+      "name": "US Google News - NAIC/Insurance Regulation",
+      "url": "https://news.google.com/rss/search?q=NAIC+insurance+regulation+OR+RBC+OR+private+credit+insurance+when:7d&hl=en-US&gl=US&ceid=US:en",
+      "language": "en",
+      "region": "美国",
+      "source_type": "News Search"
+    },
+    {
+      "name": "US Google News - SOA/Actuarial/Insurance",
+      "url": "https://news.google.com/rss/search?q=Society+of+Actuaries+OR+actuarial+insurance+OR+life+annuity+health+insurance+when:7d&hl=en-US&gl=US&ceid=US:en",
+      "language": "en",
+      "region": "美国",
+      "source_type": "News Search"
+    },
+    {
+      "name": "Global Google News - IFRS 17/Insurance Financials",
+      "url": "https://news.google.com/rss/search?q=IFRS+17+insurance+results+CSM+annual+report+when:7d&hl=en-US&gl=US&ceid=US:en",
+      "language": "en",
+      "region": "全球",
+      "source_type": "News Search"
+    },
+    {
+      "name": "Global Google News - Consulting/Reinsurance Research",
+      "url": "https://news.google.com/rss/search?q=insurance+actuarial+report+Milliman+WTW+Swiss+Re+Munich+Re+Deloitte+PwC+EY+KPMG+when:14d&hl=en-US&gl=US&ceid=US:en",
+      "language": "en",
+      "region": "全球",
+      "source_type": "News Search"
+    },
+    {
+      "name": "Global Google News - P&C/Underwriting/Claims",
+      "url": "https://news.google.com/rss/search?q=Insurance+Journal+P%26C+underwriting+claims+MGA+cyber+commercial+insurance+when:7d&hl=en-US&gl=US&ceid=US:en",
+      "language": "en",
+      "region": "全球",
+      "source_type": "News Search"
+    },
+    {
+      "name": "Global Google News - Specialty/Financial Lines/Credit Insurance",
+      "url": "https://news.google.com/rss/search?q=specialty+insurance+OR+financial+lines+OR+D%26O+insurance+OR+trade+credit+insurance+OR+surety+OR+political+risk+insurance+when:7d&hl=en-US&gl=US&ceid=US:en",
+      "language": "en",
+      "region": "全球",
+      "source_type": "News Search"
+    },
+    {
+      "name": "CN Google News - 财险/特殊险/金融险/信贷保险",
+      "url": "https://news.google.com/rss/search?q=%E8%B4%A2%E9%99%A9+OR+%E7%89%B9%E6%AE%8A%E9%99%A9+OR+%E9%87%91%E8%9E%8D%E9%99%A9+OR+%E4%BF%A1%E8%B4%B7%E4%BF%9D%E9%99%A9+OR+%E4%BF%A1%E7%94%A8%E4%BF%9D%E9%99%A9+OR+%E8%91%A3%E8%B4%A3%E9%99%A9+when:7d&hl=zh-CN&gl=CN&ceid=CN:zh-Hans",
+      "language": "zh",
+      "region": "中国",
+      "source_type": "News Search"
+    },
+    {
+      "name": "Global Google News - Reinsurance/ILS/Cat Bond",
+      "url": "https://news.google.com/rss/search?q=Reinsurance+News+Artemis+cat+bond+ILS+renewals+Lloyd%27s+Hannover+Re+SCOR+when:7d&hl=en-US&gl=US&ceid=US:en",
+      "language": "en",
+      "region": "全球",
+      "source_type": "News Search"
+    },
+    {
+      "name": "FR Google News - French Insurance",
+      "url": "https://news.google.com/rss/search?q=L%27Argus+de+l%27assurance+OR+News+Assurances+Pro+OR+AXA+France+OR+CNP+OR+Covea+assurance+when:7d&hl=fr&gl=FR&ceid=FR:fr",
+      "language": "fr",
+      "region": "法国",
+      "source_type": "News Search"
+    },
+    {
+      "name": "Global Google News - Ratings/Capital",
+      "url": "https://news.google.com/rss/search?q=AM+Best+Fitch+Ratings+Moody%27s+S%26P+Global+insurance+rating+capital+outlook+when:7d&hl=en-US&gl=US&ceid=US:en",
+      "language": "en",
+      "region": "全球",
+      "source_type": "News Search"
+    },
+    {
+      "name": "Global Google News - Catastrophe/Climate Risk",
+      "url": "https://news.google.com/rss/search?q=insurance+catastrophe+climate+risk+NOAA+National+Hurricane+Center+ECMWF+Verisk+RMS+when:7d&hl=en-US&gl=US&ceid=US:en",
+      "language": "en",
+      "region": "全球",
+      "source_type": "News Search"
+    },
+    {
+      "name": "Global Google News - InsurTech/Digital Insurance",
+      "url": "https://news.google.com/rss/search?q=Coverager+InsurTech+Insights+The+Digital+Insurer+AI+digital+insurance+startups+when:7d&hl=en-US&gl=US&ceid=US:en",
+      "language": "en",
+      "region": "全球",
+      "source_type": "News Search"
+    },
+    {
+      "name": "Global Google News - Capital Markets/IR",
+      "url": "https://news.google.com/rss/search?q=Reuters+Morningstar+Seeking+Alpha+MarketScreener+Yahoo+Finance+insurance+earnings+investor+relations+when:7d&hl=en-US&gl=US&ceid=US:en",
+      "language": "en",
+      "region": "全球",
+      "source_type": "News Search"
+    },
+    {
+      "name": "Global Google News - Major Insurer Earnings/Strategy",
+      "url": "https://news.google.com/rss/search?q=Allianz+OR+AXA+OR+Zurich+Insurance+OR+Generali+OR+Aviva+OR+Prudential+OR+AIG+OR+Chubb+OR+Travelers+OR+Progressive+OR+MetLife+OR+Manulife+OR+Sun+Life+earnings+strategy+insurance+when:14d&hl=en-US&gl=US&ceid=US:en",
+      "language": "en",
+      "region": "全球",
+      "source_type": "News Search"
+    },
+    {
+      "name": "Global Google News - Monthly Insurance Strategic Topics",
+      "url": "https://news.google.com/rss/search?q=insurance+industry+strategy+regulation+reinsurance+capital+climate+AI+IFRS+17+when:30d&hl=en-US&gl=US&ceid=US:en",
+      "language": "en",
+      "region": "全球",
+      "source_type": "News Search"
+    },
+    {
+      "name": "Global Google News - Half-year Important Insurance Developments",
+      "url": "https://news.google.com/rss/search?q=insurance+market+major+development+solvency+reinsurance+catastrophe+insurtech+earnings+when:180d&hl=en-US&gl=US&ceid=US:en",
+      "language": "en",
+      "region": "全球",
+      "source_type": "News Search"
+    },
+    {
+      "name": "Global Google News - Annual Insurance Research Themes",
+      "url": "https://news.google.com/rss/search?q=insurance+outlook+2026+OR+insurance+annual+report+OR+reinsurance+outlook+OR+actuarial+research+when:365d&hl=en-US&gl=US&ceid=US:en",
+      "language": "en",
+      "region": "全球",
+      "source_type": "News Search"
+    },
+    {
+      "name": "CN Google News - 上市险企财报/战略",
+      "url": "https://news.google.com/rss/search?q=%E4%B8%AD%E5%9B%BD%E5%B9%B3%E5%AE%89+OR+%E4%B8%AD%E5%9B%BD%E4%BA%BA%E5%AF%BF+OR+%E4%B8%AD%E5%9B%BD%E5%A4%AA%E4%BF%9D+OR+%E4%B8%AD%E5%9B%BD%E4%BA%BA%E4%BF%9D+OR+%E6%96%B0%E5%8D%8E%E4%BF%9D%E9%99%A9+OR+%E4%B8%AD%E5%9B%BD%E5%86%8D%E4%BF%9D%E9%99%A9+%E8%B4%A2%E6%8A%A5+%E6%88%98%E7%95%A5+when:14d&hl=zh-CN&gl=CN&ceid=CN:zh-Hans",
+      "language": "zh",
+      "region": "中国",
+      "source_type": "News Search"
+    },
+    {
+      "name": "Global Google News - Insurance Cross Industry",
+      "url": "https://news.google.com/rss/search?q=insurance+bank+investment+bank+auto+energy+healthcare+data+center+when:7d&hl=en-US&gl=US&ceid=US:en",
+      "language": "en",
+      "region": "全球",
+      "source_type": "News Search"
+    }
+  ],
+  "official_company_reports": [
+    {
+      "company": "AXA",
+      "region": "欧洲",
+      "url": "https://www.axa.com/en/investor/results",
+      "title": "AXA official results, annual reports and investor presentations"
+    },
+    {
+      "company": "Zurich Insurance Group",
+      "region": "欧洲",
+      "url": "https://www.zurich.com/investor-relations/results-and-reports",
+      "title": "Zurich official results and reports"
+    },
+    {
+      "company": "Generali",
+      "region": "欧洲",
+      "url": "https://www.generali.com/investors/financial-results-and-reports/financial-results",
+      "title": "Generali official reports and presentations"
+    },
+    {
+      "company": "Aviva",
+      "region": "英国",
+      "url": "https://www.aviva.com/investors/annual-report/",
+      "title": "Aviva official annual report"
+    },
+    {
+      "company": "Prudential plc",
+      "region": "英国",
+      "url": "https://www.prudentialplc.com/en/investors/results-and-reports/results-and-business-performance-updates/",
+      "title": "Prudential plc official results, reports and presentations"
+    },
+    {
+      "company": "Munich Re",
+      "region": "德国",
+      "url": "https://www.munichre.com/en/company/investors/reports-and-presentations.html",
+      "title": "Munich Re official reports and presentations"
+    },
+    {
+      "company": "Hannover Re",
+      "region": "德国",
+      "url": "https://www.hannover-re.com/en/investors/",
+      "title": "Hannover Re official investor relations"
+    },
+    {
+      "company": "SCOR",
+      "region": "法国",
+      "url": "https://www.scor.com/en/financial-information",
+      "title": "SCOR official financial information"
+    },
+    {
+      "company": "AIG",
+      "region": "美国",
+      "url": "https://www.aig.com/investor-relations",
+      "title": "AIG official investor relations and financial results"
+    }
+  ],
+  "official_watchlist": [
+    {
+      "region": "中国",
+      "source_type": "监管网站",
+      "name": "国家金融监督管理总局",
+      "url": "https://www.nfra.gov.cn/",
+      "focus": ["监管政策", "行政处罚", "偿付能力", "消费者保护", "保险公司治理"]
+    },
+    {
+      "region": "中国",
+      "source_type": "行业协会",
+      "name": "中国保险行业协会",
+      "url": "https://www.iachina.cn/",
+      "focus": ["行业要闻", "保险科技", "车险", "研究报告", "信息披露"]
+    },
+    {
+      "region": "中国",
+      "source_type": "上市公告",
+      "name": "港交所披露易",
+      "url": "https://www.hkexnews.hk/",
+      "focus": ["中国平安", "中国人寿", "中国太保", "新华保险", "中国再保险", "财报公告"]
+    },
+    {
+      "region": "中国",
+      "source_type": "上市公告",
+      "name": "上海证券交易所公告",
+      "url": "https://www.sse.com.cn/disclosure/listedinfo/announcement/",
+      "focus": ["A股保险公司公告", "债券", "资本补充", "分红", "定期报告"]
+    },
+    {
+      "region": "欧洲",
+      "source_type": "监管网站",
+      "name": "EIOPA",
+      "url": "https://www.eiopa.europa.eu/",
+      "focus": ["Solvency II", "IORP", "风险利率曲线", "保险统计", "数字化", "消费者保护", "可持续金融"]
+    },
+    {
+      "region": "欧洲",
+      "source_type": "行业协会",
+      "name": "Insurance Europe",
+      "url": "https://www.insuranceeurope.eu/",
+      "focus": ["Solvency II", "Sustainability", "Climate", "Digital", "AI Act", "欧洲保险政策"]
+    },
+    {
+      "region": "法国",
+      "source_type": "保险媒体",
+      "name": "L'Argus de l'assurance",
+      "url": "https://www.argusdelassurance.com/",
+      "focus": ["AXA", "CNP", "Covéa", "Allianz France", "Generali France", "法国保险市场", "招聘"]
+    },
+    {
+      "region": "法国",
+      "source_type": "保险媒体",
+      "name": "News Assurances Pro",
+      "url": "https://www.newsassurancespro.com/",
+      "focus": ["法国保险新闻", "市场分析", "专业保险动态"]
+    },
+    {
+      "region": "法国",
+      "source_type": "专业协会",
+      "name": "Institut des Actuaires",
+      "url": "https://www.institutdesactuaires.com/",
+      "focus": ["Working Party", "Seminar", "AI", "Climate", "法国精算"]
+    },
+    {
+      "region": "欧洲",
+      "source_type": "专业协会",
+      "name": "Institute and Faculty of Actuaries",
+      "url": "https://actuaries.org.uk/",
+      "focus": ["精算研究", "风险管理", "气候风险", "长寿风险", "职业学习"]
+    },
+    {
+      "region": "美国",
+      "source_type": "监管协会",
+      "name": "NAIC",
+      "url": "https://content.naic.org/",
+      "focus": ["州保险监管", "RBC", "Life/Health/P&C", "Innovation/AI", "Private Credit", "Climate"]
+    },
+    {
+      "region": "美国",
+      "source_type": "专业协会",
+      "name": "Society of Actuaries",
+      "url": "https://www.soa.org/",
+      "focus": ["寿险", "健康险", "养老金", "长寿风险", "研究报告", "继续教育"]
+    },
+    {
+      "region": "美国",
+      "source_type": "专业协会",
+      "name": "Casualty Actuarial Society",
+      "url": "https://www.casact.org/",
+      "focus": ["财险", "车险", "巨灾", "责任险", "数据科学"]
+    },
+    {
+      "region": "全球",
+      "source_type": "准则制定",
+      "name": "IFRS Foundation",
+      "url": "https://www.ifrs.org/",
+      "focus": ["IFRS 17", "IFRS 9", "保险合同会计", "可持续披露"]
+    },
+    {
+      "region": "全球",
+      "source_type": "再保险研究",
+      "name": "Swiss Re Institute",
+      "url": "https://www.swissre.com/institute/",
+      "focus": ["sigma", "巨灾", "寿险健康险趋势", "气候风险", "保护缺口"]
+    },
+    {
+      "region": "全球",
+      "source_type": "再保险研究",
+      "name": "Munich Re Insights",
+      "url": "https://www.munichre.com/en/insights.html",
+      "focus": ["巨灾", "网络风险", "气候", "工业风险", "再保险"]
+    },
+    {
+      "region": "全球",
+      "source_type": "再保险研究",
+      "name": "Hannover Re",
+      "url": "https://www.hannover-re.com/",
+      "focus": ["Life", "Longevity", "Mortality", "再保险研究"]
+    },
+    {
+      "region": "法国",
+      "source_type": "再保险研究",
+      "name": "SCOR",
+      "url": "https://www.scor.com/",
+      "focus": ["Life", "P&C", "再保险", "风险研究", "法国再保险"]
+    },
+    {
+      "region": "全球",
+      "source_type": "再保险新闻",
+      "name": "Reinsurance News",
+      "url": "https://www.reinsurancene.ws/",
+      "focus": ["Cat losses", "Renewals", "Hannover Re", "Munich Re", "SCOR", "Swiss Re", "Lloyd's", "ILS"]
+    },
+    {
+      "region": "全球",
+      "source_type": "ILS/Cat Bond",
+      "name": "Artemis.bm",
+      "url": "https://www.artemis.bm/",
+      "focus": ["ILS", "Cat Bond", "Hurricane", "Earthquake", "Alternative Capital"]
+    },
+    {
+      "region": "全球",
+      "source_type": "保险媒体",
+      "name": "Insurance Journal",
+      "url": "https://www.insurancejournal.com/",
+      "focus": ["P&C", "Pricing", "Underwriting", "Claims", "MGA", "M&A", "Cyber", "Commercial Insurance"]
+    },
+    {
+      "region": "全球",
+      "source_type": "保险媒体",
+      "name": "Insurance Insider",
+      "url": "https://www.insuranceinsider.com/",
+      "focus": ["Lloyd's", "Major deals", "CEO变动", "并购", "再保险市场"]
+    },
+    {
+      "region": "欧洲",
+      "source_type": "企业风险保险",
+      "name": "Commercial Risk Online",
+      "url": "https://www.commercialriskonline.com/",
+      "focus": ["Captive", "Corporate Insurance", "Cyber", "ESG", "Climate"]
+    },
+    {
+      "region": "全球",
+      "source_type": "风险管理智库",
+      "name": "The Geneva Association",
+      "url": "https://www.genevaassociation.org/",
+      "focus": ["保险CEO智库", "气候", "健康", "保护缺口", "系统性风险"]
+    },
+    {
+      "region": "欧洲",
+      "source_type": "风险管理协会",
+      "name": "FERMA",
+      "url": "https://www.ferma.eu/",
+      "focus": ["欧洲风险管理", "企业风险", "保险采购", "韧性"]
+    },
+    {
+      "region": "美国",
+      "source_type": "风险管理协会",
+      "name": "RIMS",
+      "url": "https://www.rims.org/",
+      "focus": ["Risk Manager", "企业风险管理", "保险采购", "ERM"]
+    },
+    {
+      "region": "全球",
+      "source_type": "保险科技",
+      "name": "Coverager",
+      "url": "https://coverager.com/",
+      "focus": ["InsurTech", "Startups", "Digital Insurance", "AI", "Partnerships"]
+    },
+    {
+      "region": "全球",
+      "source_type": "保险科技",
+      "name": "InsurTech Insights",
+      "url": "https://www.insurtechinsights.com/",
+      "focus": ["InsurTech", "AI", "Digital", "Conferences", "Startups"]
+    },
+    {
+      "region": "全球",
+      "source_type": "保险科技",
+      "name": "The Digital Insurer",
+      "url": "https://www.the-digital-insurer.com/",
+      "focus": ["数字化", "AI", "创新", "保险科技", "商业模式"]
+    },
+    {
+      "region": "全球",
+      "source_type": "评级机构",
+      "name": "AM Best",
+      "url": "https://www.ambest.com/",
+      "focus": ["Company Rating", "Outlook", "Capital", "保险评级"]
+    },
+    {
+      "region": "全球",
+      "source_type": "评级机构",
+      "name": "Fitch Ratings Insurance",
+      "url": "https://www.fitchratings.com/",
+      "focus": ["保险信用", "资本", "评级展望", "专题研究"]
+    },
+    {
+      "region": "全球",
+      "source_type": "评级机构",
+      "name": "Moody's Insurance",
+      "url": "https://www.moodys.com/",
+      "focus": ["保险信用研究", "资本市场", "评级"]
+    },
+    {
+      "region": "全球",
+      "source_type": "评级机构",
+      "name": "S&P Global Ratings Insurance",
+      "url": "https://www.spglobal.com/ratings/",
+      "focus": ["保险行业研究", "评级", "资本", "信用"]
+    },
+    {
+      "region": "全球",
+      "source_type": "巨灾与气候",
+      "name": "National Hurricane Center",
+      "url": "https://www.nhc.noaa.gov/",
+      "focus": ["Hurricane", "Storm", "Catastrophe", "P&C", "Reinsurance"]
+    },
+    {
+      "region": "欧洲",
+      "source_type": "巨灾与气候",
+      "name": "ECMWF",
+      "url": "https://www.ecmwf.int/",
+      "focus": ["Weather", "Climate", "European catastrophe risk"]
+    },
+    {
+      "region": "全球",
+      "source_type": "巨灾与气候",
+      "name": "NOAA",
+      "url": "https://www.noaa.gov/",
+      "focus": ["Climate", "Weather", "Catastrophe", "Data"]
+    },
+    {
+      "region": "全球",
+      "source_type": "巨灾与气候",
+      "name": "IPCC",
+      "url": "https://www.ipcc.ch/",
+      "focus": ["Climate science", "Scenario", "Physical risk"]
+    },
+    {
+      "region": "全球",
+      "source_type": "巨灾模型",
+      "name": "Verisk",
+      "url": "https://www.verisk.com/",
+      "focus": ["Cat model", "Underwriting", "Claims", "Climate"]
+    },
+    {
+      "region": "全球",
+      "source_type": "巨灾模型",
+      "name": "Moody's RMS",
+      "url": "https://www.rms.com/",
+      "focus": ["Cat model", "Climate", "Risk modeling", "Reinsurance"]
+    },
+    {
+      "region": "全球",
+      "source_type": "精算咨询",
+      "name": "Milliman Insight",
+      "url": "https://www.milliman.com/en/insight",
+      "focus": ["精算方法", "IFRS 17", "健康险", "养老金", "风险管理"]
+    },
+    {
+      "region": "全球",
+      "source_type": "咨询研究",
+      "name": "WTW Insurance Insights",
+      "url": "https://www.wtwco.com/en/insights",
+      "focus": ["保险市场", "风险与资本", "定价", "气候", "人才"]
+    },
+    {
+      "region": "全球",
+      "source_type": "咨询研究",
+      "name": "Deloitte Insurance",
+      "url": "https://www.deloitte.com/global/en/Industries/financial-services/insurance.html",
+      "focus": ["保险战略", "科技", "运营转型", "监管", "财报趋势"]
+    },
+    {
+      "region": "全球",
+      "source_type": "咨询研究",
+      "name": "McKinsey Insurance",
+      "url": "https://www.mckinsey.com/industries/financial-services/our-insights/insurance",
+      "focus": ["保险战略", "增长", "运营", "科技", "资本"]
+    },
+    {
+      "region": "全球",
+      "source_type": "咨询研究",
+      "name": "BCG Insurance",
+      "url": "https://www.bcg.com/industries/insurance/overview",
+      "focus": ["保险战略", "转型", "数字化", "资本"]
+    },
+    {
+      "region": "全球",
+      "source_type": "咨询研究",
+      "name": "Bain Insurance",
+      "url": "https://www.bain.com/industry-expertise/financial-services/insurance/",
+      "focus": ["保险战略", "客户", "分销", "增长"]
+    },
+    {
+      "region": "全球",
+      "source_type": "咨询研究",
+      "name": "Oliver Wyman Insurance",
+      "url": "https://www.oliverwyman.com/our-expertise/industries/financial-services/insurance.html",
+      "focus": ["保险战略", "风险", "资本", "运营"]
+    },
+    {
+      "region": "全球",
+      "source_type": "资本市场",
+      "name": "Reuters Insurance",
+      "url": "https://www.reuters.com/",
+      "focus": ["保险新闻", "上市公司", "资本市场", "IR"]
+    },
+    {
+      "region": "全球",
+      "source_type": "资本市场",
+      "name": "Morningstar",
+      "url": "https://www.morningstar.com/",
+      "focus": ["上市险企", "估值", "投资者观点"]
+    },
+    {
+      "region": "全球",
+      "source_type": "资本市场",
+      "name": "Seeking Alpha",
+      "url": "https://seekingalpha.com/",
+      "focus": ["投资者观点", "保险公司财报", "估值"]
+    },
+    {
+      "region": "法国",
+      "source_type": "资本市场",
+      "name": "MarketScreener",
+      "url": "https://www.marketscreener.com/",
+      "focus": ["法国常用资本市场信息", "IR", "财报", "估值"]
+    },
+    {
+      "region": "全球",
+      "source_type": "资本市场",
+      "name": "Yahoo Finance",
+      "url": "https://finance.yahoo.com/",
+      "focus": ["保险股", "财报", "市场表现", "估值"]
+    }
+  ],
+  "limits": {
+    "max_items_per_source": 5,
+    "max_report_items": 60
+  }
+}

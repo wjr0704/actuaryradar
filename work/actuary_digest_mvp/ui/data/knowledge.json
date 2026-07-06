@@ -1,0 +1,2021 @@
+{
+  "catalog": [
+    {
+      "id": "fundamentals",
+      "title": "Fundamentals",
+      "focus": "概率、统计、时间序列、生存分析、Monte Carlo"
+    },
+    {
+      "id": "insurance-fundamentals",
+      "title": "Insurance Fundamentals",
+      "focus": "风险池、承保、理赔、渠道、再保险、资本"
+    },
+    {
+      "id": "pricing",
+      "title": "Pricing",
+      "focus": "Rate Making、GLM、机器学习定价、公平定价"
+    },
+    {
+      "id": "reserving",
+      "title": "Reserving",
+      "focus": "Chain Ladder、BF、Mack、Bootstrap、IBNR"
+    },
+    {
+      "id": "erm",
+      "title": "ERM",
+      "focus": "风险偏好、压力测试、ORSA、KRI、风险文化"
+    },
+    {
+      "id": "capital-management",
+      "title": "Capital Management",
+      "focus": "经济资本、监管资本、RAROC、资本优化"
+    },
+    {
+      "id": "solvency",
+      "title": "Solvency II",
+      "focus": "SCR、MCR、BEL、Risk Margin、Own Funds"
+    },
+    {
+      "id": "ifrs17",
+      "title": "IFRS 17",
+      "focus": "CSM、RA、BEL、PAA、GMM、VFA、利润释放"
+    },
+    {
+      "id": "reinsurance",
+      "title": "Reinsurance",
+      "focus": "Treaty、Facultative、Quota Share、XoL、Retrocession"
+    },
+    {
+      "id": "alm",
+      "title": "ALM",
+      "focus": "久期匹配、现金流匹配、利率风险、流动性风险"
+    },
+    {
+      "id": "investment",
+      "title": "Investment",
+      "focus": "债券、股票、另类投资、ESG、战略资产配置"
+    },
+    {
+      "id": "insurance-finance",
+      "title": "Insurance Finance",
+      "focus": "利润表、资产负债表、EV、Combined Ratio、RoE"
+    },
+    {
+      "id": "insurance-accounting",
+      "title": "Insurance Accounting",
+      "focus": "IFRS 17、IFRS 9、French GAAP、US GAAP、税务"
+    },
+    {
+      "id": "regulation",
+      "title": "Regulation",
+      "focus": "Solvency II、IDD、DORA、AI Act、GDPR、CSRD"
+    },
+    {
+      "id": "data-analytics",
+      "title": "Data Analytics",
+      "focus": "SQL、Python、R、Power BI、Spark、特征工程"
+    },
+    {
+      "id": "ai-insurance",
+      "title": "AI for Insurance",
+      "focus": "LLM、Agent、定价AI、理赔AI、反欺诈、MLOps"
+    },
+    {
+      "id": "cat-model",
+      "title": "Catastrophe Modelling",
+      "focus": "地震、洪水、野火、风暴、RMS、AIR、Verisk"
+    },
+    {
+      "id": "credit-risk",
+      "title": "Credit Risk",
+      "focus": "PD、LGD、EAD、回收率、交易对手风险"
+    },
+    {
+      "id": "market-risk",
+      "title": "Market Risk",
+      "focus": "利率、汇率、权益、利差、通胀、波动率"
+    },
+    {
+      "id": "operational-risk",
+      "title": "Operational Risk",
+      "focus": "Cyber、Fraud、Third Party、Model Risk、Conduct Risk"
+    },
+    {
+      "id": "insurance-strategy",
+      "title": "Insurance Strategy",
+      "focus": "增长战略、M&A、组合优化、数字化转型、渠道"
+    },
+    {
+      "id": "business-skills",
+      "title": "Business Skills",
+      "focus": "演讲、写作、项目管理、谈判、领导力、战略思维"
+    }
+  ],
+  "modules": [
+    {
+      "id": "fundamentals-survival",
+      "title": "生存分析与保险现金流基础",
+      "track": "Fundamentals",
+      "difficulty": "基础",
+      "summary": "复习概率、统计和生存分析如何支撑死亡率、退保率、赔付频率和长期现金流建模。",
+      "concepts": [
+        "Probability",
+        "Statistics",
+        "Survival Analysis",
+        "Time Series",
+        "Monte Carlo",
+        "Bayesian"
+      ],
+      "case": {
+        "question": "如果某寿险产品的实际退保率连续 3 个季度高于假设，你会先做哪些统计检查？",
+        "reference_answer": "先按承保年度、渠道、年龄、保单年度、产品版本和经济环境分层，确认偏差是系统性还是局部组合变化。再检查暴露量、数据口径、季节性和一次性事件。若偏差稳定存在，应更新经验分析并评估 BEL、CSM、流动性和资本影响。"
+      },
+      "topic_id": "fundamentals-survival",
+      "translations": {
+        "zh": {
+          "title": "生存分析与保险现金流基础",
+          "description": "复习概率、统计和生存分析如何支撑死亡率、退保率、赔付频率和长期现金流建模。",
+          "learning_question": "如果某寿险产品的实际退保率连续 3 个季度高于假设，你会先做哪些统计检查？",
+          "generated_answer": "先按承保年度、渠道、年龄、保单年度、产品版本和经济环境分层，确认偏差是系统性还是局部组合变化。再检查暴露量、数据口径、季节性和一次性事件。若偏差稳定存在，应更新经验分析并评估 BEL、CSM、流动性和资本影响。"
+        },
+        "en": {
+          "title": "Survival Analysis and Insurance Cash-Flow Foundations",
+          "description": "Review how probability, statistics and survival analysis support mortality, lapse, claim-frequency and long-term cash-flow modelling.",
+          "learning_question": "If actual lapse rates for a life product are above assumptions for three consecutive quarters, what statistical checks would you perform first?",
+          "generated_answer": "Start by segmenting the experience by underwriting year, distribution channel, age, policy duration, product version and economic environment. Check whether the deviation is persistent across credible exposure groups or driven by a small mix shift. Then validate exposure counts, data definitions, seasonality, reporting lags and one-off events. If the deviation is stable, update the experience analysis and quantify impacts on BEL, CSM, liquidity and capital sensitivities. The SOA resource base is the reference starting point for actuarial experience studies and life-insurance modelling practice."
+        },
+        "fr": {
+          "title": "Analyse de survie et flux de trésorerie d’assurance",
+          "description": "Réviser le rôle des probabilités, de la statistique et de l’analyse de survie dans la modélisation de la mortalité, des rachats, de la fréquence sinistre et des flux de long terme.",
+          "learning_question": "Si le taux de rachat observé d’un produit vie dépasse l’hypothèse pendant trois trimestres consécutifs, quels contrôles statistiques effectuer en premier ?",
+          "generated_answer": "Commencez par segmenter l’expérience par année de souscription, canal, âge, ancienneté du contrat, version produit et environnement économique. Vérifiez si l’écart est systémique sur des expositions crédibles ou lié à un changement de mix. Contrôlez ensuite les expositions, les définitions de données, la saisonnalité, les délais de remontée et les événements exceptionnels. Si l’écart persiste, mettez à jour l’étude d’expérience et mesurez l’impact sur BEL, CSM, liquidité et capital. Les ressources SOA constituent un point de départ pertinent pour les études d’expérience et la modélisation vie."
+        }
+      },
+      "grounding": {
+        "zh": {
+          "source_links": [
+            "https://www.soa.org/resources/"
+          ],
+          "source_title": [
+            "SOA: Actuarial resources"
+          ],
+          "source_domain": [
+            "soa.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:10.090808+00:00",
+          "status": "source_supported_manual"
+        },
+        "en": {
+          "source_links": [
+            "https://www.soa.org/resources/"
+          ],
+          "source_title": [
+            "SOA: Actuarial resources"
+          ],
+          "source_domain": [
+            "soa.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:18.770554+00:00",
+          "status": "source_supported_manual"
+        },
+        "fr": {
+          "source_links": [
+            "https://www.soa.org/resources/"
+          ],
+          "source_title": [
+            "SOA: Actuarial resources"
+          ],
+          "source_domain": [
+            "soa.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:27.875768+00:00",
+          "status": "source_supported_manual"
+        }
+      }
+    },
+    {
+      "id": "insurance-fundamentals-business-model",
+      "title": "保险公司商业模式拆解",
+      "track": "Insurance Fundamentals",
+      "difficulty": "基础",
+      "summary": "理解风险池、承保、理赔、渠道、再保险和资本如何共同决定保险公司的盈利模式。",
+      "concepts": [
+        "Risk Pooling",
+        "Underwriting",
+        "Claims",
+        "Distribution",
+        "Reinsurance",
+        "Capital"
+      ],
+      "case": {
+        "question": "同样是保费增长 20%，为什么寿险、车险和信用保险的精算含义完全不同？",
+        "reference_answer": "寿险要看新业务价值、保证利率、退保和资本消耗；车险要看频率、严重度、费率充足性和理赔通胀；信用保险要看宏观周期、违约相关性和集中度。精算分析必须先识别险种商业模式，再判断增长质量。"
+      },
+      "topic_id": "insurance-fundamentals-business-model",
+      "translations": {
+        "zh": {
+          "title": "保险公司商业模式拆解",
+          "description": "理解风险池、承保、理赔、渠道、再保险和资本如何共同决定保险公司的盈利模式。",
+          "learning_question": "同样是保费增长 20%，为什么寿险、车险和信用保险的精算含义完全不同？",
+          "generated_answer": "寿险要看新业务价值、保证利率、退保和资本消耗；车险要看频率、严重度、费率充足性和理赔通胀；信用保险要看宏观周期、违约相关性和集中度。精算分析必须先识别险种商业模式，再判断增长质量。"
+        },
+        "en": {
+          "title": "Breaking Down the Insurance Company Business Model",
+          "description": "Understand how pooling, underwriting, claims, distribution, reinsurance and capital jointly determine insurer profitability.",
+          "learning_question": "Why does the same 20% premium growth have very different actuarial meaning in life insurance, motor insurance and credit insurance?",
+          "generated_answer": "Premium growth has to be read through the economics of each line. In life insurance, focus on new-business value, guarantees, lapse behaviour, acquisition strain and capital consumption. In motor/P&C, focus on frequency, severity, rate adequacy, claims inflation and reserving implications. In credit insurance, focus on macro default cycles, default correlation, counterparty concentration and recoveries. The actuarial task is first to identify the business model and risk drivers, then judge whether growth improves risk-adjusted profitability or merely increases exposure."
+        },
+        "fr": {
+          "title": "Modèle économique d’un assureur",
+          "description": "Comprendre comment mutualisation, souscription, gestion des sinistres, distribution, réassurance et capital déterminent la rentabilité.",
+          "learning_question": "Pourquoi une même croissance de primes de 20 % n’a-t-elle pas le même sens actuariel en vie, automobile et assurance-crédit ?",
+          "generated_answer": "La croissance des primes doit être interprétée selon l’économie de chaque branche. En vie, analysez la valeur des affaires nouvelles, les garanties, les rachats, les frais d’acquisition et la consommation de capital. En automobile/dommages, regardez fréquence, sévérité, adéquation tarifaire, inflation sinistres et provisions. En assurance-crédit, examinez le cycle macroéconomique, la corrélation des défauts, les concentrations et les recouvrements. Le rôle actuariel est d’identifier le modèle de risque avant de conclure sur la qualité de la croissance."
+        }
+      },
+      "grounding": {
+        "zh": {
+          "source_links": [
+            "https://www.soa.org/resources/",
+            "https://www.casact.org/publications-research"
+          ],
+          "source_title": [
+            "SOA: Actuarial resources",
+            "CAS: Publications and research"
+          ],
+          "source_domain": [
+            "soa.org",
+            "casact.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:10.091003+00:00",
+          "status": "source_supported_manual"
+        },
+        "en": {
+          "source_links": [
+            "https://www.soa.org/resources/",
+            "https://www.casact.org/publications-research"
+          ],
+          "source_title": [
+            "SOA: Actuarial resources",
+            "CAS: Publications and research"
+          ],
+          "source_domain": [
+            "soa.org",
+            "casact.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:18.770717+00:00",
+          "status": "source_supported_manual"
+        },
+        "fr": {
+          "source_links": [
+            "https://www.soa.org/resources/",
+            "https://www.casact.org/publications-research"
+          ],
+          "source_title": [
+            "SOA: Actuarial resources",
+            "CAS: Publications and research"
+          ],
+          "source_domain": [
+            "soa.org",
+            "casact.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:27.875938+00:00",
+          "status": "source_supported_manual"
+        }
+      }
+    },
+    {
+      "id": "pricing-glm-auto",
+      "title": "GLM 车险定价建模",
+      "track": "Pricing",
+      "difficulty": "中级",
+      "summary": "用广义线性模型拆分车险赔付频率、案均赔款和纯风险保费，并转成可解释费率因子。",
+      "concepts": [
+        "Poisson GLM",
+        "Gamma GLM",
+        "Tweedie",
+        "Exposure",
+        "Relativity",
+        "Lift Chart"
+      ],
+      "case": {
+        "question": "新能车赔付频率高 18%、案均赔款高 12%，但续保率更高，你会如何定价？",
+        "reference_answer": "先分别建立频率和严重度模型，用 exposure offset，并控制车价、城市、年龄、历史出险和渠道。定价不能机械上调 1.18 x 1.12，还要结合续保率、费用、竞争和反选择，设置分群费率、价格冲击限制和监控指标。"
+      },
+      "topic_id": "pricing-glm-auto",
+      "translations": {
+        "zh": {
+          "title": "GLM 车险定价建模",
+          "description": "用广义线性模型拆分车险赔付频率、案均赔款和纯风险保费，并转成可解释费率因子。",
+          "learning_question": "新能车赔付频率高 18%、案均赔款高 12%，但续保率更高，你会如何定价？",
+          "generated_answer": "先分别建立频率和严重度模型，用 exposure offset，并控制车价、城市、年龄、历史出险和渠道。定价不能机械上调 1.18 x 1.12，还要结合续保率、费用、竞争和反选择，设置分群费率、价格冲击限制和监控指标。"
+        },
+        "en": {
+          "title": "GLM Motor Pricing Model",
+          "description": "Use generalized linear models to separate motor claim frequency, claim severity and pure risk premium, then convert outputs into explainable rating factors.",
+          "learning_question": "EV claim frequency is 18% higher and average severity is 12% higher, but renewal retention is stronger. How would you price it?",
+          "generated_answer": "Do not mechanically multiply the premium by 1.18 x 1.12. Build separate frequency and severity models, using an exposure offset for frequency and appropriate severity/Tweedie modelling where relevant. Control for vehicle value, territory, driver age, prior claims, repair network, distribution channel and policy terms before interpreting the EV indicator. Then translate model estimates into relativities, test lift and actual-versus-expected loss ratios, and apply commercial constraints such as price-capping, anti-selection monitoring and renewal-elasticity analysis. CAS ratemaking material is the main technical reference for this pricing workflow."
+        },
+        "fr": {
+          "title": "Tarification automobile par GLM",
+          "description": "Utiliser les modèles linéaires généralisés pour distinguer fréquence, coût moyen et prime pure, puis convertir les résultats en facteurs tarifaires explicables.",
+          "learning_question": "La fréquence sinistre des véhicules électriques est 18 % plus élevée et la sévérité moyenne 12 % plus élevée, mais la rétention est meilleure. Comment tarifer ?",
+          "generated_answer": "Ne multipliez pas mécaniquement la prime par 1,18 x 1,12. Construisez des modèles séparés de fréquence et de sévérité, avec offset d’exposition pour la fréquence et une modélisation adaptée de la sévérité ou Tweedie si nécessaire. Contrôlez valeur du véhicule, zone, âge conducteur, antécédents, réseau de réparation, canal et garanties avant d’interpréter l’effet véhicule électrique. Transformez ensuite les estimations en relativités, testez le lift et le ratio réel/attendu, puis appliquez plafonnement tarifaire, suivi d’anti-sélection et analyse d’élasticité au renouvellement. Les supports CAS de ratemaking sont la référence technique."
+        }
+      },
+      "grounding": {
+        "zh": {
+          "source_links": [
+            "https://www.casact.org/sites/default/files/database/studynotes_werner_modlin_ratemaking.pdf"
+          ],
+          "source_title": [
+            "CAS: Basic Ratemaking"
+          ],
+          "source_domain": [
+            "casact.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:10.091117+00:00",
+          "status": "source_supported_manual"
+        },
+        "en": {
+          "source_links": [
+            "https://www.casact.org/sites/default/files/database/studynotes_werner_modlin_ratemaking.pdf"
+          ],
+          "source_title": [
+            "CAS: Basic Ratemaking"
+          ],
+          "source_domain": [
+            "casact.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:18.770823+00:00",
+          "status": "source_supported_manual"
+        },
+        "fr": {
+          "source_links": [
+            "https://www.casact.org/sites/default/files/database/studynotes_werner_modlin_ratemaking.pdf"
+          ],
+          "source_title": [
+            "CAS: Basic Ratemaking"
+          ],
+          "source_domain": [
+            "casact.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:27.876044+00:00",
+          "status": "source_supported_manual"
+        }
+      }
+    },
+    {
+      "id": "reserving-chain-ladder",
+      "title": "准备金 Chain Ladder 与 IBNR",
+      "track": "Reserving",
+      "difficulty": "中级",
+      "summary": "学习损失发展三角形、IBNR、IBNER 和准备金风险的基本分析框架。",
+      "concepts": [
+        "Chain Ladder",
+        "Bornhuetter Ferguson",
+        "Mack",
+        "Bootstrap",
+        "IBNR",
+        "Run-off"
+      ],
+      "case": {
+        "question": "某责任险组合最近事故年度赔付发展明显慢于历史，你会直接降低准备金吗？",
+        "reference_answer": "不应直接降低。需要检查理赔处理速度、案件报告延迟、法律环境、组合结构和大额赔案。长尾险种发展变慢可能意味着报告延迟，而不是最终损失下降。应比较 Chain Ladder、BF 和情景压力结果。"
+      },
+      "topic_id": "reserving-chain-ladder",
+      "translations": {
+        "zh": {
+          "title": "准备金 Chain Ladder 与 IBNR",
+          "description": "学习损失发展三角形、IBNR、IBNER 和准备金风险的基本分析框架。",
+          "learning_question": "某责任险组合最近事故年度赔付发展明显慢于历史，你会直接降低准备金吗？",
+          "generated_answer": "不应直接降低。需要检查理赔处理速度、案件报告延迟、法律环境、组合结构和大额赔案。长尾险种发展变慢可能意味着报告延迟，而不是最终损失下降。应比较 Chain Ladder、BF 和情景压力结果。"
+        },
+        "en": {
+          "title": "Chain Ladder Reserving and IBNR",
+          "description": "Study loss development triangles, IBNR, IBNER and reserve-risk analysis.",
+          "learning_question": "A liability portfolio shows much slower development for the latest accident year. Would you directly reduce reserves?",
+          "generated_answer": "No. Slower development may reflect reporting delay, claim handling changes, claim closure speed, litigation environment, large losses or portfolio mix rather than lower ultimate losses. Compare paid and incurred triangles, case reserve adequacy and claim counts. Chain Ladder can be unstable for immature years, so compare it with Bornhuetter-Ferguson and stochastic ranges such as Mack or bootstrap. The output should include a best estimate, low/base/high scenarios and one-year reserve-risk implications, not a simple reserve release."
+        },
+        "fr": {
+          "title": "Provisionnement : Chain Ladder et IBNR",
+          "description": "Étudier les triangles de développement, l’IBNR, l’IBNER et le risque de provisionnement.",
+          "learning_question": "Un portefeuille responsabilité montre un développement beaucoup plus lent sur la dernière année de survenance. Faut-il réduire directement les provisions ?",
+          "generated_answer": "Non. Un développement plus lent peut provenir de retards de déclaration, changements de gestion, vitesse de clôture, environnement contentieux, gros sinistres ou composition du portefeuille plutôt que d’une baisse de l’ultime. Comparez triangles payés et encourus, suffisance des provisions dossier et nombres de sinistres. Chain Ladder peut être instable sur les années immatures ; confrontez-le à Bornhuetter-Ferguson et à des intervalles stochastiques Mack ou bootstrap. La restitution doit inclure meilleure estimation, scénarios bas/central/haut et risque de provisionnement à un an."
+        }
+      },
+      "grounding": {
+        "zh": {
+          "source_links": [
+            "https://www.casact.org/publications-research"
+          ],
+          "source_title": [
+            "CAS: Publications and research"
+          ],
+          "source_domain": [
+            "casact.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:10.091224+00:00",
+          "status": "source_supported_manual"
+        },
+        "en": {
+          "source_links": [
+            "https://www.casact.org/publications-research"
+          ],
+          "source_title": [
+            "CAS: Publications and research"
+          ],
+          "source_domain": [
+            "casact.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:18.770925+00:00",
+          "status": "source_supported_manual"
+        },
+        "fr": {
+          "source_links": [
+            "https://www.casact.org/publications-research"
+          ],
+          "source_title": [
+            "CAS: Publications and research"
+          ],
+          "source_domain": [
+            "casact.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:27.876147+00:00",
+          "status": "source_supported_manual"
+        }
+      }
+    },
+    {
+      "id": "erm-orsa-dashboard",
+      "title": "ERM、ORSA 与风险仪表盘",
+      "track": "ERM",
+      "difficulty": "中级",
+      "summary": "把风险识别、风险偏好、压力测试和 KRI 连接成管理层可用的风险管理闭环。",
+      "concepts": [
+        "Risk Appetite",
+        "Stress Test",
+        "Scenario Analysis",
+        "ORSA",
+        "KRI",
+        "Risk Culture"
+      ],
+      "case": {
+        "question": "如果管理层要求你设计保险集团月度风险仪表盘，你会放哪些指标？",
+        "reference_answer": "至少包括偿付能力覆盖率、资本缓冲、利率敏感性、巨灾 PML、准备金偏差、理赔通胀、退保率、投资亏损、信用集中度和操作风险事件。每个指标应有阈值、趋势、责任人和行动建议。"
+      },
+      "topic_id": "erm-orsa-dashboard",
+      "translations": {
+        "zh": {
+          "title": "ERM、ORSA 与风险仪表盘",
+          "description": "把风险识别、风险偏好、压力测试和 KRI 连接成管理层可用的风险管理闭环。",
+          "learning_question": "如果管理层要求你设计保险集团月度风险仪表盘，你会放哪些指标？",
+          "generated_answer": "至少包括偿付能力覆盖率、资本缓冲、利率敏感性、巨灾 PML、准备金偏差、理赔通胀、退保率、投资亏损、信用集中度和操作风险事件。每个指标应有阈值、趋势、责任人和行动建议。"
+        },
+        "en": {
+          "title": "ERM, ORSA and Risk Dashboards",
+          "description": "Connect risk identification, risk appetite, stress testing and KRIs into a management-ready risk framework.",
+          "learning_question": "If management asks you to design a monthly insurance-group risk dashboard, which indicators would you include?",
+          "generated_answer": "A useful dashboard supports decisions rather than listing every metric. Include solvency coverage, capital buffer, interest-rate sensitivity, reserve deviation, cat PML, lapse rate, claims inflation, investment losses, credit concentration and operational-risk incidents. Each indicator should have a threshold, trend, owner and pre-defined management action. Link the dashboard to ORSA scenarios and risk appetite so that red/amber/green signals translate into capital, underwriting, reinsurance, ALM or operational actions."
+        },
+        "fr": {
+          "title": "ERM, ORSA et tableaux de bord des risques",
+          "description": "Relier identification des risques, appétit au risque, stress tests et KRI dans un dispositif de pilotage exploitable par la direction.",
+          "learning_question": "Si la direction demande un tableau de bord mensuel des risques groupe, quels indicateurs inclure ?",
+          "generated_answer": "Un bon tableau de bord doit aider la décision, pas seulement accumuler des indicateurs. Incluez couverture de solvabilité, coussin de capital, sensibilité aux taux, écart de provisions, PML catastrophe, rachats, inflation sinistres, pertes d’investissement, concentration crédit et incidents opérationnels. Chaque indicateur doit avoir seuil, tendance, responsable et action de gestion prévue. Reliez le tableau de bord aux scénarios ORSA et à l’appétit au risque afin que les signaux rouge/orange/vert déclenchent des décisions de capital, souscription, réassurance, ALM ou opérations."
+        }
+      },
+      "grounding": {
+        "zh": {
+          "source_links": [
+            "https://actuaries.org.uk/learn-and-develop/research-and-knowledge/",
+            "https://www.eiopa.europa.eu/publications_en"
+          ],
+          "source_title": [
+            "IFoA: Research and knowledge",
+            "EIOPA: Publications"
+          ],
+          "source_domain": [
+            "actuaries.org.uk",
+            "eiopa.europa.eu"
+          ],
+          "retrieved_at": "2026-06-30T23:24:10.091330+00:00",
+          "status": "source_supported_manual"
+        },
+        "en": {
+          "source_links": [
+            "https://actuaries.org.uk/learn-and-develop/research-and-knowledge/",
+            "https://www.eiopa.europa.eu/publications_en"
+          ],
+          "source_title": [
+            "IFoA: Research and knowledge",
+            "EIOPA: Publications"
+          ],
+          "source_domain": [
+            "actuaries.org.uk",
+            "eiopa.europa.eu"
+          ],
+          "retrieved_at": "2026-06-30T23:24:18.771029+00:00",
+          "status": "source_supported_manual"
+        },
+        "fr": {
+          "source_links": [
+            "https://actuaries.org.uk/learn-and-develop/research-and-knowledge/",
+            "https://www.eiopa.europa.eu/publications_en"
+          ],
+          "source_title": [
+            "IFoA: Research and knowledge",
+            "EIOPA: Publications"
+          ],
+          "source_domain": [
+            "actuaries.org.uk",
+            "eiopa.europa.eu"
+          ],
+          "retrieved_at": "2026-06-30T23:24:27.876252+00:00",
+          "status": "source_supported_manual"
+        }
+      }
+    },
+    {
+      "id": "capital-raroc",
+      "title": "资本管理与 RAROC",
+      "track": "Capital Management",
+      "difficulty": "中级",
+      "summary": "理解经济资本、监管资本、资本分配和风险调整收益如何影响战略选择。",
+      "concepts": [
+        "Economic Capital",
+        "Regulatory Capital",
+        "Capital Allocation",
+        "RAROC",
+        "RoC",
+        "Optimization"
+      ],
+      "case": {
+        "question": "一个业务线利润高但资本占用也高，是否一定值得增长？",
+        "reference_answer": "不一定。应比较风险调整收益、资本回报率、波动性、相关性和战略价值。如果利润来自高尾部风险或高集中度，增长可能降低集团资本效率。精算人应给出 RAROC 和资本消耗桥表。"
+      },
+      "topic_id": "capital-raroc",
+      "translations": {
+        "zh": {
+          "title": "资本管理与 RAROC",
+          "description": "理解经济资本、监管资本、资本分配和风险调整收益如何影响战略选择。",
+          "learning_question": "一个业务线利润高但资本占用也高，是否一定值得增长？",
+          "generated_answer": "不一定。应比较风险调整收益、资本回报率、波动性、相关性和战略价值。如果利润来自高尾部风险或高集中度，增长可能降低集团资本效率。精算人应给出 RAROC 和资本消耗桥表。"
+        },
+        "en": {
+          "title": "Capital Management and RAROC",
+          "description": "Understand how economic capital, regulatory capital, capital allocation and risk-adjusted return influence strategic choices.",
+          "learning_question": "If a business line has high profit but also high capital consumption, is it necessarily worth growing?",
+          "generated_answer": "Not necessarily. Compare risk-adjusted return, return on capital, volatility, diversification and strategic value. A line can look profitable in accounting terms while consuming disproportionate capital or adding tail risk and concentration. Build a bridge from underwriting profit to required capital, economic capital and RAROC. The recommendation should show whether growth improves group capital efficiency, whether risk mitigation or reinsurance changes the answer, and what limit or hurdle rate should apply."
+        },
+        "fr": {
+          "title": "Gestion du capital et RAROC",
+          "description": "Comprendre le capital économique, le capital réglementaire, l’allocation de capital et la rentabilité ajustée du risque.",
+          "learning_question": "Une ligne métier très profitable mais très consommatrice de capital mérite-t-elle forcément de croître ?",
+          "generated_answer": "Pas forcément. Comparez rendement ajusté du risque, retour sur capital, volatilité, diversification et valeur stratégique. Une ligne peut être rentable comptablement tout en consommant trop de capital ou en ajoutant risque extrême et concentration. Construisez un pont du résultat technique vers capital requis, capital économique et RAROC. La recommandation doit montrer si la croissance améliore l’efficacité du capital groupe, si la réassurance ou d’autres mesures changent la conclusion, et quel seuil de rentabilité ajustée appliquer."
+        }
+      },
+      "grounding": {
+        "zh": {
+          "source_links": [
+            "https://www.eiopa.europa.eu/browse/regulation-and-policy/solvency-ii_en"
+          ],
+          "source_title": [
+            "EIOPA: Solvency II regulatory framework"
+          ],
+          "source_domain": [
+            "eiopa.europa.eu"
+          ],
+          "retrieved_at": "2026-06-30T23:24:10.091446+00:00",
+          "status": "source_supported_manual"
+        },
+        "en": {
+          "source_links": [
+            "https://www.eiopa.europa.eu/browse/regulation-and-policy/solvency-ii_en"
+          ],
+          "source_title": [
+            "EIOPA: Solvency II regulatory framework"
+          ],
+          "source_domain": [
+            "eiopa.europa.eu"
+          ],
+          "retrieved_at": "2026-06-30T23:24:18.771130+00:00",
+          "status": "source_supported_manual"
+        },
+        "fr": {
+          "source_links": [
+            "https://www.eiopa.europa.eu/browse/regulation-and-policy/solvency-ii_en"
+          ],
+          "source_title": [
+            "EIOPA: Solvency II regulatory framework"
+          ],
+          "source_domain": [
+            "eiopa.europa.eu"
+          ],
+          "retrieved_at": "2026-06-30T23:24:27.876353+00:00",
+          "status": "source_supported_manual"
+        }
+      }
+    },
+    {
+      "id": "solvency-scr",
+      "title": "Solvency II SCR 与资本缓冲",
+      "track": "Solvency II",
+      "difficulty": "中级",
+      "summary": "复习 SCR、MCR、BEL、Risk Margin、Own Funds 与标准公式之间的关系。",
+      "concepts": [
+        "SCR",
+        "MCR",
+        "BEL",
+        "Risk Margin",
+        "Own Funds",
+        "Standard Formula"
+      ],
+      "case": {
+        "question": "利率下行后偿付能力覆盖率下降，精算视角应如何解释？",
+        "reference_answer": "利率下行通常提高长期负债现值，若资产久期短于负债久期，Own Funds 可能下降。同时市场风险、寿险风险和风险边际也可能变化。解释时要拆成资产影响、BEL 影响、SCR 影响和管理行动。"
+      },
+      "topic_id": "solvency-scr",
+      "translations": {
+        "zh": {
+          "title": "Solvency II SCR 与资本缓冲",
+          "description": "复习 SCR、MCR、BEL、Risk Margin、Own Funds 与标准公式之间的关系。",
+          "learning_question": "利率下行后偿付能力覆盖率下降，精算视角应如何解释？",
+          "generated_answer": "利率下行通常提高长期负债现值，若资产久期短于负债久期，Own Funds 可能下降。同时市场风险、寿险风险和风险边际也可能变化。解释时要拆成资产影响、BEL 影响、SCR 影响和管理行动。"
+        },
+        "en": {
+          "title": "Solvency II SCR and Capital Buffer",
+          "description": "Review SCR, MCR, BEL, Risk Margin, Own Funds and the standard formula.",
+          "learning_question": "After interest rates fall, solvency coverage declines. How should an actuary explain it?",
+          "generated_answer": "Explain the movement as a bridge, not as one headline ratio. Falling rates usually increase the present value of long-duration liabilities; if asset duration is shorter than liability duration, Own Funds can decline. SCR may also change through interest-rate risk, spread risk and life underwriting modules such as lapse, expense and mortality. Present asset value movement, BEL movement, Risk Margin/Own Funds movement and SCR movement separately. Then propose management actions such as duration extension, hedging, product guarantee review or capital-buffer planning."
+        },
+        "fr": {
+          "title": "Solvabilité II : SCR et coussin de capital",
+          "description": "Réviser les liens entre SCR, MCR, BEL, marge de risque, fonds propres et formule standard.",
+          "learning_question": "Après une baisse des taux, le ratio de solvabilité diminue. Comment l’expliquer en vision actuarielle ?",
+          "generated_answer": "Expliquez le mouvement sous forme de pont, pas seulement comme un ratio final. La baisse des taux augmente généralement la valeur actuelle des passifs longs ; si la duration des actifs est plus courte que celle des passifs, les fonds propres peuvent baisser. Le SCR peut aussi changer via risque de taux, spread et modules vie comme rachat, frais ou mortalité. Présentez séparément variation actifs, BEL, marge de risque/fonds propres et SCR. Proposez ensuite des actions : allongement de duration, couverture, revue des garanties produit ou planification du coussin de capital."
+        }
+      },
+      "grounding": {
+        "zh": {
+          "source_links": [
+            "https://www.eiopa.europa.eu/browse/regulation-and-policy/solvency-ii_en"
+          ],
+          "source_title": [
+            "EIOPA: Solvency II regulatory framework"
+          ],
+          "source_domain": [
+            "eiopa.europa.eu"
+          ],
+          "retrieved_at": "2026-06-30T23:24:10.091549+00:00",
+          "status": "source_supported_manual"
+        },
+        "en": {
+          "source_links": [
+            "https://www.eiopa.europa.eu/browse/regulation-and-policy/solvency-ii_en"
+          ],
+          "source_title": [
+            "EIOPA: Solvency II regulatory framework"
+          ],
+          "source_domain": [
+            "eiopa.europa.eu"
+          ],
+          "retrieved_at": "2026-06-30T23:24:18.771231+00:00",
+          "status": "source_supported_manual"
+        },
+        "fr": {
+          "source_links": [
+            "https://www.eiopa.europa.eu/browse/regulation-and-policy/solvency-ii_en"
+          ],
+          "source_title": [
+            "EIOPA: Solvency II regulatory framework"
+          ],
+          "source_domain": [
+            "eiopa.europa.eu"
+          ],
+          "retrieved_at": "2026-06-30T23:24:27.876453+00:00",
+          "status": "source_supported_manual"
+        }
+      }
+    },
+    {
+      "id": "ifrs17-csm",
+      "title": "IFRS 17 CSM 桥表解读",
+      "track": "IFRS 17",
+      "difficulty": "中级",
+      "summary": "从 CSM roll-forward 看新业务、经验差异、假设变更和利润释放。",
+      "concepts": [
+        "CSM",
+        "Risk Adjustment",
+        "BEL",
+        "Coverage Unit",
+        "PAA",
+        "VFA"
+      ],
+      "case": {
+        "question": "CSM 增长但当期 IFRS 利润下降，是否矛盾？",
+        "reference_answer": "不一定。CSM 增长可能来自新业务或有利假设变更，代表未来未赚利润增加；当期利润下降可能来自投资波动、亏损合同、经验偏差或费用超支。应拆解 CSM、保险服务结果和投资结果。"
+      },
+      "topic_id": "ifrs17-csm",
+      "translations": {
+        "zh": {
+          "title": "IFRS 17 CSM 桥表解读",
+          "description": "从 CSM roll-forward 看新业务、经验差异、假设变更和利润释放。",
+          "learning_question": "CSM 增长但当期 IFRS 利润下降，是否矛盾？",
+          "generated_answer": "不一定。CSM 增长可能来自新业务或有利假设变更，代表未来未赚利润增加；当期利润下降可能来自投资波动、亏损合同、经验偏差或费用超支。应拆解 CSM、保险服务结果和投资结果。"
+        },
+        "en": {
+          "title": "Reading the IFRS 17 CSM Roll-Forward",
+          "description": "Use the CSM roll-forward to read new business, experience variance, assumption changes and profit release.",
+          "learning_question": "If CSM increases while current IFRS profit falls, is that contradictory?",
+          "generated_answer": "It is not necessarily contradictory. CSM growth may come from new business, interest accretion or favourable assumption changes and represents unearned profit for future services. Current profit can still fall because of onerous groups, adverse experience variance, expense overruns, investment result or insurance finance income/expense. Analyse the CSM roll-forward by new business, interest, experience, assumption changes and release. Then reconcile insurance service result with investment result and identify whether the issue is earnings timing, business quality or market volatility."
+        },
+        "fr": {
+          "title": "IFRS 17 : lecture du roll-forward CSM",
+          "description": "Analyser les affaires nouvelles, les écarts d’expérience, les changements d’hypothèses et la reconnaissance du résultat à partir du roll-forward CSM.",
+          "learning_question": "Une CSM en hausse avec un résultat IFRS courant en baisse est-elle contradictoire ?",
+          "generated_answer": "Pas nécessairement. La CSM peut augmenter avec les affaires nouvelles, l’intérêt accrédité ou des changements d’hypothèses favorables ; elle représente un profit non encore reconnu pour services futurs. Le résultat courant peut baisser à cause de groupes déficitaires, écarts d’expérience défavorables, dépassements de frais, résultat d’investissement ou produits/charges financières d’assurance. Analysez le roll-forward CSM par affaires nouvelles, intérêts, expérience, changements d’hypothèses et amortissement. Rapprochez ensuite résultat de service d’assurance et résultat financier pour distinguer calendrier de profit, qualité des affaires et volatilité marché."
+        }
+      },
+      "grounding": {
+        "zh": {
+          "source_links": [
+            "https://www.ifrs.org/issued-standards/list-of-standards/ifrs-17-insurance-contracts/",
+            "https://www.ifrs.org/supporting-implementation/supporting-materials-by-ifrs-standards/ifrs-17/"
+          ],
+          "source_title": [
+            "IFRS Foundation: IFRS 17 Insurance Contracts",
+            "IFRS Foundation: IFRS 17 supporting materials"
+          ],
+          "source_domain": [
+            "ifrs.org",
+            "ifrs.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:10.091655+00:00",
+          "status": "source_supported_manual"
+        },
+        "en": {
+          "source_links": [
+            "https://www.ifrs.org/issued-standards/list-of-standards/ifrs-17-insurance-contracts/",
+            "https://www.ifrs.org/supporting-implementation/supporting-materials-by-ifrs-standards/ifrs-17/"
+          ],
+          "source_title": [
+            "IFRS Foundation: IFRS 17 Insurance Contracts",
+            "IFRS Foundation: IFRS 17 supporting materials"
+          ],
+          "source_domain": [
+            "ifrs.org",
+            "ifrs.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:18.771334+00:00",
+          "status": "source_supported_manual"
+        },
+        "fr": {
+          "source_links": [
+            "https://www.ifrs.org/issued-standards/list-of-standards/ifrs-17-insurance-contracts/",
+            "https://www.ifrs.org/supporting-implementation/supporting-materials-by-ifrs-standards/ifrs-17/"
+          ],
+          "source_title": [
+            "IFRS Foundation: IFRS 17 Insurance Contracts",
+            "IFRS Foundation: IFRS 17 supporting materials"
+          ],
+          "source_domain": [
+            "ifrs.org",
+            "ifrs.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:27.876557+00:00",
+          "status": "source_supported_manual"
+        }
+      }
+    },
+    {
+      "id": "reinsurance-xl",
+      "title": "再保险结构与续约分析",
+      "track": "Reinsurance",
+      "difficulty": "中级",
+      "summary": "理解 Treaty、Facultative、Quota Share、XoL 和 Retrocession 对风险转移与资本的影响。",
+      "concepts": [
+        "Treaty",
+        "Facultative",
+        "Quota Share",
+        "XoL",
+        "Retention",
+        "Retrocession"
+      ],
+      "case": {
+        "question": "再保价格上涨 20%，公司希望保持相同自留额，你会如何评估？",
+        "reference_answer": "比较保留原结构、提高自留额、降低限额或增加共保的净成本和风险。维度包括再保费用、净赔付波动、1-in-100 净损失、偿付能力资本、费率充足性和预算利润。"
+      },
+      "topic_id": "reinsurance-xl",
+      "translations": {
+        "zh": {
+          "title": "再保险结构与续约分析",
+          "description": "理解 Treaty、Facultative、Quota Share、XoL 和 Retrocession 对风险转移与资本的影响。",
+          "learning_question": "再保价格上涨 20%，公司希望保持相同自留额，你会如何评估？",
+          "generated_answer": "比较保留原结构、提高自留额、降低限额或增加共保的净成本和风险。维度包括再保费用、净赔付波动、1-in-100 净损失、偿付能力资本、费率充足性和预算利润。"
+        },
+        "en": {
+          "title": "Reinsurance Structures and Renewal Analysis",
+          "description": "Understand how treaty, facultative, quota share, XoL and retrocession affect risk transfer and capital.",
+          "learning_question": "Reinsurance renewal prices rise by 20%, and the company wants to keep the same retention. How would you assess it?",
+          "generated_answer": "Treat it as a structure and capital-efficiency question, not simply buy versus do not buy. Compare the current structure, higher retention, lower limit, co-participation or alternative layers. Measure ceded premium, net loss volatility, 1-in-100 and 1-in-200 net losses, PML, SCR relief, budgeted underwriting profit and pricing pass-through. A higher reinsurance price may still be justified if it materially reduces tail risk, earnings volatility or regulatory capital. The recommendation should show cost, volatility, capital and risk-appetite trade-offs."
+        },
+        "fr": {
+          "title": "Structures de réassurance et renouvellements",
+          "description": "Comprendre l’effet des traités, facultatives, quote-part, excédents de sinistre et rétrocession sur le transfert de risque et le capital.",
+          "learning_question": "Le prix de renouvellement de la réassurance augmente de 20 % et la société veut garder la même rétention. Comment évaluer ?",
+          "generated_answer": "Traitez la question comme un arbitrage de structure et d’efficacité du capital, pas comme achat/non-achat. Comparez structure actuelle, rétention plus élevée, limite réduite, co-participation ou couches alternatives. Mesurez prime cédée, volatilité nette des sinistres, pertes nettes 1-in-100 et 1-in-200, PML, allégement SCR, résultat technique budgété et capacité de répercussion tarifaire. Un prix plus élevé peut rester justifié s’il réduit fortement risque extrême, volatilité du résultat ou capital réglementaire. La recommandation doit montrer coût, volatilité, capital et appétit au risque."
+        }
+      },
+      "grounding": {
+        "zh": {
+          "source_links": [
+            "https://www.swissre.com/institute/research/sigma-research.html",
+            "https://www.munichre.com/en/insights.html"
+          ],
+          "source_title": [
+            "Swiss Re Institute: sigma research",
+            "Munich Re: Insights"
+          ],
+          "source_domain": [
+            "swissre.com",
+            "munichre.com"
+          ],
+          "retrieved_at": "2026-06-30T23:24:10.091759+00:00",
+          "status": "source_supported_manual"
+        },
+        "en": {
+          "source_links": [
+            "https://www.swissre.com/institute/research/sigma-research.html",
+            "https://www.munichre.com/en/insights.html"
+          ],
+          "source_title": [
+            "Swiss Re Institute: sigma research",
+            "Munich Re: Insights"
+          ],
+          "source_domain": [
+            "swissre.com",
+            "munichre.com"
+          ],
+          "retrieved_at": "2026-06-30T23:24:18.771436+00:00",
+          "status": "source_supported_manual"
+        },
+        "fr": {
+          "source_links": [
+            "https://www.swissre.com/institute/research/sigma-research.html",
+            "https://www.munichre.com/en/insights.html"
+          ],
+          "source_title": [
+            "Swiss Re Institute: sigma research",
+            "Munich Re: Insights"
+          ],
+          "source_domain": [
+            "swissre.com",
+            "munichre.com"
+          ],
+          "retrieved_at": "2026-06-30T23:24:27.876659+00:00",
+          "status": "source_supported_manual"
+        }
+      }
+    },
+    {
+      "id": "alm-duration",
+      "title": "ALM 久期匹配与利率风险",
+      "track": "ALM",
+      "difficulty": "中级",
+      "summary": "学习寿险负债、资产久期、利率曲线变动和经济价值敏感性之间的关系。",
+      "concepts": [
+        "Duration",
+        "Convexity",
+        "PV01",
+        "Key Rate Duration",
+        "Cash Flow Matching",
+        "Liquidity"
+      ],
+      "case": {
+        "question": "长期利率下行 50bp，负债久期 11 年、资产久期 7 年，会发生什么？",
+        "reference_answer": "负债价值上升通常大于资产价值上升，净经济价值和偿付能力可能承压。还会有再投资收益下降和保证利率压力。应提出延长资产久期、调整产品保证、使用衍生品或改变资产配置等行动。"
+      },
+      "topic_id": "alm-duration",
+      "translations": {
+        "zh": {
+          "title": "ALM 久期匹配与利率风险",
+          "description": "学习寿险负债、资产久期、利率曲线变动和经济价值敏感性之间的关系。",
+          "learning_question": "长期利率下行 50bp，负债久期 11 年、资产久期 7 年，会发生什么？",
+          "generated_answer": "负债价值上升通常大于资产价值上升，净经济价值和偿付能力可能承压。还会有再投资收益下降和保证利率压力。应提出延长资产久期、调整产品保证、使用衍生品或改变资产配置等行动。"
+        },
+        "en": {
+          "title": "ALM Duration Matching and Interest-Rate Risk",
+          "description": "Study life liabilities, asset duration, yield-curve movements and economic-value sensitivities.",
+          "learning_question": "Long-term rates fall by 50bp. Liabilities have duration 11 and assets duration 7. What happens?",
+          "generated_answer": "The liability value will usually rise more than the asset value, reducing net economic value and potentially solvency coverage. The effect is stronger when guarantees are in the money, surrender behaviour changes or reinvestment yields fall. Analyse assets, BEL, Own Funds and SCR under parallel and key-rate shocks rather than one average duration number. Management actions may include extending asset duration, improving cash-flow matching, hedging, reviewing product guarantees or adapting strategic asset allocation under liquidity constraints."
+        },
+        "fr": {
+          "title": "ALM : duration et risque de taux",
+          "description": "Étudier les passifs vie, la duration des actifs, les mouvements de courbe et les sensibilités de valeur économique.",
+          "learning_question": "Les taux longs baissent de 50 bp. Les passifs ont une duration de 11 ans et les actifs de 7 ans. Que se passe-t-il ?",
+          "generated_answer": "La valeur des passifs augmente généralement davantage que celle des actifs, ce qui réduit la valeur économique nette et peut peser sur la solvabilité. L’effet est plus fort si les garanties sont dans la monnaie, si les rachats changent ou si les rendements de réinvestissement diminuent. Analysez actifs, BEL, fonds propres et SCR sous chocs parallèles et key-rate, pas seulement avec une duration moyenne. Les actions possibles incluent allongement de duration, meilleur appariement des flux, couverture, revue des garanties ou adaptation de l’allocation stratégique sous contrainte de liquidité."
+        }
+      },
+      "grounding": {
+        "zh": {
+          "source_links": [
+            "https://www.soa.org/resources/",
+            "https://www.swissre.com/institute/"
+          ],
+          "source_title": [
+            "SOA: Actuarial resources",
+            "Swiss Re Institute"
+          ],
+          "source_domain": [
+            "soa.org",
+            "swissre.com"
+          ],
+          "retrieved_at": "2026-06-30T23:24:10.091862+00:00",
+          "status": "source_supported_manual"
+        },
+        "en": {
+          "source_links": [
+            "https://www.soa.org/resources/",
+            "https://www.swissre.com/institute/"
+          ],
+          "source_title": [
+            "SOA: Actuarial resources",
+            "Swiss Re Institute"
+          ],
+          "source_domain": [
+            "soa.org",
+            "swissre.com"
+          ],
+          "retrieved_at": "2026-06-30T23:24:18.771539+00:00",
+          "status": "source_supported_manual"
+        },
+        "fr": {
+          "source_links": [
+            "https://www.soa.org/resources/",
+            "https://www.swissre.com/institute/"
+          ],
+          "source_title": [
+            "SOA: Actuarial resources",
+            "Swiss Re Institute"
+          ],
+          "source_domain": [
+            "soa.org",
+            "swissre.com"
+          ],
+          "retrieved_at": "2026-06-30T23:24:27.876762+00:00",
+          "status": "source_supported_manual"
+        }
+      }
+    },
+    {
+      "id": "investment-saa",
+      "title": "保险投资与战略资产配置",
+      "track": "Investment",
+      "difficulty": "中级",
+      "summary": "连接债券、权益、房地产、基础设施、另类资产和 ESG 投资与保险负债特征。",
+      "concepts": [
+        "Bond",
+        "Equity",
+        "Infrastructure",
+        "Private Equity",
+        "Real Estate",
+        "ESG",
+        "SAA"
+      ],
+      "case": {
+        "question": "寿险公司为什么不能只追求最高投资收益率？",
+        "reference_answer": "寿险投资要匹配负债现金流、久期、流动性、资本要求和会计波动。高收益资产可能带来市场风险、信用风险和资本占用。精算人应以风险调整收益和 ALM 约束评价投资策略。"
+      },
+      "topic_id": "investment-saa",
+      "translations": {
+        "zh": {
+          "title": "保险投资与战略资产配置",
+          "description": "连接债券、权益、房地产、基础设施、另类资产和 ESG 投资与保险负债特征。",
+          "learning_question": "寿险公司为什么不能只追求最高投资收益率？",
+          "generated_answer": "寿险投资要匹配负债现金流、久期、流动性、资本要求和会计波动。高收益资产可能带来市场风险、信用风险和资本占用。精算人应以风险调整收益和 ALM 约束评价投资策略。"
+        },
+        "en": {
+          "title": "Insurance Investment and Strategic Asset Allocation",
+          "description": "Connect bonds, equities, real estate, infrastructure, alternatives and ESG investing with insurance-liability characteristics.",
+          "learning_question": "Why can’t life insurers simply pursue the highest possible investment return?",
+          "generated_answer": "Life insurers invest against liability cash flows, guarantees, duration, liquidity needs, accounting volatility and capital requirements. A high-yield asset may increase expected return but also add spread risk, equity risk, liquidity risk, downgrade risk and capital charges. The actuarial view should compare risk-adjusted return, ALM fit, liquidity under stress, accounting treatment and solvency impact. Strategic asset allocation should therefore optimize return subject to liability, capital and risk-appetite constraints, not maximize nominal yield alone."
+        },
+        "fr": {
+          "title": "Investissements d’assurance et allocation stratégique",
+          "description": "Relier obligations, actions, immobilier, infrastructures, actifs alternatifs et ESG aux caractéristiques des passifs d’assurance.",
+          "learning_question": "Pourquoi les assureurs vie ne peuvent-ils pas simplement rechercher le rendement d’investissement le plus élevé possible ?",
+          "generated_answer": "Les assureurs vie investissent face à des flux de passifs, garanties, duration, besoins de liquidité, volatilité comptable et exigences de capital. Un actif à rendement élevé peut augmenter le rendement attendu mais ajouter risque de spread, risque actions, illiquidité, migration de notation et charges de capital. La vision actuarielle compare rendement ajusté du risque, adéquation ALM, liquidité en stress, traitement comptable et impact solvabilité. L’allocation stratégique optimise donc le rendement sous contraintes de passif, capital et appétit au risque, sans maximiser seulement le rendement nominal."
+        }
+      },
+      "grounding": {
+        "zh": {
+          "source_links": [
+            "https://www.swissre.com/institute/",
+            "https://www.oecd.org/finance/insurance/"
+          ],
+          "source_title": [
+            "Swiss Re Institute",
+            "OECD: Insurance and pensions"
+          ],
+          "source_domain": [
+            "swissre.com",
+            "oecd.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:10.091965+00:00",
+          "status": "source_supported_manual"
+        },
+        "en": {
+          "source_links": [
+            "https://www.swissre.com/institute/",
+            "https://www.oecd.org/finance/insurance/"
+          ],
+          "source_title": [
+            "Swiss Re Institute",
+            "OECD: Insurance and pensions"
+          ],
+          "source_domain": [
+            "swissre.com",
+            "oecd.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:18.771641+00:00",
+          "status": "source_supported_manual"
+        },
+        "fr": {
+          "source_links": [
+            "https://www.swissre.com/institute/",
+            "https://www.oecd.org/finance/insurance/"
+          ],
+          "source_title": [
+            "Swiss Re Institute",
+            "OECD: Insurance and pensions"
+          ],
+          "source_domain": [
+            "swissre.com",
+            "oecd.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:27.876865+00:00",
+          "status": "source_supported_manual"
+        }
+      }
+    },
+    {
+      "id": "finance-ratio",
+      "title": "保险财务报表与关键比率",
+      "track": "Insurance Finance",
+      "difficulty": "基础",
+      "summary": "学习利润表、资产负债表、现金流、EV、Combined Ratio 和 RoE 的精算解读。",
+      "concepts": [
+        "Income Statement",
+        "Balance Sheet",
+        "Embedded Value",
+        "Combined Ratio",
+        "Loss Ratio",
+        "RoE"
+      ],
+      "case": {
+        "question": "一家财险公司 Combined Ratio 从 96% 升到 101%，你会怎么解释？",
+        "reference_answer": "要拆成赔付率、费用率、巨灾、准备金发展和价格周期。101% 表示承保亏损，但投资收益可能仍让总利润为正。精算重点是判断这是短期巨灾冲击，还是费率不足和理赔通胀导致的结构性问题。"
+      },
+      "topic_id": "finance-ratio",
+      "translations": {
+        "zh": {
+          "title": "保险财务报表与关键比率",
+          "description": "学习利润表、资产负债表、现金流、EV、Combined Ratio 和 RoE 的精算解读。",
+          "learning_question": "一家财险公司 Combined Ratio 从 96% 升到 101%，你会怎么解释？",
+          "generated_answer": "要拆成赔付率、费用率、巨灾、准备金发展和价格周期。101% 表示承保亏损，但投资收益可能仍让总利润为正。精算重点是判断这是短期巨灾冲击，还是费率不足和理赔通胀导致的结构性问题。"
+        },
+        "en": {
+          "title": "Insurance Financial Statements and Key Ratios",
+          "description": "Read the income statement, balance sheet, cash flow, embedded value, combined ratio and RoE through an actuarial lens.",
+          "learning_question": "A P&C insurer’s combined ratio moves from 96% to 101%. How would you explain it?",
+          "generated_answer": "A combined ratio above 100% indicates underwriting loss before investment income, but the story depends on the components. Split the movement into loss ratio, expense ratio, catastrophe losses, prior-year reserve development and price-cycle effects. If the loss ratio is driven by claims inflation, focus on rate increases, claims management and severity assumptions. If it is catastrophe-driven, review reinsurance and geographic concentration. The actuarial conclusion should distinguish temporary volatility from structural rate inadequacy."
+        },
+        "fr": {
+          "title": "États financiers d’assurance et ratios clés",
+          "description": "Lire le compte de résultat, le bilan, les flux de trésorerie, l’embedded value, le combined ratio et le RoE avec un regard actuariel.",
+          "learning_question": "Le combined ratio d’un assureur dommages passe de 96 % à 101 %. Comment l’expliquer ?",
+          "generated_answer": "Un combined ratio supérieur à 100 % indique une perte technique avant revenus financiers, mais l’analyse dépend des composantes. Décomposez le mouvement entre ratio de sinistres, ratio de frais, catastrophes, développement des années antérieures et cycle tarifaire. Si le ratio de sinistres vient de l’inflation des coûts, priorisez hausses tarifaires, gestion sinistres et hypothèses de sévérité. Si l’effet vient des catastrophes, revoyez réassurance et concentration géographique. La conclusion actuarielle doit distinguer volatilité temporaire et insuffisance tarifaire structurelle."
+        }
+      },
+      "grounding": {
+        "zh": {
+          "source_links": [
+            "https://www.swissre.com/institute/research/sigma-research.html"
+          ],
+          "source_title": [
+            "Swiss Re Institute: sigma research"
+          ],
+          "source_domain": [
+            "swissre.com"
+          ],
+          "retrieved_at": "2026-06-30T23:24:10.092066+00:00",
+          "status": "source_supported_manual"
+        },
+        "en": {
+          "source_links": [
+            "https://www.swissre.com/institute/research/sigma-research.html"
+          ],
+          "source_title": [
+            "Swiss Re Institute: sigma research"
+          ],
+          "source_domain": [
+            "swissre.com"
+          ],
+          "retrieved_at": "2026-06-30T23:24:18.771741+00:00",
+          "status": "source_supported_manual"
+        },
+        "fr": {
+          "source_links": [
+            "https://www.swissre.com/institute/research/sigma-research.html"
+          ],
+          "source_title": [
+            "Swiss Re Institute: sigma research"
+          ],
+          "source_domain": [
+            "swissre.com"
+          ],
+          "retrieved_at": "2026-06-30T23:24:27.876966+00:00",
+          "status": "source_supported_manual"
+        }
+      }
+    },
+    {
+      "id": "accounting-ifrs9",
+      "title": "保险会计：IFRS 17 与 IFRS 9 联动",
+      "track": "Insurance Accounting",
+      "difficulty": "中级",
+      "summary": "理解保险合同负债和金融资产计量之间的会计错配与利润波动。",
+      "concepts": [
+        "IFRS 17",
+        "IFRS 9",
+        "Local GAAP",
+        "Deferred Tax",
+        "OCI",
+        "Accounting Mismatch"
+      ],
+      "case": {
+        "question": "为什么 IFRS 17 下利润波动可能来自资产端而非保险服务本身？",
+        "reference_answer": "保险服务结果和投资结果被更清晰地区分。若资产按公允价值计量，市场利率或利差变化会影响投资结果；同时负债折现率变化也会影响保险金融损益。需要拆分保险服务、投资和会计错配。"
+      },
+      "topic_id": "accounting-ifrs9",
+      "translations": {
+        "zh": {
+          "title": "保险会计：IFRS 17 与 IFRS 9 联动",
+          "description": "理解保险合同负债和金融资产计量之间的会计错配与利润波动。",
+          "learning_question": "为什么 IFRS 17 下利润波动可能来自资产端而非保险服务本身？",
+          "generated_answer": "保险服务结果和投资结果被更清晰地区分。若资产按公允价值计量，市场利率或利差变化会影响投资结果；同时负债折现率变化也会影响保险金融损益。需要拆分保险服务、投资和会计错配。"
+        },
+        "en": {
+          "title": "Insurance Accounting: IFRS 17 and IFRS 9 Interaction",
+          "description": "Understand accounting mismatch and profit volatility between insurance-contract liabilities and financial assets.",
+          "learning_question": "Why can IFRS 17 profit volatility come from assets rather than insurance service itself?",
+          "generated_answer": "IFRS 17 separates insurance service result from insurance finance income or expenses, while IFRS 9 determines how financial assets are measured. If assets are measured at fair value, interest-rate and spread changes can affect investment result. At the same time, changes in discount rates affect insurance finance income or expenses on liabilities. The actuarial analysis should split service margin, experience variances, investment result and accounting mismatch, then explain whether volatility is economic, accounting-driven or caused by asset-liability mismatch."
+        },
+        "fr": {
+          "title": "Comptabilité d’assurance : articulation IFRS 17 / IFRS 9",
+          "description": "Comprendre les mismatchs comptables et la volatilité du résultat entre passifs d’assurance et actifs financiers.",
+          "learning_question": "Pourquoi la volatilité du résultat IFRS 17 peut-elle venir des actifs plutôt que du service d’assurance ?",
+          "generated_answer": "IFRS 17 sépare le résultat de service d’assurance des produits ou charges financières d’assurance, tandis qu’IFRS 9 détermine la mesure des actifs financiers. Si les actifs sont en juste valeur, les variations de taux et de spreads influencent le résultat d’investissement. En parallèle, les changements de taux d’actualisation influencent les charges ou produits financiers d’assurance sur les passifs. L’analyse actuarielle doit séparer marge de service, écarts d’expérience, résultat financier et mismatch comptable, puis expliquer si la volatilité est économique, comptable ou liée à l’ALM."
+        }
+      },
+      "grounding": {
+        "zh": {
+          "source_links": [
+            "https://www.ifrs.org/issued-standards/list-of-standards/ifrs-17-insurance-contracts/"
+          ],
+          "source_title": [
+            "IFRS Foundation: IFRS 17 Insurance Contracts"
+          ],
+          "source_domain": [
+            "ifrs.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:10.092166+00:00",
+          "status": "source_supported_manual"
+        },
+        "en": {
+          "source_links": [
+            "https://www.ifrs.org/issued-standards/list-of-standards/ifrs-17-insurance-contracts/"
+          ],
+          "source_title": [
+            "IFRS Foundation: IFRS 17 Insurance Contracts"
+          ],
+          "source_domain": [
+            "ifrs.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:18.771841+00:00",
+          "status": "source_supported_manual"
+        },
+        "fr": {
+          "source_links": [
+            "https://www.ifrs.org/issued-standards/list-of-standards/ifrs-17-insurance-contracts/"
+          ],
+          "source_title": [
+            "IFRS Foundation: IFRS 17 Insurance Contracts"
+          ],
+          "source_domain": [
+            "ifrs.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:27.877066+00:00",
+          "status": "source_supported_manual"
+        }
+      }
+    },
+    {
+      "id": "regulation-ai-act",
+      "title": "欧洲保险监管与 AI Act",
+      "track": "Regulation",
+      "difficulty": "中级",
+      "summary": "跟踪 Solvency II、IDD、DORA、AI Act、GDPR、SFDR、CSRD 和气候风险监管。",
+      "concepts": [
+        "Solvency II",
+        "IDD",
+        "DORA",
+        "AI Act",
+        "GDPR",
+        "SFDR",
+        "CSRD"
+      ],
+      "case": {
+        "question": "保险公司上线 AI 定价模型，监管视角会关注什么？",
+        "reference_answer": "监管会关注数据治理、可解释性、公平性、歧视风险、模型验证、人工监督、客户披露和操作韧性。精算人需要建立模型文档、偏差测试、监控指标和模型变更审批流程。"
+      },
+      "topic_id": "regulation-ai-act",
+      "translations": {
+        "zh": {
+          "title": "欧洲保险监管与 AI Act",
+          "description": "跟踪 Solvency II、IDD、DORA、AI Act、GDPR、SFDR、CSRD 和气候风险监管。",
+          "learning_question": "保险公司上线 AI 定价模型，监管视角会关注什么？",
+          "generated_answer": "监管会关注数据治理、可解释性、公平性、歧视风险、模型验证、人工监督、客户披露和操作韧性。精算人需要建立模型文档、偏差测试、监控指标和模型变更审批流程。"
+        },
+        "en": {
+          "title": "European Insurance Regulation and the AI Act",
+          "description": "Track Solvency II, IDD, DORA, AI Act, GDPR, SFDR, CSRD and climate-risk supervision.",
+          "learning_question": "When an insurer deploys an AI pricing model, what will regulators focus on?",
+          "generated_answer": "Regulators will focus on data governance, explainability, fairness, discrimination risk, model validation, human oversight, customer disclosure, operational resilience and privacy. The actuarial team should document data lineage, feature logic, model purpose, limitations, performance metrics and change controls. It should also test bias, monitor drift, define manual override rules and create escalation paths. The key is to prove that the model is technically sound, fair to customers and controllable within the insurer’s governance framework."
+        },
+        "fr": {
+          "title": "Réglementation européenne de l’assurance et AI Act",
+          "description": "Suivre Solvabilité II, DDA, DORA, AI Act, RGPD, SFDR, CSRD et la supervision du risque climatique.",
+          "learning_question": "Lorsqu’un assureur déploie un modèle IA de tarification, que regardera le régulateur ?",
+          "generated_answer": "Le régulateur regardera gouvernance des données, explicabilité, équité, risque de discrimination, validation du modèle, supervision humaine, information client, résilience opérationnelle et confidentialité. L’équipe actuarielle doit documenter l’origine des données, la logique des variables, l’objectif du modèle, ses limites, les métriques de performance et les contrôles de changement. Elle doit aussi tester les biais, suivre la dérive, définir des règles d’override humain et prévoir les escalades. L’enjeu est de démontrer que le modèle est solide, équitable et maîtrisé dans la gouvernance de l’assureur."
+        }
+      },
+      "grounding": {
+        "zh": {
+          "source_links": [
+            "https://www.eiopa.europa.eu/publications_en",
+            "https://acpr.banque-france.fr/publications"
+          ],
+          "source_title": [
+            "EIOPA: Publications",
+            "ACPR: Publications"
+          ],
+          "source_domain": [
+            "eiopa.europa.eu",
+            "acpr.banque-france.fr"
+          ],
+          "retrieved_at": "2026-06-30T23:24:10.092269+00:00",
+          "status": "source_supported_manual"
+        },
+        "en": {
+          "source_links": [
+            "https://www.eiopa.europa.eu/publications_en",
+            "https://acpr.banque-france.fr/publications"
+          ],
+          "source_title": [
+            "EIOPA: Publications",
+            "ACPR: Publications"
+          ],
+          "source_domain": [
+            "eiopa.europa.eu",
+            "acpr.banque-france.fr"
+          ],
+          "retrieved_at": "2026-06-30T23:24:18.771943+00:00",
+          "status": "source_supported_manual"
+        },
+        "fr": {
+          "source_links": [
+            "https://www.eiopa.europa.eu/publications_en",
+            "https://acpr.banque-france.fr/publications"
+          ],
+          "source_title": [
+            "EIOPA: Publications",
+            "ACPR: Publications"
+          ],
+          "source_domain": [
+            "eiopa.europa.eu",
+            "acpr.banque-france.fr"
+          ],
+          "retrieved_at": "2026-06-30T23:24:27.877169+00:00",
+          "status": "source_supported_manual"
+        }
+      }
+    },
+    {
+      "id": "data-analytics-feature",
+      "title": "保险数据分析与特征工程",
+      "track": "Data Analytics",
+      "difficulty": "基础",
+      "summary": "复习 SQL、Python、R、Power BI、数据清洗、特征工程和可视化在精算项目中的使用。",
+      "concepts": [
+        "SQL",
+        "Python",
+        "R",
+        "Power BI",
+        "Feature Engineering",
+        "Data Cleaning",
+        "Visualization"
+      ],
+      "case": {
+        "question": "车险定价项目中，为什么数据清洗往往比模型选择更重要？",
+        "reference_answer": "错误的暴露量、重复保单、缺失理赔、渠道口径变化和异常大赔会直接扭曲频率和严重度。模型只能学习输入数据中的结构，数据口径不稳会让 GLM 或机器学习结果都不可靠。"
+      },
+      "topic_id": "data-analytics-feature",
+      "translations": {
+        "zh": {
+          "title": "保险数据分析与特征工程",
+          "description": "复习 SQL、Python、R、Power BI、数据清洗、特征工程和可视化在精算项目中的使用。",
+          "learning_question": "车险定价项目中，为什么数据清洗往往比模型选择更重要？",
+          "generated_answer": "错误的暴露量、重复保单、缺失理赔、渠道口径变化和异常大赔会直接扭曲频率和严重度。模型只能学习输入数据中的结构，数据口径不稳会让 GLM 或机器学习结果都不可靠。"
+        },
+        "en": {
+          "title": "Insurance Data Analytics and Feature Engineering",
+          "description": "Review SQL, Python, R, Power BI, data cleaning, feature engineering and visualization in actuarial projects.",
+          "learning_question": "In a motor pricing project, why is data cleaning often more important than model choice?",
+          "generated_answer": "Bad exposure measures, duplicate policies, missing claims, inconsistent channel definitions and outlier large losses directly distort frequency and severity. A GLM or machine-learning model can only learn patterns present in the input data; unstable definitions produce unstable relativities and misleading lift. Before model selection, reconcile policy, claim and exposure tables; define earned exposure; audit missingness and outliers; check time consistency; and document transformations. Clean, stable data makes model validation and actuarial judgment meaningful."
+        },
+        "fr": {
+          "title": "Analyse de données en assurance et ingénierie des variables",
+          "description": "Réviser SQL, Python, R, Power BI, nettoyage de données, ingénierie des variables et visualisation dans les projets actuariels.",
+          "learning_question": "Dans un projet de tarification automobile, pourquoi le nettoyage des données est-il souvent plus important que le choix du modèle ?",
+          "generated_answer": "Des expositions erronées, doublons de contrats, sinistres manquants, définitions de canal incohérentes et gros sinistres atypiques faussent directement fréquence et sévérité. Un GLM ou un modèle machine learning ne peut apprendre que la structure présente dans les données ; des définitions instables donnent des relativités instables et un lift trompeur. Avant de choisir le modèle, rapprochez contrats, sinistres et expositions ; définissez l’exposition acquise ; auditez valeurs manquantes et outliers ; vérifiez la cohérence temporelle ; documentez les transformations. Des données propres rendent la validation et le jugement actuariel utiles."
+        }
+      },
+      "grounding": {
+        "zh": {
+          "source_links": [
+            "https://ocw.mit.edu/courses/18-650-statistics-for-applications-fall-2016/",
+            "https://www.casact.org/publications-research"
+          ],
+          "source_title": [
+            "MIT OCW: Statistics for Applications",
+            "CAS: Publications and research"
+          ],
+          "source_domain": [
+            "ocw.mit.edu",
+            "casact.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:10.092375+00:00",
+          "status": "source_supported_manual"
+        },
+        "en": {
+          "source_links": [
+            "https://ocw.mit.edu/courses/18-650-statistics-for-applications-fall-2016/",
+            "https://www.casact.org/publications-research"
+          ],
+          "source_title": [
+            "MIT OCW: Statistics for Applications",
+            "CAS: Publications and research"
+          ],
+          "source_domain": [
+            "ocw.mit.edu",
+            "casact.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:18.772046+00:00",
+          "status": "source_supported_manual"
+        },
+        "fr": {
+          "source_links": [
+            "https://ocw.mit.edu/courses/18-650-statistics-for-applications-fall-2016/",
+            "https://www.casact.org/publications-research"
+          ],
+          "source_title": [
+            "MIT OCW: Statistics for Applications",
+            "CAS: Publications and research"
+          ],
+          "source_domain": [
+            "ocw.mit.edu",
+            "casact.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:27.877271+00:00",
+          "status": "source_supported_manual"
+        }
+      }
+    },
+    {
+      "id": "ai-claims-agent",
+      "title": "保险 AI：理赔 Agent 与负责任 AI",
+      "track": "AI for Insurance",
+      "difficulty": "进阶",
+      "summary": "理解 LLM、Agent、理赔 AI、反欺诈、知识图谱、MLOps 和 Responsible AI。",
+      "concepts": [
+        "LLM",
+        "Agent",
+        "Claims AI",
+        "Fraud Detection",
+        "Knowledge Graph",
+        "MLOps",
+        "Responsible AI"
+      ],
+      "case": {
+        "question": "如果用 LLM 辅助理赔审核，精算和风险团队应设置哪些控制？",
+        "reference_answer": "需要限制模型权限，保留人工复核，监控误拒赔和误赔，保护个人数据，记录提示词和输出，设定模型漂移监控，并评估对赔付率、费用率、客户体验和操作风险的影响。"
+      },
+      "topic_id": "ai-claims-agent",
+      "translations": {
+        "zh": {
+          "title": "保险 AI：理赔 Agent 与负责任 AI",
+          "description": "理解 LLM、Agent、理赔 AI、反欺诈、知识图谱、MLOps 和 Responsible AI。",
+          "learning_question": "如果用 LLM 辅助理赔审核，精算和风险团队应设置哪些控制？",
+          "generated_answer": "需要限制模型权限，保留人工复核，监控误拒赔和误赔，保护个人数据，记录提示词和输出，设定模型漂移监控，并评估对赔付率、费用率、客户体验和操作风险的影响。"
+        },
+        "en": {
+          "title": "Insurance AI: Claims Agents and Responsible AI",
+          "description": "Understand LLMs, agents, claims AI, fraud detection, knowledge graphs, MLOps and responsible AI.",
+          "learning_question": "If an LLM assists claims review, what controls should actuarial and risk teams set?",
+          "generated_answer": "Do not assess an LLM claims tool only by expense savings. Limit model authority, keep human review for adverse decisions, log prompts and outputs, protect personal data and monitor false denials, false payments, bias and drift. Define validation tests before launch and ongoing controls after launch. Actuarial metrics should include loss ratio, expense ratio, claim cycle time, complaint rates, leakage, fraud detection quality and operational-risk events. The model should support claims professionals rather than make uncontrolled claim decisions."
+        },
+        "fr": {
+          "title": "IA en assurance : agents sinistres et IA responsable",
+          "description": "Comprendre les LLM, agents, IA sinistres, détection de fraude, graphes de connaissances, MLOps et IA responsable.",
+          "learning_question": "Si un LLM assiste la revue des sinistres, quels contrôles les équipes actuarielles et risques doivent-elles mettre en place ?",
+          "generated_answer": "N’évaluez pas un outil LLM sinistres uniquement par les économies de frais. Limitez l’autorité du modèle, conservez une revue humaine pour les décisions défavorables, journalisez prompts et sorties, protégez les données personnelles et suivez refus injustifiés, paiements erronés, biais et dérive. Définissez des tests de validation avant lancement et des contrôles continus après lancement. Les métriques actuarielles doivent inclure ratio de sinistres, ratio de frais, délai de traitement, réclamations, leakage, qualité de détection fraude et incidents opérationnels. Le modèle doit assister les gestionnaires, pas décider sans contrôle."
+        }
+      },
+      "grounding": {
+        "zh": {
+          "source_links": [
+            "https://actuaries.org.uk/learn-and-develop/research-and-knowledge/",
+            "https://www.institutdesactuaires.com/"
+          ],
+          "source_title": [
+            "IFoA: Research and knowledge",
+            "Institut des Actuaires"
+          ],
+          "source_domain": [
+            "actuaries.org.uk",
+            "institutdesactuaires.com"
+          ],
+          "retrieved_at": "2026-06-30T23:24:10.092486+00:00",
+          "status": "source_supported_manual"
+        },
+        "en": {
+          "source_links": [
+            "https://actuaries.org.uk/learn-and-develop/research-and-knowledge/",
+            "https://www.institutdesactuaires.com/"
+          ],
+          "source_title": [
+            "IFoA: Research and knowledge",
+            "Institut des Actuaires"
+          ],
+          "source_domain": [
+            "actuaries.org.uk",
+            "institutdesactuaires.com"
+          ],
+          "retrieved_at": "2026-06-30T23:24:18.772149+00:00",
+          "status": "source_supported_manual"
+        },
+        "fr": {
+          "source_links": [
+            "https://actuaries.org.uk/learn-and-develop/research-and-knowledge/",
+            "https://www.institutdesactuaires.com/"
+          ],
+          "source_title": [
+            "IFoA: Research and knowledge",
+            "Institut des Actuaires"
+          ],
+          "source_domain": [
+            "actuaries.org.uk",
+            "institutdesactuaires.com"
+          ],
+          "retrieved_at": "2026-06-30T23:24:27.877374+00:00",
+          "status": "source_supported_manual"
+        }
+      }
+    },
+    {
+      "id": "cat-pml",
+      "title": "巨灾模型 PML 与再保险购买",
+      "track": "Catastrophe Modelling",
+      "difficulty": "中级",
+      "summary": "学习地震、洪水、野火、风暴等风险的 PML、AEP/OEP 和模型不确定性。",
+      "concepts": [
+        "Earthquake",
+        "Flood",
+        "Wildfire",
+        "Windstorm",
+        "PML",
+        "AEP",
+        "OEP",
+        "RMS"
+      ],
+      "case": {
+        "question": "1-in-200 PML 上升 15%，是否一定要买更多再保险？",
+        "reference_answer": "不一定。应先确认暴露增长、模型版本、地理集中度和通胀影响，再比较资本影响、再保价格、风险偏好和费率传导能力。如果资本缓冲足够，可能通过组合管理和定价吸收部分风险。"
+      },
+      "topic_id": "cat-pml",
+      "translations": {
+        "zh": {
+          "title": "巨灾模型 PML 与再保险购买",
+          "description": "学习地震、洪水、野火、风暴等风险的 PML、AEP/OEP 和模型不确定性。",
+          "learning_question": "1-in-200 PML 上升 15%，是否一定要买更多再保险？",
+          "generated_answer": "不一定。应先确认暴露增长、模型版本、地理集中度和通胀影响，再比较资本影响、再保价格、风险偏好和费率传导能力。如果资本缓冲足够，可能通过组合管理和定价吸收部分风险。"
+        },
+        "en": {
+          "title": "Catastrophe Model PML and Reinsurance Purchase",
+          "description": "Study earthquake, flood, wildfire, windstorm, PML, AEP, OEP and cat-model outputs.",
+          "learning_question": "If 1-in-200 PML increases by 15%, must the insurer buy more reinsurance?",
+          "generated_answer": "Not automatically. First identify whether the increase comes from exposure growth, model version change, inflation, geographic concentration or hazard assumptions. Compare gross and net PML, AEP/OEP curves, existing reinsurance exhaustion points, SCR impact, earnings volatility and risk appetite. If the capital buffer is sufficient and pricing can absorb the risk, portfolio management or rate action may be better than buying more cover. If tail volatility breaches appetite, assess additional layers, lower retention or alternative capital."
+        },
+        "fr": {
+          "title": "Modèles catastrophe, PML et achat de réassurance",
+          "description": "Étudier séisme, inondation, feu de forêt, tempête, PML, AEP, OEP et sorties de modèles catastrophe.",
+          "learning_question": "Si le PML 1-in-200 augmente de 15 %, faut-il forcément acheter plus de réassurance ?",
+          "generated_answer": "Pas automatiquement. Identifiez d’abord si la hausse vient de la croissance d’exposition, d’un changement de version modèle, de l’inflation, d’une concentration géographique ou des hypothèses d’aléa. Comparez PML brut et net, courbes AEP/OEP, points d’épuisement de la réassurance existante, impact SCR, volatilité du résultat et appétit au risque. Si le coussin de capital est suffisant et que la tarification peut absorber le risque, gestion de portefeuille ou hausse tarifaire peuvent être préférables. Si la volatilité extrême dépasse l’appétit, évaluez couches supplémentaires, rétention plus basse ou capital alternatif."
+        }
+      },
+      "grounding": {
+        "zh": {
+          "source_links": [
+            "https://www.munichre.com/en/insights/natural-disaster-and-climate-change.html",
+            "https://www.swissre.com/institute/research/sigma-research.html"
+          ],
+          "source_title": [
+            "Munich Re: Natural disasters and climate change",
+            "Swiss Re Institute: sigma research"
+          ],
+          "source_domain": [
+            "munichre.com",
+            "swissre.com"
+          ],
+          "retrieved_at": "2026-06-30T23:24:10.092591+00:00",
+          "status": "source_supported_manual"
+        },
+        "en": {
+          "source_links": [
+            "https://www.munichre.com/en/insights/natural-disaster-and-climate-change.html",
+            "https://www.swissre.com/institute/research/sigma-research.html"
+          ],
+          "source_title": [
+            "Munich Re: Natural disasters and climate change",
+            "Swiss Re Institute: sigma research"
+          ],
+          "source_domain": [
+            "munichre.com",
+            "swissre.com"
+          ],
+          "retrieved_at": "2026-06-30T23:24:18.772252+00:00",
+          "status": "source_supported_manual"
+        },
+        "fr": {
+          "source_links": [
+            "https://www.munichre.com/en/insights/natural-disaster-and-climate-change.html",
+            "https://www.swissre.com/institute/research/sigma-research.html"
+          ],
+          "source_title": [
+            "Munich Re: Natural disasters and climate change",
+            "Swiss Re Institute: sigma research"
+          ],
+          "source_domain": [
+            "munichre.com",
+            "swissre.com"
+          ],
+          "retrieved_at": "2026-06-30T23:24:27.877476+00:00",
+          "status": "source_supported_manual"
+        }
+      }
+    },
+    {
+      "id": "credit-pd-lgd",
+      "title": "信用风险 PD/LGD/EAD",
+      "track": "Credit Risk",
+      "difficulty": "中级",
+      "summary": "学习违约率、损失率、暴露额、回收率和交易对手风险在保险中的应用。",
+      "concepts": [
+        "PD",
+        "LGD",
+        "EAD",
+        "Recovery",
+        "Counterparty Risk",
+        "Default Correlation"
+      ],
+      "case": {
+        "question": "信贷保险保费增长 40%，但宏观违约率上升，应优先看什么？",
+        "reference_answer": "优先看承保年度分层违约率、逾期迁徙率、平均余额、LGD、回收率、渠道质量和行业地区集中度。增长关键在风险质量，并要做违约率上升、回收率下降和相关性上升的压力测试。"
+      },
+      "topic_id": "credit-pd-lgd",
+      "translations": {
+        "zh": {
+          "title": "信用风险 PD/LGD/EAD",
+          "description": "学习违约率、损失率、暴露额、回收率和交易对手风险在保险中的应用。",
+          "learning_question": "信贷保险保费增长 40%，但宏观违约率上升，应优先看什么？",
+          "generated_answer": "优先看承保年度分层违约率、逾期迁徙率、平均余额、LGD、回收率、渠道质量和行业地区集中度。增长关键在风险质量，并要做违约率上升、回收率下降和相关性上升的压力测试。"
+        },
+        "en": {
+          "title": "Credit Risk: PD, LGD and EAD",
+          "description": "Break credit risk into probability of default, loss given default, exposure at default, recovery and default correlation.",
+          "learning_question": "Credit-insurance premium grows by 40%, but macro default rates are rising. What should you check first?",
+          "generated_answer": "Focus on the quality of new exposure, not premium growth alone. Analyse default rates by underwriting year, delinquency migration, average exposure, PD, LGD, recovery rate, channel quality and sector/geographic concentration. A fast-growing portfolio can become riskier if it shifts toward weaker borrowers or correlated sectors. Stress PD, LGD, recovery and default correlation together, then set limits by sector, buyer, geography or channel. The actuarial conclusion should separate volume growth from risk-adjusted profitability."
+        },
+        "fr": {
+          "title": "Risque crédit : PD, LGD et EAD",
+          "description": "Décomposer le risque crédit en probabilité de défaut, perte en cas de défaut, exposition au défaut, recouvrement et corrélation des défauts.",
+          "learning_question": "Les primes d’assurance-crédit augmentent de 40 %, mais les défauts macroéconomiques montent. Que vérifier en premier ?",
+          "generated_answer": "Concentrez-vous sur la qualité des nouvelles expositions, pas seulement sur la croissance des primes. Analysez taux de défaut par année de souscription, migrations d’impayés, exposition moyenne, PD, LGD, taux de recouvrement, qualité du canal et concentrations sectorielles/géographiques. Un portefeuille en forte croissance peut devenir plus risqué s’il se déplace vers des emprunteurs faibles ou secteurs corrélés. Stressez ensemble PD, LGD, recouvrement et corrélation de défaut, puis fixez des limites par secteur, acheteur, géographie ou canal. La conclusion actuarielle doit séparer volume et rentabilité ajustée du risque."
+        }
+      },
+      "grounding": {
+        "zh": {
+          "source_links": [
+            "https://www.oecd.org/finance/insurance/",
+            "https://www.casact.org/publications-research"
+          ],
+          "source_title": [
+            "OECD: Insurance and pensions",
+            "CAS: Publications and research"
+          ],
+          "source_domain": [
+            "oecd.org",
+            "casact.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:10.092690+00:00",
+          "status": "source_supported_manual"
+        },
+        "en": {
+          "source_links": [
+            "https://www.oecd.org/finance/insurance/",
+            "https://www.casact.org/publications-research"
+          ],
+          "source_title": [
+            "OECD: Insurance and pensions",
+            "CAS: Publications and research"
+          ],
+          "source_domain": [
+            "oecd.org",
+            "casact.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:18.772352+00:00",
+          "status": "source_supported_manual"
+        },
+        "fr": {
+          "source_links": [
+            "https://www.oecd.org/finance/insurance/",
+            "https://www.casact.org/publications-research"
+          ],
+          "source_title": [
+            "OECD: Insurance and pensions",
+            "CAS: Publications and research"
+          ],
+          "source_domain": [
+            "oecd.org",
+            "casact.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:27.877577+00:00",
+          "status": "source_supported_manual"
+        }
+      }
+    },
+    {
+      "id": "market-risk-interest",
+      "title": "市场风险：利率、利差与通胀",
+      "track": "Market Risk",
+      "difficulty": "中级",
+      "summary": "理解利率、汇率、权益、利差、通胀、商品和波动率如何影响保险资产负债。",
+      "concepts": [
+        "Interest Rate",
+        "FX",
+        "Equity",
+        "Spread",
+        "Inflation",
+        "Volatility"
+      ],
+      "case": {
+        "question": "信用利差扩大对保险公司有什么影响？",
+        "reference_answer": "资产公允价值可能下跌，Own Funds 承压；同时新钱收益率提高，对长期再投资有利。还要看资产会计分类、负债折现、评级迁移、资本要求和流动性压力。"
+      },
+      "topic_id": "market-risk-interest",
+      "translations": {
+        "zh": {
+          "title": "市场风险：利率、利差与通胀",
+          "description": "理解利率、汇率、权益、利差、通胀、商品和波动率如何影响保险资产负债。",
+          "learning_question": "信用利差扩大对保险公司有什么影响？",
+          "generated_answer": "资产公允价值可能下跌，Own Funds 承压；同时新钱收益率提高，对长期再投资有利。还要看资产会计分类、负债折现、评级迁移、资本要求和流动性压力。"
+        },
+        "en": {
+          "title": "Market Risk: Rates, Spreads and Inflation",
+          "description": "Study interest-rate, FX, equity, spread, inflation and volatility risk for insurers.",
+          "learning_question": "What is the impact of wider credit spreads on an insurance company?",
+          "generated_answer": "Wider spreads can reduce the fair value of fixed-income assets and pressure Own Funds, especially for assets measured at market value. At the same time, new-money yields become more attractive for future reinvestment. The net impact depends on asset classification, liability discounting, duration mismatch, downgrade risk, liquidity needs and solvency-capital requirements. Explain the movement through asset valuation, BEL/discount-rate effects, SCR spread risk and liquidity stress, then distinguish short-term accounting volatility from long-term reinvestment benefit."
+        },
+        "fr": {
+          "title": "Risque de marché : taux, spreads et inflation",
+          "description": "Étudier les risques de taux, change, actions, spread, inflation et volatilité pour les assureurs.",
+          "learning_question": "Quel est l’impact d’un élargissement des spreads de crédit sur un assureur ?",
+          "generated_answer": "Des spreads plus larges peuvent réduire la juste valeur des actifs obligataires et peser sur les fonds propres, surtout si les actifs sont valorisés au marché. En même temps, les nouveaux investissements offrent des rendements plus élevés. L’impact net dépend de la classification comptable des actifs, de l’actualisation des passifs, du mismatch de duration, du risque de dégradation, des besoins de liquidité et des exigences de capital. Expliquez le mouvement via valorisation des actifs, effets BEL/taux d’actualisation, SCR spread et stress de liquidité, puis distinguez volatilité comptable court terme et bénéfice de réinvestissement long terme."
+        }
+      },
+      "grounding": {
+        "zh": {
+          "source_links": [
+            "https://www.eiopa.europa.eu/browse/regulation-and-policy/solvency-ii_en"
+          ],
+          "source_title": [
+            "EIOPA: Solvency II regulatory framework"
+          ],
+          "source_domain": [
+            "eiopa.europa.eu"
+          ],
+          "retrieved_at": "2026-06-30T23:24:10.092789+00:00",
+          "status": "source_supported_manual"
+        },
+        "en": {
+          "source_links": [
+            "https://www.eiopa.europa.eu/browse/regulation-and-policy/solvency-ii_en"
+          ],
+          "source_title": [
+            "EIOPA: Solvency II regulatory framework"
+          ],
+          "source_domain": [
+            "eiopa.europa.eu"
+          ],
+          "retrieved_at": "2026-06-30T23:24:18.772451+00:00",
+          "status": "source_supported_manual"
+        },
+        "fr": {
+          "source_links": [
+            "https://www.eiopa.europa.eu/browse/regulation-and-policy/solvency-ii_en"
+          ],
+          "source_title": [
+            "EIOPA: Solvency II regulatory framework"
+          ],
+          "source_domain": [
+            "eiopa.europa.eu"
+          ],
+          "retrieved_at": "2026-06-30T23:24:27.877676+00:00",
+          "status": "source_supported_manual"
+        }
+      }
+    },
+    {
+      "id": "operational-model-risk",
+      "title": "运营风险与模型风险",
+      "track": "Operational Risk",
+      "difficulty": "中级",
+      "summary": "识别 Cyber、Fraud、第三方、流程、模型、声誉和 Conduct Risk。",
+      "concepts": [
+        "Cyber",
+        "Fraud",
+        "Third Party",
+        "Process",
+        "Model Risk",
+        "Conduct Risk"
+      ],
+      "case": {
+        "question": "一个定价模型上线后发现变量映射错误，应该如何处理？",
+        "reference_answer": "立即评估受影响保单、价格偏差、客户公平性、财务影响和监管披露要求。暂停或回滚模型，修正数据管道，补充验证清单，并建立上线前独立复核和监控告警。"
+      },
+      "topic_id": "operational-model-risk",
+      "translations": {
+        "zh": {
+          "title": "运营风险与模型风险",
+          "description": "识别 Cyber、Fraud、第三方、流程、模型、声誉和 Conduct Risk。",
+          "learning_question": "一个定价模型上线后发现变量映射错误，应该如何处理？",
+          "generated_answer": "立即评估受影响保单、价格偏差、客户公平性、财务影响和监管披露要求。暂停或回滚模型，修正数据管道，补充验证清单，并建立上线前独立复核和监控告警。"
+        },
+        "en": {
+          "title": "Operational Risk and Model Risk",
+          "description": "Understand cyber, fraud, third-party, process, model and conduct risks in insurance operations.",
+          "learning_question": "A pricing model goes live and then a variable mapping error is discovered. What should happen?",
+          "generated_answer": "Immediately assess affected policies, price bias, customer fairness, financial impact and regulatory disclosure needs. Pause, roll back or constrain the model depending on materiality. Correct the data pipeline, rerun validation, quantify premium impact and document remediation. Add pre-launch independent review, data lineage checks, monitoring alerts and change-approval controls. The actuarial response should protect customers and financial integrity while creating evidence that the model-risk framework worked and improved."
+        },
+        "fr": {
+          "title": "Risque opérationnel et risque de modèle",
+          "description": "Comprendre les risques cyber, fraude, tiers, processus, modèle et conduite dans les opérations d’assurance.",
+          "learning_question": "Un modèle tarifaire est mis en production puis une erreur de mapping de variable est découverte. Que faire ?",
+          "generated_answer": "Évaluez immédiatement contrats affectés, biais tarifaire, équité client, impact financier et besoins de notification réglementaire. Suspendez, revenez en arrière ou contraignez le modèle selon la matérialité. Corrigez le pipeline de données, relancez la validation, quantifiez l’impact prime et documentez la remédiation. Ajoutez revue indépendante avant lancement, contrôles de données lineage, alertes de monitoring et approbation des changements. La réponse actuarielle doit protéger clients et intégrité financière tout en démontrant que le cadre de risque de modèle fonctionne et s’améliore."
+        }
+      },
+      "grounding": {
+        "zh": {
+          "source_links": [
+            "https://actuaries.org.uk/learn-and-develop/research-and-knowledge/",
+            "https://www.casact.org/publications-research"
+          ],
+          "source_title": [
+            "IFoA: Research and knowledge",
+            "CAS: Publications and research"
+          ],
+          "source_domain": [
+            "actuaries.org.uk",
+            "casact.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:10.092892+00:00",
+          "status": "source_supported_manual"
+        },
+        "en": {
+          "source_links": [
+            "https://actuaries.org.uk/learn-and-develop/research-and-knowledge/",
+            "https://www.casact.org/publications-research"
+          ],
+          "source_title": [
+            "IFoA: Research and knowledge",
+            "CAS: Publications and research"
+          ],
+          "source_domain": [
+            "actuaries.org.uk",
+            "casact.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:18.772553+00:00",
+          "status": "source_supported_manual"
+        },
+        "fr": {
+          "source_links": [
+            "https://actuaries.org.uk/learn-and-develop/research-and-knowledge/",
+            "https://www.casact.org/publications-research"
+          ],
+          "source_title": [
+            "IFoA: Research and knowledge",
+            "CAS: Publications and research"
+          ],
+          "source_domain": [
+            "actuaries.org.uk",
+            "casact.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:27.877778+00:00",
+          "status": "source_supported_manual"
+        }
+      }
+    },
+    {
+      "id": "strategy-portfolio",
+      "title": "保险战略与组合优化",
+      "track": "Insurance Strategy",
+      "difficulty": "进阶",
+      "summary": "从增长、市场进入、M&A、组合优化、数字化和渠道角度理解保险集团战略。",
+      "concepts": [
+        "Growth Strategy",
+        "M&A",
+        "Portfolio Optimization",
+        "Digital Transformation",
+        "Distribution",
+        "Partnership"
+      ],
+      "case": {
+        "question": "一家集团想退出低利润财险市场，精算人如何支持决策？",
+        "reference_answer": "需要提供承保利润、资本占用、波动性、协同价值、退出成本、再保影响和客户关系影响。不能只看当期利润，还要看风险调整收益、战略位置和未来改善空间。"
+      },
+      "topic_id": "strategy-portfolio",
+      "translations": {
+        "zh": {
+          "title": "保险战略与组合优化",
+          "description": "从增长、市场进入、M&A、组合优化、数字化和渠道角度理解保险集团战略。",
+          "learning_question": "一家集团想退出低利润财险市场，精算人如何支持决策？",
+          "generated_answer": "需要提供承保利润、资本占用、波动性、协同价值、退出成本、再保影响和客户关系影响。不能只看当期利润，还要看风险调整收益、战略位置和未来改善空间。"
+        },
+        "en": {
+          "title": "Insurance Strategy and Portfolio Optimization",
+          "description": "Link growth strategy, M&A, portfolio optimization, digital transformation, distribution and partnerships with actuarial economics.",
+          "learning_question": "An insurance group wants to exit a low-profit P&C market. How can actuaries support the decision?",
+          "generated_answer": "Do not judge the decision by current profit alone. Provide underwriting profitability, capital consumption, earnings volatility, diversification benefit, strategic value, exit cost, reinsurance implications and customer/distribution effects. Test whether the market is structurally unattractive or temporarily underpriced, and whether rate action, portfolio pruning or reinsurance could improve returns. Build a risk-adjusted view of value: expected profit, required capital, volatility, tail risk and strategic optionality. The recommendation should compare exit, turnaround and selective-growth scenarios."
+        },
+        "fr": {
+          "title": "Stratégie assurance et optimisation de portefeuille",
+          "description": "Relier croissance, M&A, optimisation de portefeuille, transformation digitale, distribution et partenariats à l’économie actuarielle.",
+          "learning_question": "Un groupe d’assurance veut sortir d’un marché dommages peu profitable. Comment les actuaires peuvent-ils soutenir la décision ?",
+          "generated_answer": "Ne jugez pas la décision seulement par le profit courant. Fournissez rentabilité technique, consommation de capital, volatilité du résultat, diversification, valeur stratégique, coût de sortie, effets réassurance et impacts clients/distribution. Testez si le marché est structurellement peu attractif ou temporairement sous-tarifé, et si hausses tarifaires, nettoyage de portefeuille ou réassurance peuvent améliorer les rendements. Construisez une vision ajustée du risque : profit attendu, capital requis, volatilité, risque extrême et option stratégique. La recommandation doit comparer sortie, redressement et croissance sélective."
+        }
+      },
+      "grounding": {
+        "zh": {
+          "source_links": [
+            "https://www.swissre.com/institute/",
+            "https://www.soa.org/resources/"
+          ],
+          "source_title": [
+            "Swiss Re Institute",
+            "SOA: Actuarial resources"
+          ],
+          "source_domain": [
+            "swissre.com",
+            "soa.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:10.092995+00:00",
+          "status": "source_supported_manual"
+        },
+        "en": {
+          "source_links": [
+            "https://www.swissre.com/institute/",
+            "https://www.soa.org/resources/"
+          ],
+          "source_title": [
+            "Swiss Re Institute",
+            "SOA: Actuarial resources"
+          ],
+          "source_domain": [
+            "swissre.com",
+            "soa.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:18.772655+00:00",
+          "status": "source_supported_manual"
+        },
+        "fr": {
+          "source_links": [
+            "https://www.swissre.com/institute/",
+            "https://www.soa.org/resources/"
+          ],
+          "source_title": [
+            "Swiss Re Institute",
+            "SOA: Actuarial resources"
+          ],
+          "source_domain": [
+            "swissre.com",
+            "soa.org"
+          ],
+          "retrieved_at": "2026-06-30T23:24:27.877881+00:00",
+          "status": "source_supported_manual"
+        }
+      }
+    },
+    {
+      "id": "business-board-writing",
+      "title": "精算人的商业表达与董事会沟通",
+      "track": "Business Skills",
+      "difficulty": "进阶",
+      "summary": "训练演讲、商业写作、项目管理、利益相关方管理、谈判和战略思维。",
+      "concepts": [
+        "Presentation",
+        "Writing",
+        "Project Management",
+        "Stakeholder Management",
+        "Negotiation",
+        "Leadership"
+      ],
+      "case": {
+        "question": "同一个偿付能力下降问题，给精算同事和董事会汇报有什么不同？",
+        "reference_answer": "给精算同事可以展开模型、假设和敏感性；给董事会应先讲影响、原因、风险边界和可选行动。董事会材料要减少技术细节，突出资本、利润、战略和决策建议。"
+      },
+      "topic_id": "business-board-writing",
+      "translations": {
+        "zh": {
+          "title": "精算人的商业表达与董事会沟通",
+          "description": "训练演讲、商业写作、项目管理、利益相关方管理、谈判和战略思维。",
+          "learning_question": "同一个偿付能力下降问题，给精算同事和董事会汇报有什么不同？",
+          "generated_answer": "给精算同事可以展开模型、假设和敏感性；给董事会应先讲影响、原因、风险边界和可选行动。董事会材料要减少技术细节，突出资本、利润、战略和决策建议。"
+        },
+        "en": {
+          "title": "Actuarial Business Communication and Board Reporting",
+          "description": "Develop presentation, writing, stakeholder management, negotiation, leadership and strategic communication skills for actuaries.",
+          "learning_question": "How should the same solvency decline be reported differently to actuarial colleagues and to the board?",
+          "generated_answer": "For actuarial colleagues, expand the model mechanics, assumptions, sensitivities, data limitations and validation evidence. For the board, start with business impact: why coverage fell, how material it is, which risks are inside or outside appetite, and what decisions are available. Reduce technical detail and focus on capital, earnings, liquidity, strategy and management actions. A good board message should include a concise bridge, key uncertainties, recommended actions and triggers for escalation."
+        },
+        "fr": {
+          "title": "Communication actuarielle et information au conseil",
+          "description": "Développer présentation, rédaction, gestion des parties prenantes, négociation, leadership et communication stratégique.",
+          "learning_question": "Comment présenter différemment une même baisse de solvabilité à des collègues actuaires et au conseil d’administration ?",
+          "generated_answer": "Pour des collègues actuaires, détaillez mécanique du modèle, hypothèses, sensibilités, limites de données et preuves de validation. Pour le conseil, commencez par l’impact métier : pourquoi le ratio baisse, quelle est la matérialité, quels risques sont dans ou hors appétit, et quelles décisions sont possibles. Réduisez le détail technique et concentrez-vous sur capital, résultat, liquidité, stratégie et actions de gestion. Un bon message conseil inclut un pont synthétique, les incertitudes clés, les actions recommandées et les seuils d’escalade."
+        }
+      },
+      "grounding": {
+        "zh": {
+          "source_links": [
+            "https://actuaries.org.uk/learn-and-develop/research-and-knowledge/"
+          ],
+          "source_title": [
+            "IFoA: Research and knowledge"
+          ],
+          "source_domain": [
+            "actuaries.org.uk"
+          ],
+          "retrieved_at": "2026-06-30T23:24:10.093094+00:00",
+          "status": "source_supported_manual"
+        },
+        "en": {
+          "source_links": [
+            "https://actuaries.org.uk/learn-and-develop/research-and-knowledge/"
+          ],
+          "source_title": [
+            "IFoA: Research and knowledge"
+          ],
+          "source_domain": [
+            "actuaries.org.uk"
+          ],
+          "retrieved_at": "2026-06-30T23:24:18.772754+00:00",
+          "status": "source_supported_manual"
+        },
+        "fr": {
+          "source_links": [
+            "https://actuaries.org.uk/learn-and-develop/research-and-knowledge/"
+          ],
+          "source_title": [
+            "IFoA: Research and knowledge"
+          ],
+          "source_domain": [
+            "actuaries.org.uk"
+          ],
+          "retrieved_at": "2026-06-30T23:24:27.877981+00:00",
+          "status": "source_supported_manual"
+        }
+      }
+    }
+  ]
+}

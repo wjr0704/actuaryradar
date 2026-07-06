@@ -1,0 +1,22 @@
+{
+  "provider": "tavily",
+  "limit": 5,
+  "providers": {
+    "tavily": {
+      "api_key_env": "TAVILY_API_KEY",
+      "endpoint": "https://api.tavily.com/search"
+    },
+    "bing": {
+      "api_key_env": "BING_WEB_SEARCH_API_KEY",
+      "endpoint": "https://api.bing.microsoft.com/v7.0/search"
+    },
+    "serpapi": {
+      "api_key_env": "SERPAPI_API_KEY",
+      "endpoint": "https://serpapi.com/search.json"
+    },
+    "perplexity": {
+      "api_key_env": "PERPLEXITY_API_KEY",
+      "endpoint": "https://api.perplexity.ai/chat/completions"
+    }
+  }
+}

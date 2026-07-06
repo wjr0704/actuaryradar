@@ -1,0 +1,64 @@
+{
+  "fr_to_en_zh": {
+    "prévoyance": {
+      "en": "protection against death, disability and incapacity",
+      "zh": "身故、伤残、失能保障"
+    },
+    "assurance affinitaire": {
+      "en": "affinity / embedded insurance",
+      "zh": "场景保险、嵌入式保险"
+    },
+    "assurance dommages": {
+      "en": "non-life / property & casualty insurance",
+      "zh": "财产险、非寿险"
+    },
+    "assurance vie": {
+      "en": "life insurance",
+      "zh": "寿险"
+    },
+    "épargne retraite": {
+      "en": "retirement savings",
+      "zh": "养老储蓄"
+    },
+    "sinistre": {
+      "en": "claim",
+      "zh": "理赔案件"
+    },
+    "courtage": {
+      "en": "brokerage",
+      "zh": "经纪业务"
+    },
+    "mutuelle": {
+      "en": "mutual insurer or health mutual",
+      "zh": "互助保险机构或补充健康险机构"
+    },
+    "complémentaire santé": {
+      "en": "supplementary health insurance",
+      "zh": "补充健康险"
+    },
+    "réassurance": {
+      "en": "reinsurance",
+      "zh": "再保险"
+    },
+    "provisionnement": {
+      "en": "reserving",
+      "zh": "准备金计提"
+    },
+    "tarification": {
+      "en": "pricing",
+      "zh": "定价"
+    }
+  },
+  "en_to_zh": {
+    "underwriting": "核保/承保",
+    "claims": "理赔",
+    "reserving": "准备金",
+    "loss ratio": "赔付率",
+    "combined ratio": "综合成本率",
+    "solvency ratio": "偿付能力充足率",
+    "embedded insurance": "嵌入式保险/场景保险",
+    "affinity insurance": "场景保险/团体渠道保险/嵌入式保险",
+    "P&C": "财产险/非寿险",
+    "life & health": "寿险与健康险"
+  }
+}

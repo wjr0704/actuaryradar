@@ -1,0 +1,76 @@
+{
+  "archives": [
+    {
+      "date": "2026-07-05",
+      "title": "2026-07-05",
+      "mode": "rss",
+      "theme": "周日：研究报告、战略复盘与下周计划",
+      "json": "./data/archive/2026-07-05.json",
+      "html": "./reports/2026-07-05.html",
+      "markdown": "./reports/2026-07-05.md"
+    },
+    {
+      "date": "2026-07-04",
+      "title": "2026-07-04",
+      "mode": "rss",
+      "theme": "周六：保险科技与跨行业联动",
+      "json": "./data/archive/2026-07-04.json",
+      "html": "./reports/2026-07-04.html",
+      "markdown": "./reports/2026-07-04.md"
+    },
+    {
+      "date": "2026-07-03",
+      "title": "2026-07-03",
+      "mode": "rss",
+      "theme": "周五：IFRS 17、财报与资本管理",
+      "json": "./data/archive/2026-07-03.json",
+      "html": "./reports/2026-07-03.html",
+      "markdown": "./reports/2026-07-03.md"
+    },
+    {
+      "date": "2026-07-02",
+      "title": "2026-07-02",
+      "mode": "rss",
+      "theme": "周四：再保险、经纪与风险转移",
+      "json": "./data/archive/2026-07-02.json",
+      "html": "./reports/2026-07-02.html",
+      "markdown": "./reports/2026-07-02.md"
+    },
+    {
+      "date": "2026-07-01",
+      "title": "2026-07-01",
+      "mode": "rss",
+      "theme": "周三：财险、车险与巨灾风险",
+      "json": "./data/archive/2026-07-01.json",
+      "html": "./reports/2026-07-01.html",
+      "markdown": "./reports/2026-07-01.md"
+    },
+    {
+      "date": "2026-06-30",
+      "title": "2026-06-30",
+      "mode": "rss",
+      "theme": "周二：健康险与医疗趋势",
+      "json": "./data/archive/2026-06-30.json",
+      "html": "./reports/2026-06-30.html",
+      "markdown": "./reports/2026-06-30.md"
+    },
+    {
+      "date": "2026-06-29",
+      "title": "2026-06-29",
+      "mode": "rss",
+      "theme": "周一：寿险与年金",
+      "json": "./data/archive/2026-06-29.json",
+      "html": "./reports/2026-06-29.html",
+      "markdown": "./reports/2026-06-29.md"
+    },
+    {
+      "date": "2026-06-28",
+      "title": "2026-06-28",
+      "mode": "rss",
+      "theme": "周日：研究报告、战略复盘与下周计划",
+      "json": "./data/archive/2026-06-28.json",
+      "html": "./reports/2026-06-28.html",
+      "markdown": "./reports/2026-06-28.md"
+    }
+  ]
+}

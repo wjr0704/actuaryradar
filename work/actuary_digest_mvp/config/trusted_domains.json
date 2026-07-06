@@ -1,0 +1,16 @@
+{
+  "trusted_domains": [
+    "soa.org",
+    "casact.org",
+    "actuaries.org.uk",
+    "institutdesactuaires.com",
+    "eiopa.europa.eu",
+    "acpr.banque-france.fr",
+    "ifrs.org",
+    "swissre.com",
+    "munichre.com",
+    "iaisweb.org",
+    "oecd.org",
+    "ocw.mit.edu"
+  ]
+}

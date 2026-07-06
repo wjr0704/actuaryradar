@@ -1,0 +1,60 @@
+{
+  "primary_categories": {
+    "regulation": {
+      "en": "Regulation",
+      "zh": "监管",
+      "fr": "Réglementation"
+    },
+    "market": {
+      "en": "Market",
+      "zh": "市场",
+      "fr": "Marché"
+    },
+    "reinsurance": {
+      "en": "Reinsurance",
+      "zh": "再保险",
+      "fr": "Réassurance"
+    },
+    "technology_ai": {
+      "en": "Technology & AI",
+      "zh": "科技与 AI",
+      "fr": "Technologie & IA"
+    },
+    "company_results_strategy": {
+      "en": "Companies Results & Strategies",
+      "zh": "公司财报与战略",
+      "fr": "Résultats et stratégies des sociétés"
+    },
+    "research": {
+      "en": "Research",
+      "zh": "研究",
+      "fr": "Recherche"
+    },
+    "career_learning": {
+      "en": "Career & Learning",
+      "zh": "职业与学习",
+      "fr": "Carrière & formation"
+    }
+  },
+  "secondary_categories": {
+    "life_insurance": { "en": "Life Insurance", "zh": "寿险", "fr": "Assurance vie" },
+    "non_life_insurance": { "en": "Non-Life Insurance", "zh": "财险", "fr": "Assurance non-vie" },
+    "health_insurance": { "en": "Health Insurance", "zh": "健康险", "fr": "Santé / Prévoyance" },
+    "reinsurance": { "en": "Reinsurance", "zh": "再保险", "fr": "Réassurance" },
+    "pricing": { "en": "Pricing", "zh": "定价", "fr": "Tarification" },
+    "reserving": { "en": "Reserving", "zh": "准备金", "fr": "Provisionnement" },
+    "risk_management": { "en": "Risk Management", "zh": "风险管理", "fr": "Gestion des risques" },
+    "solvency_ii": { "en": "Solvency II", "zh": "Solvency II", "fr": "Solvabilité II" },
+    "ifrs17": { "en": "IFRS 17", "zh": "IFRS 17", "fr": "IFRS 17" },
+    "regulation": { "en": "Regulation", "zh": "监管", "fr": "Réglementation" },
+    "climate_risk": { "en": "Climate Risk", "zh": "气候风险", "fr": "Risque climatique" },
+    "catastrophe_risk": { "en": "Catastrophe Risk", "zh": "巨灾风险", "fr": "Risque catastrophe" },
+    "insurtech": { "en": "InsurTech", "zh": "保险科技", "fr": "InsurTech" },
+    "claims": { "en": "Claims", "zh": "理赔", "fr": "Sinistres" },
+    "distribution": { "en": "Distribution", "zh": "分销", "fr": "Distribution" },
+    "pensions": { "en": "Pensions", "zh": "养老金", "fr": "Retraite" },
+    "investment": { "en": "Investment", "zh": "投资", "fr": "Investissement" },
+    "data_ai": { "en": "Data & AI", "zh": "数据与 AI", "fr": "Données & IA" },
+    "cyber_risk": { "en": "Cyber Risk", "zh": "网络风险", "fr": "Risque cyber" }
+  }
+}

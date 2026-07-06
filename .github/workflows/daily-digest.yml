@@ -1,0 +1,62 @@
+name: Daily ActuaryRadar Refresh
+
+on:
+  schedule:
+    # GitHub cron is UTC. Paris 08:00 is 06:00 UTC in summer and 07:00 UTC in winter.
+    # The workflow guards on Europe/Paris local hour so only the correct run updates content.
+    - cron: "0 6 * * *"
+    - cron: "0 7 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-actuaryradar-refresh
+  cancel-in-progress: false
+
+jobs:
+  build-daily-digest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Resolve Europe/Paris refresh window
+        id: paris_time
+        run: |
+          echo "date=$(TZ=Europe/Paris date +%F)" >> "$GITHUB_OUTPUT"
+          echo "hour=$(TZ=Europe/Paris date +%H)" >> "$GITHUB_OUTPUT"
+          echo "timestamp=$(TZ=Europe/Paris date --iso-8601=seconds)" >> "$GITHUB_OUTPUT"
+
+      - name: Skip non-08:00 Paris scheduled run
+        if: github.event_name == 'schedule' && steps.paris_time.outputs.hour != '08'
+        run: |
+          echo "Skipping because Europe/Paris local hour is ${{ steps.paris_time.outputs.hour }}, not 08."
+
+      - name: Generate today's digest
+        if: github.event_name != 'schedule' || steps.paris_time.outputs.hour == '08'
+        run: |
+          python work/actuary_digest_mvp/src/digest.py --date "${{ steps.paris_time.outputs.date }}"
+
+      - name: Build static site
+        if: github.event_name != 'schedule' || steps.paris_time.outputs.hour == '08'
+        run: |
+          python work/actuary_digest_mvp/src/build_site.py --base-url https://insuranceactuaryhub.com
+
+      - name: Verify refreshed site data
+        if: github.event_name != 'schedule' || steps.paris_time.outputs.hour == '08'
+        run: |
+          python -c "import json, pathlib, sys; expected='${{ steps.paris_time.outputs.date }}'; path=pathlib.Path('outputs/actuary_radar_site/data/digest.json'); data=json.loads(path.read_text()); actual=data.get('report_date'); print(f'Expected={expected} Actual={actual} Items={len(data.get(\"items\", []))}'); sys.exit(0 if actual == expected and data.get('items') else 1)"
+
+      - name: Commit updated reports
+        if: github.event_name != 'schedule' || steps.paris_time.outputs.hour == '08'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update ActuaryRadar daily intelligence for ${{ steps.paris_time.outputs.date }}"
+          file_pattern: "work/actuary_digest_mvp/ui/data"
