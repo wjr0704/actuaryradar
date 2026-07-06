@@ -1,0 +1,339 @@
+{
+  "schema_version": "0.1",
+  "curation_policy": {
+    "purpose": "ActuaryRadar links users to useful open-source actuarial projects without copying repository documentation.",
+    "rules": [
+      "Do not copy README files or documentation content.",
+      "Use original ActuaryRadar summaries only.",
+      "Respect each repository license.",
+      "Prefer repositories with clear documentation, useful examples and visible maintenance activity."
+    ],
+    "last_reviewed_at": "2026-07-06"
+  },
+  "repositories": [
+    {
+      "id": "chainladder-python",
+      "name": "chainladder-python",
+      "owner": "casact",
+      "github_url": "https://github.com/casact/chainladder-python",
+      "official_website": "https://chainladder-python.readthedocs.io/",
+      "license": "MPL-2.0",
+      "programming_language": "Python",
+      "difficulty": "intermediate",
+      "business_lines": ["property_casualty", "reinsurance"],
+      "topics": ["reserving", "claims", "pricing", "risk_management"],
+      "tracks": ["Reserving", "Pricing", "Insurance Fundamentals"],
+      "use_cases": ["loss reserving", "triangle analysis", "IBNR estimation"],
+      "recommended_for": ["P&C actuaries", "reserving analysts", "actuarial students"],
+      "summary": {
+        "en": "A practical Python project for learning P&C reserving workflows, triangle data and IBNR estimation.",
+        "zh": "适合学习财险准备金、三角形数据和 IBNR 估计流程的 Python 项目。",
+        "fr": "Un projet Python utile pour apprendre le provisionnement non-vie, les triangles de sinistres et l’estimation IBNR."
+      },
+      "curation": {
+        "status": "recommended",
+        "maintenance_status": "active",
+        "documentation_quality": "high",
+        "quality_score": 0.92,
+        "last_reviewed_at": "2026-07-06"
+      }
+    },
+    {
+      "id": "lifelib",
+      "name": "lifelib",
+      "owner": "lifelib-dev",
+      "github_url": "https://github.com/lifelib-dev/lifelib",
+      "official_website": "https://lifelib.io/",
+      "license": "BSD-3-Clause",
+      "programming_language": "Python",
+      "difficulty": "intermediate",
+      "business_lines": ["life_insurance", "health_insurance"],
+      "topics": ["life_insurance", "cash_flow_modelling", "ifrs17", "risk_management"],
+      "tracks": ["Life Insurance", "Insurance Fundamentals", "IFRS 17", "ALM", "Insurance Finance"],
+      "use_cases": ["life cash-flow models", "model examples", "actuarial learning"],
+      "recommended_for": ["life actuaries", "model developers", "students learning projection models"],
+      "summary": {
+        "en": "A Python-based collection of actuarial models and examples for life insurance modelling and learning.",
+        "zh": "面向寿险建模和学习的 Python 精算模型与案例集合。",
+        "fr": "Une collection de modèles actuariels en Python pour apprendre et pratiquer la modélisation vie."
+      },
+      "curation": {
+        "status": "recommended",
+        "maintenance_status": "active",
+        "documentation_quality": "high",
+        "quality_score": 0.9,
+        "last_reviewed_at": "2026-07-06"
+      }
+    },
+    {
+      "id": "cashflower",
+      "name": "cashflower",
+      "owner": "acturtle",
+      "github_url": "https://github.com/acturtle/cashflower",
+      "official_website": "https://www.cashflower.acturtle.com/",
+      "license": "MIT",
+      "programming_language": "Python",
+      "difficulty": "intermediate",
+      "business_lines": ["life_insurance", "property_casualty"],
+      "topics": ["cash_flow_modelling", "projection", "ifrs17", "alm"],
+      "tracks": ["Insurance Fundamentals", "IFRS 17", "ALM", "Insurance Finance"],
+      "use_cases": ["actuarial cash-flow modelling", "projection models", "scenario testing"],
+      "recommended_for": ["actuarial model builders", "finance actuaries", "students learning projections"],
+      "summary": {
+        "en": "A Python framework for building transparent actuarial cash-flow projection models.",
+        "zh": "用于搭建透明精算现金流投影模型的 Python 框架。",
+        "fr": "Un framework Python pour construire des modèles actuariels de projection de flux de trésorerie."
+      },
+      "curation": {
+        "status": "recommended",
+        "maintenance_status": "active",
+        "documentation_quality": "medium",
+        "quality_score": 0.84,
+        "last_reviewed_at": "2026-07-06"
+      }
+    },
+    {
+      "id": "aggregate",
+      "name": "aggregate",
+      "owner": "mynl",
+      "github_url": "https://github.com/mynl/aggregate",
+      "official_website": "https://aggregate.readthedocs.io/",
+      "license": "BSD-3-Clause",
+      "programming_language": "Python",
+      "difficulty": "advanced",
+      "business_lines": ["property_casualty", "reinsurance", "specialty_insurance"],
+      "topics": ["risk_management", "capital_management", "catastrophe_risk", "reinsurance"],
+      "tracks": ["ERM", "Capital Management", "Reinsurance", "Catastrophe Modelling"],
+      "use_cases": ["aggregate loss modelling", "compound distributions", "risk capital"],
+      "recommended_for": ["capital modellers", "reinsurance analysts", "risk actuaries"],
+      "summary": {
+        "en": "A Python toolkit for aggregate probability distributions and portfolio-level insurance risk analysis.",
+        "zh": "用于聚合损失分布和组合层面保险风险分析的 Python 工具。",
+        "fr": "Une boîte à outils Python pour les distributions agrégées et l’analyse du risque assurantiel au niveau portefeuille."
+      },
+      "curation": {
+        "status": "recommended",
+        "maintenance_status": "active",
+        "documentation_quality": "high",
+        "quality_score": 0.88,
+        "last_reviewed_at": "2026-07-06"
+      }
+    },
+    {
+      "id": "surpyval",
+      "name": "SurPyval",
+      "owner": "derrynknife",
+      "github_url": "https://github.com/derrynknife/SurPyval",
+      "official_website": "https://surpyval.readthedocs.io/",
+      "license": "MIT",
+      "programming_language": "Python",
+      "difficulty": "intermediate",
+      "business_lines": ["life_insurance", "health_insurance"],
+      "topics": ["survival_analysis", "statistics", "risk_management"],
+      "tracks": ["Fundamentals", "Data Analytics", "Insurance Fundamentals"],
+      "use_cases": ["survival analysis", "censored data", "duration modelling"],
+      "recommended_for": ["students", "life actuaries", "analytics teams"],
+      "summary": {
+        "en": "A Python package for survival analysis, useful for learning duration, censoring and lifetime modelling concepts.",
+        "zh": "用于生存分析的 Python 包，适合理解持续期、删失数据和寿命建模。",
+        "fr": "Un package Python d’analyse de survie pour travailler les durées, la censure et les modèles de durée de vie."
+      },
+      "curation": {
+        "status": "recommended",
+        "maintenance_status": "active",
+        "documentation_quality": "medium",
+        "quality_score": 0.82,
+        "last_reviewed_at": "2026-07-06"
+      }
+    },
+    {
+      "id": "insurancerating",
+      "name": "insurancerating",
+      "owner": "MHaringa",
+      "github_url": "https://github.com/MHaringa/insurancerating",
+      "official_website": "",
+      "license": "GPL-3.0",
+      "programming_language": "R",
+      "difficulty": "intermediate",
+      "business_lines": ["property_casualty", "commercial_insurance"],
+      "topics": ["pricing", "ratemaking", "data_analytics"],
+      "tracks": ["Pricing", "Data Analytics"],
+      "use_cases": ["tariff modelling", "rating analysis", "P&C pricing practice"],
+      "recommended_for": ["pricing actuaries", "R users", "P&C students"],
+      "summary": {
+        "en": "An R package for practicing insurance pricing and tariff modelling workflows.",
+        "zh": "用于练习保险定价和费率模型流程的 R 包。",
+        "fr": "Un package R pour pratiquer la tarification assurance et la construction de tarifs."
+      },
+      "curation": {
+        "status": "candidate",
+        "maintenance_status": "active",
+        "documentation_quality": "medium",
+        "quality_score": 0.78,
+        "last_reviewed_at": "2026-07-06"
+      }
+    },
+    {
+      "id": "ifrs17-calculation-engine",
+      "name": "IFRS17CalculationEngine",
+      "owner": "Systemorph",
+      "github_url": "https://github.com/Systemorph/IFRS17CalculationEngine",
+      "official_website": "",
+      "license": "Apache-2.0",
+      "programming_language": "Jupyter Notebook",
+      "difficulty": "advanced",
+      "business_lines": ["life_insurance", "property_casualty"],
+      "topics": ["ifrs17", "insurance_accounting", "financial_reporting"],
+      "tracks": ["IFRS 17", "Insurance Accounting", "Insurance Finance"],
+      "use_cases": ["IFRS 17 calculations", "accounting data model", "financial reporting examples"],
+      "recommended_for": ["finance actuaries", "IFRS 17 analysts", "reporting teams"],
+      "summary": {
+        "en": "A technical example project for exploring IFRS 17 calculation logic and reporting data structures.",
+        "zh": "用于理解 IFRS 17 计算逻辑和报告数据结构的技术案例项目。",
+        "fr": "Un projet technique pour explorer les calculs IFRS 17 et les structures de données de reporting."
+      },
+      "curation": {
+        "status": "candidate",
+        "maintenance_status": "moderate",
+        "documentation_quality": "medium",
+        "quality_score": 0.76,
+        "last_reviewed_at": "2026-07-06"
+      }
+    },
+    {
+      "id": "actuarial-ai-case-studies",
+      "name": "Actuarial-AI-Case-Studies",
+      "owner": "IAA-AITF",
+      "github_url": "https://github.com/IAA-AITF/Actuarial-AI-Case-Studies",
+      "official_website": "",
+      "license": "CC-BY-4.0",
+      "programming_language": "HTML",
+      "difficulty": "beginner",
+      "business_lines": ["life_insurance", "property_casualty", "health_insurance"],
+      "topics": ["data_ai", "ai_insurance", "model_governance"],
+      "tracks": ["AI for Insurance", "Data Analytics", "Business Skills"],
+      "use_cases": ["AI case studies", "model governance discussion", "professional learning"],
+      "recommended_for": ["actuaries learning AI", "risk managers", "students"],
+      "summary": {
+        "en": "A curated AI case-study collection for actuaries, useful for understanding practical AI adoption and governance questions.",
+        "zh": "面向精算人的 AI 案例集合，适合理解 AI 落地和治理问题。",
+        "fr": "Une collection de cas d’usage IA pour actuaires, utile pour comprendre l’adoption pratique et la gouvernance de l’IA."
+      },
+      "curation": {
+        "status": "recommended",
+        "maintenance_status": "active",
+        "documentation_quality": "medium",
+        "quality_score": 0.82,
+        "last_reviewed_at": "2026-07-06"
+      }
+    },
+    {
+      "id": "mortalitylaws",
+      "name": "MortalityLaws",
+      "owner": "mpascariu",
+      "github_url": "https://github.com/mpascariu/MortalityLaws",
+      "official_website": "",
+      "license": "GPL-3.0",
+      "programming_language": "R",
+      "difficulty": "intermediate",
+      "business_lines": ["life_insurance", "pensions"],
+      "topics": ["mortality", "life_tables", "survival_analysis"],
+      "tracks": ["Life Insurance", "Fundamentals", "Insurance Fundamentals"],
+      "use_cases": ["mortality laws", "life table analysis", "demographic modelling"],
+      "recommended_for": ["life actuaries", "pension analysts", "mortality researchers"],
+      "summary": {
+        "en": "An R package for comparing mortality laws and learning life-table modelling techniques.",
+        "zh": "用于比较死亡率法则和学习生命表建模的 R 包。",
+        "fr": "Un package R pour comparer les lois de mortalité et travailler la modélisation des tables de mortalité."
+      },
+      "curation": {
+        "status": "candidate",
+        "maintenance_status": "active",
+        "documentation_quality": "medium",
+        "quality_score": 0.78,
+        "last_reviewed_at": "2026-07-06"
+      }
+    },
+    {
+      "id": "lifecontingencies-jl",
+      "name": "LifeContingencies.jl",
+      "owner": "JuliaActuary",
+      "github_url": "https://github.com/JuliaActuary/LifeContingencies.jl",
+      "official_website": "",
+      "license": "MIT",
+      "programming_language": "Julia",
+      "difficulty": "intermediate",
+      "business_lines": ["life_insurance"],
+      "topics": ["life_contingencies", "mortality", "actuarial_math"],
+      "tracks": ["Life Insurance", "Fundamentals", "Insurance Fundamentals"],
+      "use_cases": ["life contingencies", "actuarial mathematics", "Julia examples"],
+      "recommended_for": ["life actuarial students", "Julia users", "technical actuaries"],
+      "summary": {
+        "en": "A Julia package for life-contingency calculations and actuarial mathematics practice.",
+        "zh": "用于寿险精算数学和生命或有计算练习的 Julia 包。",
+        "fr": "Un package Julia pour les calculs de contingences vie et la pratique des mathématiques actuarielles."
+      },
+      "curation": {
+        "status": "candidate",
+        "maintenance_status": "active",
+        "documentation_quality": "medium",
+        "quality_score": 0.8,
+        "last_reviewed_at": "2026-07-06"
+      }
+    },
+    {
+      "id": "gemact-code",
+      "name": "gemact-code",
+      "owner": "gpitt71",
+      "github_url": "https://github.com/gpitt71/gemact-code",
+      "official_website": "https://gem-analytics.github.io/gemact/",
+      "license": "MIT",
+      "programming_language": "Python",
+      "difficulty": "advanced",
+      "business_lines": ["property_casualty", "reinsurance", "specialty_insurance"],
+      "topics": ["pricing", "reserving", "reinsurance", "aggregate_loss"],
+      "tracks": ["Pricing", "Reserving", "Reinsurance", "ERM", "Capital Management"],
+      "use_cases": ["collective risk models", "loss aggregation", "reinsurance structures"],
+      "recommended_for": ["non-life actuaries", "reinsurance analysts", "capital modellers"],
+      "summary": {
+        "en": "A Python actuarial modelling project for collective risk, loss aggregation and non-life insurance applications.",
+        "zh": "用于集体风险模型、损失聚合和非寿险建模应用的 Python 精算项目。",
+        "fr": "Un projet Python de modélisation actuarielle pour le risque collectif, l’agrégation des pertes et l’assurance non-vie."
+      },
+      "curation": {
+        "status": "candidate",
+        "maintenance_status": "active",
+        "documentation_quality": "medium",
+        "quality_score": 0.8,
+        "last_reviewed_at": "2026-07-06"
+      }
+    },
+    {
+      "id": "pyliferisk",
+      "name": "pyliferisk",
+      "owner": "franciscogarate",
+      "github_url": "https://github.com/franciscogarate/pyliferisk",
+      "official_website": "",
+      "license": "MIT",
+      "programming_language": "Python",
+      "difficulty": "beginner",
+      "business_lines": ["life_insurance"],
+      "topics": ["life_contingencies", "actuarial_math", "mortality"],
+      "tracks": ["Life Insurance", "Fundamentals"],
+      "use_cases": ["life actuarial calculations", "mortality tables", "educational examples"],
+      "recommended_for": ["students", "life actuarial beginners", "Python learners"],
+      "summary": {
+        "en": "A compact Python library for practicing life actuarial calculations and mortality-table exercises.",
+        "zh": "用于练习寿险精算计算和死亡率表应用的小型 Python 库。",
+        "fr": "Une petite bibliothèque Python pour pratiquer les calculs actuariels vie et les exercices de tables de mortalité."
+      },
+      "curation": {
+        "status": "candidate",
+        "maintenance_status": "moderate",
+        "documentation_quality": "medium",
+        "quality_score": 0.7,
+        "last_reviewed_at": "2026-07-06"
+      }
+    }
+  ]
+}

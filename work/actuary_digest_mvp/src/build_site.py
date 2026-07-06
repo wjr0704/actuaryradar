@@ -128,6 +128,9 @@ def build_site(site_dir: pathlib.Path = SITE_DIR, base_url: str = "") -> None:
     knowledge_path = ROOT / "ui" / "data" / "knowledge.json"
     if knowledge_path.exists():
         copy_file(knowledge_path, site_dir / "data" / "knowledge.json")
+    open_source_path = ROOT / "config" / "open_source_resources.json"
+    if open_source_path.exists():
+        copy_file(open_source_path, site_dir / "data" / "open_source_resources.json")
 
     if archives:
         latest = archives[0]

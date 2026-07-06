@@ -24,6 +24,7 @@ const state = {
   companyReports: [],
   knowledge: [],
   knowledgeCatalog: [],
+  openSourceResources: [],
   activePage: "home",
   activeSection: "全部",
   language: localStorage.getItem("actuaryRadar.language") || "en",
@@ -489,6 +490,15 @@ const pageCopy = {
     learningItemNews: "相关情报",
     learningItemResearch: "研究报告",
     learningItemOfficialSource: "官方学习源",
+    learningItemGithubExample: "开源实践",
+    openSourceResourcesTitle: "开源实践资源",
+    openSourceResourcesHint: "精选 GitHub 项目，只提供原创摘要和外部链接，不复制项目文档。",
+    repositoryLanguage: "语言",
+    repositoryLicense: "许可证",
+    repositoryDifficulty: "难度",
+    repositoryUseCase: "用途",
+    repositoryFor: "适合",
+    viewRepository: "查看仓库",
     startLearningItem: "开始",
     startedLabel: "已开始",
     inProgress: "进行中",
@@ -703,6 +713,15 @@ const pageCopy = {
     learningItemNews: "Related Industry News",
     learningItemResearch: "Research Report",
     learningItemOfficialSource: "Official Learning Source",
+    learningItemGithubExample: "GitHub Example",
+    openSourceResourcesTitle: "Open Source Resources",
+    openSourceResourcesHint: "Curated GitHub projects with original summaries and external links only. ActuaryRadar does not copy repository documentation.",
+    repositoryLanguage: "Language",
+    repositoryLicense: "License",
+    repositoryDifficulty: "Difficulty",
+    repositoryUseCase: "Use case",
+    repositoryFor: "Recommended for",
+    viewRepository: "View repository",
     startLearningItem: "Start",
     startedLabel: "Started",
     inProgress: "In progress",
@@ -917,6 +936,15 @@ const pageCopy = {
     learningItemNews: "Veille associée",
     learningItemResearch: "Publication de recherche",
     learningItemOfficialSource: "Source de référence",
+    learningItemGithubExample: "Exemple open source",
+    openSourceResourcesTitle: "Ressources open source",
+    openSourceResourcesHint: "Projets GitHub sélectionnés avec résumés originaux et liens externes uniquement. ActuaryRadar ne copie pas la documentation des dépôts.",
+    repositoryLanguage: "Langage",
+    repositoryLicense: "Licence",
+    repositoryDifficulty: "Niveau",
+    repositoryUseCase: "Cas d’usage",
+    repositoryFor: "Recommandé pour",
+    viewRepository: "Voir le dépôt",
     startLearningItem: "Commencer",
     startedLabel: "Commencé",
     inProgress: "En cours",
@@ -1257,6 +1285,7 @@ async function init() {
   applyLanguage();
   renderLearningPlan();
   await loadArchiveIndex();
+  await loadOpenSourceResources();
   await loadKnowledge();
   await loadDigest("./data/digest.json");
 }
@@ -1576,6 +1605,17 @@ async function loadKnowledge() {
   } catch {
     state.knowledge = [];
     els.knowledgeGrid.innerHTML = `<div class="empty-state">${escapeHtml(t("knowledgeLoadError"))}</div>`;
+  }
+}
+
+async function loadOpenSourceResources() {
+  try {
+    const response = await fetch("./data/open_source_resources.json", { cache: "no-store" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const payload = await response.json();
+    state.openSourceResources = payload.repositories || [];
+  } catch {
+    state.openSourceResources = [];
   }
 }
 
@@ -3070,6 +3110,7 @@ function renderKnowledge() {
         </div>
         <small class="grounding-status">${escapeHtml(displayKnowledgeGroundingStatus(module))}</small>
       </div>
+      ${renderOpenSourceResources(module)}
     </article>
   `).join("");
   els.knowledgeGrid.querySelectorAll(".answer-toggle").forEach(button => {
@@ -3181,6 +3222,7 @@ function generateTodaysLearningItems() {
 
   relatedNewsItems(selectedTopics).forEach(addItem);
   researchLearningItems(selectedTopics).forEach(addItem);
+  githubExampleItems(selectedTopics).forEach(addItem);
   officialSourceItems(selectedTopics).forEach(addItem);
 
   return fitLearningItemsToTime(items, dailyCount, availableMinutes);
@@ -3218,6 +3260,7 @@ function generateRecommendedLearningItems(excludeIds = []) {
   });
   relatedNewsItems(selectedTopics).forEach(addItem);
   researchLearningItems(selectedTopics).forEach(addItem);
+  githubExampleItems(selectedTopics).forEach(addItem);
   officialSourceItems(selectedTopics).forEach(addItem);
   return candidates.slice(0, 4);
 }
@@ -3289,7 +3332,8 @@ function learningTypeLabel(type) {
     knowledge: t("learningItemKnowledgeCard"),
     news: t("learningItemNews"),
     research: t("learningItemResearch"),
-    source: t("learningItemOfficialSource")
+    source: t("learningItemOfficialSource"),
+    github: t("learningItemGithubExample")
   };
   return labels[type] || type || "";
 }
@@ -3350,6 +3394,21 @@ function researchLearningItems(selectedTopics) {
         sourceUrl: originalArticleUrl(item)
       };
     });
+}
+
+function githubExampleItems(selectedTopics) {
+  return selectedTopics.flatMap(topicId => {
+    return openSourceResourcesForTopic(topicId).slice(0, 2).map(resource => ({
+      id: `github:${topicId}:${resource.id}`,
+      topicId,
+      type: "github",
+      typeLabel: t("learningItemGithubExample"),
+      title: resource.name,
+      detail: localizedRepositorySummary(resource),
+      estimatedMinutes: resource.difficulty === "advanced" ? 18 : 12,
+      sourceUrl: resource.github_url
+    }));
+  }).slice(0, 4);
 }
 
 function officialSourceItems(selectedTopics) {
@@ -3614,6 +3673,125 @@ function renderKnowledgeSourceLinks(module) {
     const domain = domains[index] ? ` · ${domains[index]}` : "";
     return `<a href="${escapeHtml(url)}" target="_blank" rel="noopener">${escapeHtml(label)}${escapeHtml(domain)}</a>`;
   }).join("");
+}
+
+function renderOpenSourceResources(module) {
+  const resources = openSourceResourcesForModule(module).slice(0, 3);
+  if (!resources.length) return "";
+  return `
+    <div class="knowledge-section open-source-section">
+      <div class="section-heading-row">
+        <strong>${escapeHtml(t("openSourceResourcesTitle"))}</strong>
+        <small>${escapeHtml(t("openSourceResourcesHint"))}</small>
+      </div>
+      <div class="open-source-grid">
+        ${resources.map(resource => renderOpenSourceResourceCard(resource)).join("")}
+      </div>
+    </div>
+  `;
+}
+
+function renderOpenSourceResourceCard(resource) {
+  const summary = localizedRepositorySummary(resource);
+  const useCases = (resource.use_cases || []).slice(0, 2).join(", ");
+  const recommendedFor = (resource.recommended_for || []).slice(0, 2).join(", ");
+  return `
+    <article class="open-source-card">
+      <div class="open-source-card-top">
+        <strong>${escapeHtml(resource.name)}</strong>
+        <span>${escapeHtml(resource.programming_language || "")}</span>
+      </div>
+      <p>${escapeHtml(summary)}</p>
+      <dl>
+        <div><dt>${escapeHtml(t("repositoryLicense"))}</dt><dd>${escapeHtml(resource.license || "-")}</dd></div>
+        <div><dt>${escapeHtml(t("repositoryDifficulty"))}</dt><dd>${escapeHtml(displayRepositoryDifficulty(resource.difficulty))}</dd></div>
+        ${useCases ? `<div><dt>${escapeHtml(t("repositoryUseCase"))}</dt><dd>${escapeHtml(useCases)}</dd></div>` : ""}
+        ${recommendedFor ? `<div><dt>${escapeHtml(t("repositoryFor"))}</dt><dd>${escapeHtml(recommendedFor)}</dd></div>` : ""}
+      </dl>
+      <div class="open-source-actions">
+        <a href="${escapeHtml(resource.github_url)}" target="_blank" rel="noopener">${escapeHtml(t("viewRepository"))} →</a>
+        ${resource.official_website ? `<a href="${escapeHtml(resource.official_website)}" target="_blank" rel="noopener">${escapeHtml(t("sourceWebsite"))} →</a>` : ""}
+      </div>
+    </article>
+  `;
+}
+
+function openSourceResourcesForModule(module) {
+  const moduleText = [
+    module.track,
+    module.title,
+    module.summary,
+    displayKnowledgeTitle(module),
+    displayKnowledgeSummary(module),
+    displayKnowledgeQuestion(module),
+    ...(module.concepts || [])
+  ].join(" ").toLowerCase();
+  return state.openSourceResources
+    .map(resource => ({
+      resource,
+      score: openSourceResourceScore(resource, module, moduleText)
+    }))
+    .filter(entry => entry.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .map(entry => entry.resource);
+}
+
+function openSourceResourcesForTopic(topicId) {
+  const topic = learningTopicOptions.find(option => option.id === topicId);
+  if (!topic) return [];
+  const topicTerms = [
+    topicId,
+    ...(topic.tracks || []),
+    ...(topic.keywords || [])
+  ].map(value => String(value).toLowerCase());
+  return state.openSourceResources
+    .map(resource => {
+      const haystack = [
+        resource.id,
+        resource.name,
+        resource.owner,
+        resource.programming_language,
+        ...(resource.tracks || []),
+        ...(resource.topics || []),
+        ...(resource.business_lines || []),
+        ...(resource.use_cases || [])
+      ].join(" ").toLowerCase();
+      const score = topicTerms.reduce((sum, term) => sum + (term && haystack.includes(term) ? 1 : 0), 0);
+      return { resource, score };
+    })
+    .filter(entry => entry.score > 0)
+    .sort((a, b) => b.score - a.score || (b.resource.curation?.quality_score || 0) - (a.resource.curation?.quality_score || 0))
+    .map(entry => entry.resource);
+}
+
+function openSourceResourceScore(resource, module, moduleText) {
+  const terms = [
+    resource.id,
+    resource.name,
+    ...(resource.tracks || []),
+    ...(resource.topics || []),
+    ...(resource.business_lines || []),
+    ...(resource.use_cases || [])
+  ].map(value => String(value).toLowerCase());
+  let score = Number(resource.curation?.quality_score || 0);
+  terms.forEach(term => {
+    if (term && moduleText.includes(term)) score += 1;
+  });
+  if ((resource.tracks || []).includes(module.track)) score += 3;
+  return score;
+}
+
+function localizedRepositorySummary(resource) {
+  return resource.summary?.[state.language] || resource.summary?.en || resource.name || "";
+}
+
+function displayRepositoryDifficulty(value) {
+  const labels = {
+    beginner: { zh: "入门", en: "Beginner", fr: "Débutant" },
+    intermediate: { zh: "中级", en: "Intermediate", fr: "Intermédiaire" },
+    advanced: { zh: "进阶", en: "Advanced", fr: "Avancé" }
+  };
+  return labels[value]?.[state.language] || value || "";
 }
 
 function displayKnowledgeGroundingStatus(module) {

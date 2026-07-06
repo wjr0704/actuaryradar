@@ -128,6 +128,7 @@ Do not commit real API keys, Gmail app passwords, database URLs, Netlify secrets
 - [Production automation architecture](./work/actuary_digest_mvp/docs/production_automation_architecture.md)
 - [Source strategy](./work/actuary_digest_mvp/docs/source_strategy.md)
 - [Knowledge grounding](./work/actuary_digest_mvp/docs/knowledge_grounding.md)
+- [Open source learning layer](./work/actuary_digest_mvp/docs/open_source_learning_layer.md)
 - [Email setup](./work/actuary_digest_mvp/docs/email_setup.md)
 
 ## Repository Name

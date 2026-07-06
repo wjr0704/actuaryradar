@@ -1887,6 +1887,114 @@ body[data-page="daily"]:not([data-section="all"]) .focus-band {
   font-size: 13px;
 }
 
+.section-heading-row {
+  display: grid;
+  gap: 4px;
+}
+
+.section-heading-row small {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.open-source-section {
+  padding-top: 14px;
+  border-top: 1px solid rgba(216, 226, 238, 0.78);
+}
+
+.open-source-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.open-source-card {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  padding: 12px;
+  border: 1px solid rgba(205, 218, 232, 0.9);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbfc 100%);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.035);
+}
+
+.open-source-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.open-source-card-top strong {
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.open-source-card-top span {
+  flex: 0 0 auto;
+  border: 1px solid #c8e1e4;
+  border-radius: 999px;
+  padding: 2px 7px;
+  color: var(--accent-dark);
+  background: #f1fbfa;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.open-source-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.open-source-card dl {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+}
+
+.open-source-card dl div {
+  display: grid;
+  gap: 2px;
+}
+
+.open-source-card dt {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.open-source-card dd {
+  margin: 0;
+  color: var(--ink);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.open-source-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.open-source-actions a {
+  color: var(--accent-dark);
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.open-source-actions a:hover {
+  text-decoration: underline;
+}
+
 .empty-source,
 .grounding-status {
   color: var(--muted);
@@ -2110,6 +2218,10 @@ textarea {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .open-source-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .portal-hero {
     grid-template-columns: 1fr;
   }
@@ -2197,6 +2309,7 @@ textarea {
   .top-pick-grid,
   .knowledge-grid,
   .source-grid,
+  .open-source-grid,
   .planner-choice-grid,
   .portal-feature-grid,
   .portal-news-grid,
