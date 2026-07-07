@@ -1,0 +1,210 @@
+{
+  "version": 1,
+  "description": "Curated concept-level source mapping. These links answer: where should a user learn this specific concept?",
+  "items": {
+    "fundamentals-survival": {
+      "official": [
+        { "title": "SOA: Research Institute", "url": "https://www.soa.org/research/", "domain": "soa.org" }
+      ],
+      "open_source": [
+        { "title": "lifelines: survival analysis in Python", "url": "https://github.com/CamDavidsonPilon/lifelines", "domain": "github.com" }
+      ],
+      "research": [
+        { "title": "SOA: Experience studies", "url": "https://www.soa.org/resources/experience-studies/", "domain": "soa.org" }
+      ]
+    },
+    "insurance-fundamentals-business-model": {
+      "official": [
+        { "title": "NAIC: Consumer insurance resources", "url": "https://content.naic.org/consumer", "domain": "naic.org" },
+        { "title": "Insurance Europe: Key facts", "url": "https://www.insuranceeurope.eu/publications", "domain": "insuranceeurope.eu" }
+      ],
+      "industry": [
+        { "title": "Swiss Re Institute: sigma research", "url": "https://www.swissre.com/institute/research/sigma-research.html", "domain": "swissre.com" }
+      ]
+    },
+    "pricing-glm-auto": {
+      "official": [
+        { "title": "CAS: Basic Ratemaking", "url": "https://www.casact.org/sites/default/files/database/studynotes_werner_modlin_ratemaking.pdf", "domain": "casact.org" },
+        { "title": "CAS: Predictive Modeling Applications in Actuarial Science", "url": "https://www.casact.org/publications-research/research/research-paper-series/predictive-modeling-applications-actuarial-science", "domain": "casact.org" }
+      ],
+      "open_source": [
+        { "title": "scikit-learn: generalized linear models", "url": "https://scikit-learn.org/stable/modules/linear_model.html#generalized-linear-models", "domain": "scikit-learn.org" },
+        { "title": "CASdatasets R package", "url": "https://github.com/dutangc/CASdatasets", "domain": "github.com" }
+      ]
+    },
+    "reserving-chain-ladder": {
+      "official": [
+        { "title": "CAS: Loss reserving resources", "url": "https://www.casact.org/publications-research", "domain": "casact.org" }
+      ],
+      "open_source": [
+        { "title": "chainladder-python", "url": "https://github.com/casact/chainladder-python", "domain": "github.com" }
+      ],
+      "research": [
+        { "title": "Swiss Re Institute: insurance research", "url": "https://www.swissre.com/institute/research.html", "domain": "swissre.com" }
+      ]
+    },
+    "erm-orsa-dashboard": {
+      "official": [
+        { "title": "NAIC: Own Risk and Solvency Assessment", "url": "https://content.naic.org/cipr-topics/own-risk-and-solvency-assessment-orsa", "domain": "naic.org" },
+        { "title": "EIOPA: Risk dashboard", "url": "https://www.eiopa.europa.eu/tools-and-data/insurance-statistics/risk-dashboard_en", "domain": "eiopa.europa.eu" }
+      ],
+      "research": [
+        { "title": "The Geneva Association: insurance research", "url": "https://www.genevaassociation.org/research-topics", "domain": "genevaassociation.org" }
+      ]
+    },
+    "capital-raroc": {
+      "official": [
+        { "title": "EIOPA: Solvency II", "url": "https://www.eiopa.europa.eu/browse/regulation-and-policy/solvency-ii_en", "domain": "eiopa.europa.eu" },
+        { "title": "NAIC: Risk-Based Capital", "url": "https://content.naic.org/industry/risk-based-capital", "domain": "naic.org" }
+      ],
+      "research": [
+        { "title": "Swiss Re Institute: capital and risk research", "url": "https://www.swissre.com/institute/research.html", "domain": "swissre.com" }
+      ]
+    },
+    "solvency-scr": {
+      "official": [
+        { "title": "EIOPA: Solvency II", "url": "https://www.eiopa.europa.eu/browse/regulation-and-policy/solvency-ii_en", "domain": "eiopa.europa.eu" },
+        { "title": "European Commission: Solvency II", "url": "https://finance.ec.europa.eu/banking-and-banking-union/insurance-and-pensions/solvency-ii_en", "domain": "finance.ec.europa.eu" }
+      ]
+    },
+    "ifrs17-csm": {
+      "official": [
+        { "title": "IFRS Foundation: IFRS 17 Insurance Contracts", "url": "https://www.ifrs.org/issued-standards/list-of-standards/ifrs-17-insurance-contracts/", "domain": "ifrs.org" },
+        { "title": "IFRS Foundation: IFRS 17 supporting materials", "url": "https://www.ifrs.org/supporting-implementation/supporting-materials-by-ifrs-standards/ifrs-17/", "domain": "ifrs.org" }
+      ],
+      "research": [
+        { "title": "Deloitte: IFRS 17", "url": "https://www.iasplus.com/en/standards/ifrs/ifrs-17", "domain": "iasplus.com" },
+        { "title": "KPMG: IFRS 17", "url": "https://kpmg.com/xx/en/home/insights/2020/10/ifrs-17-insurance-contracts.html", "domain": "kpmg.com" }
+      ]
+    },
+    "reinsurance-xl": {
+      "industry": [
+        { "title": "Swiss Re Institute: sigma research", "url": "https://www.swissre.com/institute/research/sigma-research.html", "domain": "swissre.com" },
+        { "title": "Munich Re: Reinsurance insights", "url": "https://www.munichre.com/en/insights.html", "domain": "munichre.com" }
+      ],
+      "research": [
+        { "title": "Artemis: ILS and catastrophe bond market", "url": "https://www.artemis.bm/", "domain": "artemis.bm" }
+      ]
+    },
+    "alm-duration": {
+      "official": [
+        { "title": "SOA: Investment and finance resources", "url": "https://www.soa.org/resources/research-reports/", "domain": "soa.org" },
+        { "title": "IFoA: Research and knowledge", "url": "https://actuaries.org.uk/learn-and-develop/research-and-knowledge/", "domain": "actuaries.org.uk" }
+      ],
+      "industry": [
+        { "title": "Swiss Re Institute", "url": "https://www.swissre.com/institute/", "domain": "swissre.com" }
+      ]
+    },
+    "investment-saa": {
+      "official": [
+        { "title": "OECD: Insurance and pensions", "url": "https://www.oecd.org/finance/insurance/", "domain": "oecd.org" }
+      ],
+      "industry": [
+        { "title": "Swiss Re Institute: macro and insurance research", "url": "https://www.swissre.com/institute/research.html", "domain": "swissre.com" }
+      ]
+    },
+    "finance-ratio": {
+      "official": [
+        { "title": "NAIC: Financial analysis and solvency tools", "url": "https://content.naic.org/industry/financial-analysis-solvency-tools-fast", "domain": "naic.org" }
+      ],
+      "industry": [
+        { "title": "Swiss Re Institute: sigma research", "url": "https://www.swissre.com/institute/research/sigma-research.html", "domain": "swissre.com" }
+      ]
+    },
+    "accounting-ifrs9": {
+      "official": [
+        { "title": "IFRS Foundation: IFRS 17", "url": "https://www.ifrs.org/issued-standards/list-of-standards/ifrs-17-insurance-contracts/", "domain": "ifrs.org" },
+        { "title": "IFRS Foundation: IFRS 9", "url": "https://www.ifrs.org/issued-standards/list-of-standards/ifrs-9-financial-instruments/", "domain": "ifrs.org" }
+      ]
+    },
+    "regulation-ai-act": {
+      "official": [
+        { "title": "EIOPA: Digitalisation and financial innovation", "url": "https://www.eiopa.europa.eu/browse/digitalisation-and-financial-innovation_en", "domain": "eiopa.europa.eu" },
+        { "title": "European Commission: AI Act", "url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai", "domain": "digital-strategy.ec.europa.eu" },
+        { "title": "ACPR: Publications", "url": "https://acpr.banque-france.fr/publications", "domain": "acpr.banque-france.fr" }
+      ],
+      "open_source": [
+        { "title": "IAA: Actuarial AI Case Studies", "url": "https://github.com/IAA-AITF/Actuarial-AI-Case-Studies", "domain": "github.com" }
+      ]
+    },
+    "data-analytics-feature": {
+      "official": [
+        { "title": "CAS: Predictive Modeling Applications in Actuarial Science", "url": "https://www.casact.org/publications-research/research/research-paper-series/predictive-modeling-applications-actuarial-science", "domain": "casact.org" },
+        { "title": "MIT OCW: Statistics for Applications", "url": "https://ocw.mit.edu/courses/18-650-statistics-for-applications-fall-2016/", "domain": "ocw.mit.edu" }
+      ],
+      "open_source": [
+        { "title": "scikit-learn", "url": "https://scikit-learn.org/stable/", "domain": "scikit-learn.org" }
+      ]
+    },
+    "ai-claims-agent": {
+      "official": [
+        { "title": "EIOPA: Digitalisation and financial innovation", "url": "https://www.eiopa.europa.eu/browse/digitalisation-and-financial-innovation_en", "domain": "eiopa.europa.eu" },
+        { "title": "NAIC: Artificial intelligence", "url": "https://content.naic.org/cipr-topics/artificial-intelligence", "domain": "naic.org" }
+      ],
+      "open_source": [
+        { "title": "IAA: Actuarial AI Case Studies", "url": "https://github.com/IAA-AITF/Actuarial-AI-Case-Studies", "domain": "github.com" }
+      ]
+    },
+    "cat-pml": {
+      "industry": [
+        { "title": "Munich Re: Natural disasters and climate change", "url": "https://www.munichre.com/en/insights/natural-disaster-and-climate-change.html", "domain": "munichre.com" },
+        { "title": "Swiss Re Institute: sigma research", "url": "https://www.swissre.com/institute/research/sigma-research.html", "domain": "swissre.com" }
+      ],
+      "research": [
+        { "title": "NOAA National Hurricane Center", "url": "https://www.nhc.noaa.gov/", "domain": "nhc.noaa.gov" }
+      ]
+    },
+    "credit-pd-lgd": {
+      "official": [
+        { "title": "OECD: Insurance and pensions", "url": "https://www.oecd.org/finance/insurance/", "domain": "oecd.org" }
+      ],
+      "research": [
+        { "title": "World Bank: Finance and insurance research", "url": "https://www.worldbank.org/en/topic/financialsector", "domain": "worldbank.org" }
+      ]
+    },
+    "market-risk-interest": {
+      "official": [
+        { "title": "EIOPA: Risk dashboard", "url": "https://www.eiopa.europa.eu/tools-and-data/insurance-statistics/risk-dashboard_en", "domain": "eiopa.europa.eu" },
+        { "title": "EIOPA: Solvency II", "url": "https://www.eiopa.europa.eu/browse/regulation-and-policy/solvency-ii_en", "domain": "eiopa.europa.eu" }
+      ],
+      "industry": [
+        { "title": "Swiss Re Institute: macro and insurance research", "url": "https://www.swissre.com/institute/research.html", "domain": "swissre.com" }
+      ]
+    },
+    "operational-model-risk": {
+      "official": [
+        { "title": "EIOPA: Supervisory convergence", "url": "https://www.eiopa.europa.eu/browse/supervisory-convergence_en", "domain": "eiopa.europa.eu" },
+        { "title": "IFoA: Research and knowledge", "url": "https://actuaries.org.uk/learn-and-develop/research-and-knowledge/", "domain": "actuaries.org.uk" }
+      ],
+      "open_source": [
+        { "title": "IAA: Actuarial AI Case Studies", "url": "https://github.com/IAA-AITF/Actuarial-AI-Case-Studies", "domain": "github.com" }
+      ]
+    },
+    "strategy-portfolio": {
+      "industry": [
+        { "title": "Swiss Re Institute", "url": "https://www.swissre.com/institute/", "domain": "swissre.com" },
+        { "title": "McKinsey: Insurance insights", "url": "https://www.mckinsey.com/industries/financial-services/our-insights/insurance", "domain": "mckinsey.com" }
+      ]
+    },
+    "business-board-writing": {
+      "official": [
+        { "title": "IFoA: Professional skills and research", "url": "https://actuaries.org.uk/learn-and-develop/research-and-knowledge/", "domain": "actuaries.org.uk" }
+      ],
+      "research": [
+        { "title": "The Actuary: professional insight", "url": "https://www.theactuary.com/", "domain": "theactuary.com" }
+      ]
+    }
+  },
+  "daily_concepts": [
+    { "matches": ["ifrs 17", "csm", "contractual service margin", "合同服务边际"], "knowledge_id": "ifrs17-csm" },
+    { "matches": ["solvency", "scr", "mcr", "risk margin", "偿付能力", "风险边际"], "knowledge_id": "solvency-scr" },
+    { "matches": ["glm", "generalized linear", "广义线性"], "knowledge_id": "pricing-glm-auto" },
+    { "matches": ["chain ladder", "ibnr", "ibner", "准备金"], "knowledge_id": "reserving-chain-ladder" },
+    { "matches": ["reinsurance", "xol", "excess of loss", "再保险", "超赔"], "knowledge_id": "reinsurance-xl" },
+    { "matches": ["alm", "asset liability", "duration", "久期", "资产负债"], "knowledge_id": "alm-duration" },
+    { "matches": ["loss ratio", "combined ratio", "赔付率", "综合成本率"], "knowledge_id": "pricing-glm-auto" },
+    { "matches": ["catastrophe", "pml", "aep", "oep", "巨灾"], "knowledge_id": "cat-pml" },
+    { "matches": ["pd", "lgd", "ead", "credit", "信用风险"], "knowledge_id": "credit-pd-lgd" },
+    { "matches": ["ai", "agent", "llm", "responsible ai", "人工智能"], "knowledge_id": "ai-claims-agent" }
+  ]
+}

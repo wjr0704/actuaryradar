@@ -41,8 +41,19 @@ jobs:
 
       - name: Generate today's digest
         if: github.event_name != 'schedule' || steps.paris_time.outputs.hour == '08'
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+          PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
+          PERPLEXITY_MODEL: ${{ vars.PERPLEXITY_MODEL }}
         run: |
-          python work/actuary_digest_mvp/src/digest.py --date "${{ steps.paris_time.outputs.date }}"
+          MODEL_ARG=""
+          if [ -n "${OPENAI_MODEL:-}" ]; then
+            MODEL_ARG="--ai-model ${OPENAI_MODEL}"
+          elif [ -n "${PERPLEXITY_MODEL:-}" ]; then
+            MODEL_ARG="--ai-model ${PERPLEXITY_MODEL}"
+          fi
+          python work/actuary_digest_mvp/src/digest.py --date "${{ steps.paris_time.outputs.date }}" --ai-provider auto ${MODEL_ARG}
 
       - name: Build static site
         if: github.event_name != 'schedule' || steps.paris_time.outputs.hour == '08'

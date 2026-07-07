@@ -1887,6 +1887,26 @@ body[data-page="daily"]:not([data-section="all"]) .focus-band {
   font-size: 13px;
 }
 
+.curated-source-groups {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.curated-source-group {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  background: #f8fbfc;
+}
+
+.curated-source-group small {
+  display: block;
+  color: var(--muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
 .section-heading-row {
   display: grid;
   gap: 4px;

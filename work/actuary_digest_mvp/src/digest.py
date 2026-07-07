@@ -34,6 +34,8 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 WORKSPACE = ROOT.parents[1]
 DEFAULT_OUTPUT_DIR = WORKSPACE / "outputs"
 DEFAULT_PREFERENCES_PATH = ROOT / "config" / "preferences.json"
+DEFAULT_AI_MODEL = "gpt-4o-mini"
+DEFAULT_PERPLEXITY_MODEL = "sonar"
 
 
 @dataclasses.dataclass(frozen=True)
@@ -769,7 +771,205 @@ def localized_why_it_matters(item: NewsItem, primary: str, tags: list[str], lang
         return "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。"
     if language == "fr":
         return "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
-    return "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior."
+        return "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior."
+
+
+def ai_source_text(item: NewsItem) -> str:
+    if item.summary_basis == "article_text" and item.extracted_text:
+        return item.extracted_text
+    if item.summary_basis == "rss_excerpt" and item.rss_description and not is_title_like(item.rss_description, item.title):
+        return item.rss_description
+    if item.summary and not is_title_like(item.summary, item.title):
+        return item.summary
+    return ""
+
+
+def select_ai_provider(requested: str) -> str:
+    provider = (requested or "auto").lower()
+    if provider == "none":
+        return "none"
+    if provider in {"openai", "perplexity"}:
+        return provider
+    if os.getenv("OPENAI_API_KEY"):
+        return "openai"
+    if os.getenv("PERPLEXITY_API_KEY"):
+        return "perplexity"
+    return "none"
+
+
+def ai_language_for_item(item: NewsItem) -> str:
+    detected = detect_language(item)
+    return detected if detected in {"en", "zh", "fr"} else "en"
+
+
+def ai_enrichment_prompt(item: NewsItem, card: ActionCard, source_text: str, language: str) -> list[dict[str, str]]:
+    language_name = {"en": "English", "zh": "Chinese", "fr": "French"}.get(language, "English")
+    system = (
+        "You are an insurance intelligence editor for actuaries, reinsurers and risk professionals. "
+        "Use only the supplied article text. Do not invent facts, figures, sources or URLs. "
+        "If the text is insufficient, return empty strings. "
+        "Return strict JSON only."
+    )
+    user = {
+        "task": "Generate source-grounded insurance intelligence fields.",
+        "output_language": language_name,
+        "required_json_schema": {
+            "key_takeaway": "One concise sentence stating what happened.",
+            "summary_bullets": ["Two or three short bullets grounded in the article text."],
+            "why_it_matters": "One or two concise sentences for insurance, actuarial, reinsurance or risk professionals."
+        },
+        "rules": [
+            "Do not repeat the title as the summary.",
+            "Do not mention that you are an AI.",
+            "Do not use generic wording such as 'may affect pricing assumptions, reserving and capital' unless the article text supports those links.",
+            "Prefer actuarial relevance: pricing, reserving, capital, claims, risk management, IFRS 17, Solvency II, reinsurance, distribution, AI governance or market strategy.",
+            "If the article text is only a title or too thin, return empty fields."
+        ],
+        "article": {
+            "title": item.title,
+            "source": item.source_name or item.source,
+            "published": item.published,
+            "category": card.taxonomy_category,
+            "tags": card.taxonomy_tags,
+            "summary_basis": item.summary_basis,
+            "text": concise_backend_text(source_text, 6000)
+        }
+    }
+    return [
+        {"role": "system", "content": system},
+        {"role": "user", "content": json.dumps(user, ensure_ascii=False)}
+    ]
+
+
+def post_json(url: str, payload: dict, headers: dict[str, str], timeout: int = 30) -> dict:
+    request = urllib.request.Request(
+        url,
+        data=json.dumps(payload).encode("utf-8"),
+        headers=headers,
+        method="POST",
+    )
+    with urllib.request.urlopen(request, timeout=timeout) as response:
+        return json.loads(response.read().decode("utf-8", errors="replace"))
+
+
+def extract_json_object(text: str) -> dict:
+    cleaned = clean_text(text)
+    cleaned = re.sub(r"^```(?:json)?\s*", "", cleaned)
+    cleaned = re.sub(r"\s*```$", "", cleaned)
+    try:
+        return json.loads(cleaned)
+    except json.JSONDecodeError:
+        match = re.search(r"\{.*\}", cleaned, flags=re.S)
+        if not match:
+            raise
+        return json.loads(match.group(0))
+
+
+def call_openai_enrichment(messages: list[dict[str, str]], model: str) -> dict:
+    api_key = os.getenv("OPENAI_API_KEY", "")
+    if not api_key:
+        raise RuntimeError("OPENAI_API_KEY is not set")
+    payload = {
+        "model": model or os.getenv("OPENAI_MODEL") or DEFAULT_AI_MODEL,
+        "messages": messages,
+        "temperature": 0.2,
+        "response_format": {"type": "json_object"}
+    }
+    data = post_json(
+        "https://api.openai.com/v1/chat/completions",
+        payload,
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        },
+    )
+    content = data.get("choices", [{}])[0].get("message", {}).get("content", "")
+    return extract_json_object(content)
+
+
+def call_perplexity_enrichment(messages: list[dict[str, str]], model: str) -> dict:
+    api_key = os.getenv("PERPLEXITY_API_KEY", "")
+    if not api_key:
+        raise RuntimeError("PERPLEXITY_API_KEY is not set")
+    payload = {
+        "model": model or os.getenv("PERPLEXITY_MODEL") or DEFAULT_PERPLEXITY_MODEL,
+        "messages": messages,
+        "temperature": 0.2,
+    }
+    data = post_json(
+        "https://api.perplexity.ai/chat/completions",
+        payload,
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        },
+    )
+    content = data.get("choices", [{}])[0].get("message", {}).get("content", "")
+    return extract_json_object(content)
+
+
+def sanitize_ai_enrichment(raw: dict) -> dict[str, str]:
+    bullets = raw.get("summary_bullets") or raw.get("ai_summary") or []
+    if isinstance(bullets, str):
+        bullets = split_sentences(bullets)
+    bullets = [concise_backend_text(str(item), 220) for item in bullets if clean_text(str(item))][:3]
+    return {
+        "key_takeaway": concise_backend_text(str(raw.get("key_takeaway", "")), 260),
+        "ai_summary": " ".join(bullets),
+        "why_it_matters": concise_backend_text(str(raw.get("why_it_matters", "")), 360),
+    }
+
+
+def ai_enrich_cards(
+    items: list[NewsItem],
+    cards: dict[str, ActionCard],
+    provider: str,
+    model: str,
+    max_items: int,
+) -> tuple[dict[str, ActionCard], list[str]]:
+    selected_provider = select_ai_provider(provider)
+    if selected_provider == "none":
+        return cards, []
+    updated = dict(cards)
+    errors: list[str] = []
+    enriched_count = 0
+    for item in items:
+        if enriched_count >= max_items:
+            break
+        source_text = ai_source_text(item)
+        if len(source_text) < 350:
+            continue
+        card = updated[item.url]
+        language = ai_language_for_item(item)
+        messages = ai_enrichment_prompt(item, card, source_text, language)
+        try:
+            if selected_provider == "openai":
+                raw = call_openai_enrichment(messages, model or DEFAULT_AI_MODEL)
+            else:
+                raw = call_perplexity_enrichment(messages, model or DEFAULT_PERPLEXITY_MODEL)
+            clean = sanitize_ai_enrichment(raw)
+        except Exception as exc:
+            errors.append(f"AI enrichment failed for {item.source}: {exc}")
+            continue
+        if not any(clean.values()):
+            continue
+        key_takeaway = dict(card.key_takeaway)
+        ai_summary = dict(card.ai_summary)
+        why_it_matters = dict(card.why_it_matters)
+        if clean["key_takeaway"]:
+            key_takeaway[language] = clean["key_takeaway"]
+        if clean["ai_summary"]:
+            ai_summary[language] = clean["ai_summary"]
+        if clean["why_it_matters"]:
+            why_it_matters[language] = clean["why_it_matters"]
+        updated[item.url] = dataclasses.replace(
+            card,
+            key_takeaway=key_takeaway,
+            ai_summary=ai_summary,
+            why_it_matters=why_it_matters,
+        )
+        enriched_count += 1
+    return updated, errors
 
 
 def build_action_card(item: NewsItem) -> ActionCard:
@@ -1346,6 +1546,9 @@ def main(argv: list[str]) -> int:
     parser.add_argument("--preferences", default=str(DEFAULT_PREFERENCES_PATH), help="Weekly theme and personal tag config.")
     parser.add_argument("--send-email", action="store_true", help="Send the generated digest through Gmail SMTP.")
     parser.add_argument("--email-to", action="append", default=[], help="Recipient email address. Can be used multiple times.")
+    parser.add_argument("--ai-provider", default="auto", choices=["auto", "none", "openai", "perplexity"], help="Optional daily AI enrichment provider. Default auto uses OPENAI_API_KEY then PERPLEXITY_API_KEY.")
+    parser.add_argument("--ai-model", default="", help=f"Optional AI model override. Defaults: OpenAI {DEFAULT_AI_MODEL}, Perplexity {DEFAULT_PERPLEXITY_MODEL}.")
+    parser.add_argument("--ai-max-items", type=int, default=8, help="Maximum selected articles to enrich with AI.")
     args = parser.parse_args(argv)
 
     config = load_config()
@@ -1362,6 +1565,14 @@ def main(argv: list[str]) -> int:
 
     selected = select_items(items, int(config.get("limits", {}).get("max_report_items", 8)), focus_profile)
     cards = {item.url: build_action_card(item) for item in selected}
+    cards, ai_messages = ai_enrich_cards(
+        selected,
+        cards,
+        provider=args.ai_provider,
+        model=args.ai_model,
+        max_items=max(0, args.ai_max_items),
+    )
+    errors.extend(ai_messages)
     markdown = render_markdown(selected, cards, args.date, errors, used_samples, focus_profile)
     html_report = render_html(markdown, args.date)
     json_report = render_json(

@@ -24,6 +24,7 @@ const state = {
   companyReports: [],
   knowledge: [],
   knowledgeCatalog: [],
+  knowledgeSources: { items: {}, daily_concepts: [] },
   openSourceResources: [],
   activePage: "home",
   activeSection: "全部",
@@ -340,63 +341,6 @@ const specificResources = [
     tracks: ["Fundamentals", "Insurance Fundamentals", "ALM", "Insurance Finance", "Data Analytics"],
     title: "SOA: actuarial resources",
     url: "https://www.soa.org/resources/",
-    type: "Research library"
-  }
-];
-
-const dailyConceptResources = [
-  {
-    matches: ["loss ratio", "赔付率", "combined ratio", "综合成本率", "ratemaking", "费率"],
-    title: "CAS: Basic Ratemaking",
-    url: "https://www.casact.org/sites/default/files/database/studynotes_werner_modlin_ratemaking.pdf",
-    type: "Actuarial study note"
-  },
-  {
-    matches: ["ifrs 17", "csm", "contractual service margin", "合同服务边际"],
-    title: "IFRS Foundation: IFRS 17 Insurance Contracts",
-    url: "https://www.ifrs.org/issued-standards/list-of-standards/ifrs-17-insurance-contracts/",
-    type: "Standard page"
-  },
-  {
-    matches: ["solvency", "scr", "mcr", "risk margin", "风险边际", "偿付能力"],
-    title: "EIOPA: Solvency II",
-    url: "https://www.eiopa.europa.eu/browse/regulation-and-policy/solvency-ii_en",
-    type: "Regulatory topic"
-  },
-  {
-    matches: ["glm", "generalized linear", "广义线性"],
-    title: "CAS: Predictive Modeling Applications in Actuarial Science",
-    url: "https://www.casact.org/publications-research/research/research-paper-series/predictive-modeling-applications-actuarial-science",
-    type: "Research collection"
-  },
-  {
-    matches: ["alm", "asset liability", "duration matching", "久期", "资产负债"],
-    title: "IFoA: Asset Liability Management",
-    url: "https://actuaries.org.uk/learn-and-develop/research-and-knowledge/",
-    type: "Research library"
-  },
-  {
-    matches: ["reinsurance", "xol", "excess of loss", "巨灾超赔", "再保险"],
-    title: "Swiss Re Institute: Reinsurance and risk transfer research",
-    url: "https://www.swissre.com/institute/research.html",
-    type: "Research hub"
-  },
-  {
-    matches: ["catastrophe", "nat cat", "flood", "earthquake", "wildfire", "巨灾"],
-    title: "Munich Re: Natural disasters and climate change",
-    url: "https://www.munichre.com/en/insights/natural-disaster-and-climate-change.html",
-    type: "Research hub"
-  },
-  {
-    matches: ["mortality", "lapse", "survival", "死亡率", "退保", "生存"],
-    title: "SOA: Experience Studies and Assumptions",
-    url: "https://www.soa.org/resources/experience-studies/",
-    type: "Research library"
-  },
-  {
-    matches: ["pricing", "reserving", "ibnr", "reserve", "定价", "准备金"],
-    title: "CAS: Publications and Research",
-    url: "https://www.casact.org/publications-research",
     type: "Research library"
   }
 ];
@@ -1286,6 +1230,7 @@ async function init() {
   renderLearningPlan();
   await loadArchiveIndex();
   await loadOpenSourceResources();
+  await loadKnowledgeSources();
   await loadKnowledge();
   await loadDigest("./data/digest.json");
 }
@@ -1619,6 +1564,20 @@ async function loadOpenSourceResources() {
   }
 }
 
+async function loadKnowledgeSources() {
+  try {
+    const response = await fetch("./data/knowledge_sources.json", { cache: "no-store" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const payload = await response.json();
+    state.knowledgeSources = {
+      items: payload.items || {},
+      daily_concepts: payload.daily_concepts || []
+    };
+  } catch {
+    state.knowledgeSources = { items: {}, daily_concepts: [] };
+  }
+}
+
 async function loadDigest(url) {
   try {
     const response = await fetch(url, { cache: "no-store" });
@@ -1731,8 +1690,15 @@ function renderScaffold() {
   els.conceptDefinition.textContent = localizedConcept.definition;
   els.conceptExample.textContent = localizedConcept.example;
   els.conceptExercise.textContent = localizedConcept.exercise;
-  els.conceptSourceLink.href = localizedConcept.sourceUrl;
-  els.conceptSourceLink.textContent = localizedConcept.sourceLabel;
+  if (localizedConcept.sourceUrl) {
+    els.conceptSourceLink.hidden = false;
+    els.conceptSourceLink.href = localizedConcept.sourceUrl;
+    els.conceptSourceLink.textContent = localizedConcept.sourceLabel;
+  } else {
+    els.conceptSourceLink.hidden = true;
+    els.conceptSourceLink.removeAttribute("href");
+    els.conceptSourceLink.textContent = "";
+  }
   if (els.languageSourceNotice) els.languageSourceNotice.textContent = t("languageSourceNotice");
   updateFreshnessLabels();
 
@@ -2095,8 +2061,8 @@ function localizedDailyConcept(concept) {
       definition: concept.definition || "-",
       example: `通俗理解：把这个概念想成精算模型里的一个“解释按钮”。例如看到 ${concept.term || "某个指标"} 变化，不要只记定义，要问：它会改变频率、严重度、退保率、现金流时点、利润确认，还是资本要求？然后用一个真实组合做小例子验证。`,
       exercise: concept.exercise || "-",
-      sourceUrl: source.url,
-      sourceLabel: `${source.title} · ${source.type || "source"}`
+      sourceUrl: source.url || "",
+      sourceLabel: dailyConceptSourceLabel(source)
     };
   }
   if (state.language === "fr") {
@@ -2109,8 +2075,8 @@ function localizedDailyConcept(concept) {
       definition: translated.frDefinition,
       example: translated.frExample || "",
       exercise: translated.frExercise || "",
-      sourceUrl: source.url,
-      sourceLabel: `${source.title} · ${source.type || "source"}`
+      sourceUrl: source.url || "",
+      sourceLabel: dailyConceptSourceLabel(source)
     };
   }
   if (!translated.enTerm || !translated.enDefinition) {
@@ -2122,8 +2088,8 @@ function localizedDailyConcept(concept) {
     definition: translated.enDefinition,
     example: translated.enExample || "",
     exercise: translated.enExercise || "",
-    sourceUrl: source.url,
-    sourceLabel: `${source.title} · ${source.type || "source"}`
+    sourceUrl: source.url || "",
+    sourceLabel: dailyConceptSourceLabel(source)
   };
 }
 
@@ -2133,20 +2099,23 @@ function unavailableDailyConcept(source) {
     definition: t("chineseOnlyConcept"),
     example: "",
     exercise: "",
-    sourceUrl: source.url,
-    sourceLabel: `${source.title} · ${source.type || "source"}`
+    sourceUrl: source.url || "",
+    sourceLabel: dailyConceptSourceLabel(source)
   };
+}
+
+function dailyConceptSourceLabel(source) {
+  if (!source?.url) return "";
+  return source.group ? `${source.title} · ${sourceGroupLabel(source.group)}` : source.title;
 }
 
 function sourceForDailyConcept(term) {
   const normalized = String(term || "").toLowerCase();
-  return dailyConceptResources.find(resource => {
-    return resource.matches.some(keyword => normalized.includes(keyword.toLowerCase()));
-  }) || {
-    title: "SOA: Actuarial Resources",
-    url: "https://www.soa.org/resources/",
-    type: "Learning library"
-  };
+  const match = (state.knowledgeSources.daily_concepts || []).find(entry => {
+    return (entry.matches || []).some(keyword => normalized.includes(String(keyword).toLowerCase()));
+  });
+  if (!match?.knowledge_id) return {};
+  return firstCuratedSourceForKnowledgeId(match.knowledge_id) || {};
 }
 
 function conceptTranslation(term) {
@@ -3103,13 +3072,7 @@ function renderKnowledge() {
         <button class="ghost-button answer-toggle" type="button">${escapeHtml(t("showAnswer"))}</button>
         <div class="reference-answer" hidden>${escapeHtml(displayKnowledgeAnswer(module))}</div>
       </div>
-      <div class="knowledge-section">
-        <strong>${escapeHtml(t("referenceSources"))}</strong>
-        <div class="source-link-list">
-          ${renderKnowledgeSourceLinks(module)}
-        </div>
-        <small class="grounding-status">${escapeHtml(displayKnowledgeGroundingStatus(module))}</small>
-      </div>
+      ${renderCuratedKnowledgeSourceSection(module)}
       ${renderOpenSourceResources(module)}
     </article>
   `).join("");
@@ -3655,24 +3618,70 @@ function knowledgeGrounding(module, locale = state.language) {
 }
 
 function firstKnowledgeSourceLink(module) {
-  const grounding = knowledgeGrounding(module);
-  const links = grounding.source_links || [];
-  return links.find(Boolean) || "";
+  return firstCuratedSourceForKnowledgeId(module.id || module.topic_id)?.url || "";
 }
 
 function renderKnowledgeSourceLinks(module) {
-  const grounding = knowledgeGrounding(module);
-  const links = grounding.source_links || [];
-  const titles = grounding.source_title || [];
-  const domains = grounding.source_domain || [];
-  if (!links.length) {
-    return `<span class="empty-source">${escapeHtml(noVerifiedSourceText())}</span>`;
+  return curatedKnowledgeSourcesForModule(module)
+    .flatMap(group => group.sources.map(source => {
+      const domain = source.domain ? ` · ${source.domain}` : "";
+      return `<a href="${escapeHtml(source.url)}" target="_blank" rel="noopener">${escapeHtml(source.title)}${escapeHtml(domain)}</a>`;
+    }))
+    .join("");
+}
+
+function renderCuratedKnowledgeSourceSection(module) {
+  const groups = curatedKnowledgeSourcesForModule(module);
+  if (!groups.length) return "";
+  return `
+    <div class="knowledge-section">
+      <strong>${escapeHtml(t("referenceSources"))}</strong>
+      <div class="curated-source-groups">
+        ${groups.map(group => `
+          <div class="curated-source-group">
+            <small>${escapeHtml(sourceGroupLabel(group.group))}</small>
+            <div class="source-link-list">
+              ${group.sources.map(source => {
+                const domain = source.domain ? ` · ${source.domain}` : "";
+                return `<a href="${escapeHtml(source.url)}" target="_blank" rel="noopener">${escapeHtml(source.title)}${escapeHtml(domain)}</a>`;
+              }).join("")}
+            </div>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `;
+}
+
+function curatedKnowledgeSourcesForModule(module) {
+  const mapping = state.knowledgeSources.items?.[module.id || module.topic_id] || null;
+  if (!mapping) return [];
+  return ["official", "industry", "open_source", "research"]
+    .map(group => ({
+      group,
+      sources: (mapping[group] || []).filter(source => source?.url && source?.title)
+    }))
+    .filter(group => group.sources.length);
+}
+
+function firstCuratedSourceForKnowledgeId(knowledgeId) {
+  const mapping = state.knowledgeSources.items?.[knowledgeId] || null;
+  if (!mapping) return null;
+  for (const group of ["official", "industry", "open_source", "research"]) {
+    const source = (mapping[group] || []).find(item => item?.url && item?.title);
+    if (source) return { ...source, group };
   }
-  return links.map((url, index) => {
-    const label = titles[index] || domains[index] || url;
-    const domain = domains[index] ? ` · ${domains[index]}` : "";
-    return `<a href="${escapeHtml(url)}" target="_blank" rel="noopener">${escapeHtml(label)}${escapeHtml(domain)}</a>`;
-  }).join("");
+  return null;
+}
+
+function sourceGroupLabel(group) {
+  const labels = {
+    official: { zh: "官方来源", en: "Official Sources", fr: "Sources officielles" },
+    industry: { zh: "行业来源", en: "Industry Sources", fr: "Sources sectorielles" },
+    open_source: { zh: "开源案例", en: "Open Source Examples", fr: "Exemples open source" },
+    research: { zh: "研究资料", en: "Research", fr: "Recherche" }
+  };
+  return labels[group]?.[state.language] || labels[group]?.en || group;
 }
 
 function renderOpenSourceResources(module) {
