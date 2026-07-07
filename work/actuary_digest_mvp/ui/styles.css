@@ -475,15 +475,7 @@ body[data-page="daily"]:not([data-section="all"]) .focus-band {
 }
 
 .language-source-notice {
-  margin: -4px 0 18px;
-  padding: 10px 12px;
-  border: 1px solid var(--line);
-  border-left: 3px solid var(--accent);
-  border-radius: var(--radius);
-  background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.5;
+  display: none;
 }
 
 .metric {
@@ -2095,6 +2087,17 @@ body[data-page="daily"]:not([data-section="all"]) .focus-band {
 
 .ai-answer li {
   margin-bottom: 8px;
+}
+
+.ai-answer ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+
+.ai-answer small {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
 }
 
 .tag-cloud button.active {

@@ -81,6 +81,9 @@ class ActionCard:
     key_takeaway: dict[str, str]
     ai_summary: dict[str, str]
     why_it_matters: dict[str, str]
+    ai_enriched: bool = False
+    enrichment_provider: str = ""
+    enrichment_basis: str = ""
 
 
 PRIMARY_SECTION_KEYS = {
@@ -967,6 +970,9 @@ def ai_enrich_cards(
             key_takeaway=key_takeaway,
             ai_summary=ai_summary,
             why_it_matters=why_it_matters,
+            ai_enriched=True,
+            enrichment_provider=selected_provider,
+            enrichment_basis=item.summary_basis,
         )
         enriched_count += 1
     return updated, errors
@@ -1023,6 +1029,9 @@ def build_action_card(item: NewsItem) -> ActionCard:
             "zh": localized_why_it_matters(item, taxonomy_category, taxonomy_tags, "zh"),
             "fr": localized_why_it_matters(item, taxonomy_category, taxonomy_tags, "fr"),
         },
+        ai_enriched=False,
+        enrichment_provider="rules",
+        enrichment_basis=item.summary_basis,
     )
 
 
@@ -1400,6 +1409,9 @@ def render_json(
             "key_takeaway": card.key_takeaway,
             "ai_summary": card.ai_summary,
             "why_it_matters": card.why_it_matters,
+            "ai_enriched": card.ai_enriched,
+            "enrichment_provider": card.enrichment_provider,
+            "enrichment_basis": card.enrichment_basis,
             "region": card.region,
             "source_type": item.source_type,
             "platform_section": card.platform_section,

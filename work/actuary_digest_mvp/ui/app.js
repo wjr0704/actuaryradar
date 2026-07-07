@@ -509,7 +509,8 @@ const pageCopy = {
     chineseOnlyConcept: "该概念目前仅提供中文版本。",
     chineseOnlyTasks: "今日任务目前仅提供中文版本。",
     sourceViaGoogleNews: "通过 Google News 来源",
-    languageSourceNotice: "当前仅显示中文来源的保险与精算资讯，跨语言情报功能将在后续版本中逐步开放。",
+    languageSourceNotice: "",
+    aiSummaryUnavailable: "AI 摘要正在准备中。请稍后查看今日精选内容。",
     aiPlaceholder: "围绕今天内容提问，例如：健康险有哪些action？",
     ask: "提问",
     savedIntro: "保存在当前浏览器中，可用于第二天回看和导出",
@@ -732,7 +733,8 @@ const pageCopy = {
     chineseOnlyConcept: "This concept is currently available in Chinese only.",
     chineseOnlyTasks: "Today's tasks are currently available in Chinese only.",
     sourceViaGoogleNews: "Source via Google News",
-    languageSourceNotice: "Currently showing English-language insurance and actuarial sources only. Cross-language intelligence will be introduced progressively.",
+    languageSourceNotice: "",
+    aiSummaryUnavailable: "AI-generated summaries are being prepared. Please check back later for today’s curated insights.",
     aiPlaceholder: "Ask about today's content, e.g. what actions for health insurance?",
     ask: "Ask",
     savedIntro: "Saved in this browser for later review and PDF export",
@@ -955,7 +957,8 @@ const pageCopy = {
     chineseOnlyConcept: "Ce concept est actuellement disponible en chinois uniquement.",
     chineseOnlyTasks: "Les priorités du jour sont actuellement disponibles en chinois uniquement.",
     sourceViaGoogleNews: "Source relayée par Google Actualités",
-    languageSourceNotice: "Affichage actuel des sources francophones uniquement. La veille multilingue sera progressivement enrichie.",
+    languageSourceNotice: "",
+    aiSummaryUnavailable: "Les résumés générés par IA sont en cours de préparation. Revenez plus tard pour consulter la veille du jour.",
     aiPlaceholder: "Posez une question sur la veille du jour, ex. impacts pour la santé/prévoyance ?",
     ask: "Demander",
     savedIntro: "Conservé dans ce navigateur pour relecture et export PDF",
@@ -1699,7 +1702,10 @@ function renderScaffold() {
     els.conceptSourceLink.removeAttribute("href");
     els.conceptSourceLink.textContent = "";
   }
-  if (els.languageSourceNotice) els.languageSourceNotice.textContent = t("languageSourceNotice");
+  if (els.languageSourceNotice) {
+    els.languageSourceNotice.hidden = true;
+    els.languageSourceNotice.textContent = "";
+  }
   updateFreshnessLabels();
 
   renderSectionNav();
@@ -2317,6 +2323,7 @@ function cleanIntelligenceText(text, item) {
 
 function localizedItemSummary(item) {
   if (itemLanguage(item) !== state.language) return "";
+  if (!item.ai_enriched) return "";
   if (item.summary_basis === "title_only" || item.summary_basis === "paywalled_or_blocked") return "";
   const raw = item.ai_summary?.[state.language] || (item.summary_basis === "rss_excerpt" ? item.summary : "");
   const clean = cleanIntelligenceText(raw, item);
@@ -2325,6 +2332,7 @@ function localizedItemSummary(item) {
 
 function localizedWhyItMatters(item) {
   if (itemLanguage(item) !== state.language) return "";
+  if (!item.ai_enriched) return "";
   return item.why_it_matters?.[state.language] || "";
 }
 
@@ -2343,9 +2351,9 @@ function conciseText(text, maxLength = 220) {
 }
 
 function cardKeyTakeaway(item) {
-  const grounded = cleanIntelligenceText(item.key_takeaway?.[state.language] || "", item);
+  const grounded = item.ai_enriched ? cleanIntelligenceText(item.key_takeaway?.[state.language] || "", item) : "";
   if (grounded && !isTitleLikeText(grounded, item)) return conciseText(grounded, 260);
-  const summary = localizedItemSummary(item);
+  const summary = item.ai_enriched ? localizedItemSummary(item) : cleanIntelligenceText(item.summary || item.rss_description || "", item);
   const firstSentence = splitReadableSentences(summary)[0];
   const takeaway = firstSentence || summary;
   return isTitleLikeText(takeaway, item) ? "" : conciseText(takeaway, 260);
@@ -2363,7 +2371,7 @@ function summaryBullets(item) {
 function heroHighlightSummary(item) {
   const why = localizedWhyItMatters(item);
   if (why) return conciseText(why, 220);
-  return conciseText(cardKeyTakeaway(item) || localizedItemSummary(item) || t("languageSourceNotice"), 220);
+  return conciseText(cardKeyTakeaway(item) || localizedItemSummary(item) || localizedItemTitle(item), 220);
 }
 
 function summaryNotice(item) {
@@ -2517,7 +2525,7 @@ function renderPortal() {
     }
   } else {
     els.portalLeadTitle.textContent = t("noItems");
-    els.portalLeadSummary.textContent = t("languageSourceNotice");
+    els.portalLeadSummary.textContent = t("heroSubtitle");
     if (els.portalLeadLink) {
       els.portalLeadLink.hidden = true;
     }
@@ -2542,7 +2550,7 @@ function renderPortal() {
         <div>
           <span>${escapeHtml(sectionLabels[section]?.symbol || "IH")}</span>
           <h4>${escapeHtml(displaySection(section))}</h4>
-          <p>${escapeHtml(topicDescriptions[section] || t("languageSourceNotice"))}</p>
+          <p>${escapeHtml(topicDescriptions[section] || "")}</p>
         </div>
         <button class="text-link" type="button" data-portal-section="${escapeHtml(section)}">${escapeHtml(t("open"))} (${itemsForSection.length})</button>
       </article>
@@ -3854,52 +3862,50 @@ function renderAiAnswer(questionRaw) {
 
 function answerFromDigest(question, items) {
   const lower = question.toLowerCase();
-  let pool = items;
+  let pool = items.filter(item => item.ai_enriched && itemLanguage(item) === state.language);
   if (lower === "top3") {
-    pool = items;
   } else
   if (lower.includes("监管") || lower.includes("regulation") || lower.includes("solvency")) {
-    pool = items.filter(isRegulatoryItem);
+    pool = pool.filter(isRegulatoryItem);
   } else if (lower.includes("健康") || lower.includes("health") || lower.includes("santé") || lower.includes("sante")) {
-    pool = items.filter(item => item.line_of_business.includes("健康"));
+    pool = pool.filter(item => item.line_of_business.includes("健康"));
   } else if (lower.includes("寿险") || lower.includes("life")) {
-    pool = items.filter(item => item.line_of_business.includes("寿险"));
+    pool = pool.filter(item => item.line_of_business.includes("寿险"));
   } else if (lower.includes("再保险") || lower.includes("reinsurance")) {
-    pool = items.filter(item => item.line_of_business.includes("再保险") || item.branch.includes("再保险"));
+    pool = pool.filter(item => item.line_of_business.includes("再保险") || item.branch.includes("再保险"));
   } else if (lower.includes("科技") || lower.includes("ai") || lower.includes("insurtech")) {
-    pool = items.filter(item => item.platform_section.includes("科技"));
+    pool = pool.filter(item => item.platform_section.includes("科技"));
   }
 
   const top = [...pool].sort((a, b) => (b.score || 0) - (a.score || 0)).slice(0, 3);
   if (!top.length) {
-    const empty = {
-      zh: "当前筛选范围内没有找到直接相关内容。可以放宽筛选，或换一个关键词试试。",
-      en: "No directly relevant items were found under the current filters. Try broadening the filters or using another keyword.",
-      fr: "Aucun contenu directement pertinent avec les filtres actuels. Essayez d’élargir les filtres ou de modifier le mot-clé."
-    };
-    return `<p>${escapeHtml(empty[state.language] || empty.en)}</p>`;
+    return `<p>${escapeHtml(t("aiSummaryUnavailable"))}</p>`;
   }
   const intro = {
-    zh: `今日最值得看的 ${top.length} 条新闻：`,
-    en: `Top ${top.length} items from the current briefing:`,
-    fr: `Les ${top.length} principales actualités de la veille :`
-  };
-  const actionLabel = {
-    zh: "行动",
-    en: "Action",
-    fr: "Action"
-  };
-  const close = {
-    zh: "学习建议：把其中一条写成“假设、现金流、利润、资本”四段式笔记。",
-    en: "Learning suggestion: turn one item into a four-part note on assumptions, cash flows, earnings and capital.",
-    fr: "Suggestion de formation : transformez un contenu en note structurée autour de quatre axes : hypothèses, flux de trésorerie, résultat et capital."
+    zh: `AI 已总结 ${top.length} 条重点新闻：`,
+    en: `AI-generated summary of the top ${top.length} items:`,
+    fr: `Résumé IA des ${top.length} principales actualités :`
   };
   return [
     `<p><strong>${escapeHtml(intro[state.language] || intro.en)}</strong></p>`,
-    `<ol>`,
-    ...top.map(item => `<li><strong>${escapeHtml(localizedItemTitle(item))}</strong><br><span>${escapeHtml(localizedActuarialAngle(item))}</span><br><em>${escapeHtml(actionLabel[state.language] || actionLabel.en)}: ${escapeHtml(localizedActions(item)[0] || "")}</em></li>`),
-    `</ol>`,
-    `<p>${escapeHtml(close[state.language] || close.en)}</p>`
+    `<ol class="ai-summary-list">`,
+    ...top.map(item => {
+      const bullets = summaryBullets(item);
+      const takeaway = cardKeyTakeaway(item);
+      const why = localizedWhyItMatters(item);
+      const body = bullets.length
+        ? `<ul>${bullets.map(bullet => `<li>${escapeHtml(bullet)}</li>`).join("")}</ul>`
+        : `<p>${escapeHtml(takeaway || why || localizedItemTitle(item))}</p>`;
+      return [
+        `<li>`,
+        `<strong>${escapeHtml(localizedItemTitle(item))}</strong>`,
+        takeaway ? `<p>${escapeHtml(takeaway)}</p>` : "",
+        body,
+        why ? `<small>${escapeHtml(why)}</small>` : "",
+        `</li>`
+      ].join("");
+    }),
+    `</ol>`
   ].join("");
 }
 
