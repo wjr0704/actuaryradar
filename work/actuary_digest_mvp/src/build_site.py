@@ -134,6 +134,9 @@ def build_site(site_dir: pathlib.Path = SITE_DIR, base_url: str = "") -> None:
     knowledge_sources_path = ROOT / "config" / "knowledge_sources.json"
     if knowledge_sources_path.exists():
         copy_file(knowledge_sources_path, site_dir / "data" / "knowledge_sources.json")
+    learning_taxonomy_path = ROOT / "config" / "learning_taxonomy.json"
+    if learning_taxonomy_path.exists():
+        copy_file(learning_taxonomy_path, site_dir / "data" / "learning_taxonomy.json")
 
     if archives:
         latest = archives[0]

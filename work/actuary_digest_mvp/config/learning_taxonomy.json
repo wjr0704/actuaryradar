@@ -1,0 +1,387 @@
+{
+  "schema_version": "0.1",
+  "product_stage": "phase2",
+  "positioning": {
+    "en": "Your AI Learning Companion for Early-Career Insurance Professionals.",
+    "zh": "面向保险新人和初级精算人的 AI 学习伙伴。",
+    "fr": "Votre compagnon d’apprentissage IA pour les jeunes professionnels de l’assurance."
+  },
+  "defaults": {
+    "topics": ["Fundamentals", "Insurance Fundamentals"],
+    "career_stage": "student",
+    "learning_goal": "job_ready",
+    "difficulty": "beginner",
+    "daily_minutes": 15,
+    "daily_items": 2
+  },
+  "career_stages": [
+    {
+      "id": "student",
+      "labels": {
+        "en": "Actuarial Student",
+        "zh": "精算学生",
+        "fr": "Étudiant en actuariat"
+      }
+    },
+    {
+      "id": "junior_actuary",
+      "labels": {
+        "en": "Junior Actuary / Analyst",
+        "zh": "初级精算师 / 分析师",
+        "fr": "Actuaire junior / analyste"
+      }
+    },
+    {
+      "id": "early_career_insurance",
+      "labels": {
+        "en": "Early-Career Insurance Professional",
+        "zh": "保险行业新人",
+        "fr": "Jeune professionnel de l’assurance"
+      }
+    }
+  ],
+  "learning_goals": [
+    {
+      "id": "exam_ready",
+      "labels": {
+        "en": "Prepare for actuarial exams",
+        "zh": "准备精算考试",
+        "fr": "Préparer les examens actuariels"
+      }
+    },
+    {
+      "id": "job_ready",
+      "labels": {
+        "en": "Become job-ready",
+        "zh": "提升入门工作能力",
+        "fr": "Devenir opérationnel en poste"
+      }
+    },
+    {
+      "id": "pricing_reserving",
+      "labels": {
+        "en": "Build pricing and reserving skills",
+        "zh": "学习定价与准备金",
+        "fr": "Renforcer tarification et provisionnement"
+      }
+    },
+    {
+      "id": "regulatory_literacy",
+      "labels": {
+        "en": "Understand regulation and capital",
+        "zh": "理解监管与资本",
+        "fr": "Comprendre réglementation et capital"
+      }
+    },
+    {
+      "id": "industry_context",
+      "labels": {
+        "en": "Understand the insurance industry",
+        "zh": "建立保险行业认知",
+        "fr": "Comprendre le secteur de l’assurance"
+      }
+    }
+  ],
+  "difficulties": [
+    {
+      "id": "beginner",
+      "labels": {
+        "en": "Beginner",
+        "zh": "入门",
+        "fr": "Débutant"
+      }
+    },
+    {
+      "id": "intermediate",
+      "labels": {
+        "en": "Intermediate",
+        "zh": "中级",
+        "fr": "Intermédiaire"
+      }
+    },
+    {
+      "id": "advanced",
+      "labels": {
+        "en": "Advanced",
+        "zh": "进阶",
+        "fr": "Avancé"
+      }
+    }
+  ],
+  "daily_minutes": [10, 15, 20, 30],
+  "daily_items": [1, 2, 3, 5],
+  "topics": [
+    {
+      "id": "Fundamentals",
+      "slug": "fundamentals",
+      "labels": {
+        "zh": "精算基础",
+        "en": "Fundamentals",
+        "fr": "Fondamentaux actuariels"
+      },
+      "focus": {
+        "zh": "概率、统计、生存分析和现金流基础",
+        "en": "Probability, statistics, survival analysis and cash-flow basics",
+        "fr": "Probabilités, statistique, analyse de survie et flux"
+      },
+      "tracks": ["Fundamentals", "Insurance Fundamentals"],
+      "keywords": ["fundamental", "statistics", "survival", "probability", "mortality", "lapse", "基础", "概率", "统计", "mortalité", "rachat"]
+    },
+    {
+      "id": "Insurance Fundamentals",
+      "slug": "insurance_fundamentals",
+      "labels": {
+        "zh": "保险基础",
+        "en": "Insurance Fundamentals",
+        "fr": "Fondamentaux de l’assurance"
+      },
+      "focus": {
+        "zh": "保险现金流、风险池、产品结构和财务报表基础",
+        "en": "Insurance cash flows, risk pooling, product structures and financial statement basics",
+        "fr": "Flux d’assurance, mutualisation, structures de produits et bases financières"
+      },
+      "tracks": ["Insurance Fundamentals", "Fundamentals", "Insurance Finance"],
+      "keywords": ["insurance fundamentals", "cash flow", "risk pooling", "premium", "claims", "保险基础", "现金流", "保费", "理赔", "mutualisation", "prime", "sinistre"]
+    },
+    {
+      "id": "Life Insurance",
+      "slug": "life_insurance",
+      "labels": {
+        "zh": "寿险",
+        "en": "Life Insurance",
+        "fr": "Assurance vie"
+      },
+      "focus": {
+        "zh": "死亡率、退保、年金、利润释放",
+        "en": "Mortality, lapses, annuities and profit emergence",
+        "fr": "Mortalité, rachats, rentes et émergence du résultat"
+      },
+      "tracks": ["Insurance Fundamentals", "ALM", "Insurance Finance"],
+      "keywords": ["life", "annuity", "mortality", "lapse", "寿险", "年金", "死亡率", "vie", "rente", "mortalité"]
+    },
+    {
+      "id": "Health Insurance",
+      "slug": "health_insurance",
+      "labels": {
+        "zh": "健康险",
+        "en": "Health Insurance",
+        "fr": "Santé / prévoyance"
+      },
+      "focus": {
+        "zh": "医疗趋势、理赔、保障和产品组合",
+        "en": "Medical trend, claims, protection and portfolio mix",
+        "fr": "Dérive médicale, sinistres, prévoyance et mix portefeuille"
+      },
+      "tracks": ["Insurance Fundamentals", "Pricing", "Reserving"],
+      "keywords": ["health", "medical", "claim", "santé", "prévoyance", "健康", "医疗", "理赔"]
+    },
+    {
+      "id": "Pricing",
+      "slug": "pricing",
+      "labels": {
+        "zh": "定价",
+        "en": "Pricing",
+        "fr": "Tarification"
+      },
+      "focus": {
+        "zh": "费率、GLM、风险细分和充足性",
+        "en": "Ratemaking, GLM, segmentation and adequacy",
+        "fr": "Tarification, GLM, segmentation et suffisance tarifaire"
+      },
+      "tracks": ["Pricing"],
+      "keywords": ["pricing", "rate", "premium", "tarification", "费率", "定价", "glm"]
+    },
+    {
+      "id": "Reserving",
+      "slug": "reserving",
+      "labels": {
+        "zh": "准备金",
+        "en": "Reserving",
+        "fr": "Provisionnement"
+      },
+      "focus": {
+        "zh": "IBNR、三角形、赔案发展和不确定性",
+        "en": "IBNR, triangles, claims development and uncertainty",
+        "fr": "IBNR, triangles, développement des sinistres et incertitude"
+      },
+      "tracks": ["Reserving"],
+      "keywords": ["reserve", "reserving", "ibnr", "provisionnement", "准备金"]
+    },
+    {
+      "id": "IFRS 17",
+      "slug": "ifrs17",
+      "labels": {
+        "zh": "IFRS 17",
+        "en": "IFRS 17",
+        "fr": "IFRS 17"
+      },
+      "focus": {
+        "zh": "CSM、RA、BEL、PAA/GMM/VFA",
+        "en": "CSM, risk adjustment, BEL and measurement models",
+        "fr": "CSM, ajustement pour risque, BEL et modèles d’évaluation"
+      },
+      "tracks": ["IFRS 17", "Insurance Accounting", "Insurance Finance"],
+      "keywords": ["ifrs 17", "csm", "insurance contract", "contrats d’assurance", "合同服务边际"]
+    },
+    {
+      "id": "Solvency II",
+      "slug": "solvency_ii",
+      "labels": {
+        "zh": "Solvency II",
+        "en": "Solvency II",
+        "fr": "Solvabilité II"
+      },
+      "focus": {
+        "zh": "SCR、MCR、BEL、风险边际和 Own Funds",
+        "en": "SCR, MCR, BEL, risk margin and own funds",
+        "fr": "SCR, MCR, BEL, marge de risque et fonds propres"
+      },
+      "tracks": ["Solvency II", "Regulation", "Capital Management", "ERM"],
+      "keywords": ["solvency", "scr", "mcr", "eiopa", "solvabilité", "偿付能力"]
+    },
+    {
+      "id": "Capital Management",
+      "slug": "capital_management",
+      "labels": {
+        "zh": "资本管理",
+        "en": "Capital Management",
+        "fr": "Gestion du capital"
+      },
+      "focus": {
+        "zh": "经济资本、监管资本、资本优化和 RAROC",
+        "en": "Economic capital, regulatory capital, optimization and RAROC",
+        "fr": "Capital économique, capital réglementaire, optimisation et RAROC"
+      },
+      "tracks": ["Capital Management", "ERM", "Market Risk"],
+      "keywords": ["capital", "raroc", "own funds", "资本", "fonds propres"]
+    },
+    {
+      "id": "ERM",
+      "slug": "erm",
+      "labels": {
+        "zh": "ERM",
+        "en": "ERM",
+        "fr": "ERM / gestion des risques"
+      },
+      "focus": {
+        "zh": "风险偏好、ORSA、压力测试和 KRI",
+        "en": "Risk appetite, ORSA, stress testing and KRIs",
+        "fr": "Appétence au risque, ORSA, stress tests et KRI"
+      },
+      "tracks": ["ERM", "Operational Risk", "Regulation"],
+      "keywords": ["erm", "orsa", "risk management", "stress", "风险管理", "gestion des risques"]
+    },
+    {
+      "id": "Reinsurance",
+      "slug": "reinsurance",
+      "labels": {
+        "zh": "再保险",
+        "en": "Reinsurance",
+        "fr": "Réassurance"
+      },
+      "focus": {
+        "zh": "合约、临分、XoL、资本缓释和续转",
+        "en": "Treaty, facultative, XoL, capital relief and renewals",
+        "fr": "Traités, facultative, XoL, allègement du capital et renouvellements"
+      },
+      "tracks": ["Reinsurance", "Catastrophe Modelling"],
+      "keywords": ["reinsurance", "reinsurer", "retrocession", "réassurance", "再保险", "再保"]
+    },
+    {
+      "id": "Investment & ALM",
+      "slug": "investment_alm",
+      "labels": {
+        "zh": "投资与 ALM",
+        "en": "Investment & ALM",
+        "fr": "Investissement & ALM"
+      },
+      "focus": {
+        "zh": "久期、流动性、资产配置和利率风险",
+        "en": "Duration, liquidity, asset allocation and interest-rate risk",
+        "fr": "Duration, liquidité, allocation d’actifs et risque de taux"
+      },
+      "tracks": ["ALM", "Investment", "Market Risk", "Insurance Finance"],
+      "keywords": ["alm", "investment", "asset", "duration", "asset-liability", "投资", "资产", "actif-passif"]
+    },
+    {
+      "id": "AI & Insurance",
+      "slug": "ai_insurance",
+      "labels": {
+        "zh": "AI 与保险",
+        "en": "AI & Insurance",
+        "fr": "IA & assurance"
+      },
+      "focus": {
+        "zh": "生成式 AI、理赔自动化、反欺诈和模型治理",
+        "en": "Generative AI, claims automation, fraud detection and model governance",
+        "fr": "IA générative, automatisation des sinistres, fraude et gouvernance des modèles"
+      },
+      "tracks": ["AI for Insurance", "Data Analytics"],
+      "keywords": ["ai", "machine learning", "data", "insurtech", "人工智能", "数据", "ia"]
+    },
+    {
+      "id": "Climate Risk",
+      "slug": "climate_risk",
+      "labels": {
+        "zh": "气候风险",
+        "en": "Climate Risk",
+        "fr": "Risque climatique"
+      },
+      "focus": {
+        "zh": "物理风险、转型风险、压力测试和披露",
+        "en": "Physical risk, transition risk, stress testing and disclosure",
+        "fr": "Risque physique, transition, stress tests et reporting"
+      },
+      "tracks": ["Catastrophe Modelling", "ERM", "Regulation"],
+      "keywords": ["climate", "transition", "physical risk", "climat", "气候"]
+    },
+    {
+      "id": "Catastrophe Risk",
+      "slug": "catastrophe_risk",
+      "labels": {
+        "zh": "巨灾风险",
+        "en": "Catastrophe Risk",
+        "fr": "Risque catastrophe"
+      },
+      "focus": {
+        "zh": "洪水、风暴、地震、野火和巨灾模型",
+        "en": "Flood, storm, earthquake, wildfire and cat models",
+        "fr": "Inondation, tempête, séisme, feu de forêt et modèles cat"
+      },
+      "tracks": ["Catastrophe Modelling", "Reinsurance"],
+      "keywords": ["catastrophe", "nat cat", "flood", "earthquake", "wildfire", "巨灾", "catastrophe"]
+    },
+    {
+      "id": "Data Analytics",
+      "slug": "data_analytics",
+      "labels": {
+        "zh": "数据分析",
+        "en": "Data Analytics",
+        "fr": "Analyse de données"
+      },
+      "focus": {
+        "zh": "SQL、Python、R、特征工程和模型验证",
+        "en": "SQL, Python, R, feature engineering and validation",
+        "fr": "SQL, Python, R, variables explicatives et validation"
+      },
+      "tracks": ["Data Analytics", "Pricing", "AI for Insurance"],
+      "keywords": ["analytics", "python", "sql", "model", "data", "数据", "modèle"]
+    },
+    {
+      "id": "Regulation",
+      "slug": "regulation",
+      "labels": {
+        "zh": "监管",
+        "en": "Regulation",
+        "fr": "Réglementation"
+      },
+      "focus": {
+        "zh": "EIOPA、ACPR、DORA、AI Act、消费者保护",
+        "en": "EIOPA, ACPR, DORA, AI Act and consumer protection",
+        "fr": "EIOPA, ACPR, DORA, AI Act et protection des assurés"
+      },
+      "tracks": ["Regulation", "Solvency II", "ERM"],
+      "keywords": ["regulation", "eiopa", "acpr", "dora", "监管", "réglementation"]
+    }
+  ]
+}

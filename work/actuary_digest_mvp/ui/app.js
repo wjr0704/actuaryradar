@@ -25,6 +25,7 @@ const state = {
   knowledge: [],
   knowledgeCatalog: [],
   knowledgeSources: { items: {}, daily_concepts: [] },
+  learningTaxonomy: null,
   openSourceResources: [],
   activePage: "home",
   activeSection: "全部",
@@ -1020,7 +1021,7 @@ const pageCopy = {
   }
 };
 
-const learningTopicOptions = [
+let learningTopicOptions = [
   {
     id: "Fundamentals",
     labels: { zh: "精算基础", en: "Fundamentals", fr: "Fondamentaux actuariels" },
@@ -1142,6 +1143,14 @@ const learningTopicOptions = [
   }
 ];
 
+const fallbackLearningTopicOptions = learningTopicOptions.map(topic => ({
+  ...topic,
+  labels: { ...(topic.labels || {}) },
+  focus: { ...(topic.focus || {}) },
+  tracks: [...(topic.tracks || [])],
+  keywords: [...(topic.keywords || [])]
+}));
+
 const els = {
   sectionNav: document.querySelector("#sectionNav"),
   productTabs: document.querySelectorAll(".product-tab"),
@@ -1218,6 +1227,7 @@ const els = {
 };
 
 async function init() {
+  await loadLearningTaxonomy();
   normalizeLearningState();
   if (!state.sourcePlan) {
     state.sourcePlan = sourceLibrary.map(source => source.id);
@@ -1236,6 +1246,36 @@ async function init() {
   await loadKnowledgeSources();
   await loadKnowledge();
   await loadDigest("./data/digest.json");
+}
+
+async function loadLearningTaxonomy() {
+  try {
+    const response = await fetch("./data/learning_taxonomy.json", { cache: "no-store" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const payload = await response.json();
+    const configuredTopics = Array.isArray(payload.topics)
+      ? payload.topics.map(normalizeConfiguredLearningTopic).filter(Boolean)
+      : [];
+    if (configuredTopics.length) {
+      learningTopicOptions = configuredTopics;
+      state.learningTaxonomy = payload;
+    }
+  } catch {
+    learningTopicOptions = fallbackLearningTopicOptions;
+    state.learningTaxonomy = null;
+  }
+}
+
+function normalizeConfiguredLearningTopic(topic) {
+  if (!topic?.id || !topic?.labels) return null;
+  return {
+    id: String(topic.id),
+    slug: topic.slug || "",
+    labels: topic.labels || {},
+    focus: topic.focus || {},
+    tracks: Array.isArray(topic.tracks) ? topic.tracks.map(String) : [],
+    keywords: Array.isArray(topic.keywords) ? topic.keywords.map(String) : []
+  };
 }
 
 function renderStaticIcons() {

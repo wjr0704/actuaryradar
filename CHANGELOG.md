@@ -9,6 +9,7 @@ All notable changes to ActuaryRadar will be documented in this file.
 - Phase 2 architecture snapshot for a learning-first product direction.
 - Branch strategy for `feature/phase2-personalized-learning`.
 - Proposed data model for personalized daily learning, learning history and curated knowledge sources.
+- Config-driven learning taxonomy for Phase 2 career stages, goals, topics, difficulty and daily learning rhythm.
 
 ## [0.1.0] - 2026-07-06
 
