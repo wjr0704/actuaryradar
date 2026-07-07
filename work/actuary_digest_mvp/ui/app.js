@@ -371,8 +371,18 @@ const pageCopy = {
     heroKnowledge: "精算知识库",
     heroDaily: "每日情报汇总",
     portalToday: "今日精选",
+    homeLearningEyebrow: "个性化学习",
+    homeLearningTitle: "今天我该学什么？",
+    buildJourneyArrow: "建立我的学习旅程 →",
     todaysLearning: "今日学习",
     continueLearning: "继续学习",
+    recommendedNext: "推荐下一步",
+    homeLearningSummaryReady: "今日学习计划已准备好",
+    homeLearningSummarySetup: "先设置兴趣和学习时间，ActuaryRadar 会为你安排今日任务。",
+    browseAllEyebrow: "浏览",
+    browseAllTitle: "浏览全部内容",
+    learningLibraryHint: "概念、知识卡和可信资料源",
+    openLearningLibrary: "打开学习库 →",
     relatedBriefing: "相关情报",
     labelSeparator: "：",
     estimatedTime: "预计时间：15 分钟",
@@ -420,7 +430,6 @@ const pageCopy = {
     topicsCompleted: "已推进主题",
     dailyTarget: "今日目标",
     todaysLearningPlan: "今日学习",
-    recommendedNext: "推荐下一步",
     progressByTopic: "按主题进度",
     difficultyLabel: "难度",
     allLevels: "全部难度",
@@ -595,8 +604,18 @@ const pageCopy = {
     heroKnowledge: "Actuarial Library",
     heroDaily: "Insurance Briefing",
     portalToday: "Today’s Highlight",
+    homeLearningEyebrow: "Personalized Learning",
+    homeLearningTitle: "What should I learn today?",
+    buildJourneyArrow: "Build My Learning Journey →",
     todaysLearning: "Today’s Learning",
     continueLearning: "Continue Learning",
+    recommendedNext: "Recommended Next",
+    homeLearningSummaryReady: "Today’s learning plan is ready",
+    homeLearningSummarySetup: "Set your interests and available time so ActuaryRadar can guide today’s learning.",
+    browseAllEyebrow: "Browse",
+    browseAllTitle: "Browse All Intelligence",
+    learningLibraryHint: "Concepts, cards and curated references",
+    openLearningLibrary: "Open learning library →",
     relatedBriefing: "Related Briefing",
     labelSeparator: ": ",
     estimatedTime: "Estimated time: 15 min",
@@ -644,7 +663,6 @@ const pageCopy = {
     topicsCompleted: "Topics advanced",
     dailyTarget: "Daily target",
     todaysLearningPlan: "Today's Learning",
-    recommendedNext: "Recommended Next",
     progressByTopic: "Progress by Topic",
     difficultyLabel: "Difficulty",
     allLevels: "All levels",
@@ -819,8 +837,18 @@ const pageCopy = {
     heroKnowledge: "Base de connaissances",
     heroDaily: "Veille assurance",
     portalToday: "À la une",
+    homeLearningEyebrow: "Formation personnalisée",
+    homeLearningTitle: "Que travailler aujourd’hui ?",
+    buildJourneyArrow: "Construire mon parcours →",
     todaysLearning: "Formation du jour",
     continueLearning: "Poursuivre la formation",
+    recommendedNext: "À travailler ensuite",
+    homeLearningSummaryReady: "Votre parcours du jour est prêt",
+    homeLearningSummarySetup: "Définissez vos intérêts et votre temps disponible pour orienter la formation du jour.",
+    browseAllEyebrow: "Parcourir",
+    browseAllTitle: "Parcourir toute la veille",
+    learningLibraryHint: "Concepts, fiches et sources de confiance",
+    openLearningLibrary: "Ouvrir la base de connaissances →",
     relatedBriefing: "Veille associée",
     labelSeparator: " : ",
     estimatedTime: "Temps estimé : 15 min",
@@ -868,7 +896,6 @@ const pageCopy = {
     topicsCompleted: "Thèmes travaillés",
     dailyTarget: "Objectif du jour",
     todaysLearningPlan: "Formation du jour",
-    recommendedNext: "À travailler ensuite",
     progressByTopic: "Progression par thème",
     difficultyLabel: "Niveau",
     allLevels: "Tous niveaux",
@@ -1222,6 +1249,10 @@ const els = {
   portalLeadTitle: document.querySelector("#portalLeadTitle"),
   portalLeadSummary: document.querySelector("#portalLeadSummary"),
   portalLeadLink: document.querySelector("#portalLeadLink"),
+  homeLearningSummary: document.querySelector("#homeLearningSummary"),
+  homeTodayLearningList: document.querySelector("#homeTodayLearningList"),
+  homeContinueLearningList: document.querySelector("#homeContinueLearningList"),
+  homeRecommendedLearningList: document.querySelector("#homeRecommendedLearningList"),
   portalLatestGrid: document.querySelector("#portalLatestGrid"),
   portalSectionGrid: document.querySelector("#portalSectionGrid")
 };
@@ -1506,6 +1537,9 @@ function bindEvents() {
 
   els.continueLearningList?.addEventListener("click", handleLearningActionClick);
   els.recommendedLearningList?.addEventListener("click", handleLearningActionClick);
+  els.homeTodayLearningList?.addEventListener("click", handleLearningActionClick);
+  els.homeContinueLearningList?.addEventListener("click", handleLearningActionClick);
+  els.homeRecommendedLearningList?.addEventListener("click", handleLearningActionClick);
 
   els.selectAllSourcesButton.addEventListener("click", () => {
     state.sourcePlan = sourceLibrary.map(source => source.id);
@@ -2554,6 +2588,7 @@ function render() {
 
 function renderPortal() {
   if (!els.portalLatestGrid) return;
+  renderHomeLearning();
   const sorted = languageMatchedItems(state.items).sort((a, b) => (b.score || 0) - (a.score || 0));
   const lead = sorted[0];
   if (lead) {
@@ -2583,19 +2618,21 @@ function renderPortal() {
     research: t("topicResearchText"),
     career_learning: t("topicCareerText")
   };
-  els.portalSectionGrid.innerHTML = sectionOrder.map(section => {
-    const itemsForSection = sectionItems(section);
-    return `
-      <article class="portal-section-card">
-        <div>
-          <span>${escapeHtml(sectionLabels[section]?.symbol || "IH")}</span>
-          <h4>${escapeHtml(displaySection(section))}</h4>
-          <p>${escapeHtml(topicDescriptions[section] || "")}</p>
-        </div>
-        <button class="text-link" type="button" data-portal-section="${escapeHtml(section)}">${escapeHtml(t("open"))} (${itemsForSection.length})</button>
-      </article>
-    `;
-  }).join("");
+  if (els.portalSectionGrid) {
+    els.portalSectionGrid.innerHTML = sectionOrder.map(section => {
+      const itemsForSection = sectionItems(section);
+      return `
+        <article class="portal-section-card">
+          <div>
+            <span>${escapeHtml(sectionLabels[section]?.symbol || "IH")}</span>
+            <h4>${escapeHtml(displaySection(section))}</h4>
+            <p>${escapeHtml(topicDescriptions[section] || "")}</p>
+          </div>
+          <button class="text-link" type="button" data-portal-section="${escapeHtml(section)}">${escapeHtml(t("open"))} (${itemsForSection.length})</button>
+        </article>
+      `;
+    }).join("");
+  }
 
   els.portalLatestGrid.querySelectorAll("[data-portal-url]").forEach(button => {
     button.addEventListener("click", () => {
@@ -2608,7 +2645,7 @@ function renderPortal() {
     });
   });
 
-  els.portalSectionGrid.querySelectorAll("[data-portal-section]").forEach(button => {
+  els.portalSectionGrid?.querySelectorAll("[data-portal-section]").forEach(button => {
     button.addEventListener("click", () => {
       state.activeSection = button.dataset.portalSection;
       setActivePage("daily");
@@ -2616,6 +2653,37 @@ function renderPortal() {
       render();
     });
   });
+}
+
+function renderHomeLearning() {
+  if (!els.homeTodayLearningList) return;
+  const planItems = generateTodaysLearningItems();
+  const continueItems = generateContinueLearningItems();
+  const recommendedItems = generateRecommendedLearningItems(planItems.map(item => item.id));
+  const minutes = planItems.reduce((sum, item) => sum + Number(item.estimatedMinutes || 0), 0);
+  const selectedTopics = state.knowledgePlan.tracks || [];
+  const topicText = selectedTopics.slice(0, 2).map(learningTopicLabel).join(", ");
+  if (els.homeLearningSummary) {
+    els.homeLearningSummary.textContent = state.knowledgePlan.setupComplete
+      ? `${t("homeLearningSummaryReady")} · ${planItems.length} ${t("contentItems")} · ${minutes || state.knowledgePlan.studyTime || 15} ${t("minutesShort")}${topicText ? ` · ${topicText}` : ""}`
+      : t("homeLearningSummarySetup");
+  }
+  els.homeTodayLearningList.innerHTML = renderLearningItemList(planItems.slice(0, 3), {
+    emptyKey: state.knowledgePlan.setupComplete ? "noLearningPlanItems" : "setupLearningFirst",
+    mode: "today"
+  });
+  if (els.homeContinueLearningList) {
+    els.homeContinueLearningList.innerHTML = renderLearningItemList(continueItems.slice(0, 2), {
+      emptyKey: "noStartedLearningItems",
+      mode: "continue"
+    });
+  }
+  if (els.homeRecommendedLearningList) {
+    els.homeRecommendedLearningList.innerHTML = renderLearningItemList(recommendedItems.slice(0, 2), {
+      emptyKey: "moreContentSoon",
+      mode: "recommended"
+    });
+  }
 }
 
 function portalNewsCard(item) {
@@ -3209,6 +3277,7 @@ function renderLearningPlan() {
       mode: "recommended"
     });
   }
+  renderHomeLearning();
 }
 
 function generateTodaysLearningItems() {

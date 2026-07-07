@@ -788,6 +788,104 @@ body[data-page="daily"]:not([data-section="all"]) .focus-band {
   background: rgba(9, 109, 119, 0.34);
 }
 
+.home-learning-shell {
+  padding: var(--card-pad);
+  margin-bottom: clamp(16px, 1.45vw, 22px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbfc 100%);
+  box-shadow: var(--shadow-card);
+}
+
+.home-learning-heading {
+  margin-bottom: clamp(14px, 1.2vw, 18px);
+}
+
+.home-learning-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+  gap: var(--section-gap);
+  align-items: stretch;
+}
+
+.home-learning-primary,
+.home-learning-card {
+  border: 1px solid rgba(205, 219, 231, 0.9);
+  border-radius: var(--radius);
+  background: #ffffff;
+}
+
+.home-learning-primary {
+  padding: clamp(16px, 1.35vw, 22px);
+  border-top: 3px solid var(--accent);
+}
+
+.home-learning-side {
+  display: grid;
+  gap: var(--section-gap);
+}
+
+.home-learning-card {
+  padding: clamp(14px, 1.15vw, 18px);
+}
+
+.learning-panel-title {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: clamp(12px, 1vw, 16px);
+}
+
+.learning-panel-title.compact {
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.learning-panel-title span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: #e8f6f5;
+  color: var(--accent-dark);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.learning-panel-title h4 {
+  margin: 0;
+  color: var(--navy);
+  font-size: clamp(18px, 1.35vw, 22px);
+}
+
+.learning-panel-title p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.home-learning-list {
+  display: grid;
+  gap: 10px;
+}
+
+.home-learning-list.compact .learning-plan-item {
+  grid-template-columns: minmax(0, 1fr);
+  padding: 12px;
+}
+
+.home-learning-list.compact .learning-plan-actions {
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.browse-all-section .portal-feature-grid {
+  margin-bottom: 0;
+}
+
 .text-link {
   min-height: 36px;
   border: 1px solid var(--line);
@@ -2249,6 +2347,10 @@ textarea {
     grid-template-columns: 1fr;
   }
 
+  .home-learning-grid {
+    grid-template-columns: 1fr;
+  }
+
   .portal-news-grid,
   .portal-section-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2335,6 +2437,7 @@ textarea {
   .open-source-grid,
   .planner-choice-grid,
   .portal-feature-grid,
+  .home-learning-grid,
   .portal-news-grid,
   .portal-section-grid {
     grid-template-columns: 1fr;
