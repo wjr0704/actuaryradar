@@ -1,18 +1,18 @@
 {
-  "report_date": "2026-07-07",
-  "generation_date": "2026-07-07",
-  "generated_at": "2026-07-07T16:27:30.449168+00:00",
+  "report_date": "2026-07-08",
+  "generation_date": "2026-07-08",
+  "generated_at": "2026-07-08T08:48:33.437986+00:00",
   "mode": "rss",
   "refresh_log": {
-    "last_refresh_at": "2026-07-07T16:27:30.449188+00:00",
+    "last_refresh_at": "2026-07-08T08:48:33.438004+00:00",
     "refresh_status": "success",
     "articles_fetched": 60,
     "articles_added": 60,
-    "daily_concept_id": "巨灾超赔再保险 XL",
-    "featured_article_id": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPOEdKVDVTV3dSbU52UVhvNkxLbF92Yk55VGw3NW5DT3h1MTh0SVRwVk1SZHhYM09oNENpUlZfOEZsUUpjb1JxYUFzcnN6VEhOUnVzUmpLeEE3VjJWd1JxVWtfRVJFVmJ5VkxuSEV1SWZZZGZWY1VOWnR0QkRmZktoclIydXhILW9mcVNnUQ?oc=5"
+    "daily_concept_id": "CSM 合同服务边际",
+    "featured_article_id": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOREJ1X2NuUFJsaXVwSzl3Q1cxLTkyeWRqV2ozaWswYnhzVC11bE92MEVMbXJ2Tnl2SnJMQ2ZKeWFJVV9BTkZmTE8yMXhXWE5vZml0eEkyT1ZIcnJzWG9rdVBYUkZVOUNZOURweXZKSUVOLVZDbEhabENIQ1dUVWxHQUs0dlBCUmJjM1Q1OXVXbEMxN0FJeW81TzhrdEM?oc=5"
   },
   "focus_profile": {
-    "theme": "周二：健康险与医疗趋势",
+    "theme": "周三：财险、车险与巨灾风险",
     "regions": [
       "中国",
       "欧洲",
@@ -28,29 +28,95 @@
       "资本管理"
     ],
     "keywords": [
-      "健康险",
-      "medical",
-      "health insurance",
-      "赔付率",
-      "医疗通胀",
-      "claims",
-      "loss ratio",
-      "护理"
+      "财险",
+      "车险",
+      "property",
+      "casualty",
+      "auto insurance",
+      "motor insurance",
+      "catastrophe",
+      "巨灾",
+      "新能源车"
     ],
-    "learning_goal": "关注赔付率、医疗通胀、就医行为、续保、控费和健康管理。",
+    "learning_goal": "关注车险定价、巨灾风险、责任险、费用率、赔付率和外部生态数据。",
     "tasks": [
-      "把一条健康险新闻拆成频率、案均赔款、责任结构和续保行为。",
-      "设计一个赔付率上升 5%/10% 的敏感性测试。",
-      "记录一个健康管理或医疗服务联动案例。"
+      "选择一条财险或车险新闻，找出影响赔付频率或案均赔款的变量。",
+      "写出一个巨灾或新能源车险的风险分层思路。",
+      "记录一个可用于定价或反欺诈的数据源。"
     ],
-    "weekday": "Tuesday"
+    "weekday": "Wednesday"
   },
   "daily_concept": {
-    "term": "巨灾超赔再保险 XL",
-    "definition": "超过自留额后由再保险人承担约定层级损失的非比例再保险安排。",
-    "exercise": "画出 1-in-100 巨灾损失下，自留额、限额和恢复保费对净损失的影响。"
+    "term": "CSM 合同服务边际",
+    "definition": "IFRS 17 下未赚利润的负债组成部分，随保险服务提供逐步释放。",
+    "exercise": "选一家上市险企，写出 CSM 变动可能来自新业务、经验差异、假设变更还是释放。"
   },
   "items": [
+    {
+      "title": "EIOPA Event - Solvency II proportionality framework - KPMG",
+      "original_title": "EIOPA Event - Solvency II proportionality framework - KPMG",
+      "original_language": "EN",
+      "source_language": "en",
+      "source": "KPMG",
+      "source_name": "KPMG",
+      "source_url": "https://kpmg.com",
+      "original_url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOREJ1X2NuUFJsaXVwSzl3Q1cxLTkyeWRqV2ozaWswYnhzVC11bE92MEVMbXJ2Tnl2SnJMQ2ZKeWFJVV9BTkZmTE8yMXhXWE5vZml0eEkyT1ZIcnJzWG9rdVBYUkZVOUNZOURweXZKSUVOLVZDbEhabENIQ1dUVWxHQUs0dlBCUmJjM1Q1OXVXbEMxN0FJeW81TzhrdEM?oc=5",
+      "via_source": "Google News",
+      "rss_title": "EIOPA Event - Solvency II proportionality framework - KPMG",
+      "rss_description": "EIOPA Event - Solvency II proportionality framework KPMG",
+      "extracted_text": "",
+      "extraction_status": "unresolved_google_news",
+      "summary_basis": "title_only",
+      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOREJ1X2NuUFJsaXVwSzl3Q1cxLTkyeWRqV2ozaWswYnhzVC11bE92MEVMbXJ2Tnl2SnJMQ2ZKeWFJVV9BTkZmTE8yMXhXWE5vZml0eEkyT1ZIcnJzWG9rdVBYUkZVOUNZOURweXZKSUVOLVZDbEhabENIQ1dUVWxHQUs0dlBCUmJjM1Q1OXVXbEMxN0FJeW81TzhrdEM?oc=5",
+      "published": "2026-07-07",
+      "summary": "EIOPA Event - Solvency II proportionality framework KPMG",
+      "localized_title": {
+        "en": "Regulation intelligence: a source item to track from KPMG",
+        "zh": "监管情报：KPMG发布一项值得精算人跟踪的保险动态",
+        "fr": "Veille Réglementation : un signal assurance à suivre depuis KPMG"
+      },
+      "key_takeaway": {
+        "en": "",
+        "zh": "",
+        "fr": ""
+      },
+      "ai_summary": {
+        "en": "",
+        "zh": "",
+        "fr": ""
+      },
+      "why_it_matters": {
+        "en": "This development can change reporting, capital or governance requirements. Actuaries should check whether assumptions, controls and regulatory deliverables need updating.",
+        "zh": "这类监管更新可能改变报告口径、资本约束或合规流程。精算人应关注模型假设、披露要求和管理层行动是否需要同步调整。",
+        "fr": "Cette évolution peut modifier les exigences de reporting, de capital ou de gouvernance. Les actuaires doivent vérifier les impacts sur les hypothèses, les contrôles et les livrables réglementaires."
+      },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
+      "region": "欧洲",
+      "source_type": "News Search",
+      "platform_section": "regulation",
+      "category": "跨行业联动",
+      "taxonomy_category": "regulation",
+      "taxonomy_tags": [
+        "solvency_ii",
+        "regulation"
+      ],
+      "needs_review": false,
+      "line_of_business": "综合保险",
+      "branch": "监管/协会/专业机构",
+      "industry_category": "车企/出行",
+      "risk_level": "高",
+      "score": 13,
+      "actuarial_angle": "保险风险正在和银行资本、投行资产、车企生态、能源转型、医疗服务或数据中心投资互相传导。",
+      "actions": [
+        "画出联动链条：对手方、资产端、负债端、销售渠道和客户行为。",
+        "判断风险落点：信用风险、市场风险、承保风险、操作风险还是声誉风险。",
+        "找一个可量化指标跟踪，例如违约率、维修成本、医疗通胀、赔付频率或资产久期。"
+      ],
+      "learning_prompt": "复习资产负债联动、信用风险迁移、生态渠道和保险服务嵌入式销售。",
+      "shareable": "EIOPA Event - Solvency II proportionality framework - KPMG：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
+    },
     {
       "title": "上海国际再保险中心再提速：支持机构增厚资本 推动业务集聚临港 - 21财经",
       "original_title": "上海国际再保险中心再提速：支持机构增厚资本 推动业务集聚临港 - 21财经",
@@ -89,6 +155,9 @@
         "zh": "再保险动态会影响自留额、保障层级、巨灾暴露和资本缓释效果。它也会传导到原保险定价、预算波动和风险偏好。",
         "fr": "Les évolutions de réassurance influencent la rétention, les protections, l’exposition catastrophe et l’allègement du capital. Elles peuvent aussi se répercuter sur la tarification et la volatilité du résultat."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "中国",
       "source_type": "News Search",
       "platform_section": "reinsurance",
@@ -152,6 +221,9 @@
         "zh": "再保险动态会影响自留额、保障层级、巨灾暴露和资本缓释效果。它也会传导到原保险定价、预算波动和风险偏好。",
         "fr": "Les évolutions de réassurance influencent la rétention, les protections, l’exposition catastrophe et l’allègement du capital. Elles peuvent aussi se répercuter sur la tarification et la volatilité du résultat."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "中国",
       "source_type": "News Search",
       "platform_section": "reinsurance",
@@ -177,27 +249,27 @@
       "shareable": "金融监管总局、上海市政府印发《加快上海国际再保险中心建设的若干措施》 - 观点网：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
-      "title": "Uneven adaption: Insurance pricing and household climate resilience - Brookings",
-      "original_title": "Uneven adaption: Insurance pricing and household climate resilience - Brookings",
-      "original_language": "EN",
-      "source_language": "en",
-      "source": "Brookings",
-      "source_name": "Brookings",
-      "source_url": "https://www.brookings.edu",
-      "original_url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPSURFanhyWGt4RlVXUDZ0UnY1Mk9qTm1sYldJNlZ3REZucGE1N0RJa0dMMTN1S1pfcXVsSFRBYWtKMTZaR2tyOGJoU1QxaXFqdHFHZVVvVndJRFd5Z0pnc0pUZEFXN2o4MzhwU0trQW13a1oyOXBQTFpxOTc2M1BfQ3RaTFZVTVlNNG5ySEJJZXhRVHBja3VIMUFVX2xLUnRmclBtNw?oc=5",
+      "title": "第91家财险公司来了！中安财险获发金融许可证 - 东方财富",
+      "original_title": "第91家财险公司来了！中安财险获发金融许可证 - 东方财富",
+      "original_language": "ZH",
+      "source_language": "zh",
+      "source": "东方财富",
+      "source_name": "东方财富",
+      "source_url": "https://wap.eastmoney.com",
+      "original_url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1TSVZYSkJMNlV3NHFNQ2wwYmpXWGN1cEM4bzljYmxrangxQ1E1S1RVbXpnWmNuVmkxN2NvWDZaVlZEM205RV9udkozOVZrejBMa2NmM3dUM19ISG4zRlA3NA?oc=5",
       "via_source": "Google News",
-      "rss_title": "Uneven adaption: Insurance pricing and household climate resilience - Brookings",
-      "rss_description": "Uneven adaption: Insurance pricing and household climate resilience Brookings",
+      "rss_title": "第91家财险公司来了！中安财险获发金融许可证 - 东方财富",
+      "rss_description": "第91家财险公司来了！中安财险获发金融许可证 东方财富",
       "extracted_text": "",
       "extraction_status": "unresolved_google_news",
       "summary_basis": "title_only",
-      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPSURFanhyWGt4RlVXUDZ0UnY1Mk9qTm1sYldJNlZ3REZucGE1N0RJa0dMMTN1S1pfcXVsSFRBYWtKMTZaR2tyOGJoU1QxaXFqdHFHZVVvVndJRFd5Z0pnc0pUZEFXN2o4MzhwU0trQW13a1oyOXBQTFpxOTc2M1BfQ3RaTFZVTVlNNG5ySEJJZXhRVHBja3VIMUFVX2xLUnRmclBtNw?oc=5",
-      "published": "2026-07-06",
-      "summary": "Uneven adaption: Insurance pricing and household climate resilience Brookings",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1TSVZYSkJMNlV3NHFNQ2wwYmpXWGN1cEM4bzljYmxrangxQ1E1S1RVbXpnWmNuVmkxN2NvWDZaVlZEM205RV9udkozOVZrejBMa2NmM3dUM19ISG4zRlA3NA?oc=5",
+      "published": "2026-07-08",
+      "summary": "第91家财险公司来了！中安财险获发金融许可证 东方财富",
       "localized_title": {
-        "en": "Market intelligence: a source item to track from Brookings",
-        "zh": "市场情报：Brookings发布一项值得精算人跟踪的保险动态",
-        "fr": "Veille Marché : un signal assurance à suivre depuis Brookings"
+        "en": "Market intelligence: a source item to track from Chinese-language source",
+        "zh": "市场情报：东方财富发布一项值得精算人跟踪的保险动态",
+        "fr": "Veille Marché : un signal assurance à suivre depuis source en langue chinoise"
       },
       "key_takeaway": {
         "en": "",
@@ -210,33 +282,291 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
-      "region": "欧洲",
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
+      "region": "中国",
       "source_type": "News Search",
       "platform_section": "market",
-      "category": "跨行业联动",
+      "category": "行业趋势",
       "taxonomy_category": "market",
       "taxonomy_tags": [
-        "pricing",
-        "climate_risk"
+        "risk_management"
       ],
       "needs_review": true,
-      "line_of_business": "综合保险",
-      "branch": "生态伙伴/其他行业",
-      "industry_category": "车企/出行",
-      "risk_level": "中",
-      "score": 11,
-      "actuarial_angle": "保险风险正在和银行资本、投行资产、车企生态、能源转型、医疗服务或数据中心投资互相传导。",
+      "line_of_business": "财产险",
+      "branch": "保险公司",
+      "industry_category": "保险本业/其他",
+      "risk_level": "观察",
+      "score": 1,
+      "actuarial_angle": "值得持续观察其对产品、风险、资本和客户行为的间接影响。",
       "actions": [
-        "画出联动链条：对手方、资产端、负债端、销售渠道和客户行为。",
-        "判断风险落点：信用风险、市场风险、承保风险、操作风险还是声誉风险。",
-        "找一个可量化指标跟踪，例如违约率、维修成本、医疗通胀、赔付频率或资产久期。"
+        "记录它可能影响的精算假设，并标注需要哪些数据验证。",
+        "找一个同业或历史案例做对照，判断这是一日新闻还是长期趋势。",
+        "把结论写成三句话，沉淀到个人知识库。"
       ],
-      "learning_prompt": "复习资产负债联动、信用风险迁移、生态渠道和保险服务嵌入式销售。",
-      "shareable": "Uneven adaption: Insurance pricing and household climate resilience - Brookings：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
+      "learning_prompt": "练习把行业事件翻译成假设、现金流、资本和利润四个维度。",
+      "shareable": "第91家财险公司来了！中安财险获发金融许可证 - 东方财富：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
+    },
+    {
+      "title": "太平财险“防、救、赔”全链条护航夏粮安全 - 新华网客户端",
+      "original_title": "太平财险“防、救、赔”全链条护航夏粮安全 - 新华网客户端",
+      "original_language": "ZH",
+      "source_language": "zh",
+      "source": "新华网客户端",
+      "source_name": "新华网客户端",
+      "source_url": "https://app.xinhuanet.com",
+      "original_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNVTc5c1J5NjhPNzJCcklTMkszdkIzbUhvR3VuVWsyRnZEd3FxcHlTbll3ZTJOUEVJSTJDZlVJdzliTFdneGlTWUtRQjF6OEtEbUVUNFkwV1VOcXZLMENqLXZIQmFLaEFrQ1Z4TFhqdDZVZVN4MjgxLWJ6clpqcUdVaGFheDF5X216OXNfTjBDblZBYnNvd1c0VzlB?oc=5",
+      "via_source": "Google News",
+      "rss_title": "太平财险“防、救、赔”全链条护航夏粮安全 - 新华网客户端",
+      "rss_description": "太平财险“防、救、赔”全链条护航夏粮安全 新华网客户端",
+      "extracted_text": "",
+      "extraction_status": "unresolved_google_news",
+      "summary_basis": "title_only",
+      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNVTc5c1J5NjhPNzJCcklTMkszdkIzbUhvR3VuVWsyRnZEd3FxcHlTbll3ZTJOUEVJSTJDZlVJdzliTFdneGlTWUtRQjF6OEtEbUVUNFkwV1VOcXZLMENqLXZIQmFLaEFrQ1Z4TFhqdDZVZVN4MjgxLWJ6clpqcUdVaGFheDF5X216OXNfTjBDblZBYnNvd1c0VzlB?oc=5",
+      "published": "2026-07-03",
+      "summary": "太平财险“防、救、赔”全链条护航夏粮安全 新华网客户端",
+      "localized_title": {
+        "en": "Market intelligence: a source item to track from Chinese-language source",
+        "zh": "市场情报：新华网客户端发布一项值得精算人跟踪的保险动态",
+        "fr": "Veille Marché : un signal assurance à suivre depuis source en langue chinoise"
+      },
+      "key_takeaway": {
+        "en": "",
+        "zh": "",
+        "fr": ""
+      },
+      "ai_summary": {
+        "en": "",
+        "zh": "",
+        "fr": ""
+      },
+      "why_it_matters": {
+        "en": null,
+        "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
+        "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
+      },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
+      "region": "中国",
+      "source_type": "News Search",
+      "platform_section": "market",
+      "category": "行业趋势",
+      "taxonomy_category": "market",
+      "taxonomy_tags": [
+        "risk_management"
+      ],
+      "needs_review": true,
+      "line_of_business": "财产险",
+      "branch": "保险公司",
+      "industry_category": "保险本业/其他",
+      "risk_level": "观察",
+      "score": 1,
+      "actuarial_angle": "值得持续观察其对产品、风险、资本和客户行为的间接影响。",
+      "actions": [
+        "记录它可能影响的精算假设，并标注需要哪些数据验证。",
+        "找一个同业或历史案例做对照，判断这是一日新闻还是长期趋势。",
+        "把结论写成三句话，沉淀到个人知识库。"
+      ],
+      "learning_prompt": "练习把行业事件翻译成假设、现金流、资本和利润四个维度。",
+      "shareable": "太平财险“防、救、赔”全链条护航夏粮安全 - 新华网客户端：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
+    },
+    {
+      "title": "国内第91家财险公司亮相 中安财险获发金融许可证 - 21财经",
+      "original_title": "国内第91家财险公司亮相 中安财险获发金融许可证 - 21财经",
+      "original_language": "ZH",
+      "source_language": "zh",
+      "source": "21财经",
+      "source_name": "21财经",
+      "source_url": "https://m.21jingji.com",
+      "original_url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNd3VLMTh2WU8xS3lwTVg0MG9qaE9SQnE3RWFjM3g3OEVWLVFGRE03RXdvbDV2eVUxOURuZHpUc3BHZ2JUOGc1WDV3ZDdkSF80LUFWaWdhZlN2SHRHWFJLcW8zWjItWGdfOUw2c19idGF3NGlXQ1hfRk5mWWZUaWhLNk5DZU9IcGsycnBZd1dmTnNtREt3?oc=5",
+      "via_source": "Google News",
+      "rss_title": "国内第91家财险公司亮相 中安财险获发金融许可证 - 21财经",
+      "rss_description": "国内第91家财险公司亮相 中安财险获发金融许可证 21财经",
+      "extracted_text": "",
+      "extraction_status": "unresolved_google_news",
+      "summary_basis": "title_only",
+      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNd3VLMTh2WU8xS3lwTVg0MG9qaE9SQnE3RWFjM3g3OEVWLVFGRE03RXdvbDV2eVUxOURuZHpUc3BHZ2JUOGc1WDV3ZDdkSF80LUFWaWdhZlN2SHRHWFJLcW8zWjItWGdfOUw2c19idGF3NGlXQ1hfRk5mWWZUaWhLNk5DZU9IcGsycnBZd1dmTnNtREt3?oc=5",
+      "published": "2026-07-08",
+      "summary": "国内第91家财险公司亮相 中安财险获发金融许可证 21财经",
+      "localized_title": {
+        "en": "Market intelligence: a source item to track from Chinese-language source",
+        "zh": "市场情报：21财经发布一项值得精算人跟踪的保险动态",
+        "fr": "Veille Marché : un signal assurance à suivre depuis source en langue chinoise"
+      },
+      "key_takeaway": {
+        "en": "",
+        "zh": "",
+        "fr": ""
+      },
+      "ai_summary": {
+        "en": "",
+        "zh": "",
+        "fr": ""
+      },
+      "why_it_matters": {
+        "en": null,
+        "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
+        "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
+      },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
+      "region": "中国",
+      "source_type": "News Search",
+      "platform_section": "market",
+      "category": "行业趋势",
+      "taxonomy_category": "market",
+      "taxonomy_tags": [
+        "risk_management"
+      ],
+      "needs_review": true,
+      "line_of_business": "财产险",
+      "branch": "保险公司",
+      "industry_category": "保险本业/其他",
+      "risk_level": "观察",
+      "score": 1,
+      "actuarial_angle": "值得持续观察其对产品、风险、资本和客户行为的间接影响。",
+      "actions": [
+        "记录它可能影响的精算假设，并标注需要哪些数据验证。",
+        "找一个同业或历史案例做对照，判断这是一日新闻还是长期趋势。",
+        "把结论写成三句话，沉淀到个人知识库。"
+      ],
+      "learning_prompt": "练习把行业事件翻译成假设、现金流、资本和利润四个维度。",
+      "shareable": "国内第91家财险公司亮相 中安财险获发金融许可证 - 21财经：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
+    },
+    {
+      "title": "安徽中安财险获发金融许可证 - thepaper.cn",
+      "original_title": "安徽中安财险获发金融许可证 - thepaper.cn",
+      "original_language": "ZH",
+      "source_language": "zh",
+      "source": "thepaper.cn",
+      "source_name": "thepaper.cn",
+      "source_url": "https://www.thepaper.cn",
+      "original_url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9UdUp5aVFJdVp5dVZWQkQ1eHpLRVJOS3c4SmJuNUl2cDVoUFZmaGltc2RybmFXa1dEeF8xUUNoMU5WX2VDU05iZ1FuUG5mWi1zZDE5ek93eXNEeERXNnpyVg?oc=5",
+      "via_source": "Google News",
+      "rss_title": "安徽中安财险获发金融许可证 - thepaper.cn",
+      "rss_description": "安徽中安财险获发金融许可证 thepaper.cn",
+      "extracted_text": "",
+      "extraction_status": "unresolved_google_news",
+      "summary_basis": "title_only",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9UdUp5aVFJdVp5dVZWQkQ1eHpLRVJOS3c4SmJuNUl2cDVoUFZmaGltc2RybmFXa1dEeF8xUUNoMU5WX2VDU05iZ1FuUG5mWi1zZDE5ek93eXNEeERXNnpyVg?oc=5",
+      "published": "2026-07-06",
+      "summary": "安徽中安财险获发金融许可证 thepaper.cn",
+      "localized_title": {
+        "en": "Market intelligence: a source item to track from thepaper.cn",
+        "zh": "市场情报：thepaper.cn发布一项值得精算人跟踪的保险动态",
+        "fr": "Veille Marché : un signal assurance à suivre depuis thepaper.cn"
+      },
+      "key_takeaway": {
+        "en": "",
+        "zh": "",
+        "fr": ""
+      },
+      "ai_summary": {
+        "en": "",
+        "zh": "",
+        "fr": ""
+      },
+      "why_it_matters": {
+        "en": null,
+        "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
+        "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
+      },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
+      "region": "中国",
+      "source_type": "News Search",
+      "platform_section": "market",
+      "category": "行业趋势",
+      "taxonomy_category": "market",
+      "taxonomy_tags": [
+        "risk_management"
+      ],
+      "needs_review": true,
+      "line_of_business": "财产险",
+      "branch": "保险公司",
+      "industry_category": "保险本业/其他",
+      "risk_level": "观察",
+      "score": 1,
+      "actuarial_angle": "值得持续观察其对产品、风险、资本和客户行为的间接影响。",
+      "actions": [
+        "记录它可能影响的精算假设，并标注需要哪些数据验证。",
+        "找一个同业或历史案例做对照，判断这是一日新闻还是长期趋势。",
+        "把结论写成三句话，沉淀到个人知识库。"
+      ],
+      "learning_prompt": "练习把行业事件翻译成假设、现金流、资本和利润四个维度。",
+      "shareable": "安徽中安财险获发金融许可证 - thepaper.cn：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
+    },
+    {
+      "title": "人保财险广西分公司积极部署应对台风“美莎克” - 人民网",
+      "original_title": "人保财险广西分公司积极部署应对台风“美莎克” - 人民网",
+      "original_language": "ZH",
+      "source_language": "zh",
+      "source": "人民网",
+      "source_name": "人民网",
+      "source_url": "http://gx.people.com.cn",
+      "original_url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE42UXF4NVR2aVpEQWlMN0l3SXRxSzhSbDNYRk5KUWRKanRRN2tOYTMtUDhSaDFmVlNXSlBHc3pEOV8wLUZSVnF4UXVRSjExREx5Rnk0YUV4MWpyRm93RndlUWNBcW5KQmJfVkE?oc=5",
+      "via_source": "Google News",
+      "rss_title": "人保财险广西分公司积极部署应对台风“美莎克” - 人民网",
+      "rss_description": "人保财险广西分公司积极部署应对台风“美莎克” 人民网",
+      "extracted_text": "",
+      "extraction_status": "unresolved_google_news",
+      "summary_basis": "title_only",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE42UXF4NVR2aVpEQWlMN0l3SXRxSzhSbDNYRk5KUWRKanRRN2tOYTMtUDhSaDFmVlNXSlBHc3pEOV8wLUZSVnF4UXVRSjExREx5Rnk0YUV4MWpyRm93RndlUWNBcW5KQmJfVkE?oc=5",
+      "published": "2026-07-07",
+      "summary": "人保财险广西分公司积极部署应对台风“美莎克” 人民网",
+      "localized_title": {
+        "en": "Market intelligence: a source item to track from Chinese-language source",
+        "zh": "市场情报：人民网发布一项值得精算人跟踪的保险动态",
+        "fr": "Veille Marché : un signal assurance à suivre depuis source en langue chinoise"
+      },
+      "key_takeaway": {
+        "en": "",
+        "zh": "",
+        "fr": ""
+      },
+      "ai_summary": {
+        "en": "",
+        "zh": "",
+        "fr": ""
+      },
+      "why_it_matters": {
+        "en": null,
+        "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
+        "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
+      },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
+      "region": "中国",
+      "source_type": "News Search",
+      "platform_section": "market",
+      "category": "行业趋势",
+      "taxonomy_category": "market",
+      "taxonomy_tags": [
+        "risk_management"
+      ],
+      "needs_review": true,
+      "line_of_business": "财产险",
+      "branch": "保险公司",
+      "industry_category": "保险本业/其他",
+      "risk_level": "观察",
+      "score": 1,
+      "actuarial_angle": "值得持续观察其对产品、风险、资本和客户行为的间接影响。",
+      "actions": [
+        "记录它可能影响的精算假设，并标注需要哪些数据验证。",
+        "找一个同业或历史案例做对照，判断这是一日新闻还是长期趋势。",
+        "把结论写成三句话，沉淀到个人知识库。"
+      ],
+      "learning_prompt": "练习把行业事件翻译成假设、现金流、资本和利润四个维度。",
+      "shareable": "人保财险广西分公司积极部署应对台风“美莎克” - 人民网：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
       "title": "【看合规】太平洋财产保险天津分公司被监管处罚 - 面包财经",
@@ -276,6 +606,9 @@
         "zh": "这类监管更新可能改变报告口径、资本约束或合规流程。精算人应关注模型假设、披露要求和管理层行动是否需要同步调整。",
         "fr": "Cette évolution peut modifier les exigences de reporting, de capital ou de gouvernance. Les actuaires doivent vérifier les impacts sur les hypothèses, les contrôles et les livrables réglementaires."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "中国",
       "source_type": "News Search",
       "platform_section": "regulation",
@@ -338,6 +671,9 @@
         "zh": "科技与 AI 新闻的关键在于是否真正改变核保、理赔、反欺诈或分销效率。精算人还需要关注数据质量、模型治理和监管可解释性。",
         "fr": "L’enjeu est de savoir si l’IA ou l’InsurTech améliore réellement la souscription, les sinistres, la fraude ou la distribution. Les points de vigilance restent la qualité des données, la gouvernance des modèles et l’explicabilité."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "美国",
       "source_type": "News Search",
       "platform_section": "technology_ai",
@@ -401,6 +737,9 @@
         "zh": "再保险动态会影响自留额、保障层级、巨灾暴露和资本缓释效果。它也会传导到原保险定价、预算波动和风险偏好。",
         "fr": "Les évolutions de réassurance influencent la rétention, les protections, l’exposition catastrophe et l’allègement du capital. Elles peuvent aussi se répercuter sur la tarification et la volatilité du résultat."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "全球",
       "source_type": "News Search",
       "platform_section": "reinsurance",
@@ -464,6 +803,9 @@
         "zh": "科技与 AI 新闻的关键在于是否真正改变核保、理赔、反欺诈或分销效率。精算人还需要关注数据质量、模型治理和监管可解释性。",
         "fr": "L’enjeu est de savoir si l’IA ou l’InsurTech améliore réellement la souscription, les sinistres, la fraude ou la distribution. Les points de vigilance restent la qualité des données, la gouvernance des modèles et l’explicabilité."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "全球",
       "source_type": "News Search",
       "platform_section": "research",
@@ -489,27 +831,27 @@
       "shareable": "The future of AI in the insurance industry - McKinsey & Company：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
-      "title": "How the Insurance Industry is Navigating the Complex Debate Over Fairness in Pricing - Risk & Insurance",
-      "original_title": "How the Insurance Industry is Navigating the Complex Debate Over Fairness in Pricing - Risk & Insurance",
-      "original_language": "EN",
-      "source_language": "en",
-      "source": "Risk & Insurance",
-      "source_name": "Risk & Insurance",
-      "source_url": "https://riskandinsurance.com",
-      "original_url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNVkpLZVVjV2x0bmRaNk5tYW9SWldiOEhtbTlRa0ZqT3c5aG4yQ3hJcTJfRTBaRjdHelFiSkdDckw1dTFaNXlsUWNYU1YtVDVKOU1YNkJhNXNxdWRVWlRiVEhXYUtTNEtOdGZ5bVp2YWhRQXlwMFU4MElJWjNXRzdUZmQydE9kMFh6Z09pcWJob1JxSTJhZWpWaTRlQkZCUWFLSTVwNWtrNlFRSXU2Q0c0S0dERHo?oc=5",
+      "title": "加快上海国际再保险中心建设若干措施发布 - 央视网",
+      "original_title": "加快上海国际再保险中心建设若干措施发布 - 央视网",
+      "original_language": "ZH",
+      "source_language": "zh",
+      "source": "央视网",
+      "source_name": "央视网",
+      "source_url": "https://news.cctv.com",
+      "original_url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBBVHJRczNWcGQ4SEJianRESFNsdUVDcFRoZnNpUTJpMkF2WldKVTlUcC1RaDhuZ21sOEhsUmd6NnJtOUVjMmFWeXl4UUhpQzN4SzNiSU1ueUdjQXZvcmxwM1ZRUmJJNVpYekFvdE9rUlJXWElvWHVZVQ?oc=5",
       "via_source": "Google News",
-      "rss_title": "How the Insurance Industry is Navigating the Complex Debate Over Fairness in Pricing - Risk & Insurance",
-      "rss_description": "How the Insurance Industry is Navigating the Complex Debate Over Fairness in Pricing Risk & Insurance",
+      "rss_title": "加快上海国际再保险中心建设若干措施发布 - 央视网",
+      "rss_description": "加快上海国际再保险中心建设若干措施发布 央视网",
       "extracted_text": "",
       "extraction_status": "unresolved_google_news",
       "summary_basis": "title_only",
-      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNVkpLZVVjV2x0bmRaNk5tYW9SWldiOEhtbTlRa0ZqT3c5aG4yQ3hJcTJfRTBaRjdHelFiSkdDckw1dTFaNXlsUWNYU1YtVDVKOU1YNkJhNXNxdWRVWlRiVEhXYUtTNEtOdGZ5bVp2YWhRQXlwMFU4MElJWjNXRzdUZmQydE9kMFh6Z09pcWJob1JxSTJhZWpWaTRlQkZCUWFLSTVwNWtrNlFRSXU2Q0c0S0dERHo?oc=5",
-      "published": "2026-07-01",
-      "summary": "How the Insurance Industry is Navigating the Complex Debate Over Fairness in Pricing Risk & Insurance",
+      "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBBVHJRczNWcGQ4SEJianRESFNsdUVDcFRoZnNpUTJpMkF2WldKVTlUcC1RaDhuZ21sOEhsUmd6NnJtOUVjMmFWeXl4UUhpQzN4SzNiSU1ueUdjQXZvcmxwM1ZRUmJJNVpYekFvdE9rUlJXWElvWHVZVQ?oc=5",
+      "published": "2026-07-08",
+      "summary": "加快上海国际再保险中心建设若干措施发布 央视网",
       "localized_title": {
-        "en": "Technology & AI intelligence: a source item to track from Risk & Insurance",
-        "zh": "科技与 AI情报：Risk & Insurance发布一项值得精算人跟踪的保险动态",
-        "fr": "Veille Technologie & IA : un signal assurance à suivre depuis Risk & Insurance"
+        "en": "Reinsurance intelligence: a source item to track from Chinese-language source",
+        "zh": "再保险情报：央视网发布一项值得精算人跟踪的保险动态",
+        "fr": "Veille Réassurance : un signal assurance à suivre depuis source en langue chinoise"
       },
       "key_takeaway": {
         "en": "",
@@ -522,56 +864,58 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "The key question is whether AI or InsurTech changes underwriting, claims, fraud detection or distribution economics. Data quality, model governance and explainability remain the actuarial control points.",
-        "zh": "科技与 AI 新闻的关键在于是否真正改变核保、理赔、反欺诈或分销效率。精算人还需要关注数据质量、模型治理和监管可解释性。",
-        "fr": "L’enjeu est de savoir si l’IA ou l’InsurTech améliore réellement la souscription, les sinistres, la fraude ou la distribution. Les points de vigilance restent la qualité des données, la gouvernance des modèles et l’explicabilité."
+        "en": "Reinsurance developments affect retentions, cover structure, catastrophe exposure and capital relief. They can also flow through to primary pricing, earnings volatility and risk appetite.",
+        "zh": "再保险动态会影响自留额、保障层级、巨灾暴露和资本缓释效果。它也会传导到原保险定价、预算波动和风险偏好。",
+        "fr": "Les évolutions de réassurance influencent la rétention, les protections, l’exposition catastrophe et l’allègement du capital. Elles peuvent aussi se répercuter sur la tarification et la volatilité du résultat."
       },
-      "region": "全球",
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
+      "region": "中国",
       "source_type": "News Search",
-      "platform_section": "technology_ai",
-      "category": "保险科技与数据前沿",
-      "taxonomy_category": "technology_ai",
+      "platform_section": "reinsurance",
+      "category": "再保险与巨灾风险",
+      "taxonomy_category": "reinsurance",
       "taxonomy_tags": [
-        "pricing",
-        "data_ai",
-        "insurtech"
+        "reinsurance",
+        "catastrophe_risk"
       ],
-      "needs_review": true,
-      "line_of_business": "综合保险",
-      "branch": "生态伙伴/其他行业",
-      "industry_category": "投行/资本市场",
-      "risk_level": "中",
-      "score": 8,
-      "actuarial_angle": "可能改变核保、定价、理赔、反欺诈、客户运营和模型治理方式。",
+      "needs_review": false,
+      "line_of_business": "再保险",
+      "branch": "再保险",
+      "industry_category": "保险本业/其他",
+      "risk_level": "观察",
+      "score": 4,
+      "actuarial_angle": "可能改变自留额、再保成本、尾部风险资本和财险定价充足性。",
       "actions": [
-        "判断技术处于概念验证、试点、规模化还是监管约束阶段。",
-        "列出一个可落地场景：数据输入、模型输出、业务决策、风险控制。",
-        "检查模型风险：公平性、可解释性、漂移监控、人工复核和数据授权。"
+        "复核当前再保结构下 1-in-100 与 1-in-200 损失情景。",
+        "比较不同自留额对利润波动、资本占用和再保费用的影响。",
+        "把近期灾害经验纳入下一轮定价或预算假设讨论。"
       ],
-      "learning_prompt": "复习 GLM、机器学习定价、模型治理、反欺诈和可解释 AI。",
-      "shareable": "How the Insurance Industry is Navigating the Complex Debate Over Fairness in Pricing - Risk & Insurance：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
+      "learning_prompt": "复习 XL、quota share、aggregate cover 与巨灾模型输出。",
+      "shareable": "加快上海国际再保险中心建设若干措施发布 - 央视网：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
-      "title": "中华财险宁县支公司被罚 虚构中介业务套取费用 - 中国经济网",
-      "original_title": "中华财险宁县支公司被罚 虚构中介业务套取费用 - 中国经济网",
+      "title": "“情暖老兵·戎光同行”退役军人专属车险专项行动暨公益捐赠仪式在北京举行 - 新华网客户端",
+      "original_title": "“情暖老兵·戎光同行”退役军人专属车险专项行动暨公益捐赠仪式在北京举行 - 新华网客户端",
       "original_language": "ZH",
       "source_language": "zh",
-      "source": "中国经济网",
-      "source_name": "中国经济网",
-      "source_url": "http://finance.ce.cn",
-      "original_url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE1XVXk0alg5TjQ1aXJkVHYwM2VyYUVWSGg2LV83eHRYSlhsNEpYWWxlWlk2NlpMSUpIdGc5NkxpM05KNnFTLWtQQ0xBdE8xRzVOVU1oYUthbkI0NEdaZUtDRzBvSDA0ZnNPVS0tRTdybDlONHN1QXdxWXRTQkFtUQ?oc=5",
+      "source": "新华网客户端",
+      "source_name": "新华网客户端",
+      "source_url": "https://app.xinhuanet.com",
+      "original_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOOHlCUkduNXNPN3E0OXhLa2hlT1ZRTjh0X1JOcnNRWGNKblVaR25EOVB4QUFKM2xseVdLTVczWUQzcFVWam83Nmo1czVwUGxjWEozSURXbVpCVlVxX2FRUUlyN18xM2pETkN6MWhLUHhJYlVnQUNjVGY5bmViUHJhVlJVRXlhZHY4c0RlbldIVXpnQjZHc19WbTNR?oc=5",
       "via_source": "Google News",
-      "rss_title": "中华财险宁县支公司被罚 虚构中介业务套取费用 - 中国经济网",
-      "rss_description": "中华财险宁县支公司被罚 虚构中介业务套取费用 中国经济网",
+      "rss_title": "“情暖老兵·戎光同行”退役军人专属车险专项行动暨公益捐赠仪式在北京举行 - 新华网客户端",
+      "rss_description": "“情暖老兵·戎光同行”退役军人专属车险专项行动暨公益捐赠仪式在北京举行 新华网客户端",
       "extracted_text": "",
       "extraction_status": "unresolved_google_news",
       "summary_basis": "title_only",
-      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE1XVXk0alg5TjQ1aXJkVHYwM2VyYUVWSGg2LV83eHRYSlhsNEpYWWxlWlk2NlpMSUpIdGc5NkxpM05KNnFTLWtQQ0xBdE8xRzVOVU1oYUthbkI0NEdaZUtDRzBvSDA0ZnNPVS0tRTdybDlONHN1QXdxWXRTQkFtUQ?oc=5",
-      "published": "2026-07-03",
-      "summary": "中华财险宁县支公司被罚 虚构中介业务套取费用 中国经济网",
+      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOOHlCUkduNXNPN3E0OXhLa2hlT1ZRTjh0X1JOcnNRWGNKblVaR25EOVB4QUFKM2xseVdLTVczWUQzcFVWam83Nmo1czVwUGxjWEozSURXbVpCVlVxX2FRUUlyN18xM2pETkN6MWhLUHhJYlVnQUNjVGY5bmViUHJhVlJVRXlhZHY4c0RlbldIVXpnQjZHc19WbTNR?oc=5",
+      "published": "2026-07-01",
+      "summary": "“情暖老兵·戎光同行”退役军人专属车险专项行动暨公益捐赠仪式在北京举行 新华网客户端",
       "localized_title": {
         "en": "Market intelligence: a source item to track from Chinese-language source",
-        "zh": "市场情报：中国经济网发布一项值得精算人跟踪的保险动态",
+        "zh": "市场情报：新华网客户端发布一项值得精算人跟踪的保险动态",
         "fr": "Veille Marché : un signal assurance à suivre depuis source en langue chinoise"
       },
       "key_takeaway": {
@@ -585,94 +929,35 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "中国",
       "source_type": "News Search",
       "platform_section": "market",
-      "category": "保险经纪与分销",
+      "category": "行业趋势",
       "taxonomy_category": "market",
       "taxonomy_tags": [
         "risk_management"
       ],
       "needs_review": true,
-      "line_of_business": "财产险",
-      "branch": "保险经纪/中介",
+      "line_of_business": "车险/出行",
+      "branch": "生态伙伴/其他行业",
       "industry_category": "保险本业/其他",
       "risk_level": "观察",
-      "score": 4,
-      "actuarial_angle": "可能影响获客成本、佣金结构、客户适当性、销售误导和产品组合。",
+      "score": 1,
+      "actuarial_angle": "值得持续观察其对产品、风险、资本和客户行为的间接影响。",
       "actions": [
-        "拆分渠道价值：新单规模、继续率、赔付经验、费用率和投诉率。",
-        "检查佣金或渠道政策变化是否改变产品利润测试假设。",
-        "把渠道行为纳入经验分析，避免只看总体赔付率或退保率。"
+        "记录它可能影响的精算假设，并标注需要哪些数据验证。",
+        "找一个同业或历史案例做对照，判断这是一日新闻还是长期趋势。",
+        "把结论写成三句话，沉淀到个人知识库。"
       ],
-      "learning_prompt": "复习渠道费用、继续率、佣金递延、适当性管理和销售质量指标。",
-      "shareable": "中华财险宁县支公司被罚 虚构中介业务套取费用 - 中国经济网：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
-    },
-    {
-      "title": "邓娴颖浙商财险董事会秘书任职资格获监管核准 - 观点网",
-      "original_title": "邓娴颖浙商财险董事会秘书任职资格获监管核准 - 观点网",
-      "original_language": "ZH",
-      "source_language": "zh",
-      "source": "观点网",
-      "source_name": "观点网",
-      "source_url": "https://www.guandian.cn",
-      "original_url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE9Wb1o4SWZTb3lhLTN5OG1aTURrMl8wZ0ZEN2RBRDJfdVZDVGFtanA0aE53OGI5OW1YajBHU1cyeDlLdE96NEdZOTh6cEJHVW9wN01IeXNIOTlwanJESkxsb2pR?oc=5",
-      "via_source": "Google News",
-      "rss_title": "邓娴颖浙商财险董事会秘书任职资格获监管核准 - 观点网",
-      "rss_description": "邓娴颖浙商财险董事会秘书任职资格获监管核准 观点网",
-      "extracted_text": "",
-      "extraction_status": "unresolved_google_news",
-      "summary_basis": "title_only",
-      "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE9Wb1o4SWZTb3lhLTN5OG1aTURrMl8wZ0ZEN2RBRDJfdVZDVGFtanA0aE53OGI5OW1YajBHU1cyeDlLdE96NEdZOTh6cEJHVW9wN01IeXNIOTlwanJESkxsb2pR?oc=5",
-      "published": "2026-07-07",
-      "summary": "邓娴颖浙商财险董事会秘书任职资格获监管核准 观点网",
-      "localized_title": {
-        "en": "Regulation intelligence: a source item to track from Chinese-language source",
-        "zh": "监管情报：观点网发布一项值得精算人跟踪的保险动态",
-        "fr": "Veille Réglementation : un signal assurance à suivre depuis source en langue chinoise"
-      },
-      "key_takeaway": {
-        "en": "",
-        "zh": "",
-        "fr": ""
-      },
-      "ai_summary": {
-        "en": "",
-        "zh": "",
-        "fr": ""
-      },
-      "why_it_matters": {
-        "en": "This development can change reporting, capital or governance requirements. Actuaries should check whether assumptions, controls and regulatory deliverables need updating.",
-        "zh": "这类监管更新可能改变报告口径、资本约束或合规流程。精算人应关注模型假设、披露要求和管理层行动是否需要同步调整。",
-        "fr": "Cette évolution peut modifier les exigences de reporting, de capital ou de gouvernance. Les actuaires doivent vérifier les impacts sur les hypothèses, les contrôles et les livrables réglementaires."
-      },
-      "region": "中国",
-      "source_type": "News Search",
-      "platform_section": "regulation",
-      "category": "监管与合规",
-      "taxonomy_category": "regulation",
-      "taxonomy_tags": [
-        "solvency_ii",
-        "regulation"
-      ],
-      "needs_review": true,
-      "line_of_business": "财产险",
-      "branch": "保险公司",
-      "industry_category": "保险本业/其他",
-      "risk_level": "观察",
-      "score": 4,
-      "actuarial_angle": "可能改变产品备案、信息披露、销售合规或风险治理口径。",
-      "actions": [
-        "整理一页影响清单：涉及产品、模型、报告、流程和负责人。",
-        "检查近期产品备案、精算报告和销售材料是否存在需要同步更新的口径。",
-        "把监管要求拆成必须做、建议做、持续观察三类任务。"
-      ],
-      "learning_prompt": "复习监管资本、产品备案、信息披露与消费者保护之间的关系。",
-      "shareable": "邓娴颖浙商财险董事会秘书任职资格获监管核准 - 观点网：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
+      "learning_prompt": "练习把行业事件翻译成假设、现金流、资本和利润四个维度。",
+      "shareable": "“情暖老兵·戎光同行”退役军人专属车险专项行动暨公益捐赠仪式在北京举行 - 新华网客户端：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
       "title": "新能源重卡保险困局：买不起还是保不起？ - zgjtb.com",
@@ -708,10 +993,13 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "中国",
       "source_type": "News Search",
       "platform_section": "market",
@@ -736,27 +1024,27 @@
       "shareable": "新能源重卡保险困局：买不起还是保不起？ - zgjtb.com：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
-      "title": "Retirement Income Planners Need Better Longevity Estimates - ThinkAdvisor",
-      "original_title": "Retirement Income Planners Need Better Longevity Estimates - ThinkAdvisor",
+      "title": "NAIC Capital Adequacy (E) Task Force Adopts Changes to Life Risk-Based Capital Factors for 2026 and 2027 - Mayer Brown",
+      "original_title": "NAIC Capital Adequacy (E) Task Force Adopts Changes to Life Risk-Based Capital Factors for 2026 and 2027 - Mayer Brown",
       "original_language": "EN",
       "source_language": "en",
-      "source": "ThinkAdvisor",
-      "source_name": "ThinkAdvisor",
-      "source_url": "https://www.thinkadvisor.com",
-      "original_url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQcHJ6SG4wOWFJa0dYWWlza01wLVJGV3lmdVpOQ2h0ZnRvakVYaGR6ZTFPNkxDWlI2NDNGNS1RQzQ2elNzU1lCejJWdlB0LWJlSUI2RzNLSHpUWUtwRlVGT3lFZmJ2aWpCUGtoUUZOc1VQdy00Nks2Vl9XTTlrcGNVYl9ETHc0eEN6SGd5SW5NVHh2N1BoSl9ieFkwcjJLSVgw?oc=5",
+      "source": "Mayer Brown",
+      "source_name": "Mayer Brown",
+      "source_url": "https://www.mayerbrown.com",
+      "original_url": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxPN2g4aUN3WjdFYWtBWF9MU29ncHRjc2l0QVhhc3JFN3A3R3FINENEZFFlSnEyaEVCM3ZiRHVyWFRnR3M4QUdLc0RydkhPQnZyakV0NXZXZWhqbHRJWmtxbTFvcEdaeFlmbkpQeV9VV0YxUzFKVEhlRzRvZmpJQzNkV0g1dFEySHJhTUVPOTZ4LXJxTnBGb05LOVpZSlh1Z21oaW5wM2pRa1A3aU9fTDRkRmlvZGFJMWJkZlQ4N2dpZW9FeHFqZTYzWVQ1WlZOMXFsT3czdHJvZ2s3eHBIcEwwcHByR0wwRGZ5ZkhNbFVIWVlBVXZN?oc=5",
       "via_source": "Google News",
-      "rss_title": "Retirement Income Planners Need Better Longevity Estimates - ThinkAdvisor",
-      "rss_description": "Retirement Income Planners Need Better Longevity Estimates ThinkAdvisor",
+      "rss_title": "NAIC Capital Adequacy (E) Task Force Adopts Changes to Life Risk-Based Capital Factors for 2026 and 2027 - Mayer Brown",
+      "rss_description": "NAIC Capital Adequacy (E) Task Force Adopts Changes to Life Risk-Based Capital Factors for 2026 and 2027 Mayer Brown",
       "extracted_text": "",
       "extraction_status": "unresolved_google_news",
       "summary_basis": "title_only",
-      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQcHJ6SG4wOWFJa0dYWWlza01wLVJGV3lmdVpOQ2h0ZnRvakVYaGR6ZTFPNkxDWlI2NDNGNS1RQzQ2elNzU1lCejJWdlB0LWJlSUI2RzNLSHpUWUtwRlVGT3lFZmJ2aWpCUGtoUUZOc1VQdy00Nks2Vl9XTTlrcGNVYl9ETHc0eEN6SGd5SW5NVHh2N1BoSl9ieFkwcjJLSVgw?oc=5",
-      "published": "2026-07-01",
-      "summary": "Retirement Income Planners Need Better Longevity Estimates ThinkAdvisor",
+      "url": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxPN2g4aUN3WjdFYWtBWF9MU29ncHRjc2l0QVhhc3JFN3A3R3FINENEZFFlSnEyaEVCM3ZiRHVyWFRnR3M4QUdLc0RydkhPQnZyakV0NXZXZWhqbHRJWmtxbTFvcEdaeFlmbkpQeV9VV0YxUzFKVEhlRzRvZmpJQzNkV0g1dFEySHJhTUVPOTZ4LXJxTnBGb05LOVpZSlh1Z21oaW5wM2pRa1A3aU9fTDRkRmlvZGFJMWJkZlQ4N2dpZW9FeHFqZTYzWVQ1WlZOMXFsT3czdHJvZ2s3eHBIcEwwcHByR0wwRGZ5ZkhNbFVIWVlBVXZN?oc=5",
+      "published": "2026-07-02",
+      "summary": "NAIC Capital Adequacy (E) Task Force Adopts Changes to Life Risk-Based Capital Factors for 2026 and 2027 Mayer Brown",
       "localized_title": {
-        "en": "Market intelligence: a source item to track from ThinkAdvisor",
-        "zh": "市场情报：ThinkAdvisor发布一项值得精算人跟踪的保险动态",
-        "fr": "Veille Marché : un signal assurance à suivre depuis ThinkAdvisor"
+        "en": "Technology & AI intelligence: a source item to track from Mayer Brown",
+        "zh": "科技与 AI情报：Mayer Brown发布一项值得精算人跟踪的保险动态",
+        "fr": "Veille Technologie & IA : un signal assurance à suivre depuis Mayer Brown"
       },
       "key_takeaway": {
         "en": "",
@@ -769,95 +1057,37 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
-        "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
-        "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
+        "en": "The key question is whether AI or InsurTech changes underwriting, claims, fraud detection or distribution economics. Data quality, model governance and explainability remain the actuarial control points.",
+        "zh": "科技与 AI 新闻的关键在于是否真正改变核保、理赔、反欺诈或分销效率。精算人还需要关注数据质量、模型治理和监管可解释性。",
+        "fr": "L’enjeu est de savoir si l’IA ou l’InsurTech améliore réellement la souscription, les sinistres, la fraude ou la distribution. Les points de vigilance restent la qualité des données, la gouvernance des modèles et l’explicabilité."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "美国",
       "source_type": "News Search",
-      "platform_section": "market",
-      "category": "跨行业联动",
-      "taxonomy_category": "market",
+      "platform_section": "technology_ai",
+      "category": "保险科技与数据前沿",
+      "taxonomy_category": "technology_ai",
       "taxonomy_tags": [
-        "pensions",
-        "risk_management"
+        "data_ai",
+        "risk_management",
+        "insurtech"
       ],
       "needs_review": true,
-      "line_of_business": "综合保险",
-      "branch": "生态伙伴/其他行业",
-      "industry_category": "投行/资本市场",
+      "line_of_business": "寿险/年金",
+      "branch": "监管/协会/专业机构",
+      "industry_category": "科技/网络安全",
       "risk_level": "中",
       "score": 7,
-      "actuarial_angle": "保险风险正在和银行资本、投行资产、车企生态、能源转型、医疗服务或数据中心投资互相传导。",
+      "actuarial_angle": "可能改变核保、定价、理赔、反欺诈、客户运营和模型治理方式。",
       "actions": [
-        "画出联动链条：对手方、资产端、负债端、销售渠道和客户行为。",
-        "判断风险落点：信用风险、市场风险、承保风险、操作风险还是声誉风险。",
-        "找一个可量化指标跟踪，例如违约率、维修成本、医疗通胀、赔付频率或资产久期。"
+        "判断技术处于概念验证、试点、规模化还是监管约束阶段。",
+        "列出一个可落地场景：数据输入、模型输出、业务决策、风险控制。",
+        "检查模型风险：公平性、可解释性、漂移监控、人工复核和数据授权。"
       ],
-      "learning_prompt": "复习资产负债联动、信用风险迁移、生态渠道和保险服务嵌入式销售。",
-      "shareable": "Retirement Income Planners Need Better Longevity Estimates - ThinkAdvisor：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
-    },
-    {
-      "title": "从“沙盘推演”走向“真金白银”赔付 董责险成上市公司新标配 年内超380家披露购买计划 - 东方财富",
-      "original_title": "从“沙盘推演”走向“真金白银”赔付 董责险成上市公司新标配 年内超380家披露购买计划 - 东方财富",
-      "original_language": "ZH",
-      "source_language": "zh",
-      "source": "东方财富",
-      "source_name": "东方财富",
-      "source_url": "https://wap.eastmoney.com",
-      "original_url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5JalVrblRIZjUzQkcwWUN6NHV5MUpUdldja0lnbFlRQWVlbmcxQnpMbWlLRFE0ZkNzdzFnR09lbUFFNEFteHQ3UkNrdkFkTGhxLXcyWEpBV3JMM2RhTnFZTw?oc=5",
-      "via_source": "Google News",
-      "rss_title": "从“沙盘推演”走向“真金白银”赔付 董责险成上市公司新标配 年内超380家披露购买计划 - 东方财富",
-      "rss_description": "从“沙盘推演”走向“真金白银”赔付 董责险成上市公司新标配 年内超380家披露购买计划 东方财富",
-      "extracted_text": "",
-      "extraction_status": "unresolved_google_news",
-      "summary_basis": "title_only",
-      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5JalVrblRIZjUzQkcwWUN6NHV5MUpUdldja0lnbFlRQWVlbmcxQnpMbWlLRFE0ZkNzdzFnR09lbUFFNEFteHQ3UkNrdkFkTGhxLXcyWEpBV3JMM2RhTnFZTw?oc=5",
-      "published": "2026-06-30",
-      "summary": "从“沙盘推演”走向“真金白银”赔付 董责险成上市公司新标配 年内超380家披露购买计划 东方财富",
-      "localized_title": {
-        "en": "Market intelligence: a source item to track from Chinese-language source",
-        "zh": "市场情报：东方财富发布一项值得精算人跟踪的保险动态",
-        "fr": "Veille Marché : un signal assurance à suivre depuis source en langue chinoise"
-      },
-      "key_takeaway": {
-        "en": "",
-        "zh": "",
-        "fr": ""
-      },
-      "ai_summary": {
-        "en": "",
-        "zh": "",
-        "fr": ""
-      },
-      "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
-        "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
-        "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
-      },
-      "region": "中国",
-      "source_type": "News Search",
-      "platform_section": "market",
-      "category": "监管与合规",
-      "taxonomy_category": "market",
-      "taxonomy_tags": [
-        "claims",
-        "risk_management"
-      ],
-      "needs_review": true,
-      "line_of_business": "金融险/专业责任",
-      "branch": "生态伙伴/其他行业",
-      "industry_category": "保险本业/其他",
-      "risk_level": "中",
-      "score": 7,
-      "actuarial_angle": "可能改变产品备案、信息披露、销售合规或风险治理口径。",
-      "actions": [
-        "整理一页影响清单：涉及产品、模型、报告、流程和负责人。",
-        "检查近期产品备案、精算报告和销售材料是否存在需要同步更新的口径。",
-        "把监管要求拆成必须做、建议做、持续观察三类任务。"
-      ],
-      "learning_prompt": "复习监管资本、产品备案、信息披露与消费者保护之间的关系。",
-      "shareable": "从“沙盘推演”走向“真金白银”赔付 董责险成上市公司新标配 年内超380家披露购买计划 - 东方财富：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
+      "learning_prompt": "复习 GLM、机器学习定价、模型治理、反欺诈和可解释 AI。",
+      "shareable": "NAIC Capital Adequacy (E) Task Force Adopts Changes to Life Risk-Based Capital Factors for 2026 and 2027 - Mayer Brown：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
       "title": "2026 global insurance outlook - Deloitte",
@@ -897,6 +1127,9 @@
         "zh": "研究报告的价值在于把市场信号转化为假设、情景和方法论。适合沉淀到个人知识库或用于管理层汇报。",
         "fr": "Une publication de recherche transforme des signaux de marché en hypothèses, scénarios et méthodes. Elle peut nourrir une base de connaissances ou un support de comité."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "全球",
       "source_type": "News Search",
       "platform_section": "research",
@@ -921,27 +1154,27 @@
       "shareable": "2026 global insurance outlook - Deloitte：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
-      "title": "Industrials appeal to private equity; US healthcare facility investment spikes - S&P Global",
-      "original_title": "Industrials appeal to private equity; US healthcare facility investment spikes - S&P Global",
-      "original_language": "EN",
-      "source_language": "en",
-      "source": "S&P Global",
-      "source_name": "S&P Global",
-      "source_url": "https://www.spglobal.com",
-      "original_url": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxOWDNZYkNySzRfT09xc2toZk0zY01BRkY2bWR1VW9NZTlOVVU2VjVORHJCVGY3cXdwNjNITGpoRVE0N3FKZ21jc05QRk5qYWF0b0VpM0d6VEJJWFNaU1NjWU9aWjl2MUdBekN2c2R1RXluVThPOHZ3eUllb0FLdEloMTZRMUpnNUtCZmJGNmlESExOYVRINEhKaUhZVFgydlN2ZWIwSmVMQ185S3FyNGswSU9kQnhkVDBjVTNleTNOTVdCTThjN093YUdqbXB3Qm1pbGZLOVBhaTZQak5yQmJvblIxcXRZX21XWGlWUmJmUXZWeUVjcF9zZQ?oc=5",
+      "title": "降温，但不是撤退：上半年险企增资发债\"补血\"全景解读 - 新浪财经",
+      "original_title": "降温，但不是撤退：上半年险企增资发债\"补血\"全景解读 - 新浪财经",
+      "original_language": "ZH",
+      "source_language": "zh",
+      "source": "新浪财经",
+      "source_name": "新浪财经",
+      "source_url": "https://finance.sina.cn",
+      "original_url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOc3dYREJhVnBLMmxDUHdFbkFJUnNYdmJQQldCdlFZdWxfdkt5dUdjNTd6enZLVk5uc1hIU1lhWGNtZ2FRWkdJMlZCc0p1X1F4MlV1Mlp3OXRvNWNMcWhEQ3FIN0o1dlVlLXlMNGk3QkxDdWdZbkpBY0RvSTdQYkZmNTFxTzN2WER3YlRKNGxnRnQ1a3Fn?oc=5",
       "via_source": "Google News",
-      "rss_title": "Industrials appeal to private equity; US healthcare facility investment spikes - S&P Global",
-      "rss_description": "Industrials appeal to private equity; US healthcare facility investment spikes S&P Global",
+      "rss_title": "降温，但不是撤退：上半年险企增资发债\"补血\"全景解读 - 新浪财经",
+      "rss_description": "降温，但不是撤退：上半年险企增资发债\"补血\"全景解读 新浪财经",
       "extracted_text": "",
       "extraction_status": "unresolved_google_news",
       "summary_basis": "title_only",
-      "url": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxOWDNZYkNySzRfT09xc2toZk0zY01BRkY2bWR1VW9NZTlOVVU2VjVORHJCVGY3cXdwNjNITGpoRVE0N3FKZ21jc05QRk5qYWF0b0VpM0d6VEJJWFNaU1NjWU9aWjl2MUdBekN2c2R1RXluVThPOHZ3eUllb0FLdEloMTZRMUpnNUtCZmJGNmlESExOYVRINEhKaUhZVFgydlN2ZWIwSmVMQ185S3FyNGswSU9kQnhkVDBjVTNleTNOTVdCTThjN093YUdqbXB3Qm1pbGZLOVBhaTZQak5yQmJvblIxcXRZX21XWGlWUmJmUXZWeUVjcF9zZQ?oc=5",
-      "published": "2026-07-03",
-      "summary": "Industrials appeal to private equity; US healthcare facility investment spikes S&P Global",
+      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOc3dYREJhVnBLMmxDUHdFbkFJUnNYdmJQQldCdlFZdWxfdkt5dUdjNTd6enZLVk5uc1hIU1lhWGNtZ2FRWkdJMlZCc0p1X1F4MlV1Mlp3OXRvNWNMcWhEQ3FIN0o1dlVlLXlMNGk3QkxDdWdZbkpBY0RvSTdQYkZmNTFxTzN2WER3YlRKNGxnRnQ1a3Fn?oc=5",
+      "published": "2026-07-08",
+      "summary": "降温，但不是撤退：上半年险企增资发债\"补血\"全景解读 新浪财经",
       "localized_title": {
-        "en": "Market intelligence: a source item to track from S&P Global",
-        "zh": "市场情报：S&P Global发布一项值得精算人跟踪的保险动态",
-        "fr": "Veille Marché : un signal assurance à suivre depuis S&P Global"
+        "en": "Market intelligence: a source item to track from Chinese-language source",
+        "zh": "市场情报：新浪财经发布一项值得精算人跟踪的保险动态",
+        "fr": "Veille Marché : un signal assurance à suivre depuis source en langue chinoise"
       },
       "key_takeaway": {
         "en": "",
@@ -954,158 +1187,35 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
-      "region": "全球",
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
+      "region": "中国",
       "source_type": "News Search",
       "platform_section": "market",
-      "category": "跨行业联动",
+      "category": "偿付能力与资本",
       "taxonomy_category": "market",
       "taxonomy_tags": [
-        "health_insurance",
-        "investment",
-        "risk_management"
-      ],
-      "needs_review": true,
-      "line_of_business": "健康险/医疗险",
-      "branch": "生态伙伴/其他行业",
-      "industry_category": "医疗/健康服务",
-      "risk_level": "中",
-      "score": 7,
-      "actuarial_angle": "保险风险正在和银行资本、投行资产、车企生态、能源转型、医疗服务或数据中心投资互相传导。",
-      "actions": [
-        "画出联动链条：对手方、资产端、负债端、销售渠道和客户行为。",
-        "判断风险落点：信用风险、市场风险、承保风险、操作风险还是声誉风险。",
-        "找一个可量化指标跟踪，例如违约率、维修成本、医疗通胀、赔付频率或资产久期。"
-      ],
-      "learning_prompt": "复习资产负债联动、信用风险迁移、生态渠道和保险服务嵌入式销售。",
-      "shareable": "Industrials appeal to private equity; US healthcare facility investment spikes - S&P Global：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
-    },
-    {
-      "title": "Q3 2026 investment outlook: Solid growth endures as policy and geopolitics shift - U.S. Bank",
-      "original_title": "Q3 2026 investment outlook: Solid growth endures as policy and geopolitics shift - U.S. Bank",
-      "original_language": "EN",
-      "source_language": "en",
-      "source": "U.S. Bank",
-      "source_name": "U.S. Bank",
-      "source_url": "https://www.usbank.com",
-      "original_url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOdHd4RWhId2p6U0diY2tMUDRWV0NOOTJsTGdudzI3UU1qLS1pbWhvTGVScW85aHNQc1JrTFZxUUU0d3hSWlQ0djRJQWFpT1MxWFhFcTc3RzVoUjhpS3ZfMDZ6STdia1NFZ21WdFlOX3JWQXZCUFNHdTdPVEs5YzdwX1hyalBNY3F0VHgwcDRzNA?oc=5",
-      "via_source": "Google News",
-      "rss_title": "Q3 2026 investment outlook: Solid growth endures as policy and geopolitics shift - U.S. Bank",
-      "rss_description": "Q3 2026 investment outlook: Solid growth endures as policy and geopolitics shift U.S. Bank",
-      "extracted_text": "",
-      "extraction_status": "unresolved_google_news",
-      "summary_basis": "title_only",
-      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOdHd4RWhId2p6U0diY2tMUDRWV0NOOTJsTGdudzI3UU1qLS1pbWhvTGVScW85aHNQc1JrTFZxUUU0d3hSWlQ0djRJQWFpT1MxWFhFcTc3RzVoUjhpS3ZfMDZ6STdia1NFZ21WdFlOX3JWQXZCUFNHdTdPVEs5YzdwX1hyalBNY3F0VHgwcDRzNA?oc=5",
-      "published": "2026-07-01",
-      "summary": "Q3 2026 investment outlook: Solid growth endures as policy and geopolitics shift U.S. Bank",
-      "localized_title": {
-        "en": "Research intelligence: a source item to track from U.S. Bank",
-        "zh": "研究情报：U.S. Bank发布一项值得精算人跟踪的保险动态",
-        "fr": "Veille Recherche : un signal assurance à suivre depuis U.S. Bank"
-      },
-      "key_takeaway": {
-        "en": "",
-        "zh": "",
-        "fr": ""
-      },
-      "ai_summary": {
-        "en": "",
-        "zh": "",
-        "fr": ""
-      },
-      "why_it_matters": {
-        "en": "Research turns market signals into assumptions, scenarios and methods. It can support a knowledge base, management pack or model review.",
-        "zh": "研究报告的价值在于把市场信号转化为假设、情景和方法论。适合沉淀到个人知识库或用于管理层汇报。",
-        "fr": "Une publication de recherche transforme des signaux de marché en hypothèses, scénarios et méthodes. Elle peut nourrir une base de connaissances ou un support de comité."
-      },
-      "region": "全球",
-      "source_type": "News Search",
-      "platform_section": "research",
-      "category": "跨行业联动",
-      "taxonomy_category": "research",
-      "taxonomy_tags": [
-        "investment",
         "risk_management"
       ],
       "needs_review": true,
       "line_of_business": "综合保险",
       "branch": "生态伙伴/其他行业",
-      "industry_category": "银行/信贷",
+      "industry_category": "保险本业/其他",
       "risk_level": "中",
       "score": 7,
-      "actuarial_angle": "保险风险正在和银行资本、投行资产、车企生态、能源转型、医疗服务或数据中心投资互相传导。",
+      "actuarial_angle": "可能影响资本占用、偿付能力充足率、风险偏好和业务增长空间。",
       "actions": [
-        "画出联动链条：对手方、资产端、负债端、销售渠道和客户行为。",
-        "判断风险落点：信用风险、市场风险、承保风险、操作风险还是声誉风险。",
-        "找一个可量化指标跟踪，例如违约率、维修成本、医疗通胀、赔付频率或资产久期。"
+        "检查最近一期偿付能力指标对利率、赔付率和退保率的敏感性。",
+        "列出资本消耗最高的产品线，并标注可调整的定价或再保杠杆。",
+        "准备一个 25bp/50bp 利率下行情景下的资本影响小测算。"
       ],
-      "learning_prompt": "复习资产负债联动、信用风险迁移、生态渠道和保险服务嵌入式销售。",
-      "shareable": "Q3 2026 investment outlook: Solid growth endures as policy and geopolitics shift - U.S. Bank：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
-    },
-    {
-      "title": "Capacitor Banks Market Size, Share, Growth, 2034 - Straits Research",
-      "original_title": "Capacitor Banks Market Size, Share, Growth, 2034 - Straits Research",
-      "original_language": "EN",
-      "source_language": "en",
-      "source": "Straits Research",
-      "source_name": "Straits Research",
-      "source_url": "https://straitsresearch.com",
-      "original_url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9acld0czBzZm1IRzVwZi1mZzRYSFZaeWwtLUxUYTFpTFBUcUhFbEgxcTJtYzk3X3RDOThzZjdqVUp3TUphT3F3cW1YNFhUR3NnYkZGSHozUHcwc1JVclNLQk1Zc04wcEtE?oc=5",
-      "via_source": "Google News",
-      "rss_title": "Capacitor Banks Market Size, Share, Growth, 2034 - Straits Research",
-      "rss_description": "Capacitor Banks Market Size, Share, Growth, 2034 Straits Research",
-      "extracted_text": "",
-      "extraction_status": "unresolved_google_news",
-      "summary_basis": "title_only",
-      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9acld0czBzZm1IRzVwZi1mZzRYSFZaeWwtLUxUYTFpTFBUcUhFbEgxcTJtYzk3X3RDOThzZjdqVUp3TUphT3F3cW1YNFhUR3NnYkZGSHozUHcwc1JVclNLQk1Zc04wcEtE?oc=5",
-      "published": "2026-07-07",
-      "summary": "Capacitor Banks Market Size, Share, Growth, 2034 Straits Research",
-      "localized_title": {
-        "en": "Technology & AI intelligence: a source item to track from Straits Research",
-        "zh": "科技与 AI情报：Straits Research发布一项值得精算人跟踪的保险动态",
-        "fr": "Veille Technologie & IA : un signal assurance à suivre depuis Straits Research"
-      },
-      "key_takeaway": {
-        "en": "",
-        "zh": "",
-        "fr": ""
-      },
-      "ai_summary": {
-        "en": "",
-        "zh": "",
-        "fr": ""
-      },
-      "why_it_matters": {
-        "en": "The key question is whether AI or InsurTech changes underwriting, claims, fraud detection or distribution economics. Data quality, model governance and explainability remain the actuarial control points.",
-        "zh": "科技与 AI 新闻的关键在于是否真正改变核保、理赔、反欺诈或分销效率。精算人还需要关注数据质量、模型治理和监管可解释性。",
-        "fr": "L’enjeu est de savoir si l’IA ou l’InsurTech améliore réellement la souscription, les sinistres, la fraude ou la distribution. Les points de vigilance restent la qualité des données, la gouvernance des modèles et l’explicabilité."
-      },
-      "region": "全球",
-      "source_type": "News Search",
-      "platform_section": "technology_ai",
-      "category": "保险科技与数据前沿",
-      "taxonomy_category": "technology_ai",
-      "taxonomy_tags": [
-        "data_ai",
-        "insurtech"
-      ],
-      "needs_review": true,
-      "line_of_business": "综合保险",
-      "branch": "生态伙伴/其他行业",
-      "industry_category": "银行/信贷",
-      "risk_level": "中",
-      "score": 7,
-      "actuarial_angle": "可能改变核保、定价、理赔、反欺诈、客户运营和模型治理方式。",
-      "actions": [
-        "判断技术处于概念验证、试点、规模化还是监管约束阶段。",
-        "列出一个可落地场景：数据输入、模型输出、业务决策、风险控制。",
-        "检查模型风险：公平性、可解释性、漂移监控、人工复核和数据授权。"
-      ],
-      "learning_prompt": "复习 GLM、机器学习定价、模型治理、反欺诈和可解释 AI。",
-      "shareable": "Capacitor Banks Market Size, Share, Growth, 2034 - Straits Research：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
+      "learning_prompt": "复习最低资本、实际资本、风险资本和偿付能力充足率。",
+      "shareable": "降温，但不是撤退：上半年险企增资发债\"补血\"全景解读 - 新浪财经：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
       "title": "Global Wireless Charging for EVs to Surge: Expected Market Reach of USD 0.82 Billion by 2032 - GlobeNewswire",
@@ -1141,10 +1251,13 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "全球",
       "source_type": "News Search",
       "platform_section": "market",
@@ -1169,23 +1282,23 @@
       "shareable": "Global Wireless Charging for EVs to Surge: Expected Market Reach of USD 0.82 Billion by 2032 - GlobeNewswire：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
-      "title": "“防非+保险”双护航 人保寿险随州中支将7.8宣传送到村民“家门口” - 中国日报网",
-      "original_title": "“防非+保险”双护航 人保寿险随州中支将7.8宣传送到村民“家门口” - 中国日报网",
+      "title": "班子带头深耕五进宣传 实干赋能彰显寿险担当——人保寿险陇南中支开展“7·8”宣教活动 - 中国日报网",
+      "original_title": "班子带头深耕五进宣传 实干赋能彰显寿险担当——人保寿险陇南中支开展“7·8”宣教活动 - 中国日报网",
       "original_language": "ZH",
       "source_language": "zh",
       "source": "中国日报网",
       "source_name": "中国日报网",
       "source_url": "https://cn.chinadaily.com.cn",
-      "original_url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE02eXlEYjhvdy1UQ2M5M1YyTFhVeHpkRXhqaWFvb1pwZjY4NGhSQkg1NGdIRV9JN0VkNEJxZFNDVUZ4U1dpLTVGZjVNWU93YTAxaW5JaW1iV1VON1BEY3VVRGpxMGRhOGViUE9RNUFLdGU2N00zZXJReTVkWVI?oc=5",
+      "original_url": "https://news.google.com/rss/articles/CBMifEFVX3lxTFBBNERveVI1OHEtbWF5WHVaS3VCQmppWFNPaHZNZXEydGFodTVhVkgydVFFeEkxR3lCNmJqeTE5WFRTNzFBM0pPME41dmNNOWJRMnJiSXFFV09zMEQ3Ynlpa2ZJejVFekVTV0lEMnJHUzhTU3B1ckRyWjk4dW4?oc=5",
       "via_source": "Google News",
-      "rss_title": "“防非+保险”双护航 人保寿险随州中支将7.8宣传送到村民“家门口” - 中国日报网",
-      "rss_description": "“防非+保险”双护航 人保寿险随州中支将7.8宣传送到村民“家门口” 中国日报网",
+      "rss_title": "班子带头深耕五进宣传 实干赋能彰显寿险担当——人保寿险陇南中支开展“7·8”宣教活动 - 中国日报网",
+      "rss_description": "班子带头深耕五进宣传 实干赋能彰显寿险担当——人保寿险陇南中支开展“7·8”宣教活动 中国日报网",
       "extracted_text": "",
       "extraction_status": "unresolved_google_news",
       "summary_basis": "title_only",
-      "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE02eXlEYjhvdy1UQ2M5M1YyTFhVeHpkRXhqaWFvb1pwZjY4NGhSQkg1NGdIRV9JN0VkNEJxZFNDVUZ4U1dpLTVGZjVNWU93YTAxaW5JaW1iV1VON1BEY3VVRGpxMGRhOGViUE9RNUFLdGU2N00zZXJReTVkWVI?oc=5",
-      "published": "2026-07-02",
-      "summary": "“防非+保险”双护航 人保寿险随州中支将7.8宣传送到村民“家门口” 中国日报网",
+      "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTFBBNERveVI1OHEtbWF5WHVaS3VCQmppWFNPaHZNZXEydGFodTVhVkgydVFFeEkxR3lCNmJqeTE5WFRTNzFBM0pPME41dmNNOWJRMnJiSXFFV09zMEQ3Ynlpa2ZJejVFekVTV0lEMnJHUzhTU3B1ckRyWjk4dW4?oc=5",
+      "published": "2026-07-06",
+      "summary": "班子带头深耕五进宣传 实干赋能彰显寿险担当——人保寿险陇南中支开展“7·8”宣教活动 中国日报网",
       "localized_title": {
         "en": "Market intelligence: a source item to track from Chinese-language source",
         "zh": "市场情报：中国日报网发布一项值得精算人跟踪的保险动态",
@@ -1202,10 +1315,13 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "中国",
       "source_type": "News Search",
       "platform_section": "market",
@@ -1228,253 +1344,7 @@
         "把结论写成三句话，沉淀到个人知识库。"
       ],
       "learning_prompt": "练习把行业事件翻译成假设、现金流、资本和利润四个维度。",
-      "shareable": "“防非+保险”双护航 人保寿险随州中支将7.8宣传送到村民“家门口” - 中国日报网：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
-    },
-    {
-      "title": "中国人寿寿险重庆市分公司全面启动2026年“7·8全国保险公众宣传日”系列活动 - 华龙网",
-      "original_title": "中国人寿寿险重庆市分公司全面启动2026年“7·8全国保险公众宣传日”系列活动 - 华龙网",
-      "original_language": "ZH",
-      "source_language": "zh",
-      "source": "华龙网",
-      "source_name": "华龙网",
-      "source_url": "https://www.cqnews.net",
-      "original_url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5GTllJR2xGRnZjVVpLZXd5TENoaXItTHZWRWRqcFFtellTNUptV05NaUJJSG5JSTRicXBrVk45SEpKODFfajFuSGI1czM4TGlzc202eXA2WnN5VGNPZzQyb3Y1Q3AweUlBRHJr?oc=5",
-      "via_source": "Google News",
-      "rss_title": "中国人寿寿险重庆市分公司全面启动2026年“7·8全国保险公众宣传日”系列活动 - 华龙网",
-      "rss_description": "中国人寿寿险重庆市分公司全面启动2026年“7·8全国保险公众宣传日”系列活动 华龙网",
-      "extracted_text": "",
-      "extraction_status": "unresolved_google_news",
-      "summary_basis": "title_only",
-      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5GTllJR2xGRnZjVVpLZXd5TENoaXItTHZWRWRqcFFtellTNUptV05NaUJJSG5JSTRicXBrVk45SEpKODFfajFuSGI1czM4TGlzc202eXA2WnN5VGNPZzQyb3Y1Q3AweUlBRHJr?oc=5",
-      "published": "2026-07-06",
-      "summary": "中国人寿寿险重庆市分公司全面启动2026年“7·8全国保险公众宣传日”系列活动 华龙网",
-      "localized_title": {
-        "en": "Market intelligence: a source item to track from Chinese-language source",
-        "zh": "市场情报：华龙网发布一项值得精算人跟踪的保险动态",
-        "fr": "Veille Marché : un signal assurance à suivre depuis source en langue chinoise"
-      },
-      "key_takeaway": {
-        "en": "",
-        "zh": "",
-        "fr": ""
-      },
-      "ai_summary": {
-        "en": "",
-        "zh": "",
-        "fr": ""
-      },
-      "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
-        "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
-        "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
-      },
-      "region": "中国",
-      "source_type": "News Search",
-      "platform_section": "market",
-      "category": "行业趋势",
-      "taxonomy_category": "market",
-      "taxonomy_tags": [
-        "life_insurance",
-        "risk_management"
-      ],
-      "needs_review": true,
-      "line_of_business": "寿险/年金",
-      "branch": "保险公司",
-      "industry_category": "保险本业/其他",
-      "risk_level": "观察",
-      "score": 1,
-      "actuarial_angle": "值得持续观察其对产品、风险、资本和客户行为的间接影响。",
-      "actions": [
-        "记录它可能影响的精算假设，并标注需要哪些数据验证。",
-        "找一个同业或历史案例做对照，判断这是一日新闻还是长期趋势。",
-        "把结论写成三句话，沉淀到个人知识库。"
-      ],
-      "learning_prompt": "练习把行业事件翻译成假设、现金流、资本和利润四个维度。",
-      "shareable": "中国人寿寿险重庆市分公司全面启动2026年“7·8全国保险公众宣传日”系列活动 - 华龙网：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
-    },
-    {
-      "title": "太平财险“防、救、赔”全链条护航夏粮安全 - 新华网客户端",
-      "original_title": "太平财险“防、救、赔”全链条护航夏粮安全 - 新华网客户端",
-      "original_language": "ZH",
-      "source_language": "zh",
-      "source": "新华网客户端",
-      "source_name": "新华网客户端",
-      "source_url": "https://app.xinhuanet.com",
-      "original_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNVTc5c1J5NjhPNzJCcklTMkszdkIzbUhvR3VuVWsyRnZEd3FxcHlTbll3ZTJOUEVJSTJDZlVJdzliTFdneGlTWUtRQjF6OEtEbUVUNFkwV1VOcXZLMENqLXZIQmFLaEFrQ1Z4TFhqdDZVZVN4MjgxLWJ6clpqcUdVaGFheDF5X216OXNfTjBDblZBYnNvd1c0VzlB?oc=5",
-      "via_source": "Google News",
-      "rss_title": "太平财险“防、救、赔”全链条护航夏粮安全 - 新华网客户端",
-      "rss_description": "太平财险“防、救、赔”全链条护航夏粮安全 新华网客户端",
-      "extracted_text": "",
-      "extraction_status": "unresolved_google_news",
-      "summary_basis": "title_only",
-      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNVTc5c1J5NjhPNzJCcklTMkszdkIzbUhvR3VuVWsyRnZEd3FxcHlTbll3ZTJOUEVJSTJDZlVJdzliTFdneGlTWUtRQjF6OEtEbUVUNFkwV1VOcXZLMENqLXZIQmFLaEFrQ1Z4TFhqdDZVZVN4MjgxLWJ6clpqcUdVaGFheDF5X216OXNfTjBDblZBYnNvd1c0VzlB?oc=5",
-      "published": "2026-07-03",
-      "summary": "太平财险“防、救、赔”全链条护航夏粮安全 新华网客户端",
-      "localized_title": {
-        "en": "Market intelligence: a source item to track from Chinese-language source",
-        "zh": "市场情报：新华网客户端发布一项值得精算人跟踪的保险动态",
-        "fr": "Veille Marché : un signal assurance à suivre depuis source en langue chinoise"
-      },
-      "key_takeaway": {
-        "en": "",
-        "zh": "",
-        "fr": ""
-      },
-      "ai_summary": {
-        "en": "",
-        "zh": "",
-        "fr": ""
-      },
-      "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
-        "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
-        "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
-      },
-      "region": "中国",
-      "source_type": "News Search",
-      "platform_section": "market",
-      "category": "行业趋势",
-      "taxonomy_category": "market",
-      "taxonomy_tags": [
-        "risk_management"
-      ],
-      "needs_review": true,
-      "line_of_business": "财产险",
-      "branch": "保险公司",
-      "industry_category": "保险本业/其他",
-      "risk_level": "观察",
-      "score": 1,
-      "actuarial_angle": "值得持续观察其对产品、风险、资本和客户行为的间接影响。",
-      "actions": [
-        "记录它可能影响的精算假设，并标注需要哪些数据验证。",
-        "找一个同业或历史案例做对照，判断这是一日新闻还是长期趋势。",
-        "把结论写成三句话，沉淀到个人知识库。"
-      ],
-      "learning_prompt": "练习把行业事件翻译成假设、现金流、资本和利润四个维度。",
-      "shareable": "太平财险“防、救、赔”全链条护航夏粮安全 - 新华网客户端：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
-    },
-    {
-      "title": "安徽中安财险获发金融许可证 - thepaper.cn",
-      "original_title": "安徽中安财险获发金融许可证 - thepaper.cn",
-      "original_language": "ZH",
-      "source_language": "zh",
-      "source": "thepaper.cn",
-      "source_name": "thepaper.cn",
-      "source_url": "https://www.thepaper.cn",
-      "original_url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9UdUp5aVFJdVp5dVZWQkQ1eHpLRVJOS3c4SmJuNUl2cDVoUFZmaGltc2RybmFXa1dEeF8xUUNoMU5WX2VDU05iZ1FuUG5mWi1zZDE5ek93eXNEeERXNnpyVg?oc=5",
-      "via_source": "Google News",
-      "rss_title": "安徽中安财险获发金融许可证 - thepaper.cn",
-      "rss_description": "安徽中安财险获发金融许可证 thepaper.cn",
-      "extracted_text": "",
-      "extraction_status": "unresolved_google_news",
-      "summary_basis": "title_only",
-      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9UdUp5aVFJdVp5dVZWQkQ1eHpLRVJOS3c4SmJuNUl2cDVoUFZmaGltc2RybmFXa1dEeF8xUUNoMU5WX2VDU05iZ1FuUG5mWi1zZDE5ek93eXNEeERXNnpyVg?oc=5",
-      "published": "2026-07-06",
-      "summary": "安徽中安财险获发金融许可证 thepaper.cn",
-      "localized_title": {
-        "en": "Market intelligence: a source item to track from thepaper.cn",
-        "zh": "市场情报：thepaper.cn发布一项值得精算人跟踪的保险动态",
-        "fr": "Veille Marché : un signal assurance à suivre depuis thepaper.cn"
-      },
-      "key_takeaway": {
-        "en": "",
-        "zh": "",
-        "fr": ""
-      },
-      "ai_summary": {
-        "en": "",
-        "zh": "",
-        "fr": ""
-      },
-      "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
-        "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
-        "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
-      },
-      "region": "中国",
-      "source_type": "News Search",
-      "platform_section": "market",
-      "category": "行业趋势",
-      "taxonomy_category": "market",
-      "taxonomy_tags": [
-        "risk_management"
-      ],
-      "needs_review": true,
-      "line_of_business": "财产险",
-      "branch": "保险公司",
-      "industry_category": "保险本业/其他",
-      "risk_level": "观察",
-      "score": 1,
-      "actuarial_angle": "值得持续观察其对产品、风险、资本和客户行为的间接影响。",
-      "actions": [
-        "记录它可能影响的精算假设，并标注需要哪些数据验证。",
-        "找一个同业或历史案例做对照，判断这是一日新闻还是长期趋势。",
-        "把结论写成三句话，沉淀到个人知识库。"
-      ],
-      "learning_prompt": "练习把行业事件翻译成假设、现金流、资本和利润四个维度。",
-      "shareable": "安徽中安财险获发金融许可证 - thepaper.cn：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
-    },
-    {
-      "title": "Le courtier WTW en France fait évoluer son comité exécutif avec la nomination d’une nouvelle directrice juridique - L'Argus de l'assurance",
-      "original_title": "Le courtier WTW en France fait évoluer son comité exécutif avec la nomination d’une nouvelle directrice juridique - L'Argus de l'assurance",
-      "original_language": "FR",
-      "source_language": "fr",
-      "source": "L'Argus de l'assurance",
-      "source_name": "L'Argus de l'assurance",
-      "source_url": "https://www.argusdelassurance.com",
-      "original_url": "https://news.google.com/rss/articles/CBMixgJBVV95cUxNb2hqYl9DdW1FbnZENWZzNzlXbWp2SmtfcnVQY050dlBtMHEyTHRrWWRFX0FVeVhiazFodGxzdDdFSFpDYWdzZHFwU0l5OC1xMnBmSjRjSmNHb2llTEJYWnNCb1dhajhBQmVxODhJaHlnU2ZHMXZnSVVweUR6WmY3b3duOWJFS1dmWDZDNDJld1lMdjY0T0hxeGNLNWxjT2kyWGVjamVITkNWeDBFdzUtZDFmX1lIaUVIRGxINGdaOWQzWlhURGdBTkZVeHJPV2E1ODZ6NDNIemNIT2NMaEZrSHp0ZEU0QWdiYkxYdGRqcDlNbDBfZTNZTmtfTXNNQnRBVnJncll2aHNBejZBUlRUaTUtYW1FMTdMU2lYYm1tZ0kxcGp3QVMzY2ZBX09mMlhUYTZYalE5TGV1WWNIVEtDRXJKeEd4UQ?oc=5",
-      "via_source": "Google News",
-      "rss_title": "Le courtier WTW en France fait évoluer son comité exécutif avec la nomination d’une nouvelle directrice juridique - L'Argus de l'assurance",
-      "rss_description": "Le courtier WTW en France fait évoluer son comité exécutif avec la nomination d’une nouvelle directrice juridique L'Argus de l'assurance",
-      "extracted_text": "",
-      "extraction_status": "unresolved_google_news",
-      "summary_basis": "title_only",
-      "url": "https://news.google.com/rss/articles/CBMixgJBVV95cUxNb2hqYl9DdW1FbnZENWZzNzlXbWp2SmtfcnVQY050dlBtMHEyTHRrWWRFX0FVeVhiazFodGxzdDdFSFpDYWdzZHFwU0l5OC1xMnBmSjRjSmNHb2llTEJYWnNCb1dhajhBQmVxODhJaHlnU2ZHMXZnSVVweUR6WmY3b3duOWJFS1dmWDZDNDJld1lMdjY0T0hxeGNLNWxjT2kyWGVjamVITkNWeDBFdzUtZDFmX1lIaUVIRGxINGdaOWQzWlhURGdBTkZVeHJPV2E1ODZ6NDNIemNIT2NMaEZrSHp0ZEU0QWdiYkxYdGRqcDlNbDBfZTNZTmtfTXNNQnRBVnJncll2aHNBejZBUlRUaTUtYW1FMTdMU2lYYm1tZ0kxcGp3QVMzY2ZBX09mMlhUYTZYalE5TGV1WWNIVEtDRXJKeEd4UQ?oc=5",
-      "published": "2026-07-02",
-      "summary": "Le courtier WTW en France fait évoluer son comité exécutif avec la nomination d’une nouvelle directrice juridique L'Argus de l'assurance",
-      "localized_title": {
-        "en": "Technology & AI intelligence: a source item to track from L'Argus de l'assurance",
-        "zh": "科技与 AI情报：L'Argus de l'assurance发布一项值得精算人跟踪的保险动态",
-        "fr": "Veille Technologie & IA : un signal assurance à suivre depuis L'Argus de l'assurance"
-      },
-      "key_takeaway": {
-        "en": "",
-        "zh": "",
-        "fr": ""
-      },
-      "ai_summary": {
-        "en": "",
-        "zh": "",
-        "fr": ""
-      },
-      "why_it_matters": {
-        "en": "The key question is whether AI or InsurTech changes underwriting, claims, fraud detection or distribution economics. Data quality, model governance and explainability remain the actuarial control points.",
-        "zh": "科技与 AI 新闻的关键在于是否真正改变核保、理赔、反欺诈或分销效率。精算人还需要关注数据质量、模型治理和监管可解释性。",
-        "fr": "L’enjeu est de savoir si l’IA ou l’InsurTech améliore réellement la souscription, les sinistres, la fraude ou la distribution. Les points de vigilance restent la qualité des données, la gouvernance des modèles et l’explicabilité."
-      },
-      "region": "法国",
-      "source_type": "News Search",
-      "platform_section": "technology_ai",
-      "category": "保险科技与数据前沿",
-      "taxonomy_category": "technology_ai",
-      "taxonomy_tags": [
-        "data_ai",
-        "insurtech"
-      ],
-      "needs_review": true,
-      "line_of_business": "综合保险",
-      "branch": "生态伙伴/其他行业",
-      "industry_category": "投行/资本市场",
-      "risk_level": "中",
-      "score": 7,
-      "actuarial_angle": "可能改变核保、定价、理赔、反欺诈、客户运营和模型治理方式。",
-      "actions": [
-        "判断技术处于概念验证、试点、规模化还是监管约束阶段。",
-        "列出一个可落地场景：数据输入、模型输出、业务决策、风险控制。",
-        "检查模型风险：公平性、可解释性、漂移监控、人工复核和数据授权。"
-      ],
-      "learning_prompt": "复习 GLM、机器学习定价、模型治理、反欺诈和可解释 AI。",
-      "shareable": "Le courtier WTW en France fait évoluer son comité exécutif avec la nomination d’une nouvelle directrice juridique - L'Argus de l'assurance：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
+      "shareable": "班子带头深耕五进宣传 实干赋能彰显寿险担当——人保寿险陇南中支开展“7·8”宣教活动 - 中国日报网：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
       "title": "金融监管总局等：鼓励大型企业在临港新片区集中管理风险保障需求 - thepaper.cn",
@@ -1514,6 +1384,9 @@
         "zh": "这类监管更新可能改变报告口径、资本约束或合规流程。精算人应关注模型假设、披露要求和管理层行动是否需要同步调整。",
         "fr": "Cette évolution peut modifier les exigences de reporting, de capital ou de gouvernance. Les actuaires doivent vérifier les impacts sur les hypothèses, les contrôles et les livrables réglementaires."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "中国",
       "source_type": "News Search",
       "platform_section": "regulation",
@@ -1572,10 +1445,13 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "中国",
       "source_type": "News Search",
       "platform_section": "market",
@@ -1633,10 +1509,13 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "中国",
       "source_type": "News Search",
       "platform_section": "market",
@@ -1694,10 +1573,13 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "中国",
       "source_type": "News Search",
       "platform_section": "market",
@@ -1755,10 +1637,13 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "欧洲",
       "source_type": "News Search",
       "platform_section": "market",
@@ -1816,10 +1701,13 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "欧洲",
       "source_type": "News Search",
       "platform_section": "market",
@@ -1881,6 +1769,9 @@
         "zh": "这类监管更新可能改变报告口径、资本约束或合规流程。精算人应关注模型假设、披露要求和管理层行动是否需要同步调整。",
         "fr": "Cette évolution peut modifier les exigences de reporting, de capital ou de gouvernance. Les actuaires doivent vérifier les impacts sur les hypothèses, les contrôles et les livrables réglementaires."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "欧洲",
       "source_type": "News Search",
       "platform_section": "regulation",
@@ -1943,6 +1834,9 @@
         "zh": "这类监管更新可能改变报告口径、资本约束或合规流程。精算人应关注模型假设、披露要求和管理层行动是否需要同步调整。",
         "fr": "Cette évolution peut modifier les exigences de reporting, de capital ou de gouvernance. Les actuaires doivent vérifier les impacts sur les hypothèses, les contrôles et les livrables réglementaires."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "欧洲",
       "source_type": "News Search",
       "platform_section": "regulation",
@@ -1966,67 +1860,6 @@
       ],
       "learning_prompt": "复习监管资本、产品备案、信息披露与消费者保护之间的关系。",
       "shareable": "Regulators Demand Simpler European Green Taxonomy - ESG News.earth：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
-    },
-    {
-      "title": "5 Best Long-Term Care Insurance Companies of July 2026 - money.com",
-      "original_title": "5 Best Long-Term Care Insurance Companies of July 2026 - money.com",
-      "original_language": "EN",
-      "source_language": "en",
-      "source": "money.com",
-      "source_name": "money.com",
-      "source_url": "https://money.com",
-      "original_url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE1peXU3Wi11aE1JaXBvSHgxZndzZTlTd2lpRTdvelBsdkZHMGl3dXQ3V3FoNGZWVk9EWXR4WVIwT1MwQWFXTDNvb3VJOF83c2ZobExTYlpvOVp3Y0pj?oc=5",
-      "via_source": "Google News",
-      "rss_title": "5 Best Long-Term Care Insurance Companies of July 2026 - money.com",
-      "rss_description": "5 Best Long-Term Care Insurance Companies of July 2026 money.com",
-      "extracted_text": "",
-      "extraction_status": "unresolved_google_news",
-      "summary_basis": "title_only",
-      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE1peXU3Wi11aE1JaXBvSHgxZndzZTlTd2lpRTdvelBsdkZHMGl3dXQ3V3FoNGZWVk9EWXR4WVIwT1MwQWFXTDNvb3VJOF83c2ZobExTYlpvOVp3Y0pj?oc=5",
-      "published": "2026-07-01",
-      "summary": "5 Best Long-Term Care Insurance Companies of July 2026 money.com",
-      "localized_title": {
-        "en": "Research intelligence: a source item to track from money.com",
-        "zh": "研究情报：money.com发布一项值得精算人跟踪的保险动态",
-        "fr": "Veille Recherche : un signal assurance à suivre depuis money.com"
-      },
-      "key_takeaway": {
-        "en": "",
-        "zh": "",
-        "fr": ""
-      },
-      "ai_summary": {
-        "en": "",
-        "zh": "",
-        "fr": ""
-      },
-      "why_it_matters": {
-        "en": "Research turns market signals into assumptions, scenarios and methods. It can support a knowledge base, management pack or model review.",
-        "zh": "研究报告的价值在于把市场信号转化为假设、情景和方法论。适合沉淀到个人知识库或用于管理层汇报。",
-        "fr": "Une publication de recherche transforme des signaux de marché en hypothèses, scénarios et méthodes. Elle peut nourrir une base de connaissances ou un support de comité."
-      },
-      "region": "美国",
-      "source_type": "News Search",
-      "platform_section": "research",
-      "category": "咨询研究与方法论",
-      "taxonomy_category": "research",
-      "taxonomy_tags": [
-        "risk_management"
-      ],
-      "needs_review": true,
-      "line_of_business": "健康险/医疗险",
-      "branch": "生态伙伴/其他行业",
-      "industry_category": "保险本业/其他",
-      "risk_level": "观察",
-      "score": 4,
-      "actuarial_angle": "适合沉淀为长期研究主题、假设库、方法论模板或同业 benchmark。",
-      "actions": [
-        "提炼三条可复用结论：趋势、数据口径、方法论。",
-        "判断报告结论是否能转成模型假设、压力情景或管理层汇报图表。",
-        "把关键图表或指标加入个人知识库，并记录适用市场和限制条件。"
-      ],
-      "learning_prompt": "复习经验研究、外部 benchmark、假设设定和管理层叙事。",
-      "shareable": "5 Best Long-Term Care Insurance Companies of July 2026 - money.com：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
       "title": "Regulators tackle controversial annuity illustrations - InsuranceNewsNet",
@@ -2066,6 +1899,9 @@
         "zh": "这类监管更新可能改变报告口径、资本约束或合规流程。精算人应关注模型假设、披露要求和管理层行动是否需要同步调整。",
         "fr": "Cette évolution peut modifier les exigences de reporting, de capital ou de gouvernance. Les actuaires doivent vérifier les impacts sur les hypothèses, les contrôles et les livrables réglementaires."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "美国",
       "source_type": "News Search",
       "platform_section": "regulation",
@@ -2129,6 +1965,9 @@
         "zh": "研究报告的价值在于把市场信号转化为假设、情景和方法论。适合沉淀到个人知识库或用于管理层汇报。",
         "fr": "Une publication de recherche transforme des signaux de marché en hypothèses, scénarios et méthodes. Elle peut nourrir une base de connaissances ou un support de comité."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "美国",
       "source_type": "News Search",
       "platform_section": "research",
@@ -2154,27 +1993,27 @@
       "shareable": "Empower to Acquire Milliman’s Retirement Administration Business - Empower：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
-      "title": "Zacks Industry Outlook Highlights The Hanover Insurance, Essent, Mercury General, Selective Insurance and Skyward Specialty Insurance - TradingView",
-      "original_title": "Zacks Industry Outlook Highlights The Hanover Insurance, Essent, Mercury General, Selective Insurance and Skyward Specialty Insurance - TradingView",
+      "title": "30 High-Paying Remote Jobs With $100,000 (or Higher) Salaries - Money Talks News",
+      "original_title": "30 High-Paying Remote Jobs With $100,000 (or Higher) Salaries - Money Talks News",
       "original_language": "EN",
       "source_language": "en",
-      "source": "TradingView",
-      "source_name": "TradingView",
-      "source_url": "https://www.tradingview.com",
-      "original_url": "https://news.google.com/rss/articles/CBMilAJBVV95cUxQMW51OUFocEx5YnlFWkxLRHZmdFFwQ1dhS29qZ3ZxZzQ0d29PcE1XclVEYmxURXhXemo0Z2d0ZTFpR092STl4Q2VmOFFyRTVBOHdMUnkxQ1kyVEZrNWVIZGgtWE5PLW05a2VFcUxpc3ltUDY4MnJOenRHMFVFNmkzb0laRnFRX2lwT05LakRfeG9JcTUzMGJCOGhORkNFV3U1NDMyYndIZ2I0LVBCZFlrZElZYmpNX242eXUyRVR6WjB6SEtOaHJRVkVkWDBOa004cm1vTXVTWkJpYmpQeUl1eXIzUDRMQnp6Tkc5a2hKbDBFdUVMMHZaRHVmVTBSMWJMN3ZISk1FckhMZ2JSQ0Y1UzQzVEo?oc=5",
+      "source": "Money Talks News",
+      "source_name": "Money Talks News",
+      "source_url": "https://www.moneytalksnews.com",
+      "original_url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPb0Y5MG9tVTBQY2lldmE2eXNUS1o3X01tZU9rb2lLcWE4cHBRbkxmb0hneU03OFk5eWdWeDh0WnZZV2txbzdUY1BTeHBZc0E4cVM3YVZfWDYya0xWUUFLRmF3S0E0ZE5aeDJLRHNNQ21QdkE4bEZoREVFTlFTYUVBZGc5YnI2dkRhajg3WVJZdHBTWk44bEJZXw?oc=5",
       "via_source": "Google News",
-      "rss_title": "Zacks Industry Outlook Highlights The Hanover Insurance, Essent, Mercury General, Selective Insurance and Skyward Specialty Insurance - TradingView",
-      "rss_description": "Zacks Industry Outlook Highlights The Hanover Insurance, Essent, Mercury General, Selective Insurance and Skyward Specialty Insurance TradingView",
+      "rss_title": "30 High-Paying Remote Jobs With $100,000 (or Higher) Salaries - Money Talks News",
+      "rss_description": "30 High-Paying Remote Jobs With $100,000 (or Higher) Salaries Money Talks News",
       "extracted_text": "",
       "extraction_status": "unresolved_google_news",
       "summary_basis": "title_only",
-      "url": "https://news.google.com/rss/articles/CBMilAJBVV95cUxQMW51OUFocEx5YnlFWkxLRHZmdFFwQ1dhS29qZ3ZxZzQ0d29PcE1XclVEYmxURXhXemo0Z2d0ZTFpR092STl4Q2VmOFFyRTVBOHdMUnkxQ1kyVEZrNWVIZGgtWE5PLW05a2VFcUxpc3ltUDY4MnJOenRHMFVFNmkzb0laRnFRX2lwT05LakRfeG9JcTUzMGJCOGhORkNFV3U1NDMyYndIZ2I0LVBCZFlrZElZYmpNX242eXUyRVR6WjB6SEtOaHJRVkVkWDBOa004cm1vTXVTWkJpYmpQeUl1eXIzUDRMQnp6Tkc5a2hKbDBFdUVMMHZaRHVmVTBSMWJMN3ZISk1FckhMZ2JSQ0Y1UzQzVEo?oc=5",
-      "published": "2026-07-02",
-      "summary": "Zacks Industry Outlook Highlights The Hanover Insurance, Essent, Mercury General, Selective Insurance and Skyward Specialty Insurance TradingView",
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPb0Y5MG9tVTBQY2lldmE2eXNUS1o3X01tZU9rb2lLcWE4cHBRbkxmb0hneU03OFk5eWdWeDh0WnZZV2txbzdUY1BTeHBZc0E4cVM3YVZfWDYya0xWUUFLRmF3S0E0ZE5aeDJLRHNNQ21QdkE4bEZoREVFTlFTYUVBZGc5YnI2dkRhajg3WVJZdHBTWk44bEJZXw?oc=5",
+      "published": "2026-07-01",
+      "summary": "30 High-Paying Remote Jobs With $100,000 (or Higher) Salaries Money Talks News",
       "localized_title": {
-        "en": "Research intelligence: a source item to track from TradingView",
-        "zh": "研究情报：TradingView发布一项值得精算人跟踪的保险动态",
-        "fr": "Veille Recherche : un signal assurance à suivre depuis TradingView"
+        "en": "Research intelligence: a source item to track from Money Talks News",
+        "zh": "研究情报：Money Talks News发布一项值得精算人跟踪的保险动态",
+        "fr": "Veille Recherche : un signal assurance à suivre depuis Money Talks News"
       },
       "key_takeaway": {
         "en": "",
@@ -2191,7 +2030,10 @@
         "zh": "研究报告的价值在于把市场信号转化为假设、情景和方法论。适合沉淀到个人知识库或用于管理层汇报。",
         "fr": "Une publication de recherche transforme des signaux de marché en hypothèses, scénarios et méthodes. Elle peut nourrir une base de connaissances ou un support de comité."
       },
-      "region": "全球",
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
+      "region": "美国",
       "source_type": "News Search",
       "platform_section": "research",
       "category": "咨询研究与方法论",
@@ -2200,7 +2042,7 @@
         "risk_management"
       ],
       "needs_review": true,
-      "line_of_business": "特殊险/政治风险",
+      "line_of_business": "综合保险",
       "branch": "生态伙伴/其他行业",
       "industry_category": "保险本业/其他",
       "risk_level": "观察",
@@ -2212,30 +2054,30 @@
         "把关键图表或指标加入个人知识库，并记录适用市场和限制条件。"
       ],
       "learning_prompt": "复习经验研究、外部 benchmark、假设设定和管理层叙事。",
-      "shareable": "Zacks Industry Outlook Highlights The Hanover Insurance, Essent, Mercury General, Selective Insurance and Skyward Specialty Insurance - TradingView：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
+      "shareable": "30 High-Paying Remote Jobs With $100,000 (or Higher) Salaries - Money Talks News：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
-      "title": "Reinsurance Market Size | Industry Trends [2035] - Market Growth Reports",
-      "original_title": "Reinsurance Market Size | Industry Trends [2035] - Market Growth Reports",
+      "title": "The New Face of Insurance Fraud Looks Just Like a Legitimate Claim - Risk & Insurance",
+      "original_title": "The New Face of Insurance Fraud Looks Just Like a Legitimate Claim - Risk & Insurance",
       "original_language": "EN",
       "source_language": "en",
-      "source": "Market Growth Reports",
-      "source_name": "Market Growth Reports",
-      "source_url": "https://www.marketgrowthreports.com",
-      "original_url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNWUwyMjZnQlFWbG9FUW9SZlB5R1k3WkdwMTdXOG5BcHltYlJDbVhaRGkwN1YzM25JT0xvbXVISVJVTWlkMTJZNVdPZXlDV3N5cFBGX2VaWGRuNlBRQ2VhVFNvWVU1QmlGMjVOTDVMRVRWWS1USW45YmFRc0E0NmhkSnNn?oc=5",
+      "source": "Risk & Insurance",
+      "source_name": "Risk & Insurance",
+      "source_url": "https://riskandinsurance.com",
+      "original_url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNYVh0YVNqdVdrZjFPcFBOdjhqM3p2SFViU3VrXzNkYldDLUJUMW9ITVBKNV92OGF3UVJIaVZrYnZPbFhGOHZROXdDNzktWmdJN3hIbjlJakZscFowMVBZaTAyUFkxR0FsbWgzYnY4OHJtc2duR05KLXFzY2ZfcWxwdzVxakQ2b1MyT1M3UG41VE9takJuS0piT2J3c1o2MVU?oc=5",
       "via_source": "Google News",
-      "rss_title": "Reinsurance Market Size | Industry Trends [2035] - Market Growth Reports",
-      "rss_description": "Reinsurance Market Size | Industry Trends [2035] Market Growth Reports",
+      "rss_title": "The New Face of Insurance Fraud Looks Just Like a Legitimate Claim - Risk & Insurance",
+      "rss_description": "The New Face of Insurance Fraud Looks Just Like a Legitimate Claim Risk & Insurance",
       "extracted_text": "",
       "extraction_status": "unresolved_google_news",
       "summary_basis": "title_only",
-      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNWUwyMjZnQlFWbG9FUW9SZlB5R1k3WkdwMTdXOG5BcHltYlJDbVhaRGkwN1YzM25JT0xvbXVISVJVTWlkMTJZNVdPZXlDV3N5cFBGX2VaWGRuNlBRQ2VhVFNvWVU1QmlGMjVOTDVMRVRWWS1USW45YmFRc0E0NmhkSnNn?oc=5",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNYVh0YVNqdVdrZjFPcFBOdjhqM3p2SFViU3VrXzNkYldDLUJUMW9ITVBKNV92OGF3UVJIaVZrYnZPbFhGOHZROXdDNzktWmdJN3hIbjlJakZscFowMVBZaTAyUFkxR0FsbWgzYnY4OHJtc2duR05KLXFzY2ZfcWxwdzVxakQ2b1MyT1M3UG41VE9takJuS0piT2J3c1o2MVU?oc=5",
       "published": "2026-07-06",
-      "summary": "Reinsurance Market Size | Industry Trends [2035] Market Growth Reports",
+      "summary": "The New Face of Insurance Fraud Looks Just Like a Legitimate Claim Risk & Insurance",
       "localized_title": {
-        "en": "Research intelligence: a source item to track from Market Growth Reports",
-        "zh": "研究情报：Market Growth Reports发布一项值得精算人跟踪的保险动态",
-        "fr": "Veille Recherche : un signal assurance à suivre depuis Market Growth Reports"
+        "en": "Technology & AI intelligence: a source item to track from Risk & Insurance",
+        "zh": "科技与 AI情报：Risk & Insurance发布一项值得精算人跟踪的保险动态",
+        "fr": "Veille Technologie & IA : un signal assurance à suivre depuis Risk & Insurance"
       },
       "key_takeaway": {
         "en": "",
@@ -2248,33 +2090,36 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "Reinsurance developments affect retentions, cover structure, catastrophe exposure and capital relief. They can also flow through to primary pricing, earnings volatility and risk appetite.",
-        "zh": "再保险动态会影响自留额、保障层级、巨灾暴露和资本缓释效果。它也会传导到原保险定价、预算波动和风险偏好。",
-        "fr": "Les évolutions de réassurance influencent la rétention, les protections, l’exposition catastrophe et l’allègement du capital. Elles peuvent aussi se répercuter sur la tarification et la volatilité du résultat."
+        "en": "The key question is whether AI or InsurTech changes underwriting, claims, fraud detection or distribution economics. Data quality, model governance and explainability remain the actuarial control points.",
+        "zh": "科技与 AI 新闻的关键在于是否真正改变核保、理赔、反欺诈或分销效率。精算人还需要关注数据质量、模型治理和监管可解释性。",
+        "fr": "L’enjeu est de savoir si l’IA ou l’InsurTech améliore réellement la souscription, les sinistres, la fraude ou la distribution. Les points de vigilance restent la qualité des données, la gouvernance des modèles et l’explicabilité."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "全球",
       "source_type": "News Search",
-      "platform_section": "research",
-      "category": "再保险与巨灾风险",
-      "taxonomy_category": "research",
+      "platform_section": "technology_ai",
+      "category": "保险科技与数据前沿",
+      "taxonomy_category": "technology_ai",
       "taxonomy_tags": [
-        "reinsurance",
-        "risk_management"
+        "data_ai",
+        "insurtech"
       ],
       "needs_review": true,
-      "line_of_business": "再保险",
-      "branch": "再保险",
-      "industry_category": "保险本业/其他",
+      "line_of_business": "综合保险",
+      "branch": "生态伙伴/其他行业",
+      "industry_category": "科技/网络安全",
       "risk_level": "观察",
       "score": 4,
-      "actuarial_angle": "可能改变自留额、再保成本、尾部风险资本和财险定价充足性。",
+      "actuarial_angle": "可能改变核保、定价、理赔、反欺诈、客户运营和模型治理方式。",
       "actions": [
-        "复核当前再保结构下 1-in-100 与 1-in-200 损失情景。",
-        "比较不同自留额对利润波动、资本占用和再保费用的影响。",
-        "把近期灾害经验纳入下一轮定价或预算假设讨论。"
+        "判断技术处于概念验证、试点、规模化还是监管约束阶段。",
+        "列出一个可落地场景：数据输入、模型输出、业务决策、风险控制。",
+        "检查模型风险：公平性、可解释性、漂移监控、人工复核和数据授权。"
       ],
-      "learning_prompt": "复习 XL、quota share、aggregate cover 与巨灾模型输出。",
-      "shareable": "Reinsurance Market Size | Industry Trends [2035] - Market Growth Reports：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
+      "learning_prompt": "复习 GLM、机器学习定价、模型治理、反欺诈和可解释 AI。",
+      "shareable": "The New Face of Insurance Fraud Looks Just Like a Legitimate Claim - Risk & Insurance：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
       "title": "8 Best Life Insurance Companies of July 2026 - money.com",
@@ -2314,6 +2159,9 @@
         "zh": "研究报告的价值在于把市场信号转化为假设、情景和方法论。适合沉淀到个人知识库或用于管理层汇报。",
         "fr": "Une publication de recherche transforme des signaux de marché en hypothèses, scénarios et méthodes. Elle peut nourrir une base de connaissances ou un support de comité."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "全球",
       "source_type": "News Search",
       "platform_section": "research",
@@ -2337,6 +2185,71 @@
       ],
       "learning_prompt": "复习经验研究、外部 benchmark、假设设定和管理层叙事。",
       "shareable": "8 Best Life Insurance Companies of July 2026 - money.com：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
+    },
+    {
+      "title": "Allianz Stock Leads 3 High Yield Dividend Picks With Strong Profitability - simplywall.st",
+      "original_title": "Allianz Stock Leads 3 High Yield Dividend Picks With Strong Profitability - simplywall.st",
+      "original_language": "EN",
+      "source_language": "en",
+      "source": "simplywall.st",
+      "source_name": "simplywall.st",
+      "source_url": "https://simplywall.st",
+      "original_url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPSFk0YVVpVlRlNS1DQUFoNzd5LW9KUGlBa1I4OHh6UnB3YlRhSDlNZlBTUW5HbndMX011Z0dZNEFhY2s1TFJTZlFtdjNYREtqTy1sQjlSUDdwWXA2b0FRLV9zendxc1U3UU82T0phd0poVzY4V2hlTDkwcGZxMlZGNnh1LVFSUEdiYTJybl9jV3dha196MXhVd283cFZZTkVPZmZoY3Q2WTZlb19VVFprUHl5SnNfaktjSkpmWjVsVmpUZlZZZ1BVcdIBzgFBVV95cUxOSERoMWtKeVdJYVQ2NzFaM1BPanhkRDMtTGlXYWs0R0pwbHVKN2MycWM4aW0zTVFZWE0wbnFfRDhudEJVSFpTaXlIeG90ZXpNOGdScEdQZU10cVpQeGQtdDVOMV9ZWkxSTXRiWmQ4dmlFOVJRTGNmY0x0akJHQjdQU1RDX0xocEc5MlFQLXhBbWQ1QW9SZGwwMks3XzhIcFh2WkdabWFJR1p2aV83VnJoeGRNaDBrY0dCXzduLUFuVUlwYnVQV1NNNzRxaXFydw?oc=5",
+      "via_source": "Google News",
+      "rss_title": "Allianz Stock Leads 3 High Yield Dividend Picks With Strong Profitability - simplywall.st",
+      "rss_description": "Allianz Stock Leads 3 High Yield Dividend Picks With Strong Profitability simplywall.st",
+      "extracted_text": "",
+      "extraction_status": "unresolved_google_news",
+      "summary_basis": "title_only",
+      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPSFk0YVVpVlRlNS1DQUFoNzd5LW9KUGlBa1I4OHh6UnB3YlRhSDlNZlBTUW5HbndMX011Z0dZNEFhY2s1TFJTZlFtdjNYREtqTy1sQjlSUDdwWXA2b0FRLV9zendxc1U3UU82T0phd0poVzY4V2hlTDkwcGZxMlZGNnh1LVFSUEdiYTJybl9jV3dha196MXhVd283cFZZTkVPZmZoY3Q2WTZlb19VVFprUHl5SnNfaktjSkpmWjVsVmpUZlZZZ1BVcdIBzgFBVV95cUxOSERoMWtKeVdJYVQ2NzFaM1BPanhkRDMtTGlXYWs0R0pwbHVKN2MycWM4aW0zTVFZWE0wbnFfRDhudEJVSFpTaXlIeG90ZXpNOGdScEdQZU10cVpQeGQtdDVOMV9ZWkxSTXRiWmQ4dmlFOVJRTGNmY0x0akJHQjdQU1RDX0xocEc5MlFQLXhBbWQ1QW9SZGwwMks3XzhIcFh2WkdabWFJR1p2aV83VnJoeGRNaDBrY0dCXzduLUFuVUlwYnVQV1NNNzRxaXFydw?oc=5",
+      "published": "2026-07-08",
+      "summary": "Allianz Stock Leads 3 High Yield Dividend Picks With Strong Profitability simplywall.st",
+      "localized_title": {
+        "en": "Market intelligence: a source item to track from simplywall.st",
+        "zh": "市场情报：simplywall.st发布一项值得精算人跟踪的保险动态",
+        "fr": "Veille Marché : un signal assurance à suivre depuis simplywall.st"
+      },
+      "key_takeaway": {
+        "en": "",
+        "zh": "",
+        "fr": ""
+      },
+      "ai_summary": {
+        "en": "",
+        "zh": "",
+        "fr": ""
+      },
+      "why_it_matters": {
+        "en": null,
+        "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
+        "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
+      },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
+      "region": "全球",
+      "source_type": "News Search",
+      "platform_section": "market",
+      "category": "利率与资产负债管理",
+      "taxonomy_category": "market",
+      "taxonomy_tags": [
+        "investment",
+        "risk_management"
+      ],
+      "needs_review": true,
+      "line_of_business": "综合保险",
+      "branch": "生态伙伴/其他行业",
+      "industry_category": "保险本业/其他",
+      "risk_level": "观察",
+      "score": 4,
+      "actuarial_angle": "会同时牵动资产收益、负债现值、新业务价值、保证利益成本和退保行为。",
+      "actions": [
+        "更新关键产品的贴现率敏感性：利率下移 25bp/50bp/100bp。",
+        "对照资产久期与负债久期，标出错配最明显的产品或账户。",
+        "写下利率变化对 EV、NBV、CSM 或准备金的传导链。"
+      ],
+      "learning_prompt": "用 200 字解释长期利率下降为什么会提高寿险负债价值。",
+      "shareable": "Allianz Stock Leads 3 High Yield Dividend Picks With Strong Profitability - simplywall.st：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
       "title": "Reinsurance Market Size, Share | Industry Report, 2034 - Fortune Business Insights",
@@ -2376,6 +2289,9 @@
         "zh": "再保险动态会影响自留额、保障层级、巨灾暴露和资本缓释效果。它也会传导到原保险定价、预算波动和风险偏好。",
         "fr": "Les évolutions de réassurance influencent la rétention, les protections, l’exposition catastrophe et l’allègement du capital. Elles peuvent aussi se répercuter sur la tarification et la volatilité du résultat."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "全球",
       "source_type": "News Search",
       "platform_section": "research",
@@ -2438,6 +2354,9 @@
         "zh": "再保险动态会影响自留额、保障层级、巨灾暴露和资本缓释效果。它也会传导到原保险定价、预算波动和风险偏好。",
         "fr": "Les évolutions de réassurance influencent la rétention, les protections, l’exposition catastrophe et l’allègement du capital. Elles peuvent aussi se répercuter sur la tarification et la volatilité du résultat."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "全球",
       "source_type": "News Search",
       "platform_section": "reinsurance",
@@ -2500,6 +2419,9 @@
         "zh": "研究报告的价值在于把市场信号转化为假设、情景和方法论。适合沉淀到个人知识库或用于管理层汇报。",
         "fr": "Une publication de recherche transforme des signaux de marché en hypothèses, scénarios et méthodes. Elle peut nourrir une base de connaissances ou un support de comité."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "全球",
       "source_type": "News Search",
       "platform_section": "research",
@@ -2561,6 +2483,9 @@
         "zh": "科技与 AI 新闻的关键在于是否真正改变核保、理赔、反欺诈或分销效率。精算人还需要关注数据质量、模型治理和监管可解释性。",
         "fr": "L’enjeu est de savoir si l’IA ou l’InsurTech améliore réellement la souscription, les sinistres, la fraude ou la distribution. Les points de vigilance restent la qualité des données, la gouvernance des modèles et l’explicabilité."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "全球",
       "source_type": "News Search",
       "platform_section": "technology_ai",
@@ -2584,6 +2509,71 @@
       ],
       "learning_prompt": "复习 GLM、机器学习定价、模型治理、反欺诈和可解释 AI。",
       "shareable": "AI Inference Chip Market Soars: Predicted Growth to $36.97 Billion by 2030 - GlobeNewswire：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
+    },
+    {
+      "title": "NN, Inc. Announces Major Breakthrough in its Medical Business - GlobeNewswire",
+      "original_title": "NN, Inc. Announces Major Breakthrough in its Medical Business - GlobeNewswire",
+      "original_language": "EN",
+      "source_language": "en",
+      "source": "GlobeNewswire",
+      "source_name": "GlobeNewswire",
+      "source_url": "https://www.globenewswire.com",
+      "original_url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxObXVUdXAyaHRIRFRxYUY3RTJrNkxKNnpqVU5GZ0NwbHhjTUF1OTV5bjMzbjBkZWQ3WGxHY25YRUozU3lQZDhtS2c1d291WGRLWGVFaS1oM183a0ZMenV5b3lrSENyOVFVVjVoX01WLVFQMVQ3QWxRTGRfSzRLbjZiTWhPOTFVM0Z3TWJOVGRrTzQ0bG1OQlBDbXdSTnVUWk50SnhOa1dYZmh1VW1hcTZJTXhIWG9MSVZPZ1ViM3I0MjVmbmVLODlXU0gyQQ?oc=5",
+      "via_source": "Google News",
+      "rss_title": "NN, Inc. Announces Major Breakthrough in its Medical Business - GlobeNewswire",
+      "rss_description": "NN, Inc. Announces Major Breakthrough in its Medical Business GlobeNewswire",
+      "extracted_text": "",
+      "extraction_status": "unresolved_google_news",
+      "summary_basis": "title_only",
+      "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxObXVUdXAyaHRIRFRxYUY3RTJrNkxKNnpqVU5GZ0NwbHhjTUF1OTV5bjMzbjBkZWQ3WGxHY25YRUozU3lQZDhtS2c1d291WGRLWGVFaS1oM183a0ZMenV5b3lrSENyOVFVVjVoX01WLVFQMVQ3QWxRTGRfSzRLbjZiTWhPOTFVM0Z3TWJOVGRrTzQ0bG1OQlBDbXdSTnVUWk50SnhOa1dYZmh1VW1hcTZJTXhIWG9MSVZPZ1ViM3I0MjVmbmVLODlXU0gyQQ?oc=5",
+      "published": "2026-07-06",
+      "summary": "NN, Inc. Announces Major Breakthrough in its Medical Business GlobeNewswire",
+      "localized_title": {
+        "en": "Market intelligence: a source item to track from GlobeNewswire",
+        "zh": "市场情报：GlobeNewswire发布一项值得精算人跟踪的保险动态",
+        "fr": "Veille Marché : un signal assurance à suivre depuis GlobeNewswire"
+      },
+      "key_takeaway": {
+        "en": "",
+        "zh": "",
+        "fr": ""
+      },
+      "ai_summary": {
+        "en": "",
+        "zh": "",
+        "fr": ""
+      },
+      "why_it_matters": {
+        "en": null,
+        "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
+        "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
+      },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
+      "region": "全球",
+      "source_type": "News Search",
+      "platform_section": "market",
+      "category": "健康险与赔付经验",
+      "taxonomy_category": "market",
+      "taxonomy_tags": [
+        "health_insurance",
+        "risk_management"
+      ],
+      "needs_review": true,
+      "line_of_business": "健康险/医疗险",
+      "branch": "生态伙伴/其他行业",
+      "industry_category": "投行/资本市场",
+      "risk_level": "观察",
+      "score": 4,
+      "actuarial_angle": "可能影响定价假设、续保管理、赔付率监控和准备金充足性。",
+      "actions": [
+        "拉取最近 12 个月赔付率、件均赔款、出险频率和续保率趋势。",
+        "按年龄、地区、责任和渠道拆分经验偏差，找出主要驱动因素。",
+        "做赔付率上升 5%/10% 对利润和准备金的敏感性测试。"
+      ],
+      "learning_prompt": "复习赔付率、医疗通胀、发病率、续保率与风险选择。",
+      "shareable": "NN, Inc. Announces Major Breakthrough in its Medical Business - GlobeNewswire：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
       "title": "Courtage : lapi Groupe intègre 22 cabinets et vise 15 M€ de chiffre d’affaires en 2026 - L'Argus de l'assurance",
@@ -2623,6 +2613,9 @@
         "zh": "科技与 AI 新闻的关键在于是否真正改变核保、理赔、反欺诈或分销效率。精算人还需要关注数据质量、模型治理和监管可解释性。",
         "fr": "L’enjeu est de savoir si l’IA ou l’InsurTech améliore réellement la souscription, les sinistres, la fraude ou la distribution. Les points de vigilance restent la qualité des données, la gouvernance des modèles et l’explicabilité."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "法国",
       "source_type": "News Search",
       "platform_section": "technology_ai",
@@ -2682,10 +2675,13 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "中国",
       "source_type": "News Search",
       "platform_section": "market",
@@ -2743,10 +2739,13 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "中国",
       "source_type": "News Search",
       "platform_section": "market",
@@ -2769,67 +2768,6 @@
       ],
       "learning_prompt": "练习把行业事件翻译成假设、现金流、资本和利润四个维度。",
       "shareable": "穿越3.19万亿“迷雾”，保险业正在进入“二次发育” - 华尔街见闻：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
-    },
-    {
-      "title": "“情暖老兵·戎光同行”退役军人专属车险专项行动暨公益捐赠仪式在京举行 - 央广网",
-      "original_title": "“情暖老兵·戎光同行”退役军人专属车险专项行动暨公益捐赠仪式在京举行 - 央广网",
-      "original_language": "ZH",
-      "source_language": "zh",
-      "source": "央广网",
-      "source_name": "央广网",
-      "source_url": "https://www.cnr.cn",
-      "original_url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBwcnBGdW5ISGxveGN3MlRETGJDdWlKdzRkbGlCdU9ObXoxdTdVdGZ6ZGhwNjlBRHVmWkwtRDJFYlNEdHh6dlQwYkJzZkFlLUVZQmpPMnduOTVsTmRLVTRuN25mMUZtQ25oYUtvamZpSGI?oc=5",
-      "via_source": "Google News",
-      "rss_title": "“情暖老兵·戎光同行”退役军人专属车险专项行动暨公益捐赠仪式在京举行 - 央广网",
-      "rss_description": "“情暖老兵·戎光同行”退役军人专属车险专项行动暨公益捐赠仪式在京举行 央广网",
-      "extracted_text": "",
-      "extraction_status": "unresolved_google_news",
-      "summary_basis": "title_only",
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBwcnBGdW5ISGxveGN3MlRETGJDdWlKdzRkbGlCdU9ObXoxdTdVdGZ6ZGhwNjlBRHVmWkwtRDJFYlNEdHh6dlQwYkJzZkFlLUVZQmpPMnduOTVsTmRLVTRuN25mMUZtQ25oYUtvamZpSGI?oc=5",
-      "published": "2026-07-01",
-      "summary": "“情暖老兵·戎光同行”退役军人专属车险专项行动暨公益捐赠仪式在京举行 央广网",
-      "localized_title": {
-        "en": "Market intelligence: a source item to track from Chinese-language source",
-        "zh": "市场情报：央广网发布一项值得精算人跟踪的保险动态",
-        "fr": "Veille Marché : un signal assurance à suivre depuis source en langue chinoise"
-      },
-      "key_takeaway": {
-        "en": "",
-        "zh": "",
-        "fr": ""
-      },
-      "ai_summary": {
-        "en": "",
-        "zh": "",
-        "fr": ""
-      },
-      "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
-        "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
-        "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
-      },
-      "region": "中国",
-      "source_type": "News Search",
-      "platform_section": "market",
-      "category": "行业趋势",
-      "taxonomy_category": "market",
-      "taxonomy_tags": [
-        "risk_management"
-      ],
-      "needs_review": true,
-      "line_of_business": "车险/出行",
-      "branch": "生态伙伴/其他行业",
-      "industry_category": "保险本业/其他",
-      "risk_level": "观察",
-      "score": 1,
-      "actuarial_angle": "值得持续观察其对产品、风险、资本和客户行为的间接影响。",
-      "actions": [
-        "记录它可能影响的精算假设，并标注需要哪些数据验证。",
-        "找一个同业或历史案例做对照，判断这是一日新闻还是长期趋势。",
-        "把结论写成三句话，沉淀到个人知识库。"
-      ],
-      "learning_prompt": "练习把行业事件翻译成假设、现金流、资本和利润四个维度。",
-      "shareable": "“情暖老兵·戎光同行”退役军人专属车险专项行动暨公益捐赠仪式在京举行 - 央广网：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
       "title": "中华保险品牌价值突破619亿元 登上2026年中国500最具价值品牌榜 - 新华网",
@@ -2865,10 +2803,13 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "中国",
       "source_type": "News Search",
       "platform_section": "market",
@@ -2926,10 +2867,13 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "中国",
       "source_type": "News Search",
       "platform_section": "market",
@@ -2987,10 +2931,13 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "欧洲",
       "source_type": "News Search",
       "platform_section": "market",
@@ -3050,10 +2997,13 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "欧洲",
       "source_type": "News Search",
       "platform_section": "market",
@@ -3078,27 +3028,27 @@
       "shareable": "Biodiversity and Nature Risk Edition | Risk Management Partners - munichre.com：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
-      "title": "Sanctions risk moves from compliance checkbox to strategic priority for insurers - Insurance Business",
-      "original_title": "Sanctions risk moves from compliance checkbox to strategic priority for insurers - Insurance Business",
+      "title": "Coffee Trader Seeks to Shield More Vietnam Growers From Weather - Bloomberg.com",
+      "original_title": "Coffee Trader Seeks to Shield More Vietnam Growers From Weather - Bloomberg.com",
       "original_language": "EN",
       "source_language": "en",
-      "source": "Insurance Business",
-      "source_name": "Insurance Business",
-      "source_url": "https://www.insurancebusinessmag.com",
-      "original_url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxPOTc4U2x1MlVBZVpfVHE3SUdLTVF5My15VWFXUjRTSERCRWZUYXprMXM2NFdaajhnUDVpWVh0WklHOC1JN2UtZjZ2NzRIbzU2TldSNlVQYjZPcE9PVVFybWQ3Q0QyTXpudnk2WGtQbERxcjNXMTVTX3lTS1h6S3hvM3A4N3NaWllyYkJRaGlyRkpSUXdadWs5M3pfUjBaUWpQNFdsdE9qbHpQQmtDYXBVNFVrTEpUV1hGVkk0SFBzeWRPWGUtU0J4Z3JzNWVpOUl3aEI0US01MVc1bkFleXItVEJ0Wm8yUQ?oc=5",
+      "source": "Bloomberg.com",
+      "source_name": "Bloomberg.com",
+      "source_url": "https://www.bloomberg.com",
+      "original_url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxOOXVqOVM3M2tncVFKNHQ1UlI5WEF2NUozcFlhYzVLY0FfdUxuQlNCeHdTLUU2WEJXYm9FT3FhN1pQQzYyaEhnY0RuQ2RyRUF0bDdLaER2NGtVZ05mWl9WM0tKVE9PczE2SnZfbG9lVzhianFId2JBckM1djVlM2RHcDdUNHBKeXA2eDJabERwLXAtNi1wMzJJQTBVcjZTNXNvNnpMVFZFRFlMM0xzZEREd1BtY1hJQTFYVHhsQWh6bFo3bjQ1ZV84UjRNR3gybnBJczRER1BBY3Axb0pxNk91eWw5SjQ?oc=5",
       "via_source": "Google News",
-      "rss_title": "Sanctions risk moves from compliance checkbox to strategic priority for insurers - Insurance Business",
-      "rss_description": "Sanctions risk moves from compliance checkbox to strategic priority for insurers Insurance Business",
+      "rss_title": "Coffee Trader Seeks to Shield More Vietnam Growers From Weather - Bloomberg.com",
+      "rss_description": "Coffee Trader Seeks to Shield More Vietnam Growers From Weather Bloomberg.com",
       "extracted_text": "",
       "extraction_status": "unresolved_google_news",
       "summary_basis": "title_only",
-      "url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxPOTc4U2x1MlVBZVpfVHE3SUdLTVF5My15VWFXUjRTSERCRWZUYXprMXM2NFdaajhnUDVpWVh0WklHOC1JN2UtZjZ2NzRIbzU2TldSNlVQYjZPcE9PVVFybWQ3Q0QyTXpudnk2WGtQbERxcjNXMTVTX3lTS1h6S3hvM3A4N3NaWllyYkJRaGlyRkpSUXdadWs5M3pfUjBaUWpQNFdsdE9qbHpQQmtDYXBVNFVrTEpUV1hGVkk0SFBzeWRPWGUtU0J4Z3JzNWVpOUl3aEI0US01MVc1bkFleXItVEJ0Wm8yUQ?oc=5",
-      "published": "2026-07-07",
-      "summary": "Sanctions risk moves from compliance checkbox to strategic priority for insurers Insurance Business",
+      "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxOOXVqOVM3M2tncVFKNHQ1UlI5WEF2NUozcFlhYzVLY0FfdUxuQlNCeHdTLUU2WEJXYm9FT3FhN1pQQzYyaEhnY0RuQ2RyRUF0bDdLaER2NGtVZ05mWl9WM0tKVE9PczE2SnZfbG9lVzhianFId2JBckM1djVlM2RHcDdUNHBKeXA2eDJabERwLXAtNi1wMzJJQTBVcjZTNXNvNnpMVFZFRFlMM0xzZEREd1BtY1hJQTFYVHhsQWh6bFo3bjQ1ZV84UjRNR3gybnBJczRER1BBY3Axb0pxNk91eWw5SjQ?oc=5",
+      "published": "2026-07-08",
+      "summary": "Coffee Trader Seeks to Shield More Vietnam Growers From Weather Bloomberg.com",
       "localized_title": {
-        "en": "Market intelligence: a source item to track from Insurance Business",
-        "zh": "市场情报：Insurance Business发布一项值得精算人跟踪的保险动态",
-        "fr": "Veille Marché : un signal assurance à suivre depuis Insurance Business"
+        "en": "Market intelligence: a source item to track from Bloomberg.com",
+        "zh": "市场情报：Bloomberg.com发布一项值得精算人跟踪的保险动态",
+        "fr": "Veille Marché : un signal assurance à suivre depuis Bloomberg.com"
       },
       "key_takeaway": {
         "en": "",
@@ -3111,10 +3061,13 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "欧洲",
       "source_type": "News Search",
       "platform_section": "market",
@@ -3125,7 +3078,7 @@
       ],
       "needs_review": true,
       "line_of_business": "综合保险",
-      "branch": "保险公司",
+      "branch": "生态伙伴/其他行业",
       "industry_category": "保险本业/其他",
       "risk_level": "观察",
       "score": 1,
@@ -3136,7 +3089,71 @@
         "把结论写成三句话，沉淀到个人知识库。"
       ],
       "learning_prompt": "练习把行业事件翻译成假设、现金流、资本和利润四个维度。",
-      "shareable": "Sanctions risk moves from compliance checkbox to strategic priority for insurers - Insurance Business：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
+      "shareable": "Coffee Trader Seeks to Shield More Vietnam Growers From Weather - Bloomberg.com：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
+    },
+    {
+      "title": "Ample aviation capacity but challenging environment, says Marsh - Slipcase",
+      "original_title": "Ample aviation capacity but challenging environment, says Marsh - Slipcase",
+      "original_language": "EN",
+      "source_language": "en",
+      "source": "Slipcase",
+      "source_name": "Slipcase",
+      "source_url": "https://slipcase.com",
+      "original_url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQeXZNbjM4Y1dhTnJMOXNucUR1MmVOUDZwNTI4LWZfYlc5RFV1X3J6TW42MlE3T2h2OWFjTEY0Mkp2WjBzQ3JpY2RVRFBHbnFOc0YzbnBYYVNpdXNMbmlwamdxaGRqZVo1bXF0aXBzOXJjQzBnNE5ZY29ycjd1WFdqR0d0RXhtZ1FBT2hncjhxT3F1b1RSZ21yVzY3RjJtTnc?oc=5",
+      "via_source": "Google News",
+      "rss_title": "Ample aviation capacity but challenging environment, says Marsh - Slipcase",
+      "rss_description": "Ample aviation capacity but challenging environment, says Marsh Slipcase",
+      "extracted_text": "",
+      "extraction_status": "unresolved_google_news",
+      "summary_basis": "title_only",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQeXZNbjM4Y1dhTnJMOXNucUR1MmVOUDZwNTI4LWZfYlc5RFV1X3J6TW42MlE3T2h2OWFjTEY0Mkp2WjBzQ3JpY2RVRFBHbnFOc0YzbnBYYVNpdXNMbmlwamdxaGRqZVo1bXF0aXBzOXJjQzBnNE5ZY29ycjd1WFdqR0d0RXhtZ1FBT2hncjhxT3F1b1RSZ21yVzY3RjJtTnc?oc=5",
+      "published": "2026-07-06",
+      "summary": "Ample aviation capacity but challenging environment, says Marsh Slipcase",
+      "localized_title": {
+        "en": "Market intelligence: a source item to track from Slipcase",
+        "zh": "市场情报：Slipcase发布一项值得精算人跟踪的保险动态",
+        "fr": "Veille Marché : un signal assurance à suivre depuis Slipcase"
+      },
+      "key_takeaway": {
+        "en": "",
+        "zh": "",
+        "fr": ""
+      },
+      "ai_summary": {
+        "en": "",
+        "zh": "",
+        "fr": ""
+      },
+      "why_it_matters": {
+        "en": null,
+        "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
+        "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
+      },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
+      "region": "欧洲",
+      "source_type": "News Search",
+      "platform_section": "market",
+      "category": "行业趋势",
+      "taxonomy_category": "market",
+      "taxonomy_tags": [
+        "risk_management"
+      ],
+      "needs_review": true,
+      "line_of_business": "特殊险/政治风险",
+      "branch": "生态伙伴/其他行业",
+      "industry_category": "投行/资本市场",
+      "risk_level": "观察",
+      "score": 1,
+      "actuarial_angle": "值得持续观察其对产品、风险、资本和客户行为的间接影响。",
+      "actions": [
+        "记录它可能影响的精算假设，并标注需要哪些数据验证。",
+        "找一个同业或历史案例做对照，判断这是一日新闻还是长期趋势。",
+        "把结论写成三句话，沉淀到个人知识库。"
+      ],
+      "learning_prompt": "练习把行业事件翻译成假设、现金流、资本和利润四个维度。",
+      "shareable": "Ample aviation capacity but challenging environment, says Marsh - Slipcase：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
       "title": "FERMA elects five new board members at General Assembly - Captive Insurance Times",
@@ -3172,10 +3189,13 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "欧洲",
       "source_type": "News Search",
       "platform_section": "market",
@@ -3233,10 +3253,13 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "美国",
       "source_type": "News Search",
       "platform_section": "market",
@@ -3262,23 +3285,23 @@
       "shareable": "Should Suitability Rules Apply to Life Insurance Policies With Long-Term Care Benefits? - ThinkAdvisor：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
-      "title": "Best Homeowners Insurance in Arkansas for 2026 - U.S. News & World Report",
-      "original_title": "Best Homeowners Insurance in Arkansas for 2026 - U.S. News & World Report",
+      "title": "Best Homeowners Insurance in Kentucky for 2026 - U.S. News & World Report",
+      "original_title": "Best Homeowners Insurance in Kentucky for 2026 - U.S. News & World Report",
       "original_language": "EN",
       "source_language": "en",
       "source": "U.S. News & World Report",
       "source_name": "U.S. News & World Report",
       "source_url": "https://www.usnews.com",
-      "original_url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9NQ3VaVDVRczVWOUtIQk1aOFMxdkRtZzZXaWptdUFBQndBekZ4VFB4VUhoaGhyTVJrUUJWNnBVNmlETTQ2UW91eGdsYmZYRllEeDZXY0pzVXoxQl9oV3FQcG8xUFVqOGpGYnZDZWtjemN1eUpwYktV?oc=5",
+      "original_url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5oV2J0elllZEJuU1pZUkVKSDk0aDRMRWZnb01zcmhvN1lSQnQyOU1vQzJPU2ZZVVpYdmhuRzBSTEpQdkY1XzZ1eU1qeHJvZUNxa2FpaTFLd3RVTXhhdS1wRkdUX3hldEk4QTNaWjFEUlZ2MnFRYy13?oc=5",
       "via_source": "Google News",
-      "rss_title": "Best Homeowners Insurance in Arkansas for 2026 - U.S. News & World Report",
-      "rss_description": "Best Homeowners Insurance in Arkansas for 2026 U.S. News & World Report",
+      "rss_title": "Best Homeowners Insurance in Kentucky for 2026 - U.S. News & World Report",
+      "rss_description": "Best Homeowners Insurance in Kentucky for 2026 U.S. News & World Report",
       "extracted_text": "",
       "extraction_status": "unresolved_google_news",
       "summary_basis": "title_only",
-      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9NQ3VaVDVRczVWOUtIQk1aOFMxdkRtZzZXaWptdUFBQndBekZ4VFB4VUhoaGhyTVJrUUJWNnBVNmlETTQ2UW91eGdsYmZYRllEeDZXY0pzVXoxQl9oV3FQcG8xUFVqOGpGYnZDZWtjemN1eUpwYktV?oc=5",
-      "published": "2026-07-01",
-      "summary": "Best Homeowners Insurance in Arkansas for 2026 U.S. News & World Report",
+      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5oV2J0elllZEJuU1pZUkVKSDk0aDRMRWZnb01zcmhvN1lSQnQyOU1vQzJPU2ZZVVpYdmhuRzBSTEpQdkY1XzZ1eU1qeHJvZUNxa2FpaTFLd3RVTXhhdS1wRkdUX3hldEk4QTNaWjFEUlZ2MnFRYy13?oc=5",
+      "published": "2026-07-02",
+      "summary": "Best Homeowners Insurance in Kentucky for 2026 U.S. News & World Report",
       "localized_title": {
         "en": "Research intelligence: a source item to track from U.S. News & World Report",
         "zh": "研究情报：U.S. News & World Report发布一项值得精算人跟踪的保险动态",
@@ -3299,6 +3322,9 @@
         "zh": "研究报告的价值在于把市场信号转化为假设、情景和方法论。适合沉淀到个人知识库或用于管理层汇报。",
         "fr": "Une publication de recherche transforme des signaux de marché en hypothèses, scénarios et méthodes. Elle peut nourrir une base de connaissances ou un support de comité."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "美国",
       "source_type": "News Search",
       "platform_section": "research",
@@ -3320,7 +3346,7 @@
         "把结论写成三句话，沉淀到个人知识库。"
       ],
       "learning_prompt": "练习把行业事件翻译成假设、现金流、资本和利润四个维度。",
-      "shareable": "Best Homeowners Insurance in Arkansas for 2026 - U.S. News & World Report：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
+      "shareable": "Best Homeowners Insurance in Kentucky for 2026 - U.S. News & World Report：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
       "title": "Manulife Financial highlights diversified insurance and wealth business - AD HOC NEWS",
@@ -3356,10 +3382,13 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "美国",
       "source_type": "News Search",
       "platform_section": "market",
@@ -3382,6 +3411,70 @@
       ],
       "learning_prompt": "练习把行业事件翻译成假设、现金流、资本和利润四个维度。",
       "shareable": "Manulife Financial highlights diversified insurance and wealth business - AD HOC NEWS：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
+    },
+    {
+      "title": "RiskScan 2026: (Re)insurance - munichre.com",
+      "original_title": "RiskScan 2026: (Re)insurance - munichre.com",
+      "original_language": "EN",
+      "source_language": "en",
+      "source": "munichre.com",
+      "source_name": "munichre.com",
+      "source_url": "https://www.munichre.com",
+      "original_url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBYTlFPeDFNbjB1bnVqUVNYNDBKMlEzZlFlemNEcGlsUnJCeWt1U0Y3VlFlY0M3aUFIRmR4eXlZTmhnVFo3NUNBUENNYXI2UHU0Vzk2bE1SQWlVeF96blNQdHJYNVFjOF94T3hDLXVEV3hQUDN0Y04ydTVIck14aWc?oc=5",
+      "via_source": "Google News",
+      "rss_title": "RiskScan 2026: (Re)insurance - munichre.com",
+      "rss_description": "RiskScan 2026: (Re)insurance munichre.com",
+      "extracted_text": "",
+      "extraction_status": "unresolved_google_news",
+      "summary_basis": "title_only",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBYTlFPeDFNbjB1bnVqUVNYNDBKMlEzZlFlemNEcGlsUnJCeWt1U0Y3VlFlY0M3aUFIRmR4eXlZTmhnVFo3NUNBUENNYXI2UHU0Vzk2bE1SQWlVeF96blNQdHJYNVFjOF94T3hDLXVEV3hQUDN0Y04ydTVIck14aWc?oc=5",
+      "published": "2026-07-04",
+      "summary": "RiskScan 2026: (Re)insurance munichre.com",
+      "localized_title": {
+        "en": "Market intelligence: a source item to track from munichre.com",
+        "zh": "市场情报：munichre.com发布一项值得精算人跟踪的保险动态",
+        "fr": "Veille Marché : un signal assurance à suivre depuis munichre.com"
+      },
+      "key_takeaway": {
+        "en": "",
+        "zh": "",
+        "fr": ""
+      },
+      "ai_summary": {
+        "en": "",
+        "zh": "",
+        "fr": ""
+      },
+      "why_it_matters": {
+        "en": null,
+        "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
+        "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
+      },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
+      "region": "全球",
+      "source_type": "News Search",
+      "platform_section": "market",
+      "category": "行业趋势",
+      "taxonomy_category": "market",
+      "taxonomy_tags": [
+        "risk_management"
+      ],
+      "needs_review": true,
+      "line_of_business": "综合保险",
+      "branch": "生态伙伴/其他行业",
+      "industry_category": "保险本业/其他",
+      "risk_level": "观察",
+      "score": 1,
+      "actuarial_angle": "值得持续观察其对产品、风险、资本和客户行为的间接影响。",
+      "actions": [
+        "记录它可能影响的精算假设，并标注需要哪些数据验证。",
+        "找一个同业或历史案例做对照，判断这是一日新闻还是长期趋势。",
+        "把结论写成三句话，沉淀到个人知识库。"
+      ],
+      "learning_prompt": "练习把行业事件翻译成假设、现金流、资本和利润四个维度。",
+      "shareable": "RiskScan 2026: (Re)insurance - munichre.com：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
       "title": "HDI Global names credit and political risk lead from EXIM - Insurance Business",
@@ -3417,10 +3510,13 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "全球",
       "source_type": "News Search",
       "platform_section": "market",
@@ -3445,27 +3541,27 @@
       "shareable": "HDI Global names credit and political risk lead from EXIM - Insurance Business：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
-      "title": "Life Insurance and Annuities - InvestmentNews",
-      "original_title": "Life Insurance and Annuities - InvestmentNews",
+      "title": "HDI Global US Appoints Amy Shinkman as Credit and Political Risk US Lead - Slipcase",
+      "original_title": "HDI Global US Appoints Amy Shinkman as Credit and Political Risk US Lead - Slipcase",
       "original_language": "EN",
       "source_language": "en",
-      "source": "InvestmentNews",
-      "source_name": "InvestmentNews",
-      "source_url": "https://www.investmentnews.com",
-      "original_url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPQm5JRnVNdlJMbl9Uak1LVnNNN3RuVFFudjdGRzZzcW5XVUZpRVBzUlJaSm9VckJrZnYzam5xbEpmd29RZ01qSzh5bTdFMklKLTRhN1RjRTZ2eE1mMThDSDcxQUx1RlRsRWZDeXZ6R2NBSkJpNngxSkQ2Q2JTRWp0a2V3Qjc4T1U?oc=5",
+      "source": "Slipcase",
+      "source_name": "Slipcase",
+      "source_url": "https://www.slipcase.com",
+      "original_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOZXlNUnVqdG4yeFhXdXhtMF9TNXBIZEdrSjIxS21OaHRYVU0zNUliSTBTVWtLMFQ0RllyRnFsdnIxWHVXUjFmR1IwVzBUYTd0Wnk1R180Zl9jQWdLeFlQRFQ4d3ZZSm9mLUZieFlCODdDeWctbG9WWU9rbXZ6Z21Icm9TWDdRZUZOSGd6LXROV1FEYUdOMjNxcmYzYjFSanNpS2xRMXNKbFFLWTFSRG9QQw?oc=5",
       "via_source": "Google News",
-      "rss_title": "Life Insurance and Annuities - InvestmentNews",
-      "rss_description": "Life Insurance and Annuities InvestmentNews",
+      "rss_title": "HDI Global US Appoints Amy Shinkman as Credit and Political Risk US Lead - Slipcase",
+      "rss_description": "HDI Global US Appoints Amy Shinkman as Credit and Political Risk US Lead Slipcase",
       "extracted_text": "",
       "extraction_status": "unresolved_google_news",
       "summary_basis": "title_only",
-      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPQm5JRnVNdlJMbl9Uak1LVnNNN3RuVFFudjdGRzZzcW5XVUZpRVBzUlJaSm9VckJrZnYzam5xbEpmd29RZ01qSzh5bTdFMklKLTRhN1RjRTZ2eE1mMThDSDcxQUx1RlRsRWZDeXZ6R2NBSkJpNngxSkQ2Q2JTRWp0a2V3Qjc4T1U?oc=5",
-      "published": "2026-07-04",
-      "summary": "Life Insurance and Annuities InvestmentNews",
+      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOZXlNUnVqdG4yeFhXdXhtMF9TNXBIZEdrSjIxS21OaHRYVU0zNUliSTBTVWtLMFQ0RllyRnFsdnIxWHVXUjFmR1IwVzBUYTd0Wnk1R180Zl9jQWdLeFlQRFQ4d3ZZSm9mLUZieFlCODdDeWctbG9WWU9rbXZ6Z21Icm9TWDdRZUZOSGd6LXROV1FEYUdOMjNxcmYzYjFSanNpS2xRMXNKbFFLWTFSRG9QQw?oc=5",
+      "published": "2026-07-07",
+      "summary": "HDI Global US Appoints Amy Shinkman as Credit and Political Risk US Lead Slipcase",
       "localized_title": {
-        "en": "Market intelligence: a source item to track from InvestmentNews",
-        "zh": "市场情报：InvestmentNews发布一项值得精算人跟踪的保险动态",
-        "fr": "Veille Marché : un signal assurance à suivre depuis InvestmentNews"
+        "en": "Market intelligence: a source item to track from Slipcase",
+        "zh": "市场情报：Slipcase发布一项值得精算人跟踪的保险动态",
+        "fr": "Veille Marché : un signal assurance à suivre depuis Slipcase"
       },
       "key_takeaway": {
         "en": "",
@@ -3478,23 +3574,88 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "全球",
       "source_type": "News Search",
       "platform_section": "market",
       "category": "行业趋势",
       "taxonomy_category": "market",
       "taxonomy_tags": [
-        "life_insurance",
-        "investment",
         "risk_management"
       ],
       "needs_review": true,
-      "line_of_business": "寿险/年金",
-      "branch": "保险公司",
+      "line_of_business": "特殊险/政治风险",
+      "branch": "生态伙伴/其他行业",
+      "industry_category": "银行/信贷",
+      "risk_level": "观察",
+      "score": 1,
+      "actuarial_angle": "值得持续观察其对产品、风险、资本和客户行为的间接影响。",
+      "actions": [
+        "记录它可能影响的精算假设，并标注需要哪些数据验证。",
+        "找一个同业或历史案例做对照，判断这是一日新闻还是长期趋势。",
+        "把结论写成三句话，沉淀到个人知识库。"
+      ],
+      "learning_prompt": "练习把行业事件翻译成假设、现金流、资本和利润四个维度。",
+      "shareable": "HDI Global US Appoints Amy Shinkman as Credit and Political Risk US Lead - Slipcase：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
+    },
+    {
+      "title": "Best Homeowners Insurance in Oklahoma for 2026 - U.S. News & World Report",
+      "original_title": "Best Homeowners Insurance in Oklahoma for 2026 - U.S. News & World Report",
+      "original_language": "EN",
+      "source_language": "en",
+      "source": "U.S. News & World Report",
+      "source_name": "U.S. News & World Report",
+      "source_url": "https://www.usnews.com",
+      "original_url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1Jby0xNXRqTGowcC14Yk0xV2xNTEdjUnZWUkwyRnRrdTFwb2pSV1NGVFpzT2k3UVEzQTNrbEFWXzRGVTJhOG5NMDdQNnJTX19PUFhxRXhSUmFkMm5Yb0N5RlBfMjJWWFJIekxiaF8ySXdkSVM1SUNZ?oc=5",
+      "via_source": "Google News",
+      "rss_title": "Best Homeowners Insurance in Oklahoma for 2026 - U.S. News & World Report",
+      "rss_description": "Best Homeowners Insurance in Oklahoma for 2026 U.S. News & World Report",
+      "extracted_text": "",
+      "extraction_status": "unresolved_google_news",
+      "summary_basis": "title_only",
+      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1Jby0xNXRqTGowcC14Yk0xV2xNTEdjUnZWUkwyRnRrdTFwb2pSV1NGVFpzT2k3UVEzQTNrbEFWXzRGVTJhOG5NMDdQNnJTX19PUFhxRXhSUmFkMm5Yb0N5RlBfMjJWWFJIekxiaF8ySXdkSVM1SUNZ?oc=5",
+      "published": "2026-07-02",
+      "summary": "Best Homeowners Insurance in Oklahoma for 2026 U.S. News & World Report",
+      "localized_title": {
+        "en": "Research intelligence: a source item to track from U.S. News & World Report",
+        "zh": "研究情报：U.S. News & World Report发布一项值得精算人跟踪的保险动态",
+        "fr": "Veille Recherche : un signal assurance à suivre depuis U.S. News & World Report"
+      },
+      "key_takeaway": {
+        "en": "",
+        "zh": "",
+        "fr": ""
+      },
+      "ai_summary": {
+        "en": "",
+        "zh": "",
+        "fr": ""
+      },
+      "why_it_matters": {
+        "en": "Research turns market signals into assumptions, scenarios and methods. It can support a knowledge base, management pack or model review.",
+        "zh": "研究报告的价值在于把市场信号转化为假设、情景和方法论。适合沉淀到个人知识库或用于管理层汇报。",
+        "fr": "Une publication de recherche transforme des signaux de marché en hypothèses, scénarios et méthodes. Elle peut nourrir une base de connaissances ou un support de comité."
+      },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
+      "region": "全球",
+      "source_type": "News Search",
+      "platform_section": "research",
+      "category": "行业趋势",
+      "taxonomy_category": "research",
+      "taxonomy_tags": [
+        "risk_management"
+      ],
+      "needs_review": true,
+      "line_of_business": "财产险",
+      "branch": "生态伙伴/其他行业",
       "industry_category": "保险本业/其他",
       "risk_level": "观察",
       "score": 1,
@@ -3505,7 +3666,7 @@
         "把结论写成三句话，沉淀到个人知识库。"
       ],
       "learning_prompt": "练习把行业事件翻译成假设、现金流、资本和利润四个维度。",
-      "shareable": "Life Insurance and Annuities - InvestmentNews：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
+      "shareable": "Best Homeowners Insurance in Oklahoma for 2026 - U.S. News & World Report：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
       "title": "What Happens to Annuities When the Old World Falls Apart? - ThinkAdvisor",
@@ -3541,10 +3702,13 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "全球",
       "source_type": "News Search",
       "platform_section": "market",
@@ -3569,27 +3733,27 @@
       "shareable": "What Happens to Annuities When the Old World Falls Apart? - ThinkAdvisor：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
-      "title": "The best annuity companies of 2026 - CNBC",
-      "original_title": "The best annuity companies of 2026 - CNBC",
+      "title": "Is Allianz (XTRA:ALV) Fully Valued On Its School For Life Launch? - simplywall.st",
+      "original_title": "Is Allianz (XTRA:ALV) Fully Valued On Its School For Life Launch? - simplywall.st",
       "original_language": "EN",
       "source_language": "en",
-      "source": "CNBC",
-      "source_name": "CNBC",
-      "source_url": "https://www.cnbc.com",
-      "original_url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5xc3hKWDlRQ3RPc2Nuak51VkZ3SWMySzFuLVJrQzBDY25DbUhzbnlYQXp6RV9GbGJTQ3I5eVQ5ZTF4MUhCUWdXOGc5OWRYQWR3T0d6NG81X2ZQeXlZb0hDU9IBZkFVX3lxTFBkZzdKSXdHM2FnRzMxWktBQmtjWWw0ekJZN1dQOG1KNWZNNUE2THQybzJMaXBEdllaekt2cThTVk5lZ1V3U2VBYVV5SjQzbExSc2pmUjhNd3FwT3lIelgxX19IV20zUQ?oc=5",
+      "source": "simplywall.st",
+      "source_name": "simplywall.st",
+      "source_url": "https://simplywall.st",
+      "original_url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxPQU5VdHVzWHMwTUZObWRvLWtzdHJ2bThBbG03dEFObElYLXNyUW1zV0FUTGYzT2R5T21ENVNMbkZpdEV5Qm1INWpSUllQQnFVRjBwVU9pM1pMV0hCYTczMGEtWWE0cjlrSFBnb01kSU1zVE5BTHp5N2o5TW1ESFQtbU1WeVA2ZVkwR2tWREFGZ1VlcnVObGh1S3lnelh5X3drM2QtWkpCRG5nOWczZ2xxd3NqRWp3am84MURPbjFyVEFaTXk2NmdQTHpOQnVlTmvSAc8BQVVfeXFMT0FOVXR1c1hzME1GTm1kby1rc3Rydm04QWxtN3RBTmxJWC1zclFtc1dBVExmM09keU9tRDVTTG5GaXRFeUJtSDVqUlJZUEJxVUYwcFVPaTNaTFdIQmE3MzBhLVlhNHI5a0hQZ29NZElNc1ROQUx6eTdqOU1tREhULW1NVnlQNmVZMEdrVkRBRmdVZXJ1TmxodUt5Z3pYeV93azNkLVpKQkRuZzlnM2dscXdzakVqd2pvODFET24xclRBWk15NjZnUEx6TkJ1ZU5r?oc=5",
       "via_source": "Google News",
-      "rss_title": "The best annuity companies of 2026 - CNBC",
-      "rss_description": "The best annuity companies of 2026 CNBC",
+      "rss_title": "Is Allianz (XTRA:ALV) Fully Valued On Its School For Life Launch? - simplywall.st",
+      "rss_description": "Is Allianz (XTRA:ALV) Fully Valued On Its School For Life Launch? simplywall.st",
       "extracted_text": "",
       "extraction_status": "unresolved_google_news",
       "summary_basis": "title_only",
-      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5xc3hKWDlRQ3RPc2Nuak51VkZ3SWMySzFuLVJrQzBDY25DbUhzbnlYQXp6RV9GbGJTQ3I5eVQ5ZTF4MUhCUWdXOGc5OWRYQWR3T0d6NG81X2ZQeXlZb0hDU9IBZkFVX3lxTFBkZzdKSXdHM2FnRzMxWktBQmtjWWw0ekJZN1dQOG1KNWZNNUE2THQybzJMaXBEdllaekt2cThTVk5lZ1V3U2VBYVV5SjQzbExSc2pmUjhNd3FwT3lIelgxX19IV20zUQ?oc=5",
-      "published": "2026-06-24",
-      "summary": "The best annuity companies of 2026 CNBC",
+      "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxPQU5VdHVzWHMwTUZObWRvLWtzdHJ2bThBbG03dEFObElYLXNyUW1zV0FUTGYzT2R5T21ENVNMbkZpdEV5Qm1INWpSUllQQnFVRjBwVU9pM1pMV0hCYTczMGEtWWE0cjlrSFBnb01kSU1zVE5BTHp5N2o5TW1ESFQtbU1WeVA2ZVkwR2tWREFGZ1VlcnVObGh1S3lnelh5X3drM2QtWkpCRG5nOWczZ2xxd3NqRWp3am84MURPbjFyVEFaTXk2NmdQTHpOQnVlTmvSAc8BQVVfeXFMT0FOVXR1c1hzME1GTm1kby1rc3Rydm04QWxtN3RBTmxJWC1zclFtc1dBVExmM09keU9tRDVTTG5GaXRFeUJtSDVqUlJZUEJxVUYwcFVPaTNaTFdIQmE3MzBhLVlhNHI5a0hQZ29NZElNc1ROQUx6eTdqOU1tREhULW1NVnlQNmVZMEdrVkRBRmdVZXJ1TmxodUt5Z3pYeV93azNkLVpKQkRuZzlnM2dscXdzakVqd2pvODFET24xclRBWk15NjZnUEx6TkJ1ZU5r?oc=5",
+      "published": "2026-07-08",
+      "summary": "Is Allianz (XTRA:ALV) Fully Valued On Its School For Life Launch? simplywall.st",
       "localized_title": {
-        "en": "Market intelligence: a source item to track from CNBC",
-        "zh": "市场情报：CNBC发布一项值得精算人跟踪的保险动态",
-        "fr": "Veille Marché : un signal assurance à suivre depuis CNBC"
+        "en": "Market intelligence: a source item to track from simplywall.st",
+        "zh": "市场情报：simplywall.st发布一项值得精算人跟踪的保险动态",
+        "fr": "Veille Marché : un signal assurance à suivre depuis simplywall.st"
       },
       "key_takeaway": {
         "en": "",
@@ -3602,17 +3766,19 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "全球",
       "source_type": "News Search",
       "platform_section": "market",
       "category": "行业趋势",
       "taxonomy_category": "market",
       "taxonomy_tags": [
-        "life_insurance",
         "risk_management"
       ],
       "needs_review": true,
@@ -3628,7 +3794,7 @@
         "把结论写成三句话，沉淀到个人知识库。"
       ],
       "learning_prompt": "练习把行业事件翻译成假设、现金流、资本和利润四个维度。",
-      "shareable": "The best annuity companies of 2026 - CNBC：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
+      "shareable": "Is Allianz (XTRA:ALV) Fully Valued On Its School For Life Launch? - simplywall.st：对精算人来说，关键不是新闻本身，而是它会怎样改变假设、现金流、资本和利润。"
     },
     {
       "title": "Japan midsize life insurers cut exposure to superlong government bonds - Insurance Business",
@@ -3664,10 +3830,13 @@
         "fr": ""
       },
       "why_it_matters": {
-        "en": "This market signal may affect demand, distribution or competitive pricing. Track whether it changes premium growth, claims experience or customer behavior.",
+        "en": null,
         "zh": "这条市场信号可能影响产品需求、渠道行为或竞争定价。建议关注它是否会持续改变保费增长、赔付经验或客户选择。",
         "fr": "Ce signal de marché peut influencer la demande, la distribution ou la concurrence tarifaire. Il faut suivre son effet sur la croissance des primes, l’expérience sinistres ou les comportements clients."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "全球",
       "source_type": "News Search",
       "platform_section": "market",
@@ -3729,6 +3898,9 @@
         "zh": "研究报告的价值在于把市场信号转化为假设、情景和方法论。适合沉淀到个人知识库或用于管理层汇报。",
         "fr": "Une publication de recherche transforme des signaux de marché en hypothèses, scénarios et méthodes. Elle peut nourrir une base de connaissances ou un support de comité."
       },
+      "ai_enriched": false,
+      "enrichment_provider": "rules",
+      "enrichment_basis": "title_only",
       "region": "全球",
       "source_type": "News Search",
       "platform_section": "research",
