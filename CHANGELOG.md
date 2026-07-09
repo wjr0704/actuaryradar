@@ -14,6 +14,7 @@ All notable changes to ActuaryRadar will be documented in this file.
 - First-visit learning journey modal for career stage, learning goal, interested topics and daily learning time.
 - Removed the duplicated My Learning Journey block from the Actuarial Knowledge page.
 - Completed Today visibility on the homepage so finished learning items remain visible after completion.
+- Collapsed completed learning items by default to keep the homepage learning area compact.
 
 ## [0.1.0] - 2026-07-06
 

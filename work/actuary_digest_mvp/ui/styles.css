@@ -886,6 +886,45 @@ body[data-page="daily"]:not([data-section="all"]) .focus-band {
   justify-content: flex-start;
 }
 
+.completed-learning-details {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #f8fbfc;
+}
+
+.completed-learning-details summary {
+  cursor: pointer;
+  padding: 11px 12px;
+  color: var(--accent-dark);
+  font-size: 13px;
+  font-weight: 900;
+  list-style: none;
+}
+
+.completed-learning-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.completed-learning-details summary::after {
+  content: "+";
+  float: right;
+  color: var(--muted);
+}
+
+.completed-learning-details[open] summary {
+  border-bottom: 1px solid var(--line);
+}
+
+.completed-learning-details[open] summary::after {
+  content: "-";
+}
+
+.completed-learning-items {
+  display: grid;
+  gap: 10px;
+  padding: 10px;
+}
+
 .browse-all-section .portal-feature-grid {
   margin-bottom: 0;
 }

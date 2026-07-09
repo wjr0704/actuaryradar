@@ -2892,11 +2892,20 @@ function renderHomeLearning() {
     });
   }
   if (els.homeCompletedLearningList) {
-    els.homeCompletedLearningList.innerHTML = renderLearningItemList(completedItems.slice(0, 4), {
-      emptyKey: "noCompletedToday",
-      mode: "completed"
-    });
+    els.homeCompletedLearningList.innerHTML = renderCompletedLearningList(completedItems.slice(0, 4));
   }
+}
+
+function renderCompletedLearningList(items) {
+  if (!items.length) return `<div class="empty-state">${escapeHtml(t("noCompletedToday"))}</div>`;
+  return `
+    <details class="completed-learning-details">
+      <summary>${escapeHtml(t("completedLabel"))} · ${items.length}</summary>
+      <div class="completed-learning-items">
+        ${renderLearningItemList(items, { mode: "completed" })}
+      </div>
+    </details>
+  `;
 }
 
 function portalNewsCard(item) {
