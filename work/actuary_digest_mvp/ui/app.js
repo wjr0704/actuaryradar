@@ -473,6 +473,7 @@ const pageCopy = {
     notStarted: "尚未开始",
     markComplete: "标记完成",
     completedLabel: "已完成",
+    noCompletedToday: "今天还没有完成的学习项。",
     noLearningPlanItems: "当前设置下暂无学习任务。请增加主题或切换难度。",
     noStartedLearningItems: "你还没有开始任何学习内容。",
     moreContentSoon: "这个主题的更多内容即将加入。",
@@ -718,6 +719,7 @@ const pageCopy = {
     notStarted: "Not started",
     markComplete: "Mark complete",
     completedLabel: "Completed",
+    noCompletedToday: "No completed learning items yet today.",
     noLearningPlanItems: "No learning items match the current setup. Add topics or change difficulty.",
     noStartedLearningItems: "You have not started any learning items yet.",
     moreContentSoon: "More content for this topic will be added soon.",
@@ -963,6 +965,7 @@ const pageCopy = {
     notStarted: "Non commencé",
     markComplete: "Marquer comme fait",
     completedLabel: "Terminé",
+    noCompletedToday: "Aucun contenu terminé aujourd’hui.",
     noLearningPlanItems: "Aucun contenu ne correspond au paramétrage actuel. Ajoutez des thèmes ou changez de niveau.",
     noStartedLearningItems: "Vous n’avez pas encore commencé de contenu de formation.",
     moreContentSoon: "D’autres contenus seront ajoutés prochainement pour ce thème.",
@@ -1317,6 +1320,7 @@ const els = {
   homeTodayLearningList: document.querySelector("#homeTodayLearningList"),
   homeContinueLearningList: document.querySelector("#homeContinueLearningList"),
   homeRecommendedLearningList: document.querySelector("#homeRecommendedLearningList"),
+  homeCompletedLearningList: document.querySelector("#homeCompletedLearningList"),
   portalLatestGrid: document.querySelector("#portalLatestGrid"),
   portalSectionGrid: document.querySelector("#portalSectionGrid")
 };
@@ -2862,6 +2866,7 @@ function renderHomeLearning() {
   const planItems = generateTodaysLearningItems();
   const continueItems = generateContinueLearningItems();
   const recommendedItems = generateRecommendedLearningItems(planItems.map(item => item.id));
+  const completedItems = generateCompletedTodayLearningItems();
   const minutes = planItems.reduce((sum, item) => sum + Number(item.estimatedMinutes || 0), 0);
   const selectedTopics = state.knowledgePlan.tracks || [];
   const topicText = selectedTopics.slice(0, 2).map(learningTopicLabel).join(", ");
@@ -2884,6 +2889,12 @@ function renderHomeLearning() {
     els.homeRecommendedLearningList.innerHTML = renderLearningItemList(recommendedItems.slice(0, 2), {
       emptyKey: "moreContentSoon",
       mode: "recommended"
+    });
+  }
+  if (els.homeCompletedLearningList) {
+    els.homeCompletedLearningList.innerHTML = renderLearningItemList(completedItems.slice(0, 4), {
+      emptyKey: "noCompletedToday",
+      mode: "completed"
     });
   }
 }
@@ -3562,6 +3573,49 @@ function generateContinueLearningItems() {
     }));
 }
 
+function generateCompletedTodayLearningItems() {
+  const completedToday = state.learningProgress.completed?.[currentLearningDate()] || {};
+  return Object.entries(completedToday)
+    .filter(([, value]) => Boolean(value))
+    .sort(([, a], [, b]) => String(completedAtValue(b)).localeCompare(String(completedAtValue(a))))
+    .map(([id, value]) => completedLearningItemFromRecord(id, value));
+}
+
+function completedAtValue(value) {
+  return value && typeof value === "object" ? value.completedAt || "" : "";
+}
+
+function completedLearningItemFromRecord(id, value) {
+  if (value && typeof value === "object") {
+    return {
+      id: value.id || id,
+      topicId: value.topicId || "Fundamentals",
+      type: value.type || "knowledge",
+      typeLabel: value.typeLabel || learningTypeLabel(value.type),
+      title: value.title || readableLearningId(id),
+      estimatedMinutes: value.estimatedMinutes || 10,
+      sourceUrl: value.sourceUrl || "",
+      openUrl: value.openUrl || "",
+      completedAt: value.completedAt || ""
+    };
+  }
+  return {
+    id,
+    topicId: "Fundamentals",
+    type: "knowledge",
+    typeLabel: t("completedLabel"),
+    title: readableLearningId(id),
+    estimatedMinutes: 0,
+    sourceUrl: "",
+    openUrl: "",
+    completedAt: ""
+  };
+}
+
+function readableLearningId(id) {
+  return String(id || "").split(":").filter(Boolean).pop() || String(id || "");
+}
+
 function fitLearningItemsToTime(items, dailyCount, availableMinutes) {
   const fitted = [];
   let minutes = 0;
@@ -3581,15 +3635,23 @@ function renderLearningItemList(items, options = {}) {
 }
 
 function renderLearningTaskItem(item, mode) {
-  const completed = isLearningItemCompleted(item.id);
+  const completed = mode === "completed" || isLearningItemCompleted(item.id);
   const started = Boolean(state.learningProgress.started?.[item.id]);
   const sourceUrl = item.sourceUrl || item.url;
   const titleHtml = item.openUrl
     ? `<a class="learning-plan-title-link" href="${escapeHtml(item.openUrl)}">${escapeHtml(item.title)}</a>`
     : escapeHtml(item.title);
-  const progressText = mode === "continue"
+  const progressText = mode === "completed"
+    ? `<small>${escapeHtml(t("completedLabel"))}</small>`
+    : mode === "continue"
     ? `<small>${escapeHtml(started ? t("inProgress") : t("notStarted"))}</small>`
     : `<small>${escapeHtml(t("estimated"))}: ${escapeHtml(String(item.estimatedMinutes || 10))} ${escapeHtml(t("minutesShort"))}</small>`;
+  const actionHtml = mode === "completed"
+    ? `<button class="ghost-button compact-button" type="button" disabled>${escapeHtml(t("completedLabel"))}</button>`
+    : `
+        <button class="ghost-button compact-button" type="button" data-learning-start="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}"${started || completed ? " disabled" : ""}>${escapeHtml(started ? t("startedLabel") : t("startLearningItem"))}</button>
+        <button class="ghost-button compact-button" type="button" data-learning-complete="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}"${completed ? " disabled" : ""}>${escapeHtml(completed ? t("completedLabel") : t("markComplete"))}</button>
+      `;
   return `
     <article class="learning-plan-item${completed ? " completed" : ""}">
       <div class="learning-plan-copy">
@@ -3602,8 +3664,7 @@ function renderLearningTaskItem(item, mode) {
         ${sourceUrl ? `<a class="learning-plan-source" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener">${escapeHtml(t("sourceWebsite"))} →</a>` : ""}
       </div>
       <div class="learning-plan-actions">
-        <button class="ghost-button compact-button" type="button" data-learning-start="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}"${started || completed ? " disabled" : ""}>${escapeHtml(started ? t("startedLabel") : t("startLearningItem"))}</button>
-        <button class="ghost-button compact-button" type="button" data-learning-complete="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}"${completed ? " disabled" : ""}>${escapeHtml(completed ? t("completedLabel") : t("markComplete"))}</button>
+        ${actionHtml}
       </div>
     </article>
   `;
@@ -3729,14 +3790,35 @@ function renderTopicProgress(planItems) {
 
 function markLearningItemComplete(itemIdValue, topicId) {
   const todayKey = currentLearningDate();
+  const snapshot = learningCompletionSnapshot(itemIdValue, topicId);
   state.learningProgress.completed[todayKey] = state.learningProgress.completed[todayKey] || {};
-  state.learningProgress.completed[todayKey][itemIdValue] = true;
+  state.learningProgress.completed[todayKey][itemIdValue] = snapshot;
   delete state.learningProgress.started?.[itemIdValue];
   if (topicId) {
     state.learningProgress.topicCompletions[topicId] = (state.learningProgress.topicCompletions[topicId] || 0) + 1;
   }
   saveLearningProgress();
   renderLearningPlan();
+}
+
+function learningCompletionSnapshot(itemIdValue, topicId) {
+  const items = [
+    ...generateTodaysLearningItems(),
+    ...generateContinueLearningItems(),
+    ...generateRecommendedLearningItems()
+  ];
+  const item = items.find(candidate => candidate.id === itemIdValue) || state.learningProgress.started?.[itemIdValue] || { id: itemIdValue, topicId };
+  return {
+    id: item.id || itemIdValue,
+    topicId: item.topicId || topicId || "Fundamentals",
+    type: item.type || "knowledge",
+    typeLabel: item.typeLabel || learningTypeLabel(item.type),
+    title: item.title || readableLearningId(itemIdValue),
+    estimatedMinutes: item.estimatedMinutes || 10,
+    sourceUrl: item.sourceUrl || "",
+    openUrl: item.openUrl || "",
+    completedAt: new Date().toISOString()
+  };
 }
 
 function markLearningItemStarted(itemIdValue, topicId) {
