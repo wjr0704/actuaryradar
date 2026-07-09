@@ -17,6 +17,7 @@ const defaultLearningProgress = {
 };
 
 const storedKnowledgePlanRaw = localStorage.getItem("actuaryRadar.knowledgePlan");
+const onboardingSkippedRaw = localStorage.getItem("actuaryRadar.onboardingSkipped");
 
 const state = {
   data: null,
@@ -33,6 +34,7 @@ const state = {
   knowledgePlan: JSON.parse(storedKnowledgePlanRaw || JSON.stringify(defaultKnowledgePlan)),
   sourcePlan: JSON.parse(localStorage.getItem("actuaryRadar.sourcePlan") || "null"),
   learningProgress: JSON.parse(localStorage.getItem("actuaryRadar.learningProgress") || JSON.stringify(defaultLearningProgress)),
+  onboardingSkipped: onboardingSkippedRaw === "true",
   filters: {
     lob: "all",
     topic: "all",
@@ -413,13 +415,25 @@ const pageCopy = {
     editPreferences: "编辑偏好",
     savePreferences: "保存偏好",
     resetPreferences: "重置",
+    onboardingEyebrow: "个性化学习设置",
+    onboardingTitle: "建立你的学习旅程",
+    onboardingIntro: "告诉 ActuaryRadar 你想学什么，我们会为你生成今天的学习计划。",
+    interestedTopics: "关注主题",
+    createMyPlan: "生成我的计划",
+    skipForNow: "暂时跳过",
     careerStageLabel: "职业阶段",
     careerStudent: "学生",
+    careerEarlyInsurance: "保险行业新人",
     careerJunior: "初级精算师 / 分析师",
     careerMid: "中级专业人士",
     careerSenior: "资深专业人士",
     careerManager: "管理者 / 高管",
     learningGoalLabel: "学习目标",
+    goalExamReady: "准备精算考试",
+    goalJobReady: "提升入门工作能力",
+    goalPricingReserving: "学习定价与准备金",
+    goalRegulatoryLiteracy: "理解监管与资本",
+    goalIndustryContext: "建立保险行业认知",
     goalExams: "通过精算考试",
     goalJobSkills: "提升当前工作技能",
     goalStrategyIr: "转向战略 / IR",
@@ -646,13 +660,25 @@ const pageCopy = {
     editPreferences: "Edit preferences",
     savePreferences: "Save preferences",
     resetPreferences: "Reset",
+    onboardingEyebrow: "Personalized learning setup",
+    onboardingTitle: "Build your learning journey",
+    onboardingIntro: "Tell ActuaryRadar what you want to learn. We’ll personalize today’s learning plan for you.",
+    interestedTopics: "Interested Topics",
+    createMyPlan: "Create My Plan",
+    skipForNow: "Skip for now",
     careerStageLabel: "Career stage",
     careerStudent: "Student",
+    careerEarlyInsurance: "Early-Career Insurance Professional",
     careerJunior: "Junior Actuary / Analyst",
     careerMid: "Mid-level Professional",
     careerSenior: "Senior Professional",
     careerManager: "Manager / Executive",
     learningGoalLabel: "Learning goal",
+    goalExamReady: "Prepare for actuarial exams",
+    goalJobReady: "Become job-ready",
+    goalPricingReserving: "Build pricing and reserving skills",
+    goalRegulatoryLiteracy: "Understand regulation and capital",
+    goalIndustryContext: "Understand the insurance industry",
     goalExams: "Pass actuarial exams",
     goalJobSkills: "Improve current job skills",
     goalStrategyIr: "Move into Strategy / IR",
@@ -879,13 +905,25 @@ const pageCopy = {
     editPreferences: "Modifier les préférences",
     savePreferences: "Enregistrer les préférences",
     resetPreferences: "Réinitialiser",
+    onboardingEyebrow: "Paramétrage personnalisé",
+    onboardingTitle: "Construire mon parcours de formation",
+    onboardingIntro: "Indiquez à ActuaryRadar ce que vous souhaitez apprendre. Nous personnaliserons votre programme du jour.",
+    interestedTopics: "Thèmes d’intérêt",
+    createMyPlan: "Créer mon parcours",
+    skipForNow: "Ignorer pour l’instant",
     careerStageLabel: "Profil professionnel",
     careerStudent: "Étudiant",
+    careerEarlyInsurance: "Jeune professionnel de l’assurance",
     careerJunior: "Actuaire junior / analyste",
     careerMid: "Professionnel confirmé",
     careerSenior: "Professionnel senior",
     careerManager: "Manager / dirigeant",
     learningGoalLabel: "Objectif de formation",
+    goalExamReady: "Préparer les examens actuariels",
+    goalJobReady: "Devenir opérationnel en poste",
+    goalPricingReserving: "Renforcer tarification et provisionnement",
+    goalRegulatoryLiteracy: "Comprendre réglementation et capital",
+    goalIndustryContext: "Comprendre le secteur de l’assurance",
     goalExams: "Préparer les examens actuariels",
     goalJobSkills: "Renforcer les compétences métier",
     goalStrategyIr: "Évoluer vers la stratégie / l’IR",
@@ -1178,6 +1216,24 @@ const fallbackLearningTopicOptions = learningTopicOptions.map(topic => ({
   keywords: [...(topic.keywords || [])]
 }));
 
+const onboardingCareerStages = ["student", "early_career_insurance"];
+const onboardingLearningGoals = ["exam_ready", "job_ready", "pricing_reserving", "regulatory_literacy", "industry_context"];
+const onboardingTopicIds = [
+  "Fundamentals",
+  "Insurance Fundamentals",
+  "Pricing",
+  "Reserving",
+  "IFRS 17",
+  "Solvency II",
+  "Reinsurance",
+  "Investment & ALM",
+  "AI & Insurance",
+  "Climate Risk",
+  "Data Analytics",
+  "Regulation"
+];
+const onboardingStudyTimes = [10, 15, 20, 30];
+
 const els = {
   sectionNav: document.querySelector("#sectionNav"),
   productTabs: document.querySelectorAll(".product-tab"),
@@ -1245,6 +1301,14 @@ const els = {
   editLearningPreferences: document.querySelector("#editLearningPreferences"),
   saveLearningPreferences: document.querySelector("#saveLearningPreferences"),
   resetLearningPreferences: document.querySelector("#resetLearningPreferences"),
+  onboardingModal: document.querySelector("#onboardingModal"),
+  onboardingCareerStage: document.querySelector("#onboardingCareerStage"),
+  onboardingLearningGoal: document.querySelector("#onboardingLearningGoal"),
+  onboardingStudyTime: document.querySelector("#onboardingStudyTime"),
+  onboardingTopicGrid: document.querySelector("#onboardingTopicGrid"),
+  openOnboardingButton: document.querySelector("#openOnboardingButton"),
+  skipOnboardingButton: document.querySelector("#skipOnboardingButton"),
+  createPlanButton: document.querySelector("#createPlanButton"),
   copyContactButton: document.querySelector("#copyContactButton"),
   portalLeadTitle: document.querySelector("#portalLeadTitle"),
   portalLeadSummary: document.querySelector("#portalLeadSummary"),
@@ -1267,6 +1331,7 @@ async function init() {
     state.sourcePlan = state.sourcePlan.filter(id => validSources.has(id));
   }
   syncBodyState();
+  renderOnboardingOptions();
   bindEvents();
   renderStaticIcons();
   els.periodFilter.value = state.filters.period;
@@ -1277,6 +1342,7 @@ async function init() {
   await loadKnowledgeSources();
   await loadKnowledge();
   await loadDigest("./data/digest.json");
+  maybeOpenOnboardingModal();
 }
 
 async function loadLearningTaxonomy() {
@@ -1315,16 +1381,145 @@ function renderStaticIcons() {
   });
 }
 
+function renderOnboardingOptions() {
+  if (!els.onboardingModal) return;
+  if (els.onboardingCareerStage) {
+    els.onboardingCareerStage.innerHTML = onboardingCareerStages.map(id => `
+      <option value="${escapeHtml(id)}">${escapeHtml(onboardingCareerLabel(id))}</option>
+    `).join("");
+    els.onboardingCareerStage.value = onboardingCareerStages.includes(state.knowledgePlan.careerStage)
+      ? state.knowledgePlan.careerStage
+      : "student";
+  }
+  if (els.onboardingLearningGoal) {
+    els.onboardingLearningGoal.innerHTML = onboardingLearningGoals.map(id => `
+      <option value="${escapeHtml(id)}">${escapeHtml(onboardingGoalLabel(id))}</option>
+    `).join("");
+    els.onboardingLearningGoal.value = onboardingLearningGoals.includes(state.knowledgePlan.learningGoal)
+      ? state.knowledgePlan.learningGoal
+      : "job_ready";
+  }
+  if (els.onboardingStudyTime) {
+    els.onboardingStudyTime.innerHTML = onboardingStudyTimes.map(minutes => `
+      <option value="${minutes}">${minutes} ${escapeHtml(t("minutesShort"))}</option>
+    `).join("");
+    els.onboardingStudyTime.value = String(onboardingStudyTimes.includes(Number(state.knowledgePlan.studyTime))
+      ? state.knowledgePlan.studyTime
+      : 15);
+  }
+  if (els.onboardingTopicGrid) {
+    const selected = new Set(state.knowledgePlan.tracks || defaultKnowledgePlan.tracks);
+    els.onboardingTopicGrid.innerHTML = onboardingTopicIds.map(topicId => `
+      <label class="onboarding-topic-choice">
+        <input type="checkbox" value="${escapeHtml(topicId)}"${selected.has(topicId) ? " checked" : ""}>
+        <span>${escapeHtml(learningTopicLabel(topicId))}</span>
+      </label>
+    `).join("");
+  }
+}
+
+function onboardingCareerLabel(id) {
+  const labels = {
+    student: t("careerStudent"),
+    early_career_insurance: t("careerEarlyInsurance")
+  };
+  return labels[id] || id;
+}
+
+function onboardingGoalLabel(id) {
+  const labels = {
+    exam_ready: t("goalExamReady"),
+    job_ready: t("goalJobReady"),
+    pricing_reserving: t("goalPricingReserving"),
+    regulatory_literacy: t("goalRegulatoryLiteracy"),
+    industry_context: t("goalIndustryContext")
+  };
+  return labels[id] || id;
+}
+
+function maybeOpenOnboardingModal() {
+  if (!els.onboardingModal) return;
+  if (state.knowledgePlan.setupComplete || state.onboardingSkipped) return;
+  if (state.activePage !== "home") return;
+  openOnboardingModal();
+}
+
+function openOnboardingModal() {
+  if (!els.onboardingModal) return;
+  renderOnboardingOptions();
+  els.onboardingModal.hidden = false;
+  els.onboardingModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+  els.onboardingCareerStage?.focus();
+}
+
+function closeOnboardingModal() {
+  if (!els.onboardingModal) return;
+  els.onboardingModal.hidden = true;
+  els.onboardingModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
+}
+
+function saveOnboardingPlan() {
+  const selectedTopics = els.onboardingTopicGrid
+    ? [...els.onboardingTopicGrid.querySelectorAll("input:checked")].map(input => input.value)
+    : [];
+  const studyTime = Number(els.onboardingStudyTime?.value || 15);
+  state.knowledgePlan = {
+    ...state.knowledgePlan,
+    careerStage: els.onboardingCareerStage?.value || "student",
+    learningGoal: els.onboardingLearningGoal?.value || "job_ready",
+    tracks: selectedTopics.length ? selectedTopics : defaultKnowledgePlan.tracks,
+    studyTime,
+    dailyCount: dailyCountForStudyTime(studyTime),
+    difficulty: state.knowledgePlan.difficulty || "beginner",
+    setupComplete: true
+  };
+  state.onboardingSkipped = false;
+  localStorage.removeItem("actuaryRadar.onboardingSkipped");
+  saveKnowledgePlan();
+  closeOnboardingModal();
+  renderKnowledgePlanner();
+  renderKnowledge();
+  renderLearningPlan();
+  renderPortal();
+}
+
+function dailyCountForStudyTime(minutes) {
+  if (minutes <= 10) return 1;
+  if (minutes >= 30) return 3;
+  return 2;
+}
+
+function skipOnboarding() {
+  if (!state.knowledgePlan.setupComplete) {
+    state.knowledgePlan = {
+      ...state.knowledgePlan,
+      tracks: defaultKnowledgePlan.tracks,
+      studyTime: defaultKnowledgePlan.studyTime,
+      dailyCount: defaultKnowledgePlan.dailyCount,
+      setupComplete: true
+    };
+    saveKnowledgePlan();
+  }
+  state.onboardingSkipped = true;
+  localStorage.setItem("actuaryRadar.onboardingSkipped", "true");
+  closeOnboardingModal();
+  renderKnowledgePlanner();
+  renderLearningPlan();
+  renderPortal();
+}
+
 function normalizeLearningState() {
   const plan = state.knowledgePlan && typeof state.knowledgePlan === "object" ? state.knowledgePlan : {};
   state.knowledgePlan = {
     ...defaultKnowledgePlan,
     ...plan,
     dailyCount: clampNumber(plan.dailyCount, 2, 1, 5),
-    studyTime: [5, 10, 15, 30].includes(Number(plan.studyTime)) ? Number(plan.studyTime) : defaultKnowledgePlan.studyTime,
+    studyTime: onboardingStudyTimes.includes(Number(plan.studyTime)) ? Number(plan.studyTime) : defaultKnowledgePlan.studyTime,
     difficulty: ["all", "beginner", "intermediate", "advanced"].includes(plan.difficulty) ? plan.difficulty : defaultKnowledgePlan.difficulty,
-    careerStage: ["student", "junior", "mid", "senior", "manager"].includes(plan.careerStage) ? plan.careerStage : defaultKnowledgePlan.careerStage,
-    learningGoal: ["exams", "job_skills", "strategy_ir", "stay_updated", "general_knowledge"].includes(plan.learningGoal) ? plan.learningGoal : defaultKnowledgePlan.learningGoal,
+    careerStage: ["student", "early_career_insurance", "junior", "mid", "senior", "manager"].includes(plan.careerStage) ? plan.careerStage : defaultKnowledgePlan.careerStage,
+    learningGoal: ["exam_ready", "job_ready", "pricing_reserving", "regulatory_literacy", "industry_context", "exams", "job_skills", "strategy_ir", "stay_updated", "general_knowledge"].includes(plan.learningGoal) ? plan.learningGoal : defaultKnowledgePlan.learningGoal,
     setupComplete: Boolean(plan.setupComplete || storedKnowledgePlanRaw),
     tracks: normalizeSelectedLearningTopics(plan.tracks)
   };
@@ -1385,6 +1580,7 @@ function bindEvents() {
     state.language = event.target.value;
     localStorage.setItem("actuaryRadar.language", state.language);
     applyLanguage();
+    renderOnboardingOptions();
     loadArchiveIndex();
     if (state.data) renderScaffold();
     renderSectionNav();
@@ -1540,6 +1736,12 @@ function bindEvents() {
   els.homeTodayLearningList?.addEventListener("click", handleLearningActionClick);
   els.homeContinueLearningList?.addEventListener("click", handleLearningActionClick);
   els.homeRecommendedLearningList?.addEventListener("click", handleLearningActionClick);
+  els.openOnboardingButton?.addEventListener("click", () => openOnboardingModal());
+  els.createPlanButton?.addEventListener("click", saveOnboardingPlan);
+  els.skipOnboardingButton?.addEventListener("click", skipOnboarding);
+  els.onboardingModal?.querySelectorAll("[data-close-onboarding]").forEach(node => {
+    node.addEventListener("click", closeOnboardingModal);
+  });
 
   els.selectAllSourcesButton.addEventListener("click", () => {
     state.sourcePlan = sourceLibrary.map(source => source.id);

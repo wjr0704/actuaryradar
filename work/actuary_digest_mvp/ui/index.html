@@ -117,7 +117,7 @@
               <p data-i18n="homeLearningEyebrow">Personalized Learning</p>
               <h3 data-i18n="homeLearningTitle">What should I learn today?</h3>
             </div>
-            <button class="text-link product-tab-link" type="button" data-page="knowledge" data-i18n="buildJourneyArrow">Build My Learning Journey →</button>
+            <button class="text-link" id="openOnboardingButton" type="button" data-i18n="buildJourneyArrow">Build My Learning Journey →</button>
           </div>
           <div class="home-learning-grid">
             <article class="home-learning-primary">
@@ -331,20 +331,17 @@
             <span data-i18n="careerStageLabel">职业阶段</span>
             <select id="careerStage">
               <option value="student" data-i18n="careerStudent">学生</option>
-              <option value="junior" data-i18n="careerJunior">初级精算师 / 分析师</option>
-              <option value="mid" data-i18n="careerMid">中级专业人士</option>
-              <option value="senior" data-i18n="careerSenior">资深专业人士</option>
-              <option value="manager" data-i18n="careerManager">管理者 / 高管</option>
+              <option value="early_career_insurance" data-i18n="careerEarlyInsurance">保险行业新人</option>
             </select>
           </label>
           <label>
             <span data-i18n="learningGoalLabel">学习目标</span>
             <select id="learningGoalSelect">
-              <option value="exams" data-i18n="goalExams">通过精算考试</option>
-              <option value="job_skills" data-i18n="goalJobSkills">提升当前工作技能</option>
-              <option value="strategy_ir" data-i18n="goalStrategyIr">转向战略 / IR</option>
-              <option value="stay_updated" data-i18n="goalStayUpdated">保持行业更新</option>
-              <option value="general_knowledge" data-i18n="goalGeneralKnowledge">建立保险通识</option>
+              <option value="exam_ready" data-i18n="goalExamReady">准备精算考试</option>
+              <option value="job_ready" data-i18n="goalJobReady">提升入门工作能力</option>
+              <option value="pricing_reserving" data-i18n="goalPricingReserving">学习定价与准备金</option>
+              <option value="regulatory_literacy" data-i18n="goalRegulatoryLiteracy">理解监管与资本</option>
+              <option value="industry_context" data-i18n="goalIndustryContext">建立保险行业认知</option>
             </select>
           </label>
           <label>
@@ -368,9 +365,9 @@
           <label>
             <span data-i18n="studyTimeLabel">预计学习时间</span>
             <select id="studyTime">
-              <option value="5">5 min</option>
               <option value="10">10 min</option>
               <option value="15">15 min</option>
+              <option value="20">20 min</option>
               <option value="30">30 min</option>
             </select>
           </label>
@@ -406,6 +403,45 @@
       </section>
     </main>
   </div>
+
+  <section class="onboarding-modal" id="onboardingModal" hidden aria-hidden="true">
+    <div class="onboarding-backdrop" data-close-onboarding></div>
+    <div class="onboarding-dialog" role="dialog" aria-modal="true" aria-labelledby="onboardingTitle">
+      <div class="onboarding-header">
+        <div>
+          <p data-i18n="onboardingEyebrow">Personalized learning setup</p>
+          <h2 id="onboardingTitle" data-i18n="onboardingTitle">Build your learning journey</h2>
+          <p data-i18n="onboardingIntro">Tell ActuaryRadar what you want to learn. We’ll personalize today’s learning plan for you.</p>
+        </div>
+        <button class="icon-button" type="button" data-close-onboarding aria-label="Close">×</button>
+      </div>
+
+      <div class="onboarding-grid">
+        <label>
+          <span data-i18n="careerStageLabel">Career Stage</span>
+          <select id="onboardingCareerStage"></select>
+        </label>
+        <label>
+          <span data-i18n="learningGoalLabel">Learning Goal</span>
+          <select id="onboardingLearningGoal"></select>
+        </label>
+        <label>
+          <span data-i18n="studyTimeLabel">Daily Learning Time</span>
+          <select id="onboardingStudyTime"></select>
+        </label>
+      </div>
+
+      <section class="onboarding-topics">
+        <h3 data-i18n="interestedTopics">Interested Topics</h3>
+        <div class="onboarding-topic-grid" id="onboardingTopicGrid"></div>
+      </section>
+
+      <div class="onboarding-actions">
+        <button class="ghost-button" type="button" id="skipOnboardingButton" data-i18n="skipForNow">Skip for now</button>
+        <button class="primary-button" type="button" id="createPlanButton" data-i18n="createMyPlan">Create My Plan</button>
+      </div>
+    </div>
+  </section>
 
   <template id="itemTemplate">
     <article class="intelligence-card">

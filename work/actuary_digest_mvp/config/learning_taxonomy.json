@@ -24,14 +24,6 @@
       }
     },
     {
-      "id": "junior_actuary",
-      "labels": {
-        "en": "Junior Actuary / Analyst",
-        "zh": "初级精算师 / 分析师",
-        "fr": "Actuaire junior / analyste"
-      }
-    },
-    {
       "id": "early_career_insurance",
       "labels": {
         "en": "Early-Career Insurance Professional",

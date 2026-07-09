@@ -11,6 +11,7 @@ All notable changes to ActuaryRadar will be documented in this file.
 - Proposed data model for personalized daily learning, learning history and curated knowledge sources.
 - Config-driven learning taxonomy for Phase 2 career stages, goals, topics, difficulty and daily learning rhythm.
 - Learning-first homepage skeleton with Today’s Learning, Continue Learning and Recommended Next sections.
+- First-visit learning journey modal for career stage, learning goal, interested topics and daily learning time.
 
 ## [0.1.0] - 2026-07-06
 
