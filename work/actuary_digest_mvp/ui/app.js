@@ -3450,7 +3450,6 @@ function handleLearningActionClick(event) {
 }
 
 function renderLearningPlan() {
-  if (!els.learningPlanList) return;
   const planItems = generateTodaysLearningItems();
   const recommendedItems = generateRecommendedLearningItems(planItems.map(item => item.id));
   const continueItems = generateContinueLearningItems();
@@ -3458,15 +3457,17 @@ function renderLearningPlan() {
   const completedToday = state.learningProgress.completed[todayKey] || {};
   const completedCount = planItems.filter(item => completedToday[item.id]).length;
 
-  els.completedTodayCount.textContent = `${completedCount}/${planItems.length}`;
-  els.learningStreakCount.textContent = String(calculateLearningStreak());
-  els.topicsCompletedCount.textContent = String(Object.keys(state.learningProgress.topicCompletions || {}).length);
-  els.dailyTargetSummary.textContent = `${state.knowledgePlan.studyTime || 15} ${t("minutesShort")}`;
+  if (els.completedTodayCount) els.completedTodayCount.textContent = `${completedCount}/${planItems.length}`;
+  if (els.learningStreakCount) els.learningStreakCount.textContent = String(calculateLearningStreak());
+  if (els.topicsCompletedCount) els.topicsCompletedCount.textContent = String(Object.keys(state.learningProgress.topicCompletions || {}).length);
+  if (els.dailyTargetSummary) els.dailyTargetSummary.textContent = `${state.knowledgePlan.studyTime || 15} ${t("minutesShort")}`;
 
-  els.learningPlanList.innerHTML = renderLearningItemList(planItems, {
-    emptyKey: state.knowledgePlan.setupComplete ? "noLearningPlanItems" : "setupLearningFirst",
-    mode: "today"
-  });
+  if (els.learningPlanList) {
+    els.learningPlanList.innerHTML = renderLearningItemList(planItems, {
+      emptyKey: state.knowledgePlan.setupComplete ? "noLearningPlanItems" : "setupLearningFirst",
+      mode: "today"
+    });
+  }
   if (els.continueLearningList) {
     els.continueLearningList.innerHTML = renderLearningItemList(continueItems, {
       emptyKey: "noStartedLearningItems",
