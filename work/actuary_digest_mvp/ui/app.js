@@ -2058,9 +2058,9 @@ function renderScaffold() {
   els.reportDate.textContent = `${datePrefix}: ${data.report_date || "-"} · ${data.mode || "-"}`;
   const localizedFocus = localizedDailyFocus(data.report_date, focus);
   const localizedConcept = localizedDailyConcept(concept);
-  els.dailyThemeLabel.textContent = localizedFocus.theme;
-  els.learningGoal.textContent = localizedFocus.goal;
-  els.taskList.innerHTML = localizedFocus.tasks.map(task => `<li>${escapeHtml(task)}</li>`).join("");
+  if (els.dailyThemeLabel) els.dailyThemeLabel.textContent = localizedFocus.theme;
+  if (els.learningGoal) els.learningGoal.textContent = localizedFocus.goal;
+  if (els.taskList) els.taskList.innerHTML = localizedFocus.tasks.map(task => `<li>${escapeHtml(task)}</li>`).join("");
   els.conceptTerm.textContent = localizedConcept.term;
   els.conceptDefinition.textContent = localizedConcept.definition;
   els.conceptExample.textContent = localizedConcept.example;
@@ -3082,6 +3082,7 @@ function isWithinPeriod(item) {
 }
 
 function renderMetrics(items) {
+  if (!els.metricGrid) return;
   const regions = new Set(items.map(item => item.region)).size;
   const sections = new Set(items.map(item => item.platform_section)).size;
   const regulatory = items.filter(isRegulatoryItem).length;
@@ -3364,8 +3365,8 @@ function renderDailyBriefingExportHtml(items) {
 }
 
 function renderBoard(items) {
-  els.savedCount.textContent = state.saved.size;
-  els.doneCount.textContent = state.done.size;
+  if (els.savedCount) els.savedCount.textContent = state.saved.size;
+  if (els.doneCount) els.doneCount.textContent = state.done.size;
   if (!els.shareText) return;
   const topItems = [...items].sort((a, b) => (b.score || 0) - (a.score || 0)).slice(0, 5);
   els.shareText.value = topItems.map((item, index) => {
