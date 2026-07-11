@@ -287,6 +287,10 @@ textarea:focus-visible {
   display: none !important;
 }
 
+body:not([data-page="daily"]) .section-subnav {
+  display: none !important;
+}
+
 .section-nav-button {
   width: 100%;
   min-height: 32px;

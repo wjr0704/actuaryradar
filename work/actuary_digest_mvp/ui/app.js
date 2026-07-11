@@ -1806,8 +1806,10 @@ function setActivePage(page) {
 }
 
 function syncBodyState() {
+  if (state.activePage !== "daily") state.dailyNavExpanded = false;
   document.body.dataset.page = state.activePage;
   document.body.dataset.section = state.activeSection === "全部" ? "all" : "section";
+  syncDailyNavExpanded();
 }
 
 function syncDailyNavExpanded() {
