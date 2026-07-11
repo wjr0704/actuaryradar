@@ -166,6 +166,16 @@
       </section>
 
       <section class="page-view" id="dailyPage">
+        <section class="focus-band briefing-interface-noise">
+          <div>
+            <span class="section-kicker" id="dailyThemeLabel">-</span>
+            <h3 data-i18n="todayTasks">今日任务</h3>
+            <p id="learningGoal">-</p>
+          </div>
+          <ol id="taskList"></ol>
+        </section>
+
+        <section class="metric-grid briefing-interface-noise" id="metricGrid" aria-label="关键指标"></section>
         <p class="language-source-notice" id="languageSourceNotice"></p>
 
         <section class="top-picks">
@@ -207,6 +217,18 @@
           </div>
 
           <aside class="action-board">
+            <div class="board-section briefing-interface-noise">
+              <h3 data-i18n="actionBoard">Action 看板</h3>
+              <div class="board-stat">
+                <span data-i18n="marked">已标记</span>
+                <strong id="savedCount">0</strong>
+              </div>
+              <div class="board-stat">
+                <span data-i18n="completed">已完成</span>
+                <strong id="doneCount">0</strong>
+              </div>
+            </div>
+
             <div class="board-section ai-panel">
               <h3 data-i18n="aiAssistant">AI 学习助手</h3>
               <div class="quick-prompts">

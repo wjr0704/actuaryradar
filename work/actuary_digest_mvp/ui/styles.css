@@ -569,6 +569,10 @@ body[data-page="daily"]:not([data-section="all"]) .focus-band {
   padding-left: 22px;
 }
 
+.briefing-interface-noise {
+  display: none !important;
+}
+
 .metric-grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(120px, 1fr));
