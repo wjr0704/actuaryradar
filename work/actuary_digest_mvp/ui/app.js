@@ -30,6 +30,7 @@ const state = {
   openSourceResources: [],
   activePage: "home",
   activeSection: "全部",
+  dailyNavExpanded: false,
   language: localStorage.getItem("actuaryRadar.language") || "en",
   knowledgePlan: JSON.parse(storedKnowledgePlanRaw || JSON.stringify(defaultKnowledgePlan)),
   sourcePlan: JSON.parse(localStorage.getItem("actuaryRadar.sourcePlan") || "null"),
@@ -1562,15 +1563,19 @@ function clampNumber(value, fallback, min, max) {
 }
 
 function bindEvents() {
-  els.productTabs.forEach(button => {
-    button.addEventListener("click", () => {
-      if (button.dataset.page === "daily") {
-        state.activeSection = "全部";
-        renderSectionNav();
-      }
-      setActivePage(button.dataset.page);
-      render();
-    });
+  document.querySelector(".product-nav")?.addEventListener("click", event => {
+    const button = event.target.closest(".product-tab");
+    if (!button) return;
+    const nextPage = button.dataset.page;
+    if (nextPage === "daily") {
+      if (state.activePage !== "daily") state.activeSection = "全部";
+      state.dailyNavExpanded = state.activePage !== "daily" ? true : !state.dailyNavExpanded;
+    } else {
+      state.dailyNavExpanded = false;
+    }
+    setActivePage(nextPage);
+    if (nextPage === "daily") renderSectionNav();
+    render();
   });
 
   document.querySelectorAll(".product-tab-link").forEach(button => {
@@ -1579,6 +1584,7 @@ function bindEvents() {
         state.activeSection = "全部";
         renderSectionNav();
       }
+      state.dailyNavExpanded = false;
       setActivePage(button.dataset.page);
       render();
       if (button.dataset.scrollTarget) {
@@ -1806,7 +1812,7 @@ function syncBodyState() {
 
 function syncDailyNavExpanded() {
   if (!els.dailyNavGroup) return;
-  els.dailyNavGroup.classList.toggle("expanded", state.activePage === "daily");
+  els.dailyNavGroup.classList.toggle("expanded", Boolean(state.dailyNavExpanded));
 }
 
 async function loadArchiveIndex() {
@@ -2034,6 +2040,7 @@ function renderSectionNav() {
   els.sectionNav.querySelectorAll("button").forEach(button => {
     button.addEventListener("click", () => {
       state.activeSection = button.dataset.section;
+      state.dailyNavExpanded = false;
       setActivePage("daily");
       renderSectionNav();
       updateSectionFilters();
@@ -2863,6 +2870,7 @@ function renderPortal() {
   els.portalLatestGrid.querySelectorAll("[data-portal-url]").forEach(button => {
     button.addEventListener("click", () => {
       state.activeSection = "全部";
+      state.dailyNavExpanded = false;
       setActivePage("daily");
       state.filters.search = button.dataset.portalTitle.toLowerCase();
       els.searchInput.value = state.filters.search;
@@ -2874,6 +2882,7 @@ function renderPortal() {
   els.portalSectionGrid?.querySelectorAll("[data-portal-section]").forEach(button => {
     button.addEventListener("click", () => {
       state.activeSection = button.dataset.portalSection;
+      state.dailyNavExpanded = false;
       setActivePage("daily");
       renderSectionNav();
       render();
@@ -3352,6 +3361,7 @@ function renderSavedDigests() {
       state.data = record.data;
       state.items = record.data.items || [];
       state.activeSection = "全部";
+      state.dailyNavExpanded = false;
       renderScaffold();
       render();
       setActivePage("daily");
