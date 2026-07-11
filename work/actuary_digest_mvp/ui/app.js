@@ -64,12 +64,24 @@ const sectionOrder = [
   "career_learning"
 ];
 
+const briefingTopicSlugs = {
+  regulation: "regulation",
+  market: "market",
+  reinsurance: "reinsurance",
+  technology_ai: "technology-ai",
+  company_results_strategy: "company-results",
+  research: "research",
+  career_learning: "career-learning"
+};
+
+const sectionByBriefingTopicSlug = Object.fromEntries(Object.entries(briefingTopicSlugs).map(([section, slug]) => [slug, section]));
+
 const sectionLabels = {
   regulation: { symbol: "RG", icon: "shield", zh: "监管", en: "Regulation", fr: "Réglementation" },
   market: { symbol: "MK", icon: "building", zh: "市场", en: "Market", fr: "Marché de l'assurance" },
   reinsurance: { symbol: "RE", icon: "network", zh: "再保险", en: "Reinsurance", fr: "Réassurance" },
   technology_ai: { symbol: "AI", icon: "chip", zh: "科技与 AI", en: "Technology & AI", fr: "InsurTech & IA" },
-  company_results_strategy: { symbol: "IR", icon: "chart", zh: "公司财报与战略", en: "Companies Results & Strategies", fr: "Résultats & stratégie" },
+  company_results_strategy: { symbol: "IR", icon: "chart", zh: "公司财报与战略", en: "Company Results & Strategy", fr: "Résultats & stratégie" },
   research: { symbol: "RS", icon: "folder", zh: "研究", en: "Research", fr: "Recherche" },
   career_learning: { symbol: "CL", icon: "book", zh: "职业与学习", en: "Career & Learning", fr: "Formation & carrière" },
   "法规与资本雷达": { symbol: "RG", icon: "shield", zh: "监管", en: "Regulation", fr: "Réglementation" },
@@ -475,6 +487,7 @@ const pageCopy = {
     markComplete: "标记完成",
     completedLabel: "已完成",
     noCompletedToday: "今天还没有完成的学习项。",
+    activeTopicLabel: "主题",
     noLearningPlanItems: "当前设置下暂无学习任务。请增加主题或切换难度。",
     noStartedLearningItems: "你还没有开始任何学习内容。",
     moreContentSoon: "这个主题的更多内容即将加入。",
@@ -722,6 +735,7 @@ const pageCopy = {
     markComplete: "Mark complete",
     completedLabel: "Completed",
     noCompletedToday: "No completed learning items yet today.",
+    activeTopicLabel: "Topic",
     noLearningPlanItems: "No learning items match the current setup. Add topics or change difficulty.",
     noStartedLearningItems: "You have not started any learning items yet.",
     moreContentSoon: "More content for this topic will be added soon.",
@@ -969,6 +983,7 @@ const pageCopy = {
     markComplete: "Marquer comme fait",
     completedLabel: "Terminé",
     noCompletedToday: "Aucun contenu terminé aujourd’hui.",
+    activeTopicLabel: "Thème",
     noLearningPlanItems: "Aucun contenu ne correspond au paramétrage actuel. Ajoutez des thèmes ou changez de niveau.",
     noStartedLearningItems: "Vous n’avez pas encore commencé de contenu de formation.",
     moreContentSoon: "D’autres contenus seront ajoutés prochainement pour ce thème.",
@@ -1272,6 +1287,7 @@ const els = {
   searchInput: document.querySelector("#searchInput"),
   lobFilter: document.querySelector("#lobFilter"),
   topicFilter: document.querySelector("#topicFilter"),
+  activeTopicChip: document.querySelector("#activeTopicChip"),
   industryFilter: document.querySelector("#industryFilter"),
   periodFilter: document.querySelector("#periodFilter"),
   branchFilter: document.querySelector("#branchFilter"),
@@ -1333,6 +1349,7 @@ const els = {
 async function init() {
   await loadLearningTaxonomy();
   normalizeLearningState();
+  applyInitialRouteState();
   if (!state.sourcePlan) {
     state.sourcePlan = sourceLibrary.map(source => source.id);
   } else {
@@ -1351,7 +1368,24 @@ async function init() {
   await loadKnowledgeSources();
   await loadKnowledge();
   await loadDigest("./data/digest.json");
+  setActivePage(state.activePage);
+  render();
   maybeOpenOnboardingModal();
+}
+
+function applyInitialRouteState() {
+  const section = currentRouteBriefingSection();
+  if (section) {
+    state.activePage = "daily";
+    state.activeSection = section;
+    state.dailyNavExpanded = false;
+  }
+}
+
+function currentRouteBriefingSection() {
+  const params = new URLSearchParams(window.location.search);
+  const topic = params.get("topic");
+  return topic ? sectionByBriefingTopicSlug[topic] || null : null;
 }
 
 async function loadLearningTaxonomy() {
@@ -1623,7 +1657,17 @@ function bindEvents() {
   });
 
   els.topicFilter.addEventListener("change", event => {
+    if (state.activeSection !== "全部") return;
     state.filters.topic = event.target.value;
+    render();
+  });
+
+  els.activeTopicChip?.addEventListener("click", () => {
+    state.activeSection = "全部";
+    state.filters.topic = "all";
+    updateSectionFilters();
+    setActivePage("daily");
+    renderSectionNav();
     render();
   });
 
@@ -1644,6 +1688,15 @@ function bindEvents() {
 
   els.companyFilter.addEventListener("change", event => {
     state.filters.company = event.target.value;
+    render();
+  });
+
+  window.addEventListener("popstate", () => {
+    state.activeSection = "全部";
+    state.activePage = "home";
+    applyInitialRouteState();
+    setActivePage(state.activePage);
+    renderSectionNav();
     render();
   });
 
@@ -1791,6 +1844,7 @@ function bindEvents() {
 function setActivePage(page) {
   state.activePage = page;
   syncBodyState();
+  syncBriefingUrl();
   els.productTabs.forEach(button => {
     button.classList.toggle("active", button.dataset.page === page);
   });
@@ -1817,6 +1871,20 @@ function syncDailyNavExpanded() {
   const expanded = Boolean(state.dailyNavExpanded);
   els.dailyNavGroup.classList.toggle("expanded", expanded);
   if (els.sectionNav) els.sectionNav.hidden = !expanded;
+}
+
+function syncBriefingUrl() {
+  const url = new URL(window.location.href);
+  if (state.activePage === "daily") {
+    const slug = state.activeSection === "全部" ? "" : briefingTopicSlugs[normalizeSection(state.activeSection)];
+    if (slug) url.searchParams.set("topic", slug);
+    else url.searchParams.delete("topic");
+  } else {
+    url.searchParams.delete("topic");
+  }
+  const next = `${url.pathname}${url.search}${url.hash}`;
+  const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+  if (next !== current) window.history.replaceState({}, "", next);
 }
 
 async function loadArchiveIndex() {
@@ -1894,7 +1962,7 @@ async function loadDigest(url) {
     state.data = data;
     state.items = data.items || [];
     state.companyReports = buildCompanyReportItems(data.company_reports || []);
-    state.activeSection = "全部";
+    state.activeSection = currentRouteBriefingSection() || "全部";
     state.filters.tag = "";
     els.dateInput.value = data.report_date || "";
     const archive = state.archives.find(item => item.date === data.report_date);
@@ -2198,10 +2266,18 @@ function updateFreshnessLabels() {
 
 function updateSectionFilters() {
   const companyMode = normalizeSection(state.activeSection) === "company_results_strategy";
-  [els.periodFilter, els.lobFilter, els.topicFilter, els.industryFilter, els.branchFilter].forEach(select => {
+  const sectionMode = state.activeSection !== "全部";
+  [els.periodFilter, els.lobFilter, els.industryFilter, els.branchFilter].forEach(select => {
     if (select) select.hidden = companyMode;
   });
+  if (els.topicFilter) els.topicFilter.hidden = companyMode || sectionMode;
   if (els.companyFilter) els.companyFilter.hidden = !companyMode;
+  if (sectionMode) state.filters.topic = "all";
+  if (els.activeTopicChip) {
+    const showChip = sectionMode && !companyMode;
+    els.activeTopicChip.hidden = !showChip;
+    els.activeTopicChip.textContent = showChip ? `${t("activeTopicLabel")}: ${displaySection(state.activeSection)} ×` : "";
+  }
 }
 
 function localizedDailyFocus(reportDate, focus) {
@@ -2830,14 +2906,16 @@ function renderPortal() {
   const lead = sorted[0];
   if (lead) {
     els.portalLeadTitle.textContent = localizedItemTitle(lead);
-    els.portalLeadSummary.textContent = heroHighlightSummary(lead);
+    els.portalLeadSummary.textContent = "";
+    els.portalLeadSummary.hidden = true;
     if (els.portalLeadLink) {
       els.portalLeadLink.href = originalArticleUrl(lead);
       els.portalLeadLink.hidden = originalArticleUrl(lead) === "#";
     }
   } else {
     els.portalLeadTitle.textContent = t("noItems");
-    els.portalLeadSummary.textContent = t("heroSubtitle");
+    els.portalLeadSummary.textContent = "";
+    els.portalLeadSummary.hidden = true;
     if (els.portalLeadLink) {
       els.portalLeadLink.hidden = true;
     }
@@ -2949,7 +3027,6 @@ function portalNewsCard(item) {
         <span class="chip chip-source">${escapeHtml(displayPrimarySource(item))}</span>
       </div>
       <h4>${escapeHtml(localizedItemTitle(item))}</h4>
-      <p>${escapeHtml(editorialTeaser(item))}</p>
       <button class="text-link" type="button" data-portal-url="${escapeHtml(item.url)}" data-portal-title="${escapeHtml(localizedItemTitle(item))}">${escapeHtml(t("open"))}</button>
     </article>
   `;
@@ -2957,6 +3034,7 @@ function portalNewsCard(item) {
 
 function getFilteredItems() {
   const companyMode = normalizeSection(state.activeSection) === "company_results_strategy";
+  const sectionMode = state.activeSection !== "全部";
   const sourceItems = companyMode ? state.companyReports : languageMatchedItems(state.items);
   return sourceItems.filter(item => {
     const text = [
@@ -2975,7 +3053,7 @@ function getFilteredItems() {
     if (state.activeSection !== "全部" && normalizeSection(item.platform_section) !== normalizeSection(state.activeSection)) return false;
     if (!isWithinPeriod(item)) return false;
     if (!companyMode && state.filters.lob !== "all" && classifyLob(item) !== state.filters.lob) return false;
-    if (!companyMode && state.filters.topic !== "all" && classifyTopic(item) !== state.filters.topic) return false;
+    if (!companyMode && !sectionMode && state.filters.topic !== "all" && classifyTopic(item) !== state.filters.topic) return false;
     if (!companyMode && state.filters.industry !== "all" && classifyIndustry(item) !== state.filters.industry) return false;
     if (!companyMode && state.filters.branch !== "all" && classifyBranch(item) !== state.filters.branch) return false;
     if (companyMode && state.filters.company !== "全部公司" && classifyCompany(item) !== state.filters.company) return false;

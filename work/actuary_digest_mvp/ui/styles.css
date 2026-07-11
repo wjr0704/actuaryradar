@@ -735,6 +735,29 @@ body[data-page="daily"]:not([data-section="all"]) .focus-band {
   padding: 0 10px;
 }
 
+.active-topic-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--control-height);
+  border: 1px solid #c9e1e4;
+  border-radius: 999px;
+  padding: 0 13px;
+  background: #f2fbfa;
+  color: var(--accent-dark);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.active-topic-chip:hover {
+  border-color: var(--accent);
+  background: #e8f6f5;
+}
+
+.active-topic-chip[hidden] {
+  display: none !important;
+}
+
 .portal-hero {
   overflow: hidden;
   display: grid;
