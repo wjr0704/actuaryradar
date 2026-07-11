@@ -46,11 +46,10 @@
       <nav class="product-nav" aria-label="Product navigation">
         <button class="nav-button product-tab active" type="button" data-page="home"><span><span class="nav-icon" data-icon="home"></span><span data-i18n="navHome">Home</span></span></button>
         <button class="nav-button product-tab" type="button" data-page="knowledge"><span><span class="nav-icon" data-icon="book"></span><span data-i18n="navKnowledge">Actuarial Knowledge</span></span></button>
-        <button class="nav-button product-tab" type="button" data-page="daily"><span><span class="nav-icon" data-icon="brief"></span><span data-i18n="navDaily">Insurance Briefing</span></span></button>
-      </nav>
-
-      <nav class="nav-list" id="sectionNav"></nav>
-      <nav class="nav-list saved-nav">
+        <div class="daily-nav-group" id="dailyNavGroup">
+          <button class="nav-button product-tab" type="button" data-page="daily"><span><span class="nav-icon" data-icon="brief"></span><span data-i18n="navDaily">Insurance Briefing</span></span><span class="nav-chevron" aria-hidden="true">⌄</span></button>
+          <nav class="nav-list section-subnav" id="sectionNav" aria-label="Briefing topics"></nav>
+        </div>
         <button class="nav-button product-tab" type="button" data-page="saved"><span><span class="nav-icon" data-icon="star"></span><span data-i18n="navSaved">Saved Briefings</span></span></button>
       </nav>
 

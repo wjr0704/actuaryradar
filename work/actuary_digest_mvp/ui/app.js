@@ -507,6 +507,7 @@ const pageCopy = {
     knowledgeTitle: "精算知识库",
     savedTitle: "已保存日报",
     allTopics: "全部主题",
+    navAllBriefings: "全部情报",
     pageDailySubtitle: "按监管、险种、公司、科技、再保险和跨行业联动阅读今日情报",
     pageKnowledgeSubtitle: "选择主题、每日数量、概念复习和案例练习",
     pageSavedSubtitle: "回看你保存过的日报内容",
@@ -753,6 +754,7 @@ const pageCopy = {
     knowledgeTitle: "Actuarial Knowledge",
     savedTitle: "Saved Briefings",
     allTopics: "All Topics",
+    navAllBriefings: "All Briefings",
     pageDailySubtitle: "A curated insurance briefing by supervision, business line, company, technology and market theme",
     pageKnowledgeSubtitle: "Personalize your actuarial learning path, concepts and case practice",
     pageSavedSubtitle: "Review briefings saved in this browser",
@@ -999,6 +1001,7 @@ const pageCopy = {
     knowledgeTitle: "Connaissances actuarielles",
     savedTitle: "Veilles sauvegardées",
     allTopics: "Tous les thèmes",
+    navAllBriefings: "Toute la veille",
     pageDailySubtitle: "Une veille structurée par supervision, branche, entreprise, InsurTech et thématique de marché",
     pageKnowledgeSubtitle: "Construire son parcours de formation : concepts, cas pratiques et sources de référence",
     pageSavedSubtitle: "Revoir les veilles sauvegardées dans ce navigateur",
@@ -1239,6 +1242,7 @@ const onboardingStudyTimes = [10, 15, 20, 30];
 
 const els = {
   sectionNav: document.querySelector("#sectionNav"),
+  dailyNavGroup: document.querySelector("#dailyNavGroup"),
   productTabs: document.querySelectorAll(".product-tab"),
   pages: document.querySelectorAll(".page-view"),
   reportDate: document.querySelector("#reportDate"),
@@ -1571,6 +1575,10 @@ function bindEvents() {
 
   document.querySelectorAll(".product-tab-link").forEach(button => {
     button.addEventListener("click", () => {
+      if (button.dataset.page === "daily" && !button.dataset.portalSection) {
+        state.activeSection = "全部";
+        renderSectionNav();
+      }
       setActivePage(button.dataset.page);
       render();
       if (button.dataset.scrollTarget) {
@@ -1780,6 +1788,7 @@ function setActivePage(page) {
   els.productTabs.forEach(button => {
     button.classList.toggle("active", button.dataset.page === page);
   });
+  syncDailyNavExpanded();
   els.pages.forEach(section => {
     section.classList.toggle("active", section.id === `${page}Page`);
   });
@@ -1793,6 +1802,11 @@ function setActivePage(page) {
 function syncBodyState() {
   document.body.dataset.page = state.activePage;
   document.body.dataset.section = state.activeSection === "全部" ? "all" : "section";
+}
+
+function syncDailyNavExpanded() {
+  if (!els.dailyNavGroup) return;
+  els.dailyNavGroup.classList.toggle("expanded", state.activePage === "daily");
 }
 
 async function loadArchiveIndex() {
@@ -2000,16 +2014,22 @@ function renderSectionNav() {
   if (state.activeSection !== "全部" && !visibleSections.includes(normalizeSection(state.activeSection))) {
     state.activeSection = "全部";
   }
+  syncDailyNavExpanded();
+  const allCount = languageMatchedItems(state.items).length + state.companyReports.length;
   const counts = visibleSections.reduce((acc, section) => {
     acc[section] = sectionItems(section).length;
     return acc;
   }, {});
-  els.sectionNav.innerHTML = visibleSections.map(section => {
+  const allActive = state.activeSection === "全部" ? " active" : "";
+  const allIcon = navIcon("brief");
+  const allButton = `<button class="section-nav-button${allActive}" type="button" data-section="全部"><span><span class="nav-icon">${allIcon}</span>${escapeHtml(t("navAllBriefings"))}</span><strong>${escapeHtml(String(allCount))}</strong></button>`;
+  const sectionButtons = visibleSections.map(section => {
     const active = section === state.activeSection ? " active" : "";
     const label = displaySection(section);
     const icon = navIcon(sectionLabels[section]?.icon || "brief");
-    return `<button class="nav-button${active}" type="button" data-section="${escapeHtml(section)}"><span><span class="nav-icon">${icon}</span>${escapeHtml(label)}</span><strong>${escapeHtml(String(counts[section] || 0))}</strong></button>`;
+    return `<button class="section-nav-button${active}" type="button" data-section="${escapeHtml(section)}"><span><span class="nav-icon">${icon}</span>${escapeHtml(label)}</span><strong>${escapeHtml(String(counts[section] || 0))}</strong></button>`;
   }).join("");
+  els.sectionNav.innerHTML = allButton + sectionButtons;
 
   els.sectionNav.querySelectorAll("button").forEach(button => {
     button.addEventListener("click", () => {

@@ -203,6 +203,11 @@ textarea:focus-visible {
   border-bottom: 1px solid rgba(255, 255, 255, 0.16);
 }
 
+.daily-nav-group {
+  display: grid;
+  gap: 6px;
+}
+
 .nav-button {
   width: 100%;
   min-height: 40px;
@@ -218,6 +223,17 @@ textarea:focus-visible {
   color: #dbe4f0;
   text-align: left;
   cursor: pointer;
+}
+
+.nav-chevron {
+  color: #91a0b7;
+  font-size: 14px;
+  transition: transform 0.18s ease, color 0.18s ease;
+}
+
+.daily-nav-group.expanded .nav-chevron {
+  transform: rotate(180deg);
+  color: #ffffff;
 }
 
 .nav-button strong {
@@ -253,6 +269,80 @@ textarea:focus-visible {
 
 .saved-nav {
   margin-top: 16px;
+}
+
+.section-subnav {
+  display: none;
+  gap: 4px;
+  margin: 0 0 4px 20px;
+  padding: 3px 0 3px 12px;
+  border-left: 1px solid rgba(145, 160, 183, 0.26);
+}
+
+.daily-nav-group.expanded .section-subnav {
+  display: grid;
+}
+
+.section-nav-button {
+  width: 100%;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  padding: 6px 7px;
+  background: transparent;
+  color: #b8c2d2;
+  text-align: left;
+  cursor: pointer;
+}
+
+.section-nav-button > span {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.section-nav-button .nav-icon {
+  min-width: 18px;
+  width: 18px;
+  height: 18px;
+  margin-right: 6px;
+  color: #91a0b7;
+}
+
+.section-nav-button .nav-icon svg {
+  width: 17px;
+  height: 17px;
+  stroke-width: 1.8;
+}
+
+.section-nav-button strong {
+  min-width: 24px;
+  min-height: 20px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #dbe4f0;
+  font-size: 11px;
+}
+
+.section-nav-button.active,
+.section-nav-button:hover {
+  border-color: rgba(49, 184, 166, 0.16);
+  background: rgba(49, 184, 166, 0.1);
+  color: #ffffff;
+}
+
+.section-nav-button.active .nav-icon,
+.section-nav-button:hover .nav-icon {
+  color: var(--logo-green);
 }
 
 .nav-button.active,
@@ -2557,6 +2647,14 @@ textarea {
     gap: 6px;
     margin-bottom: 12px;
     padding-bottom: 12px;
+  }
+
+  .daily-nav-group {
+    grid-column: 1 / -1;
+  }
+
+  .section-subnav {
+    margin-left: 10px;
   }
 
   .nav-button {

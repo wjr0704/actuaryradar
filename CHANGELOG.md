@@ -15,6 +15,7 @@ All notable changes to ActuaryRadar will be documented in this file.
 - Removed the duplicated My Learning Journey block from the Actuarial Knowledge page.
 - Completed Today visibility on the homepage so finished learning items remain visible after completion.
 - Collapsed completed learning items by default to keep the homepage learning area compact.
+- Simplified the sidebar to four primary entries and nested briefing topics under Insurance Briefing.
 
 ## [0.1.0] - 2026-07-06
 
