@@ -1563,19 +1563,19 @@ function clampNumber(value, fallback, min, max) {
 }
 
 function bindEvents() {
-  document.querySelector(".product-nav")?.addEventListener("click", event => {
-    const button = event.target.closest(".product-tab");
-    if (!button) return;
-    const nextPage = button.dataset.page;
-    if (nextPage === "daily") {
-      if (state.activePage !== "daily") state.activeSection = "全部";
-      state.dailyNavExpanded = state.activePage !== "daily" ? true : !state.dailyNavExpanded;
-    } else {
-      state.dailyNavExpanded = false;
-    }
-    setActivePage(nextPage);
-    if (nextPage === "daily") renderSectionNav();
-    render();
+  els.productTabs.forEach(button => {
+    button.addEventListener("click", () => {
+      const nextPage = button.dataset.page;
+      if (nextPage === "daily") {
+        if (state.activePage !== "daily") state.activeSection = "全部";
+        state.dailyNavExpanded = state.activePage !== "daily" ? true : !state.dailyNavExpanded;
+      } else {
+        state.dailyNavExpanded = false;
+      }
+      setActivePage(nextPage);
+      if (nextPage === "daily") renderSectionNav();
+      render();
+    });
   });
 
   document.querySelectorAll(".product-tab-link").forEach(button => {
@@ -1812,7 +1812,9 @@ function syncBodyState() {
 
 function syncDailyNavExpanded() {
   if (!els.dailyNavGroup) return;
-  els.dailyNavGroup.classList.toggle("expanded", Boolean(state.dailyNavExpanded));
+  const expanded = Boolean(state.dailyNavExpanded);
+  els.dailyNavGroup.classList.toggle("expanded", expanded);
+  if (els.sectionNav) els.sectionNav.hidden = !expanded;
 }
 
 async function loadArchiveIndex() {

@@ -283,6 +283,10 @@ textarea:focus-visible {
   display: grid;
 }
 
+.section-subnav[hidden] {
+  display: none !important;
+}
+
 .section-nav-button {
   width: 100%;
   min-height: 32px;
