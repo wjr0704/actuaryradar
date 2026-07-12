@@ -569,6 +569,8 @@ const pageCopy = {
     ask: "提问",
     savedIntro: "保存每日情报与学习日志，方便回看和导出。",
     saveCurrent: "保存当前日报",
+    currentReportSaved: "已保存",
+    noCurrentReport: "当前没有可保存的日报",
     saveTodayLearning: "保存今日学习",
     savedBriefingsTab: "已保存日报",
     learningJournalTab: "学习日志",
@@ -838,6 +840,8 @@ const pageCopy = {
     ask: "Ask",
     savedIntro: "Review saved briefings and learning journals from this browser.",
     saveCurrent: "Save current report",
+    currentReportSaved: "Saved",
+    noCurrentReport: "No current report to save",
     saveTodayLearning: "Save today",
     savedBriefingsTab: "Briefings",
     learningJournalTab: "Learning Journal",
@@ -1107,6 +1111,8 @@ const pageCopy = {
     ask: "Demander",
     savedIntro: "Retrouvez les veilles et journaux de formation enregistrés dans ce navigateur.",
     saveCurrent: "Enregistrer cette veille",
+    currentReportSaved: "Enregistré",
+    noCurrentReport: "Aucune veille à enregistrer",
     saveTodayLearning: "Enregistrer le jour",
     savedBriefingsTab: "Veilles",
     learningJournalTab: "Journal de formation",
@@ -1807,7 +1813,12 @@ function bindEvents() {
   });
 
   els.saveCurrentDigestButton.addEventListener("click", () => {
-    saveCurrentDigest();
+    const saved = saveCurrentDigest();
+    if (!saved) {
+      flashButtonLabel(els.saveCurrentDigestButton, t("noCurrentReport"));
+      return;
+    }
+    flashButtonLabel(els.saveCurrentDigestButton, t("currentReportSaved"));
     renderSavedDigests();
   });
   els.saveTodayLearningButton?.addEventListener("click", saveTodayLearningJournal);
@@ -3538,8 +3549,19 @@ function reportIssue(item) {
   window.alert(t("issueSaved"));
 }
 
+function flashButtonLabel(button, label, duration = 1400) {
+  if (!button) return;
+  const originalLabel = button.textContent;
+  button.textContent = label;
+  button.disabled = true;
+  setTimeout(() => {
+    button.textContent = originalLabel;
+    button.disabled = false;
+  }, duration);
+}
+
 function saveCurrentDigest() {
-  if (!state.data?.report_date) return;
+  if (!state.data?.report_date) return false;
   state.savedDigests[state.data.report_date] = {
     saved_at: new Date().toISOString(),
     data: state.data
@@ -3549,6 +3571,7 @@ function saveCurrentDigest() {
   setTimeout(() => {
     els.saveDailyButton.textContent = "☆";
   }, 1200);
+  return true;
 }
 
 function saveTodayLearningJournal() {
