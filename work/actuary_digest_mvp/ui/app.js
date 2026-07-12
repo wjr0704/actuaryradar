@@ -1890,7 +1890,10 @@ function setActivePage(page) {
   updatePageHeader();
   updateSectionFilters();
   if (page === "saved") renderSavedDigests();
-  if (page === "knowledge") renderKnowledge();
+  if (page === "knowledge") {
+    if (state.data) renderScaffold();
+    renderKnowledge();
+  }
   if (page === "home") renderPortal();
 }
 
@@ -2087,12 +2090,11 @@ function markDigestStale(data) {
 function renderScaffold() {
   const data = state.data;
   const focus = data.focus_profile || {};
-  const concept = data.daily_concept || {};
 
   const datePrefix = data.is_stale ? t("latestAvailableBriefing") : t("dailyTitle");
   els.reportDate.textContent = `${datePrefix}: ${data.report_date || "-"} · ${data.mode || "-"}`;
   const localizedFocus = localizedDailyFocus(data.report_date, focus);
-  const localizedConcept = localizedDailyConcept(concept);
+  const localizedConcept = currentPersonalizedDailyConcept() || localizedDailyConcept(data.daily_concept || {});
   if (els.dailyThemeLabel) els.dailyThemeLabel.textContent = localizedFocus.theme;
   if (els.learningGoal) els.learningGoal.textContent = localizedFocus.goal;
   if (els.taskList) els.taskList.innerHTML = localizedFocus.tasks.map(task => `<li>${escapeHtml(task)}</li>`).join("");
@@ -2118,6 +2120,28 @@ function renderScaffold() {
   renderSectionNav();
   renderFilters();
   updatePageHeader();
+}
+
+function currentPersonalizedDailyConcept() {
+  const topicId = (state.knowledgePlan.tracks || defaultKnowledgePlan.tracks)[0] || "Fundamentals";
+  const concept = personalizedDailyConceptForTopic(topicId);
+  if (!concept) return null;
+  return {
+    ...concept,
+    example: personalizedConceptExample(concept, topicId),
+    sourceLabel: concept.sourceUrl ? t("sourceWebsite") : ""
+  };
+}
+
+function personalizedConceptExample(concept, topicId) {
+  const topic = learningTopicLabel(topicId);
+  if (state.language === "zh") {
+    return `通俗理解：这是你当前学习主题「${topic}」下的今日概念。先用一句话解释 ${concept.term}，再把它连接到一个保险现金流、假设或风险管理场景。`;
+  }
+  if (state.language === "fr") {
+    return `Exemple simple : ce concept vient de votre thème « ${topic} ». Expliquez ${concept.term} en une phrase, puis reliez-le à un flux d’assurance, une hypothèse ou une décision de gestion des risques.`;
+  }
+  return `Plain example: this concept comes from your selected topic, ${topic}. Explain ${concept.term} in one sentence, then connect it to an insurance cash flow, assumption or risk-management decision.`;
 }
 
 function renderSectionNav() {
@@ -3631,6 +3655,7 @@ function renderKnowledgePlanner() {
       const tracks = [...els.knowledgePlanner.querySelectorAll("input:checked")].map(node => node.value);
       state.knowledgePlan.tracks = tracks;
       saveKnowledgePlan();
+      if (state.data) renderScaffold();
       renderKnowledge();
       renderLearningPlan();
     });
