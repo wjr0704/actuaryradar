@@ -94,12 +94,11 @@
         <section class="portal-hero">
           <div class="hero-copy">
             <p class="portal-kicker">ActuaryRadar</p>
-            <h2 data-i18n="heroTitle">Insurance Intelligence for Actuaries &amp; Insurance Professionals</h2>
-            <p class="hero-lead" data-i18n="heroSubtitle">ActuaryRadar is an all-in-one platform for actuaries and insurance professionals, bringing together actuarial learning, curated insurance news, company results, regulatory updates, reinsurance insights and trusted research sources.</p>
-            <p data-i18n="heroSubsubtitle">We bring together industry news, technical insights, research, learning resources, and practical tools in one place, helping professionals and students stay informed, deepen their expertise, and navigate the rapidly evolving insurance landscape.</p>
+            <h2 data-i18n="heroTitle">Know what to learn today.</h2>
+            <p class="hero-lead" data-i18n="heroSubtitle">A personalized daily learning workspace combining actuarial knowledge, industry intelligence and trusted resources.</p>
             <div class="hero-actions">
-              <button class="primary-button product-tab-link" type="button" data-page="knowledge" data-i18n="startLearning">Start Learning</button>
-              <button class="ghost-button product-tab-link" type="button" data-page="daily" data-i18n="browseBriefing">Browse Today’s Briefing</button>
+              <button class="primary-button product-tab-link" type="button" data-page="knowledge" data-i18n="startLearning">Start Today’s Learning</button>
+              <button class="ghost-button product-tab-link" type="button" data-page="daily" data-i18n="browseBriefing">Browse Intelligence</button>
             </div>
           </div>
           <aside class="hero-market-panel">
@@ -114,40 +113,40 @@
           <div class="portal-section-heading home-learning-heading">
             <div>
               <p data-i18n="homeLearningEyebrow">Personalized Learning</p>
-              <h3 data-i18n="homeLearningTitle">What should I learn today?</h3>
+              <h3 data-i18n="todaysLearning">Today’s Learning</h3>
+              <p class="home-learning-summary" id="homeLearningSummary">-</p>
             </div>
-            <button class="text-link" id="openOnboardingButton" type="button" data-i18n="buildJourneyArrow">Build My Learning Journey →</button>
+            <button class="text-link" id="openOnboardingButton" type="button" data-i18n="buildJourneyArrow">Build My Learning Journey</button>
           </div>
           <div class="home-learning-grid">
             <article class="home-learning-primary">
               <div class="learning-panel-title">
                 <span>01</span>
                 <div>
-                  <h4 data-i18n="todaysLearning">Today’s Learning</h4>
-                  <p id="homeLearningSummary">-</p>
+                  <h4 data-i18n="next15Minutes">Next 15 minutes</h4>
                 </div>
               </div>
               <div class="home-learning-list" id="homeTodayLearningList"></div>
             </article>
-            <div class="home-learning-side">
-              <article class="home-learning-card">
+            <div class="home-learning-side" id="homeLearningSide">
+              <article class="home-learning-card" id="homeContinueLearningCard" hidden>
                 <div class="learning-panel-title compact">
                   <span>02</span>
                   <h4 data-i18n="continueLearning">Continue Learning</h4>
                 </div>
                 <div class="home-learning-list compact" id="homeContinueLearningList"></div>
               </article>
-              <article class="home-learning-card">
+              <article class="home-learning-card" id="homeRecommendedLearningCard" hidden>
                 <div class="learning-panel-title compact">
                   <span>03</span>
                   <h4 data-i18n="recommendedNext">Recommended Next</h4>
                 </div>
                 <div class="home-learning-list compact" id="homeRecommendedLearningList"></div>
               </article>
-              <article class="home-learning-card">
+              <article class="home-learning-card" id="homeCompletedLearningCard" hidden>
                 <div class="learning-panel-title compact">
                   <span>04</span>
-                  <h4 data-i18n="completedToday">Completed Today</h4>
+                  <h4 id="homeCompletedLearningTitle" data-i18n="completedToday">Completed Today</h4>
                 </div>
                 <div class="home-learning-list compact completed-list" id="homeCompletedLearningList"></div>
               </article>
@@ -160,6 +159,7 @@
             <div>
               <p data-i18n="portalLatestEyebrow">最新保险资讯</p>
             </div>
+            <button class="text-link product-tab-link" type="button" data-page="daily" data-i18n="viewAllIntelligence">View all intelligence</button>
           </div>
           <div class="portal-news-grid" id="portalLatestGrid"></div>
         </section>

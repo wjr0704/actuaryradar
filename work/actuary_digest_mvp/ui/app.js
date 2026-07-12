@@ -370,11 +370,11 @@ const pageCopy = {
     navKnowledge: "精算知识库",
     navSaved: "已保存日报",
     dailyConcept: "每日概念",
-    heroTitle: "面向精算师与保险专业人士的保险情报平台",
-    heroSubtitle: "ActuaryRadar 是一个面向保险专业人士和精算师的一站式平台，整合精算学习、精选保险资讯、监管动态、保险公司财报、再保险洞察和可信研究资料。",
+    heroTitle: "每天明确该学什么。",
+    heroSubtitle: "一个连接精算知识、行业情报与可信资料的个性化每日学习工作台。",
     heroSubsubtitle: "行业新闻、技术洞察、研究资料与学习资源，集中在一个更适合持续阅读和专业判断的工作台。",
-    startLearning: "开始学习",
-    browseBriefing: "浏览今日情报",
+    startLearning: "开始今日学习",
+    browseBriefing: "浏览情报",
     latestAvailableBriefing: "最新可用情报",
     actuarialKnowledge: "精算知识库",
     continueLearningArrow: "继续学习 →",
@@ -388,12 +388,22 @@ const pageCopy = {
     portalToday: "今日精选",
     homeLearningEyebrow: "个性化学习",
     homeLearningTitle: "今天我该学什么？",
-    buildJourneyArrow: "建立我的学习旅程 →",
+    buildJourneyArrow: "建立我的学习旅程",
+    editLearningPreferences: "编辑学习偏好",
+    next15Minutes: "接下来 15 分钟",
     todaysLearning: "今日学习",
     continueLearning: "继续学习",
     recommendedNext: "推荐下一步",
     homeLearningSummaryReady: "今日学习计划已准备好",
     homeLearningSummarySetup: "先设置兴趣和学习时间，ActuaryRadar 会为你安排今日任务。",
+    progressToday: "今日进度",
+    recommendationSelectedTopic: "因为你选择了 {topic}。",
+    recommendationGoalRegulatory: "适合你的目标：理解监管与资本。",
+    recommendationGoalPricing: "适合你的目标：提升定价与准备金能力。",
+    recommendationGoalIndustry: "适合你的目标：理解保险行业。",
+    recommendationGoalExam: "适合你的目标：准备精算考试。",
+    recommendationGoalJob: "适合你的目标：提升求职与实务能力。",
+    recommendationIndustryInsight: "把今天的学习主题连接到当前行业动态。",
     browseAllEyebrow: "浏览",
     browseAllTitle: "浏览全部内容",
     learningLibraryHint: "概念、知识卡和可信资料源",
@@ -409,6 +419,7 @@ const pageCopy = {
     portalLatestEyebrow: "最新保险资讯",
     portalLatestTitle: "最新保险情报",
     viewAllBriefings: "查看全部情报",
+    viewAllIntelligence: "查看全部情报",
     portalSectionsEyebrow: "专业栏目",
     portalSectionsTitle: "按主题探索",
     topicRegulationText: "跟踪监管、资本要求、消费者保护和合规变化。",
@@ -468,7 +479,7 @@ const pageCopy = {
     estimated: "预计",
     learningItemDailyConcept: "每日概念",
     learningItemKnowledgeCard: "知识卡片",
-    learningItemNews: "相关情报",
+    learningItemNews: "行业洞察",
     learningItemResearch: "研究报告",
     learningItemOfficialSource: "官方学习源",
     learningItemGithubExample: "开源实践",
@@ -618,11 +629,11 @@ const pageCopy = {
     navKnowledge: "Actuarial Knowledge",
     navSaved: "Saved Briefings",
     dailyConcept: "Daily Concept",
-    heroTitle: "Insurance Intelligence for Actuaries & Insurance Professionals",
-    heroSubtitle: "ActuaryRadar is an all-in-one platform for actuaries and insurance professionals, bringing together actuarial learning, curated insurance news, company results, regulatory updates, reinsurance insights and trusted research sources.",
+    heroTitle: "Know what to learn today.",
+    heroSubtitle: "A personalized daily learning workspace combining actuarial knowledge, industry intelligence and trusted resources.",
     heroSubsubtitle: "Industry news, technical insight, research and learning resources in one focused workspace for continuous professional judgment.",
-    startLearning: "Start Learning",
-    browseBriefing: "Browse Today’s Briefing",
+    startLearning: "Start Today’s Learning",
+    browseBriefing: "Browse Intelligence",
     latestAvailableBriefing: "Latest available briefing",
     actuarialKnowledge: "Actuarial Knowledge",
     continueLearningArrow: "Continue Learning →",
@@ -636,12 +647,22 @@ const pageCopy = {
     portalToday: "Today’s Highlight",
     homeLearningEyebrow: "Personalized Learning",
     homeLearningTitle: "What should I learn today?",
-    buildJourneyArrow: "Build My Learning Journey →",
+    buildJourneyArrow: "Build My Learning Journey",
+    editLearningPreferences: "Edit learning preferences",
+    next15Minutes: "Next 15 minutes",
     todaysLearning: "Today’s Learning",
     continueLearning: "Continue Learning",
     recommendedNext: "Recommended Next",
     homeLearningSummaryReady: "Today’s learning plan is ready",
     homeLearningSummarySetup: "Set your interests and available time so ActuaryRadar can guide today’s learning.",
+    progressToday: "progress today",
+    recommendationSelectedTopic: "Because you selected {topic}.",
+    recommendationGoalRegulatory: "Recommended for your goal: understand regulation and capital.",
+    recommendationGoalPricing: "Recommended for your goal: build pricing and reserving skills.",
+    recommendationGoalIndustry: "Recommended for your goal: understand the insurance industry.",
+    recommendationGoalExam: "Recommended for your goal: prepare for actuarial exams.",
+    recommendationGoalJob: "Recommended for your goal: become job-ready.",
+    recommendationIndustryInsight: "Connects today’s learning topic with a current industry development.",
     browseAllEyebrow: "Browse",
     browseAllTitle: "Browse All Intelligence",
     learningLibraryHint: "Concepts, cards and curated references",
@@ -657,6 +678,7 @@ const pageCopy = {
     portalLatestEyebrow: "Latest insurance news",
     portalLatestTitle: "Latest Intelligence",
     viewAllBriefings: "View all briefings",
+    viewAllIntelligence: "View all intelligence",
     portalSectionsEyebrow: "Coverage areas",
     portalSectionsTitle: "Explore by Topic",
     topicRegulationText: "Track supervision, capital requirements, consumer protection and compliance changes.",
@@ -716,7 +738,7 @@ const pageCopy = {
     estimated: "Estimated",
     learningItemDailyConcept: "Daily Concept",
     learningItemKnowledgeCard: "Knowledge Card",
-    learningItemNews: "Related Industry News",
+    learningItemNews: "Industry Insight",
     learningItemResearch: "Research Report",
     learningItemOfficialSource: "Official Learning Source",
     learningItemGithubExample: "GitHub Example",
@@ -866,11 +888,11 @@ const pageCopy = {
     navKnowledge: "Connaissances actuarielles",
     navSaved: "Veilles sauvegardées",
     dailyConcept: "Concept du jour",
-    heroTitle: "Veille assurance pour actuaires et professionnels de l’assurance",
-    heroSubtitle: "ActuaryRadar est une plateforme tout-en-un pour les professionnels de l’assurance et les actuaires, réunissant apprentissage actuariel, veille assurance, résultats d’assureurs, évolutions réglementaires, réassurance et sources de recherche fiables.",
+    heroTitle: "Sachez quoi apprendre aujourd’hui.",
+    heroSubtitle: "Un espace d’apprentissage quotidien personnalisé reliant connaissances actuarielles, veille sectorielle et sources fiables.",
     heroSubsubtitle: "Actualité sectorielle, analyses techniques, recherche et ressources de formation réunies dans un espace de veille plus lisible.",
-    startLearning: "Commencer la formation",
-    browseBriefing: "Voir la veille du jour",
+    startLearning: "Commencer la formation du jour",
+    browseBriefing: "Parcourir la veille",
     latestAvailableBriefing: "Dernière veille disponible",
     actuarialKnowledge: "Connaissances actuarielles",
     continueLearningArrow: "Poursuivre la formation →",
@@ -884,12 +906,22 @@ const pageCopy = {
     portalToday: "À la une",
     homeLearningEyebrow: "Formation personnalisée",
     homeLearningTitle: "Que travailler aujourd’hui ?",
-    buildJourneyArrow: "Construire mon parcours →",
+    buildJourneyArrow: "Construire mon parcours",
+    editLearningPreferences: "Modifier mes préférences",
+    next15Minutes: "Les 15 prochaines minutes",
     todaysLearning: "Formation du jour",
     continueLearning: "Poursuivre la formation",
     recommendedNext: "À travailler ensuite",
     homeLearningSummaryReady: "Votre parcours du jour est prêt",
     homeLearningSummarySetup: "Définissez vos intérêts et votre temps disponible pour orienter la formation du jour.",
+    progressToday: "progression du jour",
+    recommendationSelectedTopic: "Parce que vous avez sélectionné {topic}.",
+    recommendationGoalRegulatory: "Recommandé pour votre objectif : comprendre la réglementation et le capital.",
+    recommendationGoalPricing: "Recommandé pour votre objectif : renforcer la tarification et le provisionnement.",
+    recommendationGoalIndustry: "Recommandé pour votre objectif : comprendre le secteur de l’assurance.",
+    recommendationGoalExam: "Recommandé pour votre objectif : préparer les examens actuariels.",
+    recommendationGoalJob: "Recommandé pour votre objectif : développer des compétences opérationnelles.",
+    recommendationIndustryInsight: "Relie le thème du jour à une évolution récente du marché.",
     browseAllEyebrow: "Parcourir",
     browseAllTitle: "Parcourir toute la veille",
     learningLibraryHint: "Concepts, fiches et sources de confiance",
@@ -905,6 +937,7 @@ const pageCopy = {
     portalLatestEyebrow: "Actualité assurance",
     portalLatestTitle: "Dernières veilles",
     viewAllBriefings: "Voir toutes les veilles",
+    viewAllIntelligence: "Voir toute la veille",
     portalSectionsEyebrow: "Domaines couverts",
     portalSectionsTitle: "Explorer par thème",
     topicRegulationText: "Suivre la supervision, les exigences de capital, la protection des assurés et la conformité.",
@@ -964,7 +997,7 @@ const pageCopy = {
     estimated: "Temps estimé",
     learningItemDailyConcept: "Concept du jour",
     learningItemKnowledgeCard: "Fiche de connaissance",
-    learningItemNews: "Veille associée",
+    learningItemNews: "Éclairage sectoriel",
     learningItemResearch: "Publication de recherche",
     learningItemOfficialSource: "Source de référence",
     learningItemGithubExample: "Exemple open source",
@@ -1339,8 +1372,13 @@ const els = {
   portalLeadLink: document.querySelector("#portalLeadLink"),
   homeLearningSummary: document.querySelector("#homeLearningSummary"),
   homeTodayLearningList: document.querySelector("#homeTodayLearningList"),
+  homeLearningSide: document.querySelector("#homeLearningSide"),
+  homeContinueLearningCard: document.querySelector("#homeContinueLearningCard"),
   homeContinueLearningList: document.querySelector("#homeContinueLearningList"),
+  homeRecommendedLearningCard: document.querySelector("#homeRecommendedLearningCard"),
   homeRecommendedLearningList: document.querySelector("#homeRecommendedLearningList"),
+  homeCompletedLearningCard: document.querySelector("#homeCompletedLearningCard"),
+  homeCompletedLearningTitle: document.querySelector("#homeCompletedLearningTitle"),
   homeCompletedLearningList: document.querySelector("#homeCompletedLearningList"),
   portalLatestGrid: document.querySelector("#portalLatestGrid"),
   portalSectionGrid: document.querySelector("#portalSectionGrid")
@@ -2901,7 +2939,7 @@ function render() {
 
 function renderPortal() {
   if (!els.portalLatestGrid) return;
-  renderHomeLearning();
+  const homeLearningItems = renderHomeLearning();
   const sorted = languageMatchedItems(state.items).sort((a, b) => (b.score || 0) - (a.score || 0));
   const lead = sorted[0];
   if (lead) {
@@ -2921,7 +2959,12 @@ function renderPortal() {
     }
   }
   const leadId = lead ? itemId(lead) : "";
-  const latestItems = sorted.filter(item => itemId(item) !== leadId).slice(0, 3);
+  const homeNewsIds = new Set((homeLearningItems || [])
+    .filter(item => item.type === "news" || item.type === "research")
+    .map(item => String(item.id || "").replace(/^(news|research):/, "")));
+  const latestItems = sorted
+    .filter(item => itemId(item) !== leadId && !homeNewsIds.has(itemId(item)))
+    .slice(0, 3);
   els.portalLatestGrid.innerHTML = latestItems.map(item => portalNewsCard(item)).join("");
 
   const topicDescriptions = {
@@ -2973,38 +3016,60 @@ function renderPortal() {
 }
 
 function renderHomeLearning() {
-  if (!els.homeTodayLearningList) return;
-  const planItems = generateTodaysLearningItems();
+  if (!els.homeTodayLearningList) return [];
+  const planItems = generateHomeTodaysLearningItems();
   const continueItems = generateContinueLearningItems();
-  const recommendedItems = generateRecommendedLearningItems(planItems.map(item => item.id));
   const completedItems = generateCompletedTodayLearningItems();
+  const hasEngagement = continueItems.length > 0 || completedItems.length > 0 || Object.keys(state.learningProgress.started || {}).length > 0;
+  const recommendedItems = hasEngagement
+    ? generateRecommendedLearningItems(planItems.map(item => item.id)).slice(0, 2)
+    : [];
   const minutes = planItems.reduce((sum, item) => sum + Number(item.estimatedMinutes || 0), 0);
   const selectedTopics = state.knowledgePlan.tracks || [];
-  const topicText = selectedTopics.slice(0, 2).map(learningTopicLabel).join(", ");
+  const topicText = selectedTopics.slice(0, 3).map(learningTopicLabel).join(", ");
+  const completedCount = planItems.filter(item => isLearningItemCompleted(item.id)).length;
   if (els.homeLearningSummary) {
     els.homeLearningSummary.textContent = state.knowledgePlan.setupComplete
-      ? `${t("homeLearningSummaryReady")} · ${planItems.length} ${t("contentItems")} · ${minutes || state.knowledgePlan.studyTime || 15} ${t("minutesShort")}${topicText ? ` · ${topicText}` : ""}`
+      ? `${minutes || state.knowledgePlan.studyTime || 15} ${t("minutesShort")} · ${planItems.length} ${t("contentItems")} · ${topicText || t("homeLearningSummaryReady")} · ${completedCount}/${planItems.length || 0} ${t("progressToday")}`
       : t("homeLearningSummarySetup");
   }
-  els.homeTodayLearningList.innerHTML = renderLearningItemList(planItems.slice(0, 3), {
+  if (els.openOnboardingButton) {
+    els.openOnboardingButton.textContent = state.knowledgePlan.setupComplete
+      ? t("editLearningPreferences")
+      : t("buildJourneyArrow");
+  }
+  els.homeTodayLearningList.innerHTML = renderHomeLearningItemList(planItems.slice(0, 3), {
     emptyKey: state.knowledgePlan.setupComplete ? "noLearningPlanItems" : "setupLearningFirst",
-    mode: "today"
+    mode: "today",
+    hideEmpty: false
   });
-  if (els.homeContinueLearningList) {
-    els.homeContinueLearningList.innerHTML = renderLearningItemList(continueItems.slice(0, 2), {
-      emptyKey: "noStartedLearningItems",
-      mode: "continue"
-    });
+  if (els.homeContinueLearningCard && els.homeContinueLearningList) {
+    els.homeContinueLearningCard.hidden = continueItems.length === 0;
+    els.homeContinueLearningList.innerHTML = continueItems.length
+      ? renderHomeLearningItemList(continueItems.slice(0, 2), { mode: "continue", hideEmpty: true })
+      : "";
   }
-  if (els.homeRecommendedLearningList) {
-    els.homeRecommendedLearningList.innerHTML = renderLearningItemList(recommendedItems.slice(0, 2), {
-      emptyKey: "moreContentSoon",
-      mode: "recommended"
-    });
+  if (els.homeRecommendedLearningCard && els.homeRecommendedLearningList) {
+    els.homeRecommendedLearningCard.hidden = recommendedItems.length === 0;
+    els.homeRecommendedLearningList.innerHTML = recommendedItems.length
+      ? renderHomeLearningItemList(recommendedItems, { mode: "recommended", hideEmpty: true })
+      : "";
   }
-  if (els.homeCompletedLearningList) {
-    els.homeCompletedLearningList.innerHTML = renderCompletedLearningList(completedItems.slice(0, 4));
+  if (els.homeCompletedLearningCard && els.homeCompletedLearningList) {
+    els.homeCompletedLearningCard.hidden = completedItems.length === 0;
+    if (els.homeCompletedLearningTitle) {
+      els.homeCompletedLearningTitle.textContent = `${t("completedToday")} · ${completedItems.length}`;
+    }
+    els.homeCompletedLearningList.innerHTML = completedItems.length
+      ? renderCompletedLearningList(completedItems.slice(0, 4))
+      : "";
   }
+  if (els.homeLearningSide) {
+    const showSide = continueItems.length > 0 || recommendedItems.length > 0 || completedItems.length > 0;
+    els.homeLearningSide.hidden = !showSide;
+    els.homeLearningSide.closest(".home-learning-grid")?.classList.toggle("single-column", !showSide);
+  }
+  return planItems;
 }
 
 function renderCompletedLearningList(items) {
@@ -3013,7 +3078,7 @@ function renderCompletedLearningList(items) {
     <details class="completed-learning-details">
       <summary>${escapeHtml(t("completedLabel"))} · ${items.length}</summary>
       <div class="completed-learning-items">
-        ${renderLearningItemList(items, { mode: "completed" })}
+        ${renderHomeLearningItemList(items, { mode: "completed", hideEmpty: true })}
       </div>
     </details>
   `;
@@ -3644,6 +3709,18 @@ function generateTodaysLearningItems() {
   return fitLearningItemsToTime(items, dailyCount, availableMinutes);
 }
 
+function generateHomeTodaysLearningItems() {
+  const baseItems = generateTodaysLearningItems();
+  const selectedTopics = state.knowledgePlan.tracks || [];
+  if (baseItems.some(item => item.type === "news")) return baseItems;
+  const insight = relatedNewsItems(selectedTopics).find(item => !baseItems.some(existing => existing.id === item.id));
+  if (!insight) return baseItems;
+  if (!baseItems.length) return [insight];
+  const next = [...baseItems];
+  next[next.length - 1] = insight;
+  return next;
+}
+
 function knowledgeLearningItem(module, topicId) {
   return {
     id: `knowledge:${module.id}`,
@@ -3752,7 +3829,7 @@ function fitLearningItemsToTime(items, dailyCount, availableMinutes) {
 }
 
 function renderLearningItemList(items, options = {}) {
-  if (!items.length) return `<div class="empty-state">${escapeHtml(t(options.emptyKey || "noLearningPlanItems"))}</div>`;
+  if (!items.length) return options.hideEmpty ? "" : `<div class="empty-state">${escapeHtml(t(options.emptyKey || "noLearningPlanItems"))}</div>`;
   return items.map(item => renderLearningTaskItem(item, options.mode || "today")).join("");
 }
 
@@ -3792,6 +3869,44 @@ function renderLearningTaskItem(item, mode) {
   `;
 }
 
+function renderHomeLearningItemList(items, options = {}) {
+  if (!items.length) return options.hideEmpty ? "" : `<div class="empty-state">${escapeHtml(t(options.emptyKey || "noLearningPlanItems"))}</div>`;
+  return items.map(item => renderHomeLearningTaskItem(item, options.mode || "today")).join("");
+}
+
+function renderHomeLearningTaskItem(item, mode) {
+  const completed = mode === "completed" || isLearningItemCompleted(item.id);
+  const started = Boolean(state.learningProgress.started?.[item.id]);
+  const sourceUrl = item.sourceUrl || item.url;
+  const titleHtml = item.openUrl
+    ? `<a class="learning-plan-title-link" href="${escapeHtml(item.openUrl)}">${escapeHtml(item.title)}</a>`
+    : escapeHtml(item.title);
+  const reason = learningRecommendationReason(item);
+  const actionLabel = started ? t("continueLearning") : t("startLearningItem");
+  return `
+    <article class="learning-plan-item home-learning-task ${escapeHtml(`learning-type-${item.type || "item"}`)}${completed ? " completed" : ""}">
+      <label class="learning-complete-box" aria-label="${escapeHtml(t("markComplete"))}">
+        <input type="checkbox" data-learning-complete="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}"${completed ? " checked disabled" : ""}>
+      </label>
+      <div class="learning-plan-copy">
+        <div class="learning-plan-meta">
+          <span>${escapeHtml(item.typeLabel || learningTypeLabel(item.type))}</span>
+          <span>${escapeHtml(learningTopicLabel(item.topicId))}</span>
+        </div>
+        <h5>${titleHtml}</h5>
+        ${reason ? `<p class="learning-reason">${escapeHtml(reason)}</p>` : ""}
+        <small>${escapeHtml(String(item.estimatedMinutes || 10))} ${escapeHtml(t("minutesShort"))}</small>
+      </div>
+      <div class="learning-plan-actions">
+        ${mode === "completed"
+          ? `<span class="learning-status-pill">${escapeHtml(t("completedLabel"))}</span>`
+          : `<button class="text-link learning-start-link" type="button" data-learning-start="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}">${escapeHtml(actionLabel)} →</button>`}
+        ${sourceUrl ? `<a class="learning-plan-source" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener">${escapeHtml(t("sourceWebsite"))} →</a>` : ""}
+      </div>
+    </article>
+  `;
+}
+
 function learningTypeLabel(type) {
   const labels = {
     concept: t("learningItemDailyConcept"),
@@ -3802,6 +3917,34 @@ function learningTypeLabel(type) {
     github: t("learningItemGithubExample")
   };
   return labels[type] || type || "";
+}
+
+function learningRecommendationReason(item) {
+  if (!item) return "";
+  const selectedTopics = new Set(state.knowledgePlan.tracks || []);
+  if ((item.type === "news" || item.type === "research") && item.topicId && selectedTopics.has(item.topicId)) {
+    return t("recommendationIndustryInsight");
+  }
+  if (item.topicId && selectedTopics.has(item.topicId)) {
+    return t("recommendationSelectedTopic").replace("{topic}", learningTopicLabel(item.topicId));
+  }
+  const goal = state.knowledgePlan.learningGoal;
+  if (goal === "regulatory_literacy" && ["Solvency II", "IFRS 17", "Regulation", "Capital Management", "ERM"].includes(item.topicId)) {
+    return t("recommendationGoalRegulatory");
+  }
+  if (goal === "pricing_reserving" && ["Pricing", "Reserving", "Data Analytics"].includes(item.topicId)) {
+    return t("recommendationGoalPricing");
+  }
+  if (goal === "industry_context" && ["Insurance Fundamentals", "Reinsurance", "Life Insurance", "Health Insurance"].includes(item.topicId)) {
+    return t("recommendationGoalIndustry");
+  }
+  if (goal === "exam_ready" && ["Fundamentals", "Insurance Fundamentals", "IFRS 17", "Solvency II"].includes(item.topicId)) {
+    return t("recommendationGoalExam");
+  }
+  if (goal === "job_ready" && ["Fundamentals", "Pricing", "Reserving", "Data Analytics"].includes(item.topicId)) {
+    return t("recommendationGoalJob");
+  }
+  return "";
 }
 
 function dailyConceptLearningItem(topicId) {
