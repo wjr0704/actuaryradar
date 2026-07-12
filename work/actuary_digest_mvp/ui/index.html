@@ -118,6 +118,7 @@
             </div>
             <div class="home-learning-actions">
               <button class="text-link" id="openOnboardingButton" type="button" data-i18n="buildJourneyArrow">Build My Learning Journey</button>
+              <button class="text-link" id="saveTodayLearningButton" type="button" data-i18n="saveTodayLearning">Save today</button>
               <button class="text-link subtle-link" id="resetHomeLearningPreferences" type="button" data-i18n="resetPreferences">Reset</button>
             </div>
           </div>
@@ -249,6 +250,7 @@
             <h3 data-i18n="knowledgeTitle">精算知识库</h3>
             <p data-i18n="knowledgeIntro">从精算知识地图中定制学习主题和每日学习数量</p>
           </div>
+          <button class="primary-button compact-button" id="saveKnowledgeLearningButton" type="button" data-i18n="saveTodayLearning">保存今日学习</button>
         </div>
         <section class="knowledge-overview">
           <div class="concept-grid" id="conceptGrid"></div>
@@ -281,6 +283,10 @@
             <p data-i18n="savedIntro">保存在当前浏览器中，可用于第二天回看和导出</p>
           </div>
           <button class="primary-button compact-button" id="saveCurrentDigestButton" type="button" data-i18n="saveCurrent">保存当前日报</button>
+        </div>
+        <div class="saved-tabs" role="tablist" aria-label="Saved content">
+          <button class="saved-tab active" type="button" data-saved-tab="briefings" data-i18n="savedBriefingsTab">Briefings</button>
+          <button class="saved-tab" type="button" data-saved-tab="learning" data-i18n="learningJournalTab">Learning Journal</button>
         </div>
         <div class="saved-digest-list" id="savedDigestList"></div>
       </section>

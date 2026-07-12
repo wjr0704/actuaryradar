@@ -50,6 +50,8 @@ const state = {
   saved: new Set(JSON.parse(localStorage.getItem("actuaryDigest.saved") || "[]")),
   done: new Set(JSON.parse(localStorage.getItem("actuaryDigest.done") || "[]")),
   savedDigests: JSON.parse(localStorage.getItem("actuaryDigest.savedDigests") || "{}"),
+  learningJournal: JSON.parse(localStorage.getItem("actuaryRadar.learningJournal") || "{}"),
+  savedView: "briefings",
   archives: []
 };
 
@@ -567,6 +569,16 @@ const pageCopy = {
     ask: "提问",
     savedIntro: "保存在当前浏览器中，可用于第二天回看和导出",
     saveCurrent: "保存当前日报",
+    saveTodayLearning: "保存今日学习",
+    savedBriefingsTab: "已保存日报",
+    learningJournalTab: "学习日志",
+    noLearningJournal: "还没有保存学习日志。点击首页或知识库的“保存今日学习”。",
+    exportMarkdown: "导出 Markdown",
+    exportHtml: "导出 HTML",
+    learningJournalTitle: "ActuaryRadar 学习日志",
+    learningJournalSaved: "今日学习已保存",
+    studyTopics: "学习主题",
+    learningPreferences: "学习偏好",
     actuarialAngle: "精算视角",
     suggestedActions: "建议行动",
     source: "原文",
@@ -826,6 +838,16 @@ const pageCopy = {
     ask: "Ask",
     savedIntro: "Saved in this browser for later review and PDF export",
     saveCurrent: "Save current report",
+    saveTodayLearning: "Save today",
+    savedBriefingsTab: "Briefings",
+    learningJournalTab: "Learning Journal",
+    noLearningJournal: "No learning journal yet. Click “Save today” on Home or Actuarial Knowledge.",
+    exportMarkdown: "Export Markdown",
+    exportHtml: "Export HTML",
+    learningJournalTitle: "ActuaryRadar Learning Journal",
+    learningJournalSaved: "Today’s learning has been saved",
+    studyTopics: "Study topics",
+    learningPreferences: "Learning preferences",
     actuarialAngle: "Actuarial View",
     suggestedActions: "Suggested Actions",
     source: "Source",
@@ -1085,6 +1107,16 @@ const pageCopy = {
     ask: "Demander",
     savedIntro: "Conservé dans ce navigateur pour relecture et export PDF",
     saveCurrent: "Enregistrer cette veille",
+    saveTodayLearning: "Enregistrer le jour",
+    savedBriefingsTab: "Veilles",
+    learningJournalTab: "Journal de formation",
+    noLearningJournal: "Aucun journal de formation enregistré. Cliquez sur « Enregistrer le jour » depuis l’accueil ou les connaissances actuarielles.",
+    exportMarkdown: "Exporter Markdown",
+    exportHtml: "Exporter HTML",
+    learningJournalTitle: "Journal de formation ActuaryRadar",
+    learningJournalSaved: "La formation du jour a été enregistrée",
+    studyTopics: "Thèmes de formation",
+    learningPreferences: "Préférences de formation",
     actuarialAngle: "Analyse actuarielle",
     suggestedActions: "Pistes d’action",
     source: "Source",
@@ -1343,7 +1375,10 @@ const els = {
   saveDailyButton: document.querySelector("#saveDailyButton"),
   exportPdfButton: document.querySelector("#exportPdfButton"),
   saveCurrentDigestButton: document.querySelector("#saveCurrentDigestButton"),
+  saveTodayLearningButton: document.querySelector("#saveTodayLearningButton"),
+  saveKnowledgeLearningButton: document.querySelector("#saveKnowledgeLearningButton"),
   savedDigestList: document.querySelector("#savedDigestList"),
+  savedTabs: document.querySelectorAll("[data-saved-tab]"),
   knowledgeFilter: document.querySelector("#knowledgeFilter"),
   conceptGrid: document.querySelector("#conceptGrid"),
   knowledgeGrid: document.querySelector("#knowledgeGrid"),
@@ -1774,6 +1809,14 @@ function bindEvents() {
   els.saveCurrentDigestButton.addEventListener("click", () => {
     saveCurrentDigest();
     renderSavedDigests();
+  });
+  els.saveTodayLearningButton?.addEventListener("click", saveTodayLearningJournal);
+  els.saveKnowledgeLearningButton?.addEventListener("click", saveTodayLearningJournal);
+  els.savedTabs?.forEach(button => {
+    button.addEventListener("click", () => {
+      state.savedView = button.dataset.savedTab || "briefings";
+      renderSavedDigests();
+    });
   });
 
   els.exportPdfButton.addEventListener("click", () => {
@@ -3508,7 +3551,78 @@ function saveCurrentDigest() {
   }, 1200);
 }
 
+function saveTodayLearningJournal() {
+  const snapshot = createLearningJournalSnapshot();
+  state.learningJournal[snapshot.date] = snapshot;
+  localStorage.setItem("actuaryRadar.learningJournal", JSON.stringify(state.learningJournal));
+  window.alert(t("learningJournalSaved"));
+  if (state.activePage === "saved") renderSavedDigests();
+}
+
+function createLearningJournalSnapshot() {
+  const date = currentLearningDate();
+  const selectedTopics = state.knowledgePlan.tracks?.length ? state.knowledgePlan.tracks : defaultKnowledgePlan.tracks;
+  const planItems = generateHomeTodaysLearningItems();
+  const concepts = currentPersonalizedDailyConcepts().map(({ topicId, concept }) => ({
+    topicId,
+    topicLabel: learningTopicLabel(topicId),
+    term: concept.term,
+    definition: concept.definition,
+    example: concept.example,
+    exercise: concept.exercise,
+    sourceUrl: concept.sourceUrl || "",
+    openUrl: concept.openUrl || ""
+  }));
+  const resourcesById = new Map();
+  selectedTopics.slice(0, 4).forEach(topicId => {
+    openSourceResourcesForTopic(topicId).forEach(resource => resourcesById.set(resource.id, {
+      id: resource.id,
+      name: resource.name,
+      url: resource.github_url,
+      language: resource.programming_language || "",
+      difficulty: displayRepositoryDifficulty(resource.difficulty),
+      summary: localizedRepositorySummary(resource)
+    }));
+  });
+  return {
+    date,
+    savedAt: new Date().toISOString(),
+    language: state.language,
+    preferences: {
+      careerStage: onboardingCareerLabel(state.knowledgePlan.careerStage || "student"),
+      learningGoal: onboardingGoalLabel(state.knowledgePlan.learningGoal || "job_ready"),
+      studyTime: state.knowledgePlan.studyTime || 15,
+      topics: selectedTopics.map(learningTopicLabel)
+    },
+    concepts,
+    learningItems: planItems.map(item => ({
+      id: item.id,
+      type: item.type,
+      typeLabel: item.typeLabel || learningTypeLabel(item.type),
+      topic: learningTopicLabel(item.topicId),
+      title: item.title,
+      estimatedMinutes: item.estimatedMinutes || 10,
+      completed: isLearningItemCompletedToday(item.id),
+      sourceUrl: item.sourceUrl || "",
+      openUrl: item.openUrl || ""
+    })),
+    openSourceResources: [...resourcesById.values()].slice(0, 6),
+    completedItems: generateCompletedTodayLearningItems().map(item => ({
+      title: item.title,
+      topic: learningTopicLabel(item.topicId),
+      completedAt: item.completedAt || ""
+    }))
+  };
+}
+
 function renderSavedDigests() {
+  els.savedTabs?.forEach(button => {
+    button.classList.toggle("active", (button.dataset.savedTab || "briefings") === state.savedView);
+  });
+  if (state.savedView === "learning") {
+    renderLearningJournal();
+    return;
+  }
   const entries = Object.entries(state.savedDigests)
     .sort(([dateA], [dateB]) => dateB.localeCompare(dateA));
   if (!entries.length) {
@@ -3543,6 +3657,157 @@ function renderSavedDigests() {
       setActivePage("daily");
     });
   });
+}
+
+function renderLearningJournal() {
+  const entries = Object.entries(state.learningJournal)
+    .sort(([dateA], [dateB]) => dateB.localeCompare(dateA));
+  if (!entries.length) {
+    els.savedDigestList.innerHTML = `<div class="empty-state">${escapeHtml(t("noLearningJournal"))}</div>`;
+    return;
+  }
+  els.savedDigestList.innerHTML = entries.map(([date, record]) => {
+    const conceptCount = record.concepts?.length || 0;
+    const itemCount = record.learningItems?.length || 0;
+    const completedCount = (record.learningItems || []).filter(item => item.completed).length;
+    const conceptList = (record.concepts || []).map(concept => `<li><strong>${escapeHtml(concept.term)}</strong> · ${escapeHtml(concept.topicLabel || "")}</li>`).join("");
+    const learningList = (record.learningItems || []).map(item => `<li>${item.completed ? "✓" : "□"} ${escapeHtml(item.title)} <span>${escapeHtml(item.topic || "")}</span></li>`).join("");
+    return `
+      <article class="saved-digest-card learning-journal-card">
+        <div>
+          <strong>${escapeHtml(date)}</strong>
+          <p>${escapeHtml((record.preferences?.topics || []).slice(0, 4).join(", "))}</p>
+          <span>${conceptCount} ${escapeHtml(t("dailyConcept"))} · ${itemCount} ${escapeHtml(t("contentItems"))} · ${completedCount}/${itemCount} ${escapeHtml(t("progressToday"))}</span>
+          <details class="learning-journal-details">
+            <summary>${escapeHtml(t("open"))}</summary>
+            <div>
+              <strong>${escapeHtml(t("dailyConcept"))}</strong>
+              <ul>${conceptList}</ul>
+              <strong>${escapeHtml(t("todaysLearning"))}</strong>
+              <ul>${learningList}</ul>
+            </div>
+          </details>
+        </div>
+        <div class="saved-card-actions">
+          <button class="ghost-button" type="button" data-learning-md="${escapeHtml(date)}">${escapeHtml(t("exportMarkdown"))}</button>
+          <button class="ghost-button" type="button" data-learning-html="${escapeHtml(date)}">${escapeHtml(t("exportHtml"))}</button>
+        </div>
+      </article>
+    `;
+  }).join("");
+  els.savedDigestList.querySelectorAll("[data-learning-md]").forEach(button => {
+    button.addEventListener("click", () => exportLearningJournalMarkdown(button.dataset.learningMd));
+  });
+  els.savedDigestList.querySelectorAll("[data-learning-html]").forEach(button => {
+    button.addEventListener("click", () => exportLearningJournalHtml(button.dataset.learningHtml));
+  });
+}
+
+function exportLearningJournalMarkdown(date) {
+  const record = state.learningJournal[date];
+  if (!record) return;
+  const markdown = learningJournalMarkdown(record);
+  downloadTextFile(`actuary-radar-learning-${date}.md`, markdown, "text/markdown;charset=utf-8");
+}
+
+function exportLearningJournalHtml(date) {
+  const record = state.learningJournal[date];
+  if (!record) return;
+  const html = learningJournalHtml(record);
+  downloadTextFile(`actuary-radar-learning-${date}.html`, html, "text/html;charset=utf-8");
+}
+
+function learningJournalMarkdown(record) {
+  const lines = [
+    `# ${t("learningJournalTitle")}`,
+    "",
+    `${t("exportDate")}: ${record.date}`,
+    `${t("exportGeneratedBy")}: ${new Date(record.savedAt || Date.now()).toLocaleString()}`,
+    "",
+    `## ${t("learningPreferences")}`,
+    `- ${t("careerStageLabel")}: ${record.preferences?.careerStage || "-"}`,
+    `- ${t("learningGoalLabel")}: ${record.preferences?.learningGoal || "-"}`,
+    `- ${t("studyTimeLabel")}: ${record.preferences?.studyTime || "-"} ${t("minutesShort")}`,
+    `- ${t("studyTopics")}: ${(record.preferences?.topics || []).join(", ")}`,
+    "",
+    `## ${t("dailyConcept")}`,
+    ...(record.concepts || []).flatMap((concept, index) => [
+      `${index + 1}. **${concept.term}** (${concept.topicLabel || ""})`,
+      `   - ${concept.definition || ""}`,
+      concept.example ? `   - ${concept.example}` : "",
+      concept.exercise ? `   - ${concept.exercise}` : "",
+      concept.sourceUrl ? `   - ${t("sourceWebsite")}: ${concept.sourceUrl}` : ""
+    ].filter(Boolean)),
+    "",
+    `## ${t("todaysLearning")}`,
+    ...(record.learningItems || []).map(item => `- [${item.completed ? "x" : " "}] ${item.typeLabel || item.type}: ${item.title} (${item.topic}, ${item.estimatedMinutes} ${t("minutesShort")})`),
+    "",
+    `## ${t("openSourceResourcesTitle")}`,
+    ...(record.openSourceResources || []).map(resource => `- ${resource.name} (${resource.language || "-"}) - ${resource.url || ""}`),
+    "",
+    `## ${t("completedLabel")}`,
+    ...((record.completedItems || []).length ? record.completedItems.map(item => `- ${item.title} (${item.topic})`) : ["-"])
+  ];
+  return lines.join("\n");
+}
+
+function learningJournalHtml(record) {
+  const concepts = (record.concepts || []).map(concept => `
+    <article>
+      <h3>${escapeHtml(concept.term)}</h3>
+      <p><strong>${escapeHtml(concept.topicLabel || "")}</strong></p>
+      <p>${escapeHtml(concept.definition || "")}</p>
+      ${concept.example ? `<p>${escapeHtml(concept.example)}</p>` : ""}
+      ${concept.exercise ? `<p>${escapeHtml(concept.exercise)}</p>` : ""}
+      ${concept.sourceUrl ? `<p><a href="${escapeHtml(concept.sourceUrl)}">${escapeHtml(t("sourceWebsite"))}</a></p>` : ""}
+    </article>
+  `).join("");
+  const items = (record.learningItems || []).map(item => `
+    <li>${item.completed ? "✓" : "□"} ${escapeHtml(item.typeLabel || item.type)} · ${escapeHtml(item.title)} · ${escapeHtml(item.topic)} · ${escapeHtml(String(item.estimatedMinutes))} ${escapeHtml(t("minutesShort"))}</li>
+  `).join("");
+  const resources = (record.openSourceResources || []).map(resource => `
+    <li><a href="${escapeHtml(resource.url || "#")}">${escapeHtml(resource.name)}</a> · ${escapeHtml(resource.language || "")}</li>
+  `).join("");
+  return `<!doctype html>
+<html lang="${escapeHtml(state.language)}">
+<head>
+  <meta charset="utf-8">
+  <title>${escapeHtml(t("learningJournalTitle"))} · ${escapeHtml(record.date)}</title>
+  <style>
+    body{font-family:Inter,Arial,sans-serif;max-width:880px;margin:40px auto;padding:0 24px;color:#14213d;line-height:1.6}
+    h1,h2{color:#071a3a} article{border:1px solid #d8e0ea;border-radius:10px;padding:16px;margin:12px 0;background:#fbfdff}
+    .meta{color:#52647c} a{color:#0f766e}
+  </style>
+</head>
+<body>
+  <h1>${escapeHtml(t("learningJournalTitle"))}</h1>
+  <p class="meta">${escapeHtml(t("exportDate"))}: ${escapeHtml(record.date)} · ${escapeHtml(t("exportGeneratedBy"))} · ${escapeHtml(new Date(record.savedAt || Date.now()).toLocaleString())}</p>
+  <h2>${escapeHtml(t("learningPreferences"))}</h2>
+  <ul>
+    <li>${escapeHtml(t("careerStageLabel"))}: ${escapeHtml(record.preferences?.careerStage || "-")}</li>
+    <li>${escapeHtml(t("learningGoalLabel"))}: ${escapeHtml(record.preferences?.learningGoal || "-")}</li>
+    <li>${escapeHtml(t("studyTimeLabel"))}: ${escapeHtml(String(record.preferences?.studyTime || "-"))} ${escapeHtml(t("minutesShort"))}</li>
+    <li>${escapeHtml(t("studyTopics"))}: ${escapeHtml((record.preferences?.topics || []).join(", "))}</li>
+  </ul>
+  <h2>${escapeHtml(t("dailyConcept"))}</h2>
+  ${concepts}
+  <h2>${escapeHtml(t("todaysLearning"))}</h2>
+  <ul>${items}</ul>
+  <h2>${escapeHtml(t("openSourceResourcesTitle"))}</h2>
+  <ul>${resources}</ul>
+</body>
+</html>`;
+}
+
+function downloadTextFile(filename, content, mimeType) {
+  const blob = new Blob([content], { type: mimeType });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(link.href);
 }
 
 function renderKnowledgeFilter() {

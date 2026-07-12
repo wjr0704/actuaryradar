@@ -2332,6 +2332,33 @@ body[data-page="daily"]:not([data-section="all"]) .focus-band {
   gap: var(--section-gap);
 }
 
+.saved-tabs {
+  display: inline-flex;
+  gap: 4px;
+  margin: 0 0 var(--section-gap);
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #f6f9fc;
+}
+
+.saved-tab {
+  min-height: 34px;
+  border: 0;
+  border-radius: calc(var(--radius) - 3px);
+  padding: 0 14px;
+  background: transparent;
+  color: var(--muted);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.saved-tab.active {
+  background: #ffffff;
+  color: var(--ink);
+  box-shadow: var(--shadow-card);
+}
+
 .knowledge-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -2359,6 +2386,30 @@ body[data-page="daily"]:not([data-section="all"]) .focus-band {
 .knowledge-card p,
 .saved-digest-card p {
   color: var(--muted);
+}
+
+.saved-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.learning-journal-details {
+  margin-top: 12px;
+  color: var(--muted);
+}
+
+.learning-journal-details summary {
+  width: max-content;
+  color: var(--accent-dark);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.learning-journal-details ul {
+  margin: 8px 0 12px;
+  padding-left: 18px;
 }
 
 .knowledge-section {
