@@ -1364,6 +1364,7 @@ const els = {
   onboardingStudyTime: document.querySelector("#onboardingStudyTime"),
   onboardingTopicGrid: document.querySelector("#onboardingTopicGrid"),
   openOnboardingButton: document.querySelector("#openOnboardingButton"),
+  resetHomeLearningPreferences: document.querySelector("#resetHomeLearningPreferences"),
   skipOnboardingButton: document.querySelector("#skipOnboardingButton"),
   createPlanButton: document.querySelector("#createPlanButton"),
   copyContactButton: document.querySelector("#copyContactButton"),
@@ -1828,13 +1829,8 @@ function bindEvents() {
     renderLearningPlan();
   });
 
-  els.resetLearningPreferences?.addEventListener("click", () => {
-    state.knowledgePlan = { ...defaultKnowledgePlan };
-    saveKnowledgePlan();
-    renderKnowledgePlanner();
-    renderKnowledge();
-    renderLearningPlan();
-  });
+  els.resetLearningPreferences?.addEventListener("click", resetLearningPreferences);
+  els.resetHomeLearningPreferences?.addEventListener("click", resetLearningPreferences);
 
   els.learningPlanList?.addEventListener("click", event => {
     handleLearningActionClick(event);
@@ -3645,6 +3641,18 @@ function handleLearningActionClick(event) {
   if (completeButton) {
     markLearningItemComplete(completeButton.dataset.learningComplete, completeButton.dataset.learningTopic);
   }
+}
+
+function resetLearningPreferences() {
+  state.knowledgePlan = { ...defaultKnowledgePlan };
+  state.onboardingSkipped = false;
+  localStorage.removeItem("actuaryRadar.onboardingSkipped");
+  saveKnowledgePlan();
+  renderOnboardingOptions();
+  renderKnowledgePlanner();
+  if (state.activePage === "knowledge") renderKnowledge();
+  renderLearningPlan();
+  renderPortal();
 }
 
 function renderLearningPlan() {

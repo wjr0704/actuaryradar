@@ -932,6 +932,25 @@ body[data-page="daily"]:not([data-section="all"]) .focus-band {
   margin-bottom: clamp(14px, 1.2vw, 18px);
 }
 
+.home-learning-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.subtle-link {
+  color: var(--muted);
+  border-bottom-color: transparent;
+  font-weight: 750;
+}
+
+.subtle-link:hover {
+  color: var(--accent-dark);
+  border-bottom-color: var(--accent);
+}
+
 .home-learning-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
