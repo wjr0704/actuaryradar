@@ -56,6 +56,42 @@ const state = {
 };
 
 const taxonomy = window.ActuaryRadarTaxonomy || {};
+let lastTrackedPageKey = "";
+let searchAnalyticsTimer = null;
+
+function analyticsEvent(name, params = {}) {
+  window.ActuaryRadarAnalytics?.event(name, {
+    language: state.language,
+    active_page: state.activePage,
+    active_section: normalizeSection(state.activeSection),
+    ...params
+  });
+}
+
+function analyticsPageView(reason = "route") {
+  const pageKey = [
+    state.activePage,
+    normalizeSection(state.activeSection),
+    state.language,
+    window.location.pathname,
+    window.location.search
+  ].join("|");
+  if (pageKey === lastTrackedPageKey) return;
+  lastTrackedPageKey = pageKey;
+  if (reason === "route_change") {
+    window.ActuaryRadarAnalytics?.event("route_change", {
+      app_page: state.activePage,
+      briefing_topic: normalizeSection(state.activeSection),
+      language: state.language
+    });
+  }
+  window.ActuaryRadarAnalytics?.pageView({
+    app_page: state.activePage,
+    briefing_topic: normalizeSection(state.activeSection),
+    language: state.language,
+    navigation_reason: reason
+  });
+}
 
 const sectionOrder = [
   "regulation",
@@ -1430,6 +1466,7 @@ const els = {
 };
 
 async function init() {
+  window.ActuaryRadarAnalytics?.init();
   await loadLearningTaxonomy();
   normalizeLearningState();
   applyInitialRouteState();
@@ -1454,6 +1491,7 @@ async function init() {
   setActivePage(state.activePage);
   render();
   maybeOpenOnboardingModal();
+  analyticsPageView("initial_load");
 }
 
 function applyInitialRouteState() {
@@ -1604,6 +1642,12 @@ function saveOnboardingPlan() {
   state.onboardingSkipped = false;
   localStorage.removeItem("actuaryRadar.onboardingSkipped");
   saveKnowledgePlan();
+  analyticsEvent("learning_journey_created", {
+    career_stage: state.knowledgePlan.careerStage,
+    learning_goal: state.knowledgePlan.learningGoal,
+    study_time: state.knowledgePlan.studyTime,
+    topic_count: state.knowledgePlan.tracks.length
+  });
   closeOnboardingModal();
   renderKnowledgePlanner();
   renderKnowledge();
@@ -1731,6 +1775,15 @@ function bindEvents() {
 
   els.searchInput.addEventListener("input", event => {
     state.filters.search = event.target.value.trim().toLowerCase();
+    window.clearTimeout(searchAnalyticsTimer);
+    if (state.filters.search.length >= 2) {
+      searchAnalyticsTimer = window.setTimeout(() => {
+        analyticsEvent("search_used", {
+          search_length: state.filters.search.length,
+          result_count: getFilteredItems().length
+        });
+      }, 700);
+    }
     render();
   });
 
@@ -1882,6 +1935,13 @@ function bindEvents() {
   els.saveLearningPreferences?.addEventListener("click", () => {
     state.knowledgePlan.setupComplete = true;
     saveKnowledgePlan();
+    analyticsEvent("learning_journey_created", {
+      career_stage: state.knowledgePlan.careerStage,
+      learning_goal: state.knowledgePlan.learningGoal,
+      study_time: state.knowledgePlan.studyTime,
+      topic_count: state.knowledgePlan.tracks.length,
+      source: "knowledge_page"
+    });
     renderKnowledgePlanner();
     renderLearningPlan();
   });
@@ -1951,6 +2011,7 @@ function setActivePage(page) {
     renderKnowledge();
   }
   if (page === "home") renderPortal();
+  analyticsPageView("route_change");
 }
 
 function syncBodyState() {
@@ -3031,6 +3092,15 @@ function renderPortal() {
     if (els.portalLeadLink) {
       els.portalLeadLink.href = originalArticleUrl(lead);
       els.portalLeadLink.hidden = originalArticleUrl(lead) === "#";
+      els.portalLeadLink.onclick = () => {
+        analyticsEvent("industry_insight_opened", {
+          article_id: itemId(lead),
+          article_title: localizedItemTitle(lead),
+          source_name: displayPrimarySource(lead),
+          topic: normalizeSection(lead.platform_section),
+          source: "hero_highlight"
+        });
+      };
     }
   } else {
     els.portalLeadTitle.textContent = t("noItems");
@@ -3076,6 +3146,10 @@ function renderPortal() {
 
   els.portalLatestGrid.querySelectorAll("[data-portal-url]").forEach(button => {
     button.addEventListener("click", () => {
+      analyticsEvent("industry_insight_opened", {
+        article_title: button.dataset.portalTitle || "",
+        source: "latest_intelligence"
+      });
       state.activeSection = "全部";
       state.dailyNavExpanded = false;
       setActivePage("daily");
@@ -3429,6 +3503,14 @@ function renderCards(items) {
     save.addEventListener("click", () => toggleSet("saved", id));
     done.addEventListener("click", () => toggleSet("done", id));
     issue.addEventListener("click", () => reportIssue(item));
+    link.addEventListener("click", () => {
+      analyticsEvent("industry_insight_opened", {
+        article_id: id,
+        article_title: localizedItemTitle(item),
+        source_name: displayPrimarySource(item),
+        topic: normalizeSection(item.platform_section)
+      });
+    });
 
     fragment.appendChild(node);
   });
@@ -3916,9 +3998,19 @@ function renderKnowledge() {
   renderOpenSourceLearning(visibleModules);
   els.knowledgeGrid.querySelectorAll(".answer-toggle").forEach(button => {
     button.addEventListener("click", () => {
+      const card = button.closest(".knowledge-card");
+      const module = visibleModules.find(item => knowledgeCardAnchor(item) === card?.id);
       const answer = button.nextElementSibling;
       answer.hidden = !answer.hidden;
       button.textContent = answer.hidden ? t("showAnswer") : t("hideAnswer");
+      if (!answer.hidden && module) {
+        analyticsEvent("knowledge_card_opened", {
+          knowledge_id: module.id || module.topic_id || "",
+          topic_id: module.track || "",
+          card_title: displayKnowledgeTitle(module),
+          source: "answer_toggle"
+        });
+      }
     });
   });
 }
@@ -3990,6 +4082,9 @@ function handleLearningActionClick(event) {
 function navigateToLearningTarget(openUrl) {
   if (!openUrl) return;
   if (/^https?:\/\//i.test(openUrl)) {
+    analyticsEvent("industry_insight_opened", {
+      destination_url: openUrl
+    });
     window.open(openUrl, "_blank", "noopener");
     return;
   }
@@ -3999,6 +4094,14 @@ function navigateToLearningTarget(openUrl) {
   state.dailyNavExpanded = false;
   setActivePage("knowledge");
   render();
+  const module = state.knowledge.find(item => knowledgeCardAnchor(item) === anchor);
+  if (module) {
+    analyticsEvent("knowledge_card_opened", {
+      knowledge_id: module.id || module.topic_id || "",
+      topic_id: module.track || "",
+      card_title: displayKnowledgeTitle(module)
+    });
+  }
   window.setTimeout(() => {
     document.getElementById(anchor)?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, 50);
@@ -4690,6 +4793,9 @@ function markLearningItemComplete(itemIdValue, topicId) {
     state.learningProgress.topicCompletions[topicId] = (state.learningProgress.topicCompletions[topicId] || 0) + 1;
   }
   saveLearningProgress();
+  analyticsEvent("learning_completed", learningAnalyticsPayload(snapshot, {
+    item_id: itemIdValue
+  }));
   renderLearningPlan();
 }
 
@@ -4732,7 +4838,20 @@ function markLearningItemStarted(itemIdValue, topicId) {
     startedAt: new Date().toISOString()
   };
   saveLearningProgress();
+  analyticsEvent("learning_started", learningAnalyticsPayload(item, {
+    item_id: itemIdValue
+  }));
   renderLearningPlan();
+}
+
+function learningAnalyticsPayload(item, extra = {}) {
+  return {
+    item_type: item?.type || "knowledge",
+    topic_id: item?.topicId || extra.topic_id || "",
+    item_title: item?.title || "",
+    estimated_minutes: item?.estimatedMinutes || "",
+    ...extra
+  };
 }
 
 function isLearningItemCompleted(itemIdValue) {
