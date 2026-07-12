@@ -3020,14 +3020,14 @@ function renderHomeLearning() {
   const planItems = generateHomeTodaysLearningItems();
   const continueItems = generateContinueLearningItems();
   const completedItems = generateCompletedTodayLearningItems();
-  const hasEngagement = continueItems.length > 0 || completedItems.length > 0 || Object.keys(state.learningProgress.started || {}).length > 0;
-  const recommendedItems = hasEngagement
+  const completedCount = planItems.filter(item => isLearningItemCompletedToday(item.id)).length;
+  const todaysPlanComplete = planItems.length > 0 && completedCount >= planItems.length;
+  const recommendedItems = todaysPlanComplete
     ? generateRecommendedLearningItems(planItems.map(item => item.id)).slice(0, 2)
     : [];
   const minutes = planItems.reduce((sum, item) => sum + Number(item.estimatedMinutes || 0), 0);
   const selectedTopics = state.knowledgePlan.tracks || [];
   const topicText = selectedTopics.slice(0, 3).map(learningTopicLabel).join(", ");
-  const completedCount = planItems.filter(item => isLearningItemCompleted(item.id)).length;
   if (els.homeLearningSummary) {
     els.homeLearningSummary.textContent = state.knowledgePlan.setupComplete
       ? `${minutes || state.knowledgePlan.studyTime || 15} ${t("minutesShort")} · ${planItems.length} ${t("contentItems")} · ${topicText || t("homeLearningSummaryReady")} · ${completedCount}/${planItems.length || 0} ${t("progressToday")}`
@@ -3688,7 +3688,7 @@ function generateTodaysLearningItems() {
   const items = [];
   const addItem = item => {
     if (!item?.id || items.some(existing => existing.id === item.id)) return;
-    if (isLearningItemCompleted(item.id)) return;
+    if (isLearningItemCompletedBeforeToday(item.id)) return;
     items.push(item);
   };
 
@@ -3713,7 +3713,7 @@ function generateHomeTodaysLearningItems() {
   const baseItems = generateTodaysLearningItems();
   const selectedTopics = state.knowledgePlan.tracks || [];
   if (baseItems.some(item => item.type === "news")) return baseItems;
-  const insight = relatedNewsItems(selectedTopics).find(item => !baseItems.some(existing => existing.id === item.id));
+  const insight = relatedNewsItems(selectedTopics).find(item => !baseItems.some(existing => existing.id === item.id) && !isLearningItemCompletedBeforeToday(item.id));
   if (!insight) return baseItems;
   if (!baseItems.length) return [insight];
   const next = [...baseItems];
@@ -4110,6 +4110,16 @@ function markLearningItemStarted(itemIdValue, topicId) {
 
 function isLearningItemCompleted(itemIdValue) {
   return Object.values(state.learningProgress.completed || {}).some(day => Boolean(day?.[itemIdValue]));
+}
+
+function isLearningItemCompletedToday(itemIdValue) {
+  const today = state.learningProgress.completed?.[currentLearningDate()] || {};
+  return Boolean(today[itemIdValue]);
+}
+
+function isLearningItemCompletedBeforeToday(itemIdValue) {
+  const today = currentLearningDate();
+  return Object.entries(state.learningProgress.completed || {}).some(([date, day]) => date !== today && Boolean(day?.[itemIdValue]));
 }
 
 function calculateLearningStreak() {
