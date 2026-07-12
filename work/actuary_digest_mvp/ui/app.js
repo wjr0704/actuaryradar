@@ -3956,10 +3956,13 @@ function learningRecommendationReason(item) {
 }
 
 function dailyConceptLearningItem(topicId) {
-  const concept = state.data?.daily_concept ? localizedDailyConcept(state.data.daily_concept) : null;
+  const rawConcept = state.data?.daily_concept || null;
+  const concept = rawConcept && dailyConceptSuitableForTopic(topicId, rawConcept)
+    ? localizedDailyConcept(rawConcept)
+    : fallbackDailyConceptForTopic(topicId);
   if (!concept) return null;
   return {
-    id: `concept:${currentLearningDate()}:${concept.term}`,
+    id: `concept:${currentLearningDate()}:${topicId}:${concept.term}`,
     topicId,
     type: "concept",
     typeLabel: t("learningItemDailyConcept"),
@@ -3968,6 +3971,43 @@ function dailyConceptLearningItem(topicId) {
     estimatedMinutes: 8,
     openUrl: "#dailyConceptBlock",
     sourceUrl: concept.sourceUrl
+  };
+}
+
+function dailyConceptSuitableForTopic(topicId, concept) {
+  const pseudoModule = {
+    id: "daily-concept",
+    topic_id: "daily-concept",
+    track: "",
+    title: concept?.term || "",
+    summary: concept?.definition || "",
+    concepts: [concept?.term, concept?.definition, concept?.exercise].filter(Boolean)
+  };
+  if (!moduleSuitableForTopic(topicId, pseudoModule)) return false;
+  if (topicId === "Fundamentals") {
+    return !isAdvancedReinsuranceOrCatModule(pseudoModule);
+  }
+  if (topicId === "Insurance Fundamentals") {
+    return !isAdvancedReinsuranceOrCatModule(pseudoModule);
+  }
+  return topicMatchesModule(topicId, pseudoModule) || !isAdvancedReinsuranceOrCatModule(pseudoModule);
+}
+
+function fallbackDailyConceptForTopic(topicId) {
+  const module = state.knowledge.find(item => {
+    return topicMatchesModule(topicId, item)
+      && moduleSuitableForTopic(topicId, item)
+      && difficultyMatchesModule(item);
+  });
+  if (!module) return null;
+  const conceptTerm = (module.concepts || []).find(concept => {
+    return !isAdvancedReinsuranceOrCatModule({ concepts: [concept] });
+  }) || displayKnowledgeTitle(module);
+  return {
+    term: conceptTerm,
+    definition: displayKnowledgeSummary(module),
+    exercise: displayKnowledgeQuestion(module),
+    sourceUrl: firstKnowledgeSourceLink(module)
   };
 }
 
