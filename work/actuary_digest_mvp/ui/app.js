@@ -28,6 +28,7 @@ const state = {
   knowledgeSources: { items: {}, daily_concepts: [] },
   learningTaxonomy: null,
   openSourceResources: [],
+  knowledgeFocusId: "",
   activePage: "home",
   activeSection: "全部",
   dailyNavExpanded: false,
@@ -3555,17 +3556,22 @@ function renderSourceLibrary() {
 function renderKnowledge() {
   const selectedTracks = new Set(state.knowledgePlan.tracks || []);
   const plannedModules = state.knowledge.filter(module => {
-    const topicMatch = !selectedTracks.size || [...selectedTracks].some(topicId => topicMatchesModule(topicId, module));
+    const topicMatch = !selectedTracks.size || [...selectedTracks].some(topicId => topicMatchesModule(topicId, module) && moduleSuitableForTopic(topicId, module));
     return topicMatch && difficultyMatchesModule(module);
   });
-  const modules = plannedModules
-    .slice(0, Number(state.knowledgePlan.dailyCount || 2));
-  if (!modules.length) {
+  const modules = plannedModules.slice(0, Number(state.knowledgePlan.dailyCount || 2));
+  const focusedModule = state.knowledgeFocusId
+    ? plannedModules.find(module => knowledgeCardAnchor(module) === state.knowledgeFocusId)
+    : null;
+  const visibleModules = focusedModule && !modules.some(module => module.id === focusedModule.id)
+    ? [focusedModule, ...modules]
+    : modules;
+  if (!visibleModules.length) {
     els.knowledgeGrid.innerHTML = `<div class="empty-state">${escapeHtml(t("noKnowledge"))}</div>`;
     return;
   }
-  els.knowledgeGrid.innerHTML = modules.map(module => `
-    <article class="knowledge-card" id="${escapeHtml(knowledgeCardAnchor(module))}">
+  els.knowledgeGrid.innerHTML = visibleModules.map(module => `
+    <article class="knowledge-card${knowledgeCardAnchor(module) === state.knowledgeFocusId ? " is-focused" : ""}" id="${escapeHtml(knowledgeCardAnchor(module))}">
       <div class="card-meta">
         <span class="chip">${escapeHtml(module.track)}</span>
         <span class="chip">${escapeHtml(displayDifficulty(module.difficulty))}</span>
@@ -3635,12 +3641,30 @@ function handleLearningActionClick(event) {
   const startButton = event.target.closest("[data-learning-start]");
   if (startButton) {
     markLearningItemStarted(startButton.dataset.learningStart, startButton.dataset.learningTopic);
+    navigateToLearningTarget(startButton.dataset.learningOpen);
     return;
   }
   const completeButton = event.target.closest("[data-learning-complete]");
   if (completeButton) {
     markLearningItemComplete(completeButton.dataset.learningComplete, completeButton.dataset.learningTopic);
   }
+}
+
+function navigateToLearningTarget(openUrl) {
+  if (!openUrl) return;
+  if (/^https?:\/\//i.test(openUrl)) {
+    window.open(openUrl, "_blank", "noopener");
+    return;
+  }
+  const anchor = openUrl.startsWith("#") ? openUrl.slice(1) : openUrl;
+  if (!anchor) return;
+  state.knowledgeFocusId = anchor;
+  state.dailyNavExpanded = false;
+  setActivePage("knowledge");
+  render();
+  window.setTimeout(() => {
+    document.getElementById(anchor)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, 50);
 }
 
 function resetLearningPreferences() {
@@ -3856,7 +3880,7 @@ function renderLearningTaskItem(item, mode) {
   const actionHtml = mode === "completed"
     ? `<button class="ghost-button compact-button" type="button" disabled>${escapeHtml(t("completedLabel"))}</button>`
     : `
-        <button class="ghost-button compact-button" type="button" data-learning-start="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}"${started || completed ? " disabled" : ""}>${escapeHtml(started ? t("startedLabel") : t("startLearningItem"))}</button>
+        <button class="ghost-button compact-button" type="button" data-learning-start="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}" data-learning-open="${escapeHtml(item.openUrl || item.sourceUrl || "")}"${started || completed ? " disabled" : ""}>${escapeHtml(started ? t("startedLabel") : t("startLearningItem"))}</button>
         <button class="ghost-button compact-button" type="button" data-learning-complete="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}"${completed ? " disabled" : ""}>${escapeHtml(completed ? t("completedLabel") : t("markComplete"))}</button>
       `;
   return `
@@ -3908,7 +3932,7 @@ function renderHomeLearningTaskItem(item, mode) {
       <div class="learning-plan-actions">
         ${mode === "completed"
           ? `<span class="learning-status-pill">${escapeHtml(t("completedLabel"))}</span>`
-          : `<button class="text-link learning-start-link" type="button" data-learning-start="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}">${escapeHtml(actionLabel)} →</button>`}
+          : `<button class="text-link learning-start-link" type="button" data-learning-start="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}" data-learning-open="${escapeHtml(item.openUrl || item.sourceUrl || "")}">${escapeHtml(actionLabel)} →</button>`}
         ${sourceUrl ? `<a class="learning-plan-source" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener">${escapeHtml(t("sourceWebsite"))} →</a>` : ""}
       </div>
     </article>
@@ -3956,10 +3980,7 @@ function learningRecommendationReason(item) {
 }
 
 function dailyConceptLearningItem(topicId) {
-  const rawConcept = state.data?.daily_concept || null;
-  const concept = rawConcept && dailyConceptSuitableForTopic(topicId, rawConcept)
-    ? localizedDailyConcept(rawConcept)
-    : fallbackDailyConceptForTopic(topicId);
+  const concept = personalizedDailyConceptForTopic(topicId);
   if (!concept) return null;
   return {
     id: `concept:${currentLearningDate()}:${topicId}:${concept.term}`,
@@ -3969,46 +3990,42 @@ function dailyConceptLearningItem(topicId) {
     title: concept.term,
     detail: concept.exercise || concept.definition,
     estimatedMinutes: 8,
-    openUrl: "#dailyConceptBlock",
+    openUrl: concept.openUrl || "#dailyConceptBlock",
     sourceUrl: concept.sourceUrl
   };
 }
 
-function dailyConceptSuitableForTopic(topicId, concept) {
-  const pseudoModule = {
-    id: "daily-concept",
-    topic_id: "daily-concept",
-    track: "",
-    title: concept?.term || "",
-    summary: concept?.definition || "",
-    concepts: [concept?.term, concept?.definition, concept?.exercise].filter(Boolean)
-  };
-  if (!moduleSuitableForTopic(topicId, pseudoModule)) return false;
-  if (topicId === "Fundamentals") {
-    return !isAdvancedReinsuranceOrCatModule(pseudoModule);
-  }
-  if (topicId === "Insurance Fundamentals") {
-    return !isAdvancedReinsuranceOrCatModule(pseudoModule);
-  }
-  return topicMatchesModule(topicId, pseudoModule) || !isAdvancedReinsuranceOrCatModule(pseudoModule);
-}
-
-function fallbackDailyConceptForTopic(topicId) {
-  const module = state.knowledge.find(item => {
+function personalizedDailyConceptForTopic(topicId) {
+  const modules = state.knowledge.filter(item => {
     return topicMatchesModule(topicId, item)
       && moduleSuitableForTopic(topicId, item)
       && difficultyMatchesModule(item);
   });
-  if (!module) return null;
-  const conceptTerm = (module.concepts || []).find(concept => {
-    return !isAdvancedReinsuranceOrCatModule({ concepts: [concept] });
-  }) || displayKnowledgeTitle(module);
+  if (!modules.length) return null;
+  const pool = modules.flatMap(module => {
+    const concepts = (module.concepts || [displayKnowledgeTitle(module)])
+      .filter(concept => !isAdvancedReinsuranceOrCatModule({ concepts: [concept] }));
+    return (concepts.length ? concepts : [displayKnowledgeTitle(module)])
+      .map(concept => ({ concept, module }));
+  });
+  const selected = pool[deterministicLearningIndex(`${currentLearningDate()}:${topicId}`, pool.length)];
+  const module = selected.module;
   return {
-    term: conceptTerm,
+    term: selected.concept,
     definition: displayKnowledgeSummary(module),
     exercise: displayKnowledgeQuestion(module),
-    sourceUrl: firstKnowledgeSourceLink(module)
+    sourceUrl: firstKnowledgeSourceLink(module),
+    openUrl: `#${knowledgeCardAnchor(module)}`
   };
+}
+
+function deterministicLearningIndex(seed, length) {
+  if (!length) return 0;
+  let hash = 0;
+  for (let index = 0; index < seed.length; index += 1) {
+    hash = ((hash << 5) - hash + seed.charCodeAt(index)) | 0;
+  }
+  return Math.abs(hash) % length;
 }
 
 function relatedNewsItems(selectedTopics) {
@@ -4184,7 +4201,7 @@ function calculateLearningStreak() {
 }
 
 function currentLearningDate() {
-  return state.data?.report_date || new Date().toISOString().slice(0, 10);
+  return formatDateKey(new Date());
 }
 
 function formatDateKey(date) {

@@ -2337,6 +2337,12 @@ body[data-page="daily"]:not([data-section="all"]) .focus-band {
   padding: var(--card-pad);
 }
 
+.knowledge-card.is-focused {
+  border-color: rgba(17, 143, 145, 0.55);
+  background: linear-gradient(180deg, #f7fcfc 0%, #ffffff 100%);
+  box-shadow: 0 0 0 3px rgba(17, 143, 145, 0.08), var(--shadow-card);
+}
+
 .knowledge-card h4 {
   margin: 10px 0 8px;
   font-size: clamp(18px, 1.35vw, 20px);
