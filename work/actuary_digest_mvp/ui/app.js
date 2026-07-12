@@ -1820,7 +1820,7 @@ function bindEvents() {
   });
 
   els.editLearningPreferences?.addEventListener("click", () => {
-    els.learningPreferencesCard?.scrollIntoView({ behavior: "smooth", block: "start" });
+    openOnboardingModal();
   });
 
   els.saveLearningPreferences?.addEventListener("click", () => {
@@ -2123,13 +2123,26 @@ function renderScaffold() {
 }
 
 function currentPersonalizedDailyConcept() {
-  const topicId = (state.knowledgePlan.tracks || defaultKnowledgePlan.tracks)[0] || "Fundamentals";
-  const concept = personalizedDailyConceptForTopic(topicId);
-  if (!concept) return null;
+  const topicIds = (state.knowledgePlan.tracks?.length ? state.knowledgePlan.tracks : defaultKnowledgePlan.tracks).slice(0, 2);
+  const concepts = topicIds
+    .map(topicId => ({ topicId, concept: personalizedDailyConceptForTopic(topicId) }))
+    .filter(item => item.concept);
+  if (!concepts.length) return null;
+  const primary = concepts[0];
+  if (concepts.length === 1) {
+    return {
+      ...primary.concept,
+      example: personalizedConceptExample(primary.concept, primary.topicId),
+      sourceLabel: primary.concept.sourceUrl ? t("sourceWebsite") : ""
+    };
+  }
   return {
-    ...concept,
-    example: personalizedConceptExample(concept, topicId),
-    sourceLabel: concept.sourceUrl ? t("sourceWebsite") : ""
+    term: concepts.map(item => item.concept.term).join(" · "),
+    definition: concepts.map((item, index) => `${index + 1}. ${item.concept.term}: ${item.concept.definition}`).join("\n"),
+    example: concepts.map(item => personalizedConceptExample(item.concept, item.topicId)).join("\n"),
+    exercise: concepts.map((item, index) => `${index + 1}. ${item.concept.exercise || item.concept.definition}`).join("\n"),
+    sourceUrl: primary.concept.sourceUrl || "",
+    sourceLabel: primary.concept.sourceUrl ? t("sourceWebsite") : ""
   };
 }
 

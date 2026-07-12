@@ -1494,6 +1494,7 @@ body[data-page="daily"]:not([data-section="all"]) .focus-band {
 
 .concept-card p {
   color: var(--muted);
+  white-space: pre-line;
 }
 
 .learning-plan-heading p {
