@@ -4204,12 +4204,13 @@ function isAdvancedReinsuranceOrCatModule(module) {
     module?.summary,
     ...(module?.concepts || [])
   ].join(" ").toLowerCase();
-  return text.includes("reinsurance")
-    || text.includes("xol")
+  return text.includes("xol")
     || text.includes("excess of loss")
     || text.includes("catastrophe")
+    || text.includes("cat bond")
+    || text.includes("ils")
     || text.includes("pml")
-    || text.includes("再保险")
+    || text.includes("retrocession")
     || text.includes("巨灾")
     || text.includes("超赔");
 }
