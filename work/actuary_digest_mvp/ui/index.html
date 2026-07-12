@@ -46,12 +46,11 @@
       <nav class="product-nav" aria-label="Product navigation">
         <button class="nav-button product-tab active" type="button" data-page="home"><span><span class="nav-icon" data-icon="home"></span><span data-i18n="navHome">Home</span></span></button>
         <button class="nav-button product-tab" type="button" data-page="knowledge"><span><span class="nav-icon" data-icon="book"></span><span data-i18n="navKnowledge">Actuarial Knowledge</span></span></button>
-        <button class="nav-button product-tab" type="button" data-page="daily"><span><span class="nav-icon" data-icon="brief"></span><span data-i18n="navDaily">Insurance Briefing</span></span></button>
-      </nav>
-
-      <nav class="nav-list" id="sectionNav"></nav>
-      <nav class="nav-list saved-nav">
-        <button class="nav-button product-tab" type="button" data-page="saved"><span><span class="nav-icon" data-icon="star"></span><span data-i18n="navSaved">Saved Briefings</span></span></button>
+        <div class="daily-nav-group" id="dailyNavGroup">
+          <button class="nav-button product-tab" type="button" data-page="daily"><span><span class="nav-icon" data-icon="brief"></span><span data-i18n="navDaily">Insurance Briefing</span></span><span class="nav-chevron" aria-hidden="true">⌄</span></button>
+          <nav class="nav-list section-subnav" id="sectionNav" aria-label="Briefing topics" hidden></nav>
+        </div>
+        <button class="nav-button product-tab" type="button" data-page="saved"><span><span class="nav-icon" data-icon="star"></span><span data-i18n="navSaved">Saved & Journal</span></span></button>
       </nav>
 
       <section class="contact-panel">
@@ -95,12 +94,11 @@
         <section class="portal-hero">
           <div class="hero-copy">
             <p class="portal-kicker">ActuaryRadar</p>
-            <h2 data-i18n="heroTitle">Insurance Intelligence for Actuaries &amp; Insurance Professionals</h2>
-            <p class="hero-lead" data-i18n="heroSubtitle">ActuaryRadar is an all-in-one platform for actuaries and insurance professionals, bringing together actuarial learning, curated insurance news, company results, regulatory updates, reinsurance insights and trusted research sources.</p>
-            <p data-i18n="heroSubsubtitle">We bring together industry news, technical insights, research, learning resources, and practical tools in one place, helping professionals and students stay informed, deepen their expertise, and navigate the rapidly evolving insurance landscape.</p>
+            <h2 data-i18n="heroTitle">Know what to learn today.</h2>
+            <p class="hero-lead" data-i18n="heroSubtitle">A personalized daily learning workspace combining actuarial knowledge, industry intelligence and trusted resources.</p>
             <div class="hero-actions">
-              <button class="primary-button product-tab-link" type="button" data-page="knowledge" data-i18n="startLearning">Start Learning</button>
-              <button class="ghost-button product-tab-link" type="button" data-page="daily" data-i18n="browseBriefing">Browse Today’s Briefing</button>
+              <button class="primary-button product-tab-link" type="button" data-page="knowledge" data-i18n="startLearning">Start Today’s Learning</button>
+              <button class="ghost-button product-tab-link" type="button" data-page="daily" data-i18n="browseBriefing">Browse Intelligence</button>
             </div>
           </div>
           <aside class="hero-market-panel">
@@ -111,51 +109,68 @@
           </aside>
         </section>
 
-        <section class="portal-feature-grid">
-          <article class="portal-feature">
-            <span>01</span>
-            <h3 data-i18n="actuarialKnowledge">Actuarial Knowledge</h3>
-            <p data-i18n="portalKnowledgeText">Build actuarial judgment through daily concepts, knowledge cards, trusted sources and personalized learning paths.</p>
-            <div class="portal-card-footer">
-              <span data-i18n="learningTimeToday">Estimated learning time today</span>
-              <button class="text-link product-tab-link" type="button" data-page="knowledge" data-i18n="continueLearningArrow">Continue Learning →</button>
+        <section class="home-learning-shell">
+          <div class="portal-section-heading home-learning-heading">
+            <div>
+              <p data-i18n="homeLearningEyebrow">Personalized Learning</p>
+              <h3 data-i18n="todaysLearning">Today’s Learning</h3>
+              <p class="home-learning-summary" id="homeLearningSummary">-</p>
             </div>
-          </article>
-          <article class="portal-feature">
-            <span>02</span>
-            <h3 data-i18n="dailyTitle">每日情报</h3>
-            <p data-i18n="portalDailyText">浏览最近保险、再保险、监管、科技和资本市场重要情报。</p>
-            <div class="portal-card-footer">
-              <span><strong data-i18n="briefingArticleCount">24 curated articles</strong> · <strong data-i18n="briefingFeaturedCount">5 featured insights</strong></span>
-              <button class="text-link product-tab-link" type="button" data-page="daily" data-i18n="browseArrow">Browse →</button>
+            <div class="home-learning-actions">
+              <button class="text-link" id="openOnboardingButton" type="button" data-i18n="buildJourneyArrow">Build My Learning Journey</button>
+              <button class="text-link" id="saveTodayLearningButton" type="button" data-i18n="saveTodayLearning">Save today</button>
+              <button class="text-link subtle-link" id="resetHomeLearningPreferences" type="button" data-i18n="resetPreferences">Reset</button>
             </div>
-          </article>
+          </div>
+          <div class="home-learning-grid">
+            <article class="home-learning-primary">
+              <div class="learning-panel-title">
+                <span>01</span>
+                <div>
+                  <h4 data-i18n="next15Minutes">Next 15 minutes</h4>
+                </div>
+              </div>
+              <div class="home-learning-list" id="homeTodayLearningList"></div>
+            </article>
+            <div class="home-learning-side" id="homeLearningSide">
+              <article class="home-learning-card" id="homeContinueLearningCard" hidden>
+                <div class="learning-panel-title compact">
+                  <span>02</span>
+                  <h4 data-i18n="continueLearning">Continue Learning</h4>
+                </div>
+                <div class="home-learning-list compact" id="homeContinueLearningList"></div>
+              </article>
+              <article class="home-learning-card" id="homeRecommendedLearningCard" hidden>
+                <div class="learning-panel-title compact">
+                  <span>03</span>
+                  <h4 data-i18n="recommendedNext">Recommended Next</h4>
+                </div>
+                <div class="home-learning-list compact" id="homeRecommendedLearningList"></div>
+              </article>
+              <article class="home-learning-card" id="homeCompletedLearningCard" hidden>
+                <div class="learning-panel-title compact">
+                  <span>04</span>
+                  <h4 id="homeCompletedLearningTitle" data-i18n="completedToday">Completed Today</h4>
+                </div>
+                <div class="home-learning-list compact completed-list" id="homeCompletedLearningList"></div>
+              </article>
+            </div>
+          </div>
         </section>
 
         <section class="portal-section portal-latest">
           <div class="portal-section-heading">
             <div>
               <p data-i18n="portalLatestEyebrow">最新保险资讯</p>
-              <h3 data-i18n="portalLatestTitle">Latest Intelligence</h3>
             </div>
-            <button class="text-link product-tab-link" type="button" data-page="daily" data-i18n="viewAllBriefings">View all briefings</button>
+            <button class="text-link product-tab-link" type="button" data-page="daily" data-i18n="viewAllIntelligence">View all intelligence</button>
           </div>
           <div class="portal-news-grid" id="portalLatestGrid"></div>
-        </section>
-
-        <section class="portal-section">
-          <div class="portal-section-heading">
-            <div>
-              <p data-i18n="portalSectionsEyebrow">专业栏目</p>
-              <h3 data-i18n="portalSectionsTitle">Explore by Topic</h3>
-            </div>
-          </div>
-          <div class="portal-section-grid" id="portalSectionGrid"></div>
         </section>
       </section>
 
       <section class="page-view" id="dailyPage">
-        <section class="focus-band">
+        <section class="focus-band briefing-interface-noise">
           <div>
             <span class="section-kicker" id="dailyThemeLabel">-</span>
             <h3 data-i18n="todayTasks">今日任务</h3>
@@ -164,7 +179,7 @@
           <ol id="taskList"></ol>
         </section>
 
-        <section class="metric-grid" id="metricGrid" aria-label="关键指标"></section>
+        <section class="metric-grid briefing-interface-noise" id="metricGrid" aria-label="关键指标"></section>
         <p class="language-source-notice" id="languageSourceNotice"></p>
 
         <section class="top-picks">
@@ -192,6 +207,7 @@
             <select id="industryFilter" aria-label="联动行业筛选"></select>
             <select id="branchFilter" aria-label="机构类型筛选"></select>
             <select id="companyFilter" aria-label="公司筛选"></select>
+            <button class="active-topic-chip" id="activeTopicChip" type="button" hidden></button>
           </div>
         </section>
 
@@ -205,7 +221,7 @@
           </div>
 
           <aside class="action-board">
-            <div class="board-section">
+            <div class="board-section briefing-interface-noise">
               <h3 data-i18n="actionBoard">Action 看板</h3>
               <div class="board-stat">
                 <span data-i18n="marked">已标记</span>
@@ -234,117 +250,19 @@
             <h3 data-i18n="knowledgeTitle">精算知识库</h3>
             <p data-i18n="knowledgeIntro">从精算知识地图中定制学习主题和每日学习数量</p>
           </div>
+          <button class="primary-button compact-button" id="saveKnowledgeLearningButton" type="button" data-i18n="saveTodayLearning">保存今日学习</button>
         </div>
         <section class="knowledge-overview">
-          <section class="concept-card" id="dailyConceptBlock">
-            <h3 data-i18n="dailyConcept">每日概念</h3>
-            <h4 id="conceptTerm">-</h4>
-            <p id="conceptDefinition">-</p>
-            <p id="conceptExample" class="concept-example">-</p>
-            <p class="prompt" id="conceptExercise">-</p>
-            <a id="conceptSourceLink" class="concept-source-link" href="#" target="_blank" rel="noopener">Source</a>
-          </section>
-          <section class="learning-plan-card" id="weeklyPlanBlock">
-            <div class="learning-plan-heading">
-              <div>
-                <h3 data-i18n="myLearningJourney">我的学习旅程</h3>
-                <p data-i18n="myLearningJourneyHint">告诉 ActuaryRadar 你今天有多少时间，系统会推荐最值得学习的内容。</p>
-              </div>
-              <button class="ghost-button compact-button" id="editLearningPreferences" type="button" data-i18n="editPreferences">编辑偏好</button>
-            </div>
-            <div class="learning-dashboard" aria-label="Learning progress">
-              <div>
-                <span data-i18n="completedToday">今日完成</span>
-                <strong id="completedTodayCount">0/0</strong>
-              </div>
-              <div>
-                <span data-i18n="learningStreak">连续学习</span>
-                <strong id="learningStreakCount">0</strong>
-              </div>
-              <div>
-                <span data-i18n="topicsCompleted">已推进主题</span>
-                <strong id="topicsCompletedCount">0</strong>
-              </div>
-              <div>
-                <span data-i18n="dailyTarget">今日目标</span>
-                <strong id="dailyTargetSummary">-</strong>
-              </div>
-            </div>
-            <div class="learning-plan-content">
-              <div>
-                <h4 data-i18n="todaysLearning">今日学习</h4>
-                <div class="learning-plan-list" id="learningPlanList"></div>
-              </div>
-              <div>
-                <h4 data-i18n="continueLearning">继续学习</h4>
-                <div class="topic-progress-list" id="continueLearningList"></div>
-              </div>
-            </div>
-            <div class="recommended-next-block">
-              <h4 data-i18n="recommendedNext">推荐下一步</h4>
-              <div class="learning-plan-list recommended-next-list" id="recommendedLearningList"></div>
-            </div>
-          </section>
-        </section>
-        <section class="planner-card" id="learningPreferencesCard">
-          <div>
-            <h3 data-i18n="buildLearningJourney">建立我的学习旅程</h3>
-            <p data-i18n="buildLearningJourneyHint">告诉我们你想学什么，ActuaryRadar 会推荐你今天该学的内容。设置会先保存在当前浏览器。</p>
-          </div>
-          <label>
-            <span data-i18n="careerStageLabel">职业阶段</span>
-            <select id="careerStage">
-              <option value="student" data-i18n="careerStudent">学生</option>
-              <option value="junior" data-i18n="careerJunior">初级精算师 / 分析师</option>
-              <option value="mid" data-i18n="careerMid">中级专业人士</option>
-              <option value="senior" data-i18n="careerSenior">资深专业人士</option>
-              <option value="manager" data-i18n="careerManager">管理者 / 高管</option>
-            </select>
-          </label>
-          <label>
-            <span data-i18n="learningGoalLabel">学习目标</span>
-            <select id="learningGoalSelect">
-              <option value="exams" data-i18n="goalExams">通过精算考试</option>
-              <option value="job_skills" data-i18n="goalJobSkills">提升当前工作技能</option>
-              <option value="strategy_ir" data-i18n="goalStrategyIr">转向战略 / IR</option>
-              <option value="stay_updated" data-i18n="goalStayUpdated">保持行业更新</option>
-              <option value="general_knowledge" data-i18n="goalGeneralKnowledge">建立保险通识</option>
-            </select>
-          </label>
-          <label>
-            <span data-i18n="difficultyLabel">难度</span>
-            <select id="learningDifficulty">
-              <option value="all" data-i18n="allLevels">全部难度</option>
-              <option value="beginner" data-i18n="beginner">入门</option>
-              <option value="intermediate" data-i18n="intermediate">中级</option>
-              <option value="advanced" data-i18n="advanced">进阶</option>
-            </select>
-          </label>
-          <label>
-            <span data-i18n="dailyCount">每天学习数量</span>
-            <select id="dailyKnowledgeCount">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="5">5</option>
-            </select>
-          </label>
-          <label>
-            <span data-i18n="studyTimeLabel">预计学习时间</span>
-            <select id="studyTime">
-              <option value="5">5 min</option>
-              <option value="10">10 min</option>
-              <option value="15">15 min</option>
-              <option value="30">30 min</option>
-            </select>
-          </label>
-          <div class="planner-choice-grid" id="knowledgePlanner"></div>
-          <div class="learning-preference-actions">
-            <button class="primary-button compact-button" id="saveLearningPreferences" type="button" data-i18n="savePreferences">保存偏好</button>
-            <button class="ghost-button compact-button" id="resetLearningPreferences" type="button" data-i18n="resetPreferences">重置</button>
-          </div>
+          <div class="concept-grid" id="conceptGrid"></div>
         </section>
         <div class="knowledge-grid" id="knowledgeGrid"></div>
+        <section class="source-library-card open-source-learning-card">
+          <div>
+            <h3 data-i18n="openSourceResourcesTitle">开源实践资源</h3>
+            <p data-i18n="openSourceResourcesHint">精选 GitHub 项目，只提供原创摘要和外部链接，不复制项目文档。</p>
+          </div>
+          <div class="open-source-grid" id="openSourceLearningGrid"></div>
+        </section>
         <section class="source-library-card">
           <div>
             <h3 data-i18n="sourceLibraryTitle">公开权威资料库</h3>
@@ -361,15 +279,58 @@
       <section class="page-view" id="savedPage">
         <div class="feed-header page-title-row">
           <div>
-            <h3 data-i18n="savedTitle">已保存日报</h3>
-            <p data-i18n="savedIntro">保存在当前浏览器中，可用于第二天回看和导出</p>
+            <h3 data-i18n="savedTitle">Saved & Learning Journal</h3>
+            <p data-i18n="savedIntro">Review saved briefings and learning journals from this browser.</p>
           </div>
           <button class="primary-button compact-button" id="saveCurrentDigestButton" type="button" data-i18n="saveCurrent">保存当前日报</button>
+        </div>
+        <div class="saved-tabs" role="tablist" aria-label="Saved content">
+          <button class="saved-tab active" type="button" data-saved-tab="briefings" data-i18n="savedBriefingsTab">Briefings</button>
+          <button class="saved-tab" type="button" data-saved-tab="learning" data-i18n="learningJournalTab">Learning Journal</button>
         </div>
         <div class="saved-digest-list" id="savedDigestList"></div>
       </section>
     </main>
   </div>
+
+  <section class="onboarding-modal" id="onboardingModal" hidden aria-hidden="true">
+    <div class="onboarding-backdrop" data-close-onboarding></div>
+    <div class="onboarding-dialog" role="dialog" aria-modal="true" aria-labelledby="onboardingTitle">
+      <div class="onboarding-header">
+        <div>
+          <p data-i18n="onboardingEyebrow">Personalized learning setup</p>
+          <h2 id="onboardingTitle" data-i18n="onboardingTitle">Build your learning journey</h2>
+          <p data-i18n="onboardingIntro">Tell ActuaryRadar what you want to learn. We’ll personalize today’s learning plan for you.</p>
+        </div>
+        <button class="icon-button" type="button" data-close-onboarding aria-label="Close">×</button>
+      </div>
+
+      <div class="onboarding-grid">
+        <label>
+          <span data-i18n="careerStageLabel">Career Stage</span>
+          <select id="onboardingCareerStage"></select>
+        </label>
+        <label>
+          <span data-i18n="learningGoalLabel">Learning Goal</span>
+          <select id="onboardingLearningGoal"></select>
+        </label>
+        <label>
+          <span data-i18n="studyTimeLabel">Daily Learning Time</span>
+          <select id="onboardingStudyTime"></select>
+        </label>
+      </div>
+
+      <section class="onboarding-topics">
+        <h3 data-i18n="interestedTopics">Interested Topics</h3>
+        <div class="onboarding-topic-grid" id="onboardingTopicGrid"></div>
+      </section>
+
+      <div class="onboarding-actions">
+        <button class="ghost-button" type="button" id="skipOnboardingButton" data-i18n="skipForNow">Skip for now</button>
+        <button class="primary-button" type="button" id="createPlanButton" data-i18n="createMyPlan">Create My Plan</button>
+      </div>
+    </div>
+  </section>
 
   <template id="itemTemplate">
     <article class="intelligence-card">

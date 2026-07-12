@@ -17,6 +17,7 @@ const defaultLearningProgress = {
 };
 
 const storedKnowledgePlanRaw = localStorage.getItem("actuaryRadar.knowledgePlan");
+const onboardingSkippedRaw = localStorage.getItem("actuaryRadar.onboardingSkipped");
 
 const state = {
   data: null,
@@ -25,13 +26,17 @@ const state = {
   knowledge: [],
   knowledgeCatalog: [],
   knowledgeSources: { items: {}, daily_concepts: [] },
+  learningTaxonomy: null,
   openSourceResources: [],
+  knowledgeFocusId: "",
   activePage: "home",
   activeSection: "全部",
+  dailyNavExpanded: false,
   language: localStorage.getItem("actuaryRadar.language") || "en",
   knowledgePlan: JSON.parse(storedKnowledgePlanRaw || JSON.stringify(defaultKnowledgePlan)),
   sourcePlan: JSON.parse(localStorage.getItem("actuaryRadar.sourcePlan") || "null"),
   learningProgress: JSON.parse(localStorage.getItem("actuaryRadar.learningProgress") || JSON.stringify(defaultLearningProgress)),
+  onboardingSkipped: onboardingSkippedRaw === "true",
   filters: {
     lob: "all",
     topic: "all",
@@ -45,6 +50,8 @@ const state = {
   saved: new Set(JSON.parse(localStorage.getItem("actuaryDigest.saved") || "[]")),
   done: new Set(JSON.parse(localStorage.getItem("actuaryDigest.done") || "[]")),
   savedDigests: JSON.parse(localStorage.getItem("actuaryDigest.savedDigests") || "{}"),
+  learningJournal: JSON.parse(localStorage.getItem("actuaryRadar.learningJournal") || "{}"),
+  savedView: "briefings",
   archives: []
 };
 
@@ -60,12 +67,24 @@ const sectionOrder = [
   "career_learning"
 ];
 
+const briefingTopicSlugs = {
+  regulation: "regulation",
+  market: "market",
+  reinsurance: "reinsurance",
+  technology_ai: "technology-ai",
+  company_results_strategy: "company-results",
+  research: "research",
+  career_learning: "career-learning"
+};
+
+const sectionByBriefingTopicSlug = Object.fromEntries(Object.entries(briefingTopicSlugs).map(([section, slug]) => [slug, section]));
+
 const sectionLabels = {
   regulation: { symbol: "RG", icon: "shield", zh: "监管", en: "Regulation", fr: "Réglementation" },
   market: { symbol: "MK", icon: "building", zh: "市场", en: "Market", fr: "Marché de l'assurance" },
   reinsurance: { symbol: "RE", icon: "network", zh: "再保险", en: "Reinsurance", fr: "Réassurance" },
   technology_ai: { symbol: "AI", icon: "chip", zh: "科技与 AI", en: "Technology & AI", fr: "InsurTech & IA" },
-  company_results_strategy: { symbol: "IR", icon: "chart", zh: "公司财报与战略", en: "Companies Results & Strategies", fr: "Résultats & stratégie" },
+  company_results_strategy: { symbol: "IR", icon: "chart", zh: "公司财报与战略", en: "Company Results & Strategy", fr: "Résultats & stratégie" },
   research: { symbol: "RS", icon: "folder", zh: "研究", en: "Research", fr: "Recherche" },
   career_learning: { symbol: "CL", icon: "book", zh: "职业与学习", en: "Career & Learning", fr: "Formation & carrière" },
   "法规与资本雷达": { symbol: "RG", icon: "shield", zh: "监管", en: "Regulation", fr: "Réglementation" },
@@ -352,13 +371,13 @@ const pageCopy = {
     navHome: "首页",
     navDaily: "每日情报",
     navKnowledge: "精算知识库",
-    navSaved: "已保存日报",
+    navSaved: "保存与学习日志",
     dailyConcept: "每日概念",
-    heroTitle: "面向精算师与保险专业人士的保险情报平台",
-    heroSubtitle: "ActuaryRadar 是一个面向保险专业人士和精算师的一站式平台，整合精算学习、精选保险资讯、监管动态、保险公司财报、再保险洞察和可信研究资料。",
+    heroTitle: "每天明确该学什么。",
+    heroSubtitle: "一个连接精算知识、行业情报与可信资料的个性化每日学习工作台。",
     heroSubsubtitle: "行业新闻、技术洞察、研究资料与学习资源，集中在一个更适合持续阅读和专业判断的工作台。",
-    startLearning: "开始学习",
-    browseBriefing: "浏览今日情报",
+    startLearning: "开始今日学习",
+    browseBriefing: "浏览情报",
     latestAvailableBriefing: "最新可用情报",
     actuarialKnowledge: "精算知识库",
     continueLearningArrow: "继续学习 →",
@@ -370,8 +389,28 @@ const pageCopy = {
     heroKnowledge: "精算知识库",
     heroDaily: "每日情报汇总",
     portalToday: "今日精选",
+    homeLearningEyebrow: "个性化学习",
+    homeLearningTitle: "今天我该学什么？",
+    buildJourneyArrow: "建立我的学习旅程",
+    editLearningPreferences: "编辑学习偏好",
+    next15Minutes: "接下来 15 分钟",
     todaysLearning: "今日学习",
     continueLearning: "继续学习",
+    recommendedNext: "推荐下一步",
+    homeLearningSummaryReady: "今日学习计划已准备好",
+    homeLearningSummarySetup: "先设置兴趣和学习时间，ActuaryRadar 会为你安排今日任务。",
+    progressToday: "今日进度",
+    recommendationSelectedTopic: "因为你选择了 {topic}。",
+    recommendationGoalRegulatory: "适合你的目标：理解监管与资本。",
+    recommendationGoalPricing: "适合你的目标：提升定价与准备金能力。",
+    recommendationGoalIndustry: "适合你的目标：理解保险行业。",
+    recommendationGoalExam: "适合你的目标：准备精算考试。",
+    recommendationGoalJob: "适合你的目标：提升求职与实务能力。",
+    recommendationIndustryInsight: "把今天的学习主题连接到当前行业动态。",
+    browseAllEyebrow: "浏览",
+    browseAllTitle: "浏览全部内容",
+    learningLibraryHint: "概念、知识卡和可信资料源",
+    openLearningLibrary: "打开学习库 →",
     relatedBriefing: "相关情报",
     labelSeparator: "：",
     estimatedTime: "预计时间：15 分钟",
@@ -383,6 +422,7 @@ const pageCopy = {
     portalLatestEyebrow: "最新保险资讯",
     portalLatestTitle: "最新保险情报",
     viewAllBriefings: "查看全部情报",
+    viewAllIntelligence: "查看全部情报",
     portalSectionsEyebrow: "专业栏目",
     portalSectionsTitle: "按主题探索",
     topicRegulationText: "跟踪监管、资本要求、消费者保护和合规变化。",
@@ -402,13 +442,25 @@ const pageCopy = {
     editPreferences: "编辑偏好",
     savePreferences: "保存偏好",
     resetPreferences: "重置",
+    onboardingEyebrow: "个性化学习设置",
+    onboardingTitle: "建立你的学习旅程",
+    onboardingIntro: "告诉 ActuaryRadar 你想学什么，我们会为你生成今天的学习计划。",
+    interestedTopics: "关注主题",
+    createMyPlan: "生成我的计划",
+    skipForNow: "暂时跳过",
     careerStageLabel: "职业阶段",
     careerStudent: "学生",
+    careerEarlyInsurance: "保险行业新人",
     careerJunior: "初级精算师 / 分析师",
     careerMid: "中级专业人士",
     careerSenior: "资深专业人士",
     careerManager: "管理者 / 高管",
     learningGoalLabel: "学习目标",
+    goalExamReady: "准备精算考试",
+    goalJobReady: "提升入门工作能力",
+    goalPricingReserving: "学习定价与准备金",
+    goalRegulatoryLiteracy: "理解监管与资本",
+    goalIndustryContext: "建立保险行业认知",
     goalExams: "通过精算考试",
     goalJobSkills: "提升当前工作技能",
     goalStrategyIr: "转向战略 / IR",
@@ -419,7 +471,6 @@ const pageCopy = {
     topicsCompleted: "已推进主题",
     dailyTarget: "今日目标",
     todaysLearningPlan: "今日学习",
-    recommendedNext: "推荐下一步",
     progressByTopic: "按主题进度",
     difficultyLabel: "难度",
     allLevels: "全部难度",
@@ -431,7 +482,7 @@ const pageCopy = {
     estimated: "预计",
     learningItemDailyConcept: "每日概念",
     learningItemKnowledgeCard: "知识卡片",
-    learningItemNews: "相关情报",
+    learningItemNews: "行业洞察",
     learningItemResearch: "研究报告",
     learningItemOfficialSource: "官方学习源",
     learningItemGithubExample: "开源实践",
@@ -449,6 +500,8 @@ const pageCopy = {
     notStarted: "尚未开始",
     markComplete: "标记完成",
     completedLabel: "已完成",
+    noCompletedToday: "今天还没有完成的学习项。",
+    activeTopicLabel: "主题",
     noLearningPlanItems: "当前设置下暂无学习任务。请增加主题或切换难度。",
     noStartedLearningItems: "你还没有开始任何学习内容。",
     moreContentSoon: "这个主题的更多内容即将加入。",
@@ -480,8 +533,9 @@ const pageCopy = {
     dailyCount: "每天学习数量",
     dailyTitle: "每日情报",
     knowledgeTitle: "精算知识库",
-    savedTitle: "已保存日报",
+    savedTitle: "保存与学习日志",
     allTopics: "全部主题",
+    navAllBriefings: "全部情报",
     pageDailySubtitle: "按监管、险种、公司、科技、再保险和跨行业联动阅读今日情报",
     pageKnowledgeSubtitle: "选择主题、每日数量、概念复习和案例练习",
     pageSavedSubtitle: "回看你保存过的日报内容",
@@ -513,8 +567,20 @@ const pageCopy = {
     aiSummaryUnavailable: "AI 摘要正在准备中。请稍后查看今日精选内容。",
     aiPlaceholder: "围绕今天内容提问，例如：健康险有哪些action？",
     ask: "提问",
-    savedIntro: "保存在当前浏览器中，可用于第二天回看和导出",
+    savedIntro: "保存每日情报与学习日志，方便回看和导出。",
     saveCurrent: "保存当前日报",
+    currentReportSaved: "已保存",
+    noCurrentReport: "当前没有可保存的日报",
+    saveTodayLearning: "保存今日学习",
+    savedBriefingsTab: "已保存日报",
+    learningJournalTab: "学习日志",
+    noLearningJournal: "还没有保存学习日志。点击首页或知识库的“保存今日学习”。",
+    exportMarkdown: "导出 Markdown",
+    exportHtml: "导出 HTML",
+    learningJournalTitle: "ActuaryRadar 学习日志",
+    learningJournalSaved: "今日学习已保存",
+    studyTopics: "学习主题",
+    learningPreferences: "学习偏好",
     actuarialAngle: "精算视角",
     suggestedActions: "建议行动",
     source: "原文",
@@ -576,13 +642,13 @@ const pageCopy = {
     navHome: "Home",
     navDaily: "Insurance Briefing",
     navKnowledge: "Actuarial Knowledge",
-    navSaved: "Saved Briefings",
+    navSaved: "Saved & Journal",
     dailyConcept: "Daily Concept",
-    heroTitle: "Insurance Intelligence for Actuaries & Insurance Professionals",
-    heroSubtitle: "ActuaryRadar is an all-in-one platform for actuaries and insurance professionals, bringing together actuarial learning, curated insurance news, company results, regulatory updates, reinsurance insights and trusted research sources.",
+    heroTitle: "Know what to learn today.",
+    heroSubtitle: "A personalized daily learning workspace combining actuarial knowledge, industry intelligence and trusted resources.",
     heroSubsubtitle: "Industry news, technical insight, research and learning resources in one focused workspace for continuous professional judgment.",
-    startLearning: "Start Learning",
-    browseBriefing: "Browse Today’s Briefing",
+    startLearning: "Start Today’s Learning",
+    browseBriefing: "Browse Intelligence",
     latestAvailableBriefing: "Latest available briefing",
     actuarialKnowledge: "Actuarial Knowledge",
     continueLearningArrow: "Continue Learning →",
@@ -594,8 +660,28 @@ const pageCopy = {
     heroKnowledge: "Actuarial Library",
     heroDaily: "Insurance Briefing",
     portalToday: "Today’s Highlight",
+    homeLearningEyebrow: "Personalized Learning",
+    homeLearningTitle: "What should I learn today?",
+    buildJourneyArrow: "Build My Learning Journey",
+    editLearningPreferences: "Edit learning preferences",
+    next15Minutes: "Next 15 minutes",
     todaysLearning: "Today’s Learning",
     continueLearning: "Continue Learning",
+    recommendedNext: "Recommended Next",
+    homeLearningSummaryReady: "Today’s learning plan is ready",
+    homeLearningSummarySetup: "Set your interests and available time so ActuaryRadar can guide today’s learning.",
+    progressToday: "progress today",
+    recommendationSelectedTopic: "Because you selected {topic}.",
+    recommendationGoalRegulatory: "Recommended for your goal: understand regulation and capital.",
+    recommendationGoalPricing: "Recommended for your goal: build pricing and reserving skills.",
+    recommendationGoalIndustry: "Recommended for your goal: understand the insurance industry.",
+    recommendationGoalExam: "Recommended for your goal: prepare for actuarial exams.",
+    recommendationGoalJob: "Recommended for your goal: become job-ready.",
+    recommendationIndustryInsight: "Connects today’s learning topic with a current industry development.",
+    browseAllEyebrow: "Browse",
+    browseAllTitle: "Browse All Intelligence",
+    learningLibraryHint: "Concepts, cards and curated references",
+    openLearningLibrary: "Open learning library →",
     relatedBriefing: "Related Briefing",
     labelSeparator: ": ",
     estimatedTime: "Estimated time: 15 min",
@@ -607,6 +693,7 @@ const pageCopy = {
     portalLatestEyebrow: "Latest insurance news",
     portalLatestTitle: "Latest Intelligence",
     viewAllBriefings: "View all briefings",
+    viewAllIntelligence: "View all intelligence",
     portalSectionsEyebrow: "Coverage areas",
     portalSectionsTitle: "Explore by Topic",
     topicRegulationText: "Track supervision, capital requirements, consumer protection and compliance changes.",
@@ -626,13 +713,25 @@ const pageCopy = {
     editPreferences: "Edit preferences",
     savePreferences: "Save preferences",
     resetPreferences: "Reset",
+    onboardingEyebrow: "Personalized learning setup",
+    onboardingTitle: "Build your learning journey",
+    onboardingIntro: "Tell ActuaryRadar what you want to learn. We’ll personalize today’s learning plan for you.",
+    interestedTopics: "Interested Topics",
+    createMyPlan: "Create My Plan",
+    skipForNow: "Skip for now",
     careerStageLabel: "Career stage",
     careerStudent: "Student",
+    careerEarlyInsurance: "Early-Career Insurance Professional",
     careerJunior: "Junior Actuary / Analyst",
     careerMid: "Mid-level Professional",
     careerSenior: "Senior Professional",
     careerManager: "Manager / Executive",
     learningGoalLabel: "Learning goal",
+    goalExamReady: "Prepare for actuarial exams",
+    goalJobReady: "Become job-ready",
+    goalPricingReserving: "Build pricing and reserving skills",
+    goalRegulatoryLiteracy: "Understand regulation and capital",
+    goalIndustryContext: "Understand the insurance industry",
     goalExams: "Pass actuarial exams",
     goalJobSkills: "Improve current job skills",
     goalStrategyIr: "Move into Strategy / IR",
@@ -643,7 +742,6 @@ const pageCopy = {
     topicsCompleted: "Topics advanced",
     dailyTarget: "Daily target",
     todaysLearningPlan: "Today's Learning",
-    recommendedNext: "Recommended Next",
     progressByTopic: "Progress by Topic",
     difficultyLabel: "Difficulty",
     allLevels: "All levels",
@@ -655,7 +753,7 @@ const pageCopy = {
     estimated: "Estimated",
     learningItemDailyConcept: "Daily Concept",
     learningItemKnowledgeCard: "Knowledge Card",
-    learningItemNews: "Related Industry News",
+    learningItemNews: "Industry Insight",
     learningItemResearch: "Research Report",
     learningItemOfficialSource: "Official Learning Source",
     learningItemGithubExample: "GitHub Example",
@@ -673,6 +771,8 @@ const pageCopy = {
     notStarted: "Not started",
     markComplete: "Mark complete",
     completedLabel: "Completed",
+    noCompletedToday: "No completed learning items yet today.",
+    activeTopicLabel: "Topic",
     noLearningPlanItems: "No learning items match the current setup. Add topics or change difficulty.",
     noStartedLearningItems: "You have not started any learning items yet.",
     moreContentSoon: "More content for this topic will be added soon.",
@@ -704,8 +804,9 @@ const pageCopy = {
     dailyCount: "Items per day",
     dailyTitle: "Insurance Briefing",
     knowledgeTitle: "Actuarial Knowledge",
-    savedTitle: "Saved Briefings",
+    savedTitle: "Saved & Learning Journal",
     allTopics: "All Topics",
+    navAllBriefings: "All Briefings",
     pageDailySubtitle: "A curated insurance briefing by supervision, business line, company, technology and market theme",
     pageKnowledgeSubtitle: "Personalize your actuarial learning path, concepts and case practice",
     pageSavedSubtitle: "Review briefings saved in this browser",
@@ -737,8 +838,20 @@ const pageCopy = {
     aiSummaryUnavailable: "AI-generated summaries are being prepared. Please check back later for today’s curated insights.",
     aiPlaceholder: "Ask about today's content, e.g. what actions for health insurance?",
     ask: "Ask",
-    savedIntro: "Saved in this browser for later review and PDF export",
+    savedIntro: "Review saved briefings and learning journals from this browser.",
     saveCurrent: "Save current report",
+    currentReportSaved: "Saved",
+    noCurrentReport: "No current report to save",
+    saveTodayLearning: "Save today",
+    savedBriefingsTab: "Briefings",
+    learningJournalTab: "Learning Journal",
+    noLearningJournal: "No learning journal yet. Click “Save today” on Home or Actuarial Knowledge.",
+    exportMarkdown: "Export Markdown",
+    exportHtml: "Export HTML",
+    learningJournalTitle: "ActuaryRadar Learning Journal",
+    learningJournalSaved: "Today’s learning has been saved",
+    studyTopics: "Study topics",
+    learningPreferences: "Learning preferences",
     actuarialAngle: "Actuarial View",
     suggestedActions: "Suggested Actions",
     source: "Source",
@@ -800,13 +913,13 @@ const pageCopy = {
     navHome: "Accueil",
     navDaily: "Veille assurance",
     navKnowledge: "Connaissances actuarielles",
-    navSaved: "Veilles sauvegardées",
+    navSaved: "Sauvegardes & journal",
     dailyConcept: "Concept du jour",
-    heroTitle: "Veille assurance pour actuaires et professionnels de l’assurance",
-    heroSubtitle: "ActuaryRadar est une plateforme tout-en-un pour les professionnels de l’assurance et les actuaires, réunissant apprentissage actuariel, veille assurance, résultats d’assureurs, évolutions réglementaires, réassurance et sources de recherche fiables.",
+    heroTitle: "Sachez quoi apprendre aujourd’hui.",
+    heroSubtitle: "Un espace d’apprentissage quotidien personnalisé reliant connaissances actuarielles, veille sectorielle et sources fiables.",
     heroSubsubtitle: "Actualité sectorielle, analyses techniques, recherche et ressources de formation réunies dans un espace de veille plus lisible.",
-    startLearning: "Commencer la formation",
-    browseBriefing: "Voir la veille du jour",
+    startLearning: "Commencer la formation du jour",
+    browseBriefing: "Parcourir la veille",
     latestAvailableBriefing: "Dernière veille disponible",
     actuarialKnowledge: "Connaissances actuarielles",
     continueLearningArrow: "Poursuivre la formation →",
@@ -818,8 +931,28 @@ const pageCopy = {
     heroKnowledge: "Base de connaissances",
     heroDaily: "Veille assurance",
     portalToday: "À la une",
+    homeLearningEyebrow: "Formation personnalisée",
+    homeLearningTitle: "Que travailler aujourd’hui ?",
+    buildJourneyArrow: "Construire mon parcours",
+    editLearningPreferences: "Modifier mes préférences",
+    next15Minutes: "Les 15 prochaines minutes",
     todaysLearning: "Formation du jour",
     continueLearning: "Poursuivre la formation",
+    recommendedNext: "À travailler ensuite",
+    homeLearningSummaryReady: "Votre parcours du jour est prêt",
+    homeLearningSummarySetup: "Définissez vos intérêts et votre temps disponible pour orienter la formation du jour.",
+    progressToday: "progression du jour",
+    recommendationSelectedTopic: "Parce que vous avez sélectionné {topic}.",
+    recommendationGoalRegulatory: "Recommandé pour votre objectif : comprendre la réglementation et le capital.",
+    recommendationGoalPricing: "Recommandé pour votre objectif : renforcer la tarification et le provisionnement.",
+    recommendationGoalIndustry: "Recommandé pour votre objectif : comprendre le secteur de l’assurance.",
+    recommendationGoalExam: "Recommandé pour votre objectif : préparer les examens actuariels.",
+    recommendationGoalJob: "Recommandé pour votre objectif : développer des compétences opérationnelles.",
+    recommendationIndustryInsight: "Relie le thème du jour à une évolution récente du marché.",
+    browseAllEyebrow: "Parcourir",
+    browseAllTitle: "Parcourir toute la veille",
+    learningLibraryHint: "Concepts, fiches et sources de confiance",
+    openLearningLibrary: "Ouvrir la base de connaissances →",
     relatedBriefing: "Veille associée",
     labelSeparator: " : ",
     estimatedTime: "Temps estimé : 15 min",
@@ -831,6 +964,7 @@ const pageCopy = {
     portalLatestEyebrow: "Actualité assurance",
     portalLatestTitle: "Dernières veilles",
     viewAllBriefings: "Voir toutes les veilles",
+    viewAllIntelligence: "Voir toute la veille",
     portalSectionsEyebrow: "Domaines couverts",
     portalSectionsTitle: "Explorer par thème",
     topicRegulationText: "Suivre la supervision, les exigences de capital, la protection des assurés et la conformité.",
@@ -850,13 +984,25 @@ const pageCopy = {
     editPreferences: "Modifier les préférences",
     savePreferences: "Enregistrer les préférences",
     resetPreferences: "Réinitialiser",
+    onboardingEyebrow: "Paramétrage personnalisé",
+    onboardingTitle: "Construire mon parcours de formation",
+    onboardingIntro: "Indiquez à ActuaryRadar ce que vous souhaitez apprendre. Nous personnaliserons votre programme du jour.",
+    interestedTopics: "Thèmes d’intérêt",
+    createMyPlan: "Créer mon parcours",
+    skipForNow: "Ignorer pour l’instant",
     careerStageLabel: "Profil professionnel",
     careerStudent: "Étudiant",
+    careerEarlyInsurance: "Jeune professionnel de l’assurance",
     careerJunior: "Actuaire junior / analyste",
     careerMid: "Professionnel confirmé",
     careerSenior: "Professionnel senior",
     careerManager: "Manager / dirigeant",
     learningGoalLabel: "Objectif de formation",
+    goalExamReady: "Préparer les examens actuariels",
+    goalJobReady: "Devenir opérationnel en poste",
+    goalPricingReserving: "Renforcer tarification et provisionnement",
+    goalRegulatoryLiteracy: "Comprendre réglementation et capital",
+    goalIndustryContext: "Comprendre le secteur de l’assurance",
     goalExams: "Préparer les examens actuariels",
     goalJobSkills: "Renforcer les compétences métier",
     goalStrategyIr: "Évoluer vers la stratégie / l’IR",
@@ -867,7 +1013,6 @@ const pageCopy = {
     topicsCompleted: "Thèmes travaillés",
     dailyTarget: "Objectif du jour",
     todaysLearningPlan: "Formation du jour",
-    recommendedNext: "À travailler ensuite",
     progressByTopic: "Progression par thème",
     difficultyLabel: "Niveau",
     allLevels: "Tous niveaux",
@@ -879,7 +1024,7 @@ const pageCopy = {
     estimated: "Temps estimé",
     learningItemDailyConcept: "Concept du jour",
     learningItemKnowledgeCard: "Fiche de connaissance",
-    learningItemNews: "Veille associée",
+    learningItemNews: "Éclairage sectoriel",
     learningItemResearch: "Publication de recherche",
     learningItemOfficialSource: "Source de référence",
     learningItemGithubExample: "Exemple open source",
@@ -897,6 +1042,8 @@ const pageCopy = {
     notStarted: "Non commencé",
     markComplete: "Marquer comme fait",
     completedLabel: "Terminé",
+    noCompletedToday: "Aucun contenu terminé aujourd’hui.",
+    activeTopicLabel: "Thème",
     noLearningPlanItems: "Aucun contenu ne correspond au paramétrage actuel. Ajoutez des thèmes ou changez de niveau.",
     noStartedLearningItems: "Vous n’avez pas encore commencé de contenu de formation.",
     moreContentSoon: "D’autres contenus seront ajoutés prochainement pour ce thème.",
@@ -928,8 +1075,9 @@ const pageCopy = {
     dailyCount: "Fiches par jour",
     dailyTitle: "Veille assurance",
     knowledgeTitle: "Connaissances actuarielles",
-    savedTitle: "Veilles sauvegardées",
+    savedTitle: "Sauvegardes & journal de formation",
     allTopics: "Tous les thèmes",
+    navAllBriefings: "Toute la veille",
     pageDailySubtitle: "Une veille structurée par supervision, branche, entreprise, InsurTech et thématique de marché",
     pageKnowledgeSubtitle: "Construire son parcours de formation : concepts, cas pratiques et sources de référence",
     pageSavedSubtitle: "Revoir les veilles sauvegardées dans ce navigateur",
@@ -961,8 +1109,20 @@ const pageCopy = {
     aiSummaryUnavailable: "Les résumés générés par IA sont en cours de préparation. Revenez plus tard pour consulter la veille du jour.",
     aiPlaceholder: "Posez une question sur la veille du jour, ex. impacts pour la santé/prévoyance ?",
     ask: "Demander",
-    savedIntro: "Conservé dans ce navigateur pour relecture et export PDF",
+    savedIntro: "Retrouvez les veilles et journaux de formation enregistrés dans ce navigateur.",
     saveCurrent: "Enregistrer cette veille",
+    currentReportSaved: "Enregistré",
+    noCurrentReport: "Aucune veille à enregistrer",
+    saveTodayLearning: "Enregistrer le jour",
+    savedBriefingsTab: "Veilles",
+    learningJournalTab: "Journal de formation",
+    noLearningJournal: "Aucun journal de formation enregistré. Cliquez sur « Enregistrer le jour » depuis l’accueil ou les connaissances actuarielles.",
+    exportMarkdown: "Exporter Markdown",
+    exportHtml: "Exporter HTML",
+    learningJournalTitle: "Journal de formation ActuaryRadar",
+    learningJournalSaved: "La formation du jour a été enregistrée",
+    studyTopics: "Thèmes de formation",
+    learningPreferences: "Préférences de formation",
     actuarialAngle: "Analyse actuarielle",
     suggestedActions: "Pistes d’action",
     source: "Source",
@@ -1020,12 +1180,12 @@ const pageCopy = {
   }
 };
 
-const learningTopicOptions = [
+let learningTopicOptions = [
   {
     id: "Fundamentals",
     labels: { zh: "精算基础", en: "Fundamentals", fr: "Fondamentaux actuariels" },
     focus: { zh: "概率、统计、生存分析和现金流基础", en: "Probability, statistics, survival analysis and cash-flow basics", fr: "Probabilités, statistique, analyse de survie et flux" },
-    tracks: ["Fundamentals", "Insurance Fundamentals"],
+    tracks: ["Fundamentals"],
     keywords: ["fundamental", "statistics", "survival", "probability", "mortality", "lapse", "基础", "概率", "统计", "mortalité", "rachat"]
   },
   {
@@ -1142,8 +1302,35 @@ const learningTopicOptions = [
   }
 ];
 
+const fallbackLearningTopicOptions = learningTopicOptions.map(topic => ({
+  ...topic,
+  labels: { ...(topic.labels || {}) },
+  focus: { ...(topic.focus || {}) },
+  tracks: [...(topic.tracks || [])],
+  keywords: [...(topic.keywords || [])]
+}));
+
+const onboardingCareerStages = ["student", "early_career_insurance"];
+const onboardingLearningGoals = ["exam_ready", "job_ready", "pricing_reserving", "regulatory_literacy", "industry_context"];
+const onboardingTopicIds = [
+  "Fundamentals",
+  "Insurance Fundamentals",
+  "Pricing",
+  "Reserving",
+  "IFRS 17",
+  "Solvency II",
+  "Reinsurance",
+  "Investment & ALM",
+  "AI & Insurance",
+  "Climate Risk",
+  "Data Analytics",
+  "Regulation"
+];
+const onboardingStudyTimes = [10, 15, 20, 30];
+
 const els = {
   sectionNav: document.querySelector("#sectionNav"),
+  dailyNavGroup: document.querySelector("#dailyNavGroup"),
   productTabs: document.querySelectorAll(".product-tab"),
   pages: document.querySelectorAll(".page-view"),
   reportDate: document.querySelector("#reportDate"),
@@ -1172,6 +1359,7 @@ const els = {
   searchInput: document.querySelector("#searchInput"),
   lobFilter: document.querySelector("#lobFilter"),
   topicFilter: document.querySelector("#topicFilter"),
+  activeTopicChip: document.querySelector("#activeTopicChip"),
   industryFilter: document.querySelector("#industryFilter"),
   periodFilter: document.querySelector("#periodFilter"),
   branchFilter: document.querySelector("#branchFilter"),
@@ -1193,9 +1381,14 @@ const els = {
   saveDailyButton: document.querySelector("#saveDailyButton"),
   exportPdfButton: document.querySelector("#exportPdfButton"),
   saveCurrentDigestButton: document.querySelector("#saveCurrentDigestButton"),
+  saveTodayLearningButton: document.querySelector("#saveTodayLearningButton"),
+  saveKnowledgeLearningButton: document.querySelector("#saveKnowledgeLearningButton"),
   savedDigestList: document.querySelector("#savedDigestList"),
+  savedTabs: document.querySelectorAll("[data-saved-tab]"),
   knowledgeFilter: document.querySelector("#knowledgeFilter"),
+  conceptGrid: document.querySelector("#conceptGrid"),
   knowledgeGrid: document.querySelector("#knowledgeGrid"),
+  openSourceLearningGrid: document.querySelector("#openSourceLearningGrid"),
   sourceLibrary: document.querySelector("#sourceLibrary"),
   selectAllSourcesButton: document.querySelector("#selectAllSourcesButton"),
   clearSourcesButton: document.querySelector("#clearSourcesButton"),
@@ -1209,16 +1402,37 @@ const els = {
   editLearningPreferences: document.querySelector("#editLearningPreferences"),
   saveLearningPreferences: document.querySelector("#saveLearningPreferences"),
   resetLearningPreferences: document.querySelector("#resetLearningPreferences"),
+  onboardingModal: document.querySelector("#onboardingModal"),
+  onboardingCareerStage: document.querySelector("#onboardingCareerStage"),
+  onboardingLearningGoal: document.querySelector("#onboardingLearningGoal"),
+  onboardingStudyTime: document.querySelector("#onboardingStudyTime"),
+  onboardingTopicGrid: document.querySelector("#onboardingTopicGrid"),
+  openOnboardingButton: document.querySelector("#openOnboardingButton"),
+  resetHomeLearningPreferences: document.querySelector("#resetHomeLearningPreferences"),
+  skipOnboardingButton: document.querySelector("#skipOnboardingButton"),
+  createPlanButton: document.querySelector("#createPlanButton"),
   copyContactButton: document.querySelector("#copyContactButton"),
   portalLeadTitle: document.querySelector("#portalLeadTitle"),
   portalLeadSummary: document.querySelector("#portalLeadSummary"),
   portalLeadLink: document.querySelector("#portalLeadLink"),
+  homeLearningSummary: document.querySelector("#homeLearningSummary"),
+  homeTodayLearningList: document.querySelector("#homeTodayLearningList"),
+  homeLearningSide: document.querySelector("#homeLearningSide"),
+  homeContinueLearningCard: document.querySelector("#homeContinueLearningCard"),
+  homeContinueLearningList: document.querySelector("#homeContinueLearningList"),
+  homeRecommendedLearningCard: document.querySelector("#homeRecommendedLearningCard"),
+  homeRecommendedLearningList: document.querySelector("#homeRecommendedLearningList"),
+  homeCompletedLearningCard: document.querySelector("#homeCompletedLearningCard"),
+  homeCompletedLearningTitle: document.querySelector("#homeCompletedLearningTitle"),
+  homeCompletedLearningList: document.querySelector("#homeCompletedLearningList"),
   portalLatestGrid: document.querySelector("#portalLatestGrid"),
   portalSectionGrid: document.querySelector("#portalSectionGrid")
 };
 
 async function init() {
+  await loadLearningTaxonomy();
   normalizeLearningState();
+  applyInitialRouteState();
   if (!state.sourcePlan) {
     state.sourcePlan = sourceLibrary.map(source => source.id);
   } else {
@@ -1226,6 +1440,7 @@ async function init() {
     state.sourcePlan = state.sourcePlan.filter(id => validSources.has(id));
   }
   syncBodyState();
+  renderOnboardingOptions();
   bindEvents();
   renderStaticIcons();
   els.periodFilter.value = state.filters.period;
@@ -1236,6 +1451,54 @@ async function init() {
   await loadKnowledgeSources();
   await loadKnowledge();
   await loadDigest("./data/digest.json");
+  setActivePage(state.activePage);
+  render();
+  maybeOpenOnboardingModal();
+}
+
+function applyInitialRouteState() {
+  const section = currentRouteBriefingSection();
+  if (section) {
+    state.activePage = "daily";
+    state.activeSection = section;
+    state.dailyNavExpanded = false;
+  }
+}
+
+function currentRouteBriefingSection() {
+  const params = new URLSearchParams(window.location.search);
+  const topic = params.get("topic");
+  return topic ? sectionByBriefingTopicSlug[topic] || null : null;
+}
+
+async function loadLearningTaxonomy() {
+  try {
+    const response = await fetch("./data/learning_taxonomy.json", { cache: "no-store" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const payload = await response.json();
+    const configuredTopics = Array.isArray(payload.topics)
+      ? payload.topics.map(normalizeConfiguredLearningTopic).filter(Boolean)
+      : [];
+    if (configuredTopics.length) {
+      learningTopicOptions = configuredTopics;
+      state.learningTaxonomy = payload;
+    }
+  } catch {
+    learningTopicOptions = fallbackLearningTopicOptions;
+    state.learningTaxonomy = null;
+  }
+}
+
+function normalizeConfiguredLearningTopic(topic) {
+  if (!topic?.id || !topic?.labels) return null;
+  return {
+    id: String(topic.id),
+    slug: topic.slug || "",
+    labels: topic.labels || {},
+    focus: topic.focus || {},
+    tracks: Array.isArray(topic.tracks) ? topic.tracks.map(String) : [],
+    keywords: Array.isArray(topic.keywords) ? topic.keywords.map(String) : []
+  };
 }
 
 function renderStaticIcons() {
@@ -1244,16 +1507,145 @@ function renderStaticIcons() {
   });
 }
 
+function renderOnboardingOptions() {
+  if (!els.onboardingModal) return;
+  if (els.onboardingCareerStage) {
+    els.onboardingCareerStage.innerHTML = onboardingCareerStages.map(id => `
+      <option value="${escapeHtml(id)}">${escapeHtml(onboardingCareerLabel(id))}</option>
+    `).join("");
+    els.onboardingCareerStage.value = onboardingCareerStages.includes(state.knowledgePlan.careerStage)
+      ? state.knowledgePlan.careerStage
+      : "student";
+  }
+  if (els.onboardingLearningGoal) {
+    els.onboardingLearningGoal.innerHTML = onboardingLearningGoals.map(id => `
+      <option value="${escapeHtml(id)}">${escapeHtml(onboardingGoalLabel(id))}</option>
+    `).join("");
+    els.onboardingLearningGoal.value = onboardingLearningGoals.includes(state.knowledgePlan.learningGoal)
+      ? state.knowledgePlan.learningGoal
+      : "job_ready";
+  }
+  if (els.onboardingStudyTime) {
+    els.onboardingStudyTime.innerHTML = onboardingStudyTimes.map(minutes => `
+      <option value="${minutes}">${minutes} ${escapeHtml(t("minutesShort"))}</option>
+    `).join("");
+    els.onboardingStudyTime.value = String(onboardingStudyTimes.includes(Number(state.knowledgePlan.studyTime))
+      ? state.knowledgePlan.studyTime
+      : 15);
+  }
+  if (els.onboardingTopicGrid) {
+    const selected = new Set(state.knowledgePlan.tracks || defaultKnowledgePlan.tracks);
+    els.onboardingTopicGrid.innerHTML = onboardingTopicIds.map(topicId => `
+      <label class="onboarding-topic-choice">
+        <input type="checkbox" value="${escapeHtml(topicId)}"${selected.has(topicId) ? " checked" : ""}>
+        <span>${escapeHtml(learningTopicLabel(topicId))}</span>
+      </label>
+    `).join("");
+  }
+}
+
+function onboardingCareerLabel(id) {
+  const labels = {
+    student: t("careerStudent"),
+    early_career_insurance: t("careerEarlyInsurance")
+  };
+  return labels[id] || id;
+}
+
+function onboardingGoalLabel(id) {
+  const labels = {
+    exam_ready: t("goalExamReady"),
+    job_ready: t("goalJobReady"),
+    pricing_reserving: t("goalPricingReserving"),
+    regulatory_literacy: t("goalRegulatoryLiteracy"),
+    industry_context: t("goalIndustryContext")
+  };
+  return labels[id] || id;
+}
+
+function maybeOpenOnboardingModal() {
+  if (!els.onboardingModal) return;
+  if (state.knowledgePlan.setupComplete || state.onboardingSkipped) return;
+  if (state.activePage !== "home") return;
+  openOnboardingModal();
+}
+
+function openOnboardingModal() {
+  if (!els.onboardingModal) return;
+  renderOnboardingOptions();
+  els.onboardingModal.hidden = false;
+  els.onboardingModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+  els.onboardingCareerStage?.focus();
+}
+
+function closeOnboardingModal() {
+  if (!els.onboardingModal) return;
+  els.onboardingModal.hidden = true;
+  els.onboardingModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
+}
+
+function saveOnboardingPlan() {
+  const selectedTopics = els.onboardingTopicGrid
+    ? [...els.onboardingTopicGrid.querySelectorAll("input:checked")].map(input => input.value)
+    : [];
+  const studyTime = Number(els.onboardingStudyTime?.value || 15);
+  state.knowledgePlan = {
+    ...state.knowledgePlan,
+    careerStage: els.onboardingCareerStage?.value || "student",
+    learningGoal: els.onboardingLearningGoal?.value || "job_ready",
+    tracks: selectedTopics.length ? selectedTopics : defaultKnowledgePlan.tracks,
+    studyTime,
+    dailyCount: dailyCountForStudyTime(studyTime),
+    difficulty: state.knowledgePlan.difficulty || "beginner",
+    setupComplete: true
+  };
+  state.onboardingSkipped = false;
+  localStorage.removeItem("actuaryRadar.onboardingSkipped");
+  saveKnowledgePlan();
+  closeOnboardingModal();
+  renderKnowledgePlanner();
+  renderKnowledge();
+  renderLearningPlan();
+  renderPortal();
+}
+
+function dailyCountForStudyTime(minutes) {
+  if (minutes <= 10) return 1;
+  if (minutes >= 30) return 3;
+  return 2;
+}
+
+function skipOnboarding() {
+  if (!state.knowledgePlan.setupComplete) {
+    state.knowledgePlan = {
+      ...state.knowledgePlan,
+      tracks: defaultKnowledgePlan.tracks,
+      studyTime: defaultKnowledgePlan.studyTime,
+      dailyCount: defaultKnowledgePlan.dailyCount,
+      setupComplete: true
+    };
+    saveKnowledgePlan();
+  }
+  state.onboardingSkipped = true;
+  localStorage.setItem("actuaryRadar.onboardingSkipped", "true");
+  closeOnboardingModal();
+  renderKnowledgePlanner();
+  renderLearningPlan();
+  renderPortal();
+}
+
 function normalizeLearningState() {
   const plan = state.knowledgePlan && typeof state.knowledgePlan === "object" ? state.knowledgePlan : {};
   state.knowledgePlan = {
     ...defaultKnowledgePlan,
     ...plan,
     dailyCount: clampNumber(plan.dailyCount, 2, 1, 5),
-    studyTime: [5, 10, 15, 30].includes(Number(plan.studyTime)) ? Number(plan.studyTime) : defaultKnowledgePlan.studyTime,
+    studyTime: onboardingStudyTimes.includes(Number(plan.studyTime)) ? Number(plan.studyTime) : defaultKnowledgePlan.studyTime,
     difficulty: ["all", "beginner", "intermediate", "advanced"].includes(plan.difficulty) ? plan.difficulty : defaultKnowledgePlan.difficulty,
-    careerStage: ["student", "junior", "mid", "senior", "manager"].includes(plan.careerStage) ? plan.careerStage : defaultKnowledgePlan.careerStage,
-    learningGoal: ["exams", "job_skills", "strategy_ir", "stay_updated", "general_knowledge"].includes(plan.learningGoal) ? plan.learningGoal : defaultKnowledgePlan.learningGoal,
+    careerStage: ["student", "early_career_insurance", "junior", "mid", "senior", "manager"].includes(plan.careerStage) ? plan.careerStage : defaultKnowledgePlan.careerStage,
+    learningGoal: ["exam_ready", "job_ready", "pricing_reserving", "regulatory_literacy", "industry_context", "exams", "job_skills", "strategy_ir", "stay_updated", "general_knowledge"].includes(plan.learningGoal) ? plan.learningGoal : defaultKnowledgePlan.learningGoal,
     setupComplete: Boolean(plan.setupComplete || storedKnowledgePlanRaw),
     tracks: normalizeSelectedLearningTopics(plan.tracks)
   };
@@ -1290,17 +1682,26 @@ function clampNumber(value, fallback, min, max) {
 function bindEvents() {
   els.productTabs.forEach(button => {
     button.addEventListener("click", () => {
-      if (button.dataset.page === "daily") {
-        state.activeSection = "全部";
-        renderSectionNav();
+      const nextPage = button.dataset.page;
+      if (nextPage === "daily") {
+        if (state.activePage !== "daily") state.activeSection = "全部";
+        state.dailyNavExpanded = state.activePage !== "daily" ? true : !state.dailyNavExpanded;
+      } else {
+        state.dailyNavExpanded = false;
       }
-      setActivePage(button.dataset.page);
+      setActivePage(nextPage);
+      if (nextPage === "daily") renderSectionNav();
       render();
     });
   });
 
   document.querySelectorAll(".product-tab-link").forEach(button => {
     button.addEventListener("click", () => {
+      if (button.dataset.page === "daily" && !button.dataset.portalSection) {
+        state.activeSection = "全部";
+        renderSectionNav();
+      }
+      state.dailyNavExpanded = false;
       setActivePage(button.dataset.page);
       render();
       if (button.dataset.scrollTarget) {
@@ -1314,6 +1715,7 @@ function bindEvents() {
     state.language = event.target.value;
     localStorage.setItem("actuaryRadar.language", state.language);
     applyLanguage();
+    renderOnboardingOptions();
     loadArchiveIndex();
     if (state.data) renderScaffold();
     renderSectionNav();
@@ -1338,7 +1740,17 @@ function bindEvents() {
   });
 
   els.topicFilter.addEventListener("change", event => {
+    if (state.activeSection !== "全部") return;
     state.filters.topic = event.target.value;
+    render();
+  });
+
+  els.activeTopicChip?.addEventListener("click", () => {
+    state.activeSection = "全部";
+    state.filters.topic = "all";
+    updateSectionFilters();
+    setActivePage("daily");
+    renderSectionNav();
     render();
   });
 
@@ -1359,6 +1771,15 @@ function bindEvents() {
 
   els.companyFilter.addEventListener("change", event => {
     state.filters.company = event.target.value;
+    render();
+  });
+
+  window.addEventListener("popstate", () => {
+    state.activeSection = "全部";
+    state.activePage = "home";
+    applyInitialRouteState();
+    setActivePage(state.activePage);
+    renderSectionNav();
     render();
   });
 
@@ -1392,8 +1813,21 @@ function bindEvents() {
   });
 
   els.saveCurrentDigestButton.addEventListener("click", () => {
-    saveCurrentDigest();
+    const saved = saveCurrentDigest();
+    if (!saved) {
+      flashButtonLabel(els.saveCurrentDigestButton, t("noCurrentReport"));
+      return;
+    }
+    flashButtonLabel(els.saveCurrentDigestButton, t("currentReportSaved"));
     renderSavedDigests();
+  });
+  els.saveTodayLearningButton?.addEventListener("click", saveTodayLearningJournal);
+  els.saveKnowledgeLearningButton?.addEventListener("click", saveTodayLearningJournal);
+  els.savedTabs?.forEach(button => {
+    button.addEventListener("click", () => {
+      state.savedView = button.dataset.savedTab || "briefings";
+      renderSavedDigests();
+    });
   });
 
   els.exportPdfButton.addEventListener("click", () => {
@@ -1442,7 +1876,7 @@ function bindEvents() {
   });
 
   els.editLearningPreferences?.addEventListener("click", () => {
-    els.learningPreferencesCard?.scrollIntoView({ behavior: "smooth", block: "start" });
+    openOnboardingModal();
   });
 
   els.saveLearningPreferences?.addEventListener("click", () => {
@@ -1452,13 +1886,8 @@ function bindEvents() {
     renderLearningPlan();
   });
 
-  els.resetLearningPreferences?.addEventListener("click", () => {
-    state.knowledgePlan = { ...defaultKnowledgePlan };
-    saveKnowledgePlan();
-    renderKnowledgePlanner();
-    renderKnowledge();
-    renderLearningPlan();
-  });
+  els.resetLearningPreferences?.addEventListener("click", resetLearningPreferences);
+  els.resetHomeLearningPreferences?.addEventListener("click", resetLearningPreferences);
 
   els.learningPlanList?.addEventListener("click", event => {
     handleLearningActionClick(event);
@@ -1466,6 +1895,15 @@ function bindEvents() {
 
   els.continueLearningList?.addEventListener("click", handleLearningActionClick);
   els.recommendedLearningList?.addEventListener("click", handleLearningActionClick);
+  els.homeTodayLearningList?.addEventListener("click", handleLearningActionClick);
+  els.homeContinueLearningList?.addEventListener("click", handleLearningActionClick);
+  els.homeRecommendedLearningList?.addEventListener("click", handleLearningActionClick);
+  els.openOnboardingButton?.addEventListener("click", () => openOnboardingModal());
+  els.createPlanButton?.addEventListener("click", saveOnboardingPlan);
+  els.skipOnboardingButton?.addEventListener("click", skipOnboarding);
+  els.onboardingModal?.querySelectorAll("[data-close-onboarding]").forEach(node => {
+    node.addEventListener("click", closeOnboardingModal);
+  });
 
   els.selectAllSourcesButton.addEventListener("click", () => {
     state.sourcePlan = sourceLibrary.map(source => source.id);
@@ -1497,22 +1935,50 @@ function bindEvents() {
 function setActivePage(page) {
   state.activePage = page;
   syncBodyState();
+  syncBriefingUrl();
   els.productTabs.forEach(button => {
     button.classList.toggle("active", button.dataset.page === page);
   });
+  syncDailyNavExpanded();
   els.pages.forEach(section => {
     section.classList.toggle("active", section.id === `${page}Page`);
   });
   updatePageHeader();
   updateSectionFilters();
   if (page === "saved") renderSavedDigests();
-  if (page === "knowledge") renderKnowledge();
+  if (page === "knowledge") {
+    if (state.data) renderScaffold();
+    renderKnowledge();
+  }
   if (page === "home") renderPortal();
 }
 
 function syncBodyState() {
+  if (state.activePage !== "daily") state.dailyNavExpanded = false;
   document.body.dataset.page = state.activePage;
   document.body.dataset.section = state.activeSection === "全部" ? "all" : "section";
+  syncDailyNavExpanded();
+}
+
+function syncDailyNavExpanded() {
+  if (!els.dailyNavGroup) return;
+  const expanded = Boolean(state.dailyNavExpanded);
+  els.dailyNavGroup.classList.toggle("expanded", expanded);
+  if (els.sectionNav) els.sectionNav.hidden = !expanded;
+}
+
+function syncBriefingUrl() {
+  const url = new URL(window.location.href);
+  if (state.activePage === "daily") {
+    const slug = state.activeSection === "全部" ? "" : briefingTopicSlugs[normalizeSection(state.activeSection)];
+    if (slug) url.searchParams.set("topic", slug);
+    else url.searchParams.delete("topic");
+  } else {
+    url.searchParams.delete("topic");
+  }
+  const next = `${url.pathname}${url.search}${url.hash}`;
+  const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+  if (next !== current) window.history.replaceState({}, "", next);
 }
 
 async function loadArchiveIndex() {
@@ -1590,7 +2056,7 @@ async function loadDigest(url) {
     state.data = data;
     state.items = data.items || [];
     state.companyReports = buildCompanyReportItems(data.company_reports || []);
-    state.activeSection = "全部";
+    state.activeSection = currentRouteBriefingSection() || "全部";
     state.filters.tag = "";
     els.dateInput.value = data.report_date || "";
     const archive = state.archives.find(item => item.date === data.report_date);
@@ -1680,28 +2146,14 @@ function markDigestStale(data) {
 function renderScaffold() {
   const data = state.data;
   const focus = data.focus_profile || {};
-  const concept = data.daily_concept || {};
 
   const datePrefix = data.is_stale ? t("latestAvailableBriefing") : t("dailyTitle");
   els.reportDate.textContent = `${datePrefix}: ${data.report_date || "-"} · ${data.mode || "-"}`;
   const localizedFocus = localizedDailyFocus(data.report_date, focus);
-  const localizedConcept = localizedDailyConcept(concept);
-  els.dailyThemeLabel.textContent = localizedFocus.theme;
-  els.learningGoal.textContent = localizedFocus.goal;
-  els.taskList.innerHTML = localizedFocus.tasks.map(task => `<li>${escapeHtml(task)}</li>`).join("");
-  els.conceptTerm.textContent = localizedConcept.term;
-  els.conceptDefinition.textContent = localizedConcept.definition;
-  els.conceptExample.textContent = localizedConcept.example;
-  els.conceptExercise.textContent = localizedConcept.exercise;
-  if (localizedConcept.sourceUrl) {
-    els.conceptSourceLink.hidden = false;
-    els.conceptSourceLink.href = localizedConcept.sourceUrl;
-    els.conceptSourceLink.textContent = localizedConcept.sourceLabel;
-  } else {
-    els.conceptSourceLink.hidden = true;
-    els.conceptSourceLink.removeAttribute("href");
-    els.conceptSourceLink.textContent = "";
-  }
+  if (els.dailyThemeLabel) els.dailyThemeLabel.textContent = localizedFocus.theme;
+  if (els.learningGoal) els.learningGoal.textContent = localizedFocus.goal;
+  if (els.taskList) els.taskList.innerHTML = localizedFocus.tasks.map(task => `<li>${escapeHtml(task)}</li>`).join("");
+  renderPersonalizedConceptCards();
   if (els.languageSourceNotice) {
     els.languageSourceNotice.hidden = true;
     els.languageSourceNotice.textContent = "";
@@ -1713,6 +2165,46 @@ function renderScaffold() {
   updatePageHeader();
 }
 
+function currentPersonalizedDailyConcepts() {
+  const topicIds = (state.knowledgePlan.tracks?.length ? state.knowledgePlan.tracks : defaultKnowledgePlan.tracks).slice(0, 2);
+  return topicIds
+    .map(topicId => ({ topicId, concept: personalizedDailyConceptForTopic(topicId) }))
+    .filter(item => item.concept);
+}
+
+function renderPersonalizedConceptCards() {
+  if (!els.conceptGrid) return;
+  const concepts = currentPersonalizedDailyConcepts();
+  const cards = concepts.length
+    ? concepts
+    : [{ topicId: "Fundamentals", concept: localizedDailyConcept(state.data?.daily_concept || {}) }];
+  els.conceptGrid.innerHTML = cards.map(({ topicId, concept }, index) => `
+    <section class="concept-card" id="${index === 0 ? "dailyConceptBlock" : escapeHtml(`dailyConceptBlock-${index + 1}`)}">
+      <div class="card-meta">
+        <span class="chip">${escapeHtml(t("dailyConcept"))}</span>
+        <span class="chip">${escapeHtml(learningTopicLabel(topicId))}</span>
+      </div>
+      <h4>${escapeHtml(concept.term || "-")}</h4>
+      <p>${escapeHtml(concept.definition || "-")}</p>
+      ${concept.example ? `<p class="concept-example">${escapeHtml(concept.example)}</p>` : ""}
+      ${concept.exercise ? `<p class="prompt">${escapeHtml(concept.exercise)}</p>` : ""}
+      ${concept.openUrl ? `<a class="concept-source-link" href="${escapeHtml(concept.openUrl)}">${escapeHtml(t("startLearningItem"))} →</a>` : ""}
+      ${concept.sourceUrl ? `<a class="concept-source-link" href="${escapeHtml(concept.sourceUrl)}" target="_blank" rel="noopener">${escapeHtml(t("sourceWebsite"))} →</a>` : ""}
+    </section>
+  `).join("");
+}
+
+function personalizedConceptExample(concept, topicId) {
+  const topic = learningTopicLabel(topicId);
+  if (state.language === "zh") {
+    return `通俗理解：这是你当前学习主题「${topic}」下的今日概念。先用一句话解释 ${concept.term}，再把它连接到一个保险现金流、假设或风险管理场景。`;
+  }
+  if (state.language === "fr") {
+    return `Exemple simple : ce concept vient de votre thème « ${topic} ». Expliquez ${concept.term} en une phrase, puis reliez-le à un flux d’assurance, une hypothèse ou une décision de gestion des risques.`;
+  }
+  return `Plain example: this concept comes from your selected topic, ${topic}. Explain ${concept.term} in one sentence, then connect it to an insurance cash flow, assumption or risk-management decision.`;
+}
+
 function renderSectionNav() {
   const sections = new Set(languageMatchedItems(state.items).map(item => normalizeSection(item.platform_section)));
   if (state.companyReports.length) sections.add("company_results_strategy");
@@ -1720,20 +2212,27 @@ function renderSectionNav() {
   if (state.activeSection !== "全部" && !visibleSections.includes(normalizeSection(state.activeSection))) {
     state.activeSection = "全部";
   }
+  syncDailyNavExpanded();
+  const allCount = languageMatchedItems(state.items).length + state.companyReports.length;
   const counts = visibleSections.reduce((acc, section) => {
     acc[section] = sectionItems(section).length;
     return acc;
   }, {});
-  els.sectionNav.innerHTML = visibleSections.map(section => {
+  const allActive = state.activeSection === "全部" ? " active" : "";
+  const allIcon = navIcon("brief");
+  const allButton = `<button class="section-nav-button${allActive}" type="button" data-section="全部"><span><span class="nav-icon">${allIcon}</span>${escapeHtml(t("navAllBriefings"))}</span><strong>${escapeHtml(String(allCount))}</strong></button>`;
+  const sectionButtons = visibleSections.map(section => {
     const active = section === state.activeSection ? " active" : "";
     const label = displaySection(section);
     const icon = navIcon(sectionLabels[section]?.icon || "brief");
-    return `<button class="nav-button${active}" type="button" data-section="${escapeHtml(section)}"><span><span class="nav-icon">${icon}</span>${escapeHtml(label)}</span><strong>${escapeHtml(String(counts[section] || 0))}</strong></button>`;
+    return `<button class="section-nav-button${active}" type="button" data-section="${escapeHtml(section)}"><span><span class="nav-icon">${icon}</span>${escapeHtml(label)}</span><strong>${escapeHtml(String(counts[section] || 0))}</strong></button>`;
   }).join("");
+  els.sectionNav.innerHTML = allButton + sectionButtons;
 
   els.sectionNav.querySelectorAll("button").forEach(button => {
     button.addEventListener("click", () => {
       state.activeSection = button.dataset.section;
+      state.dailyNavExpanded = false;
       setActivePage("daily");
       renderSectionNav();
       updateSectionFilters();
@@ -1887,10 +2386,18 @@ function updateFreshnessLabels() {
 
 function updateSectionFilters() {
   const companyMode = normalizeSection(state.activeSection) === "company_results_strategy";
-  [els.periodFilter, els.lobFilter, els.topicFilter, els.industryFilter, els.branchFilter].forEach(select => {
+  const sectionMode = state.activeSection !== "全部";
+  [els.periodFilter, els.lobFilter, els.industryFilter, els.branchFilter].forEach(select => {
     if (select) select.hidden = companyMode;
   });
+  if (els.topicFilter) els.topicFilter.hidden = companyMode || sectionMode;
   if (els.companyFilter) els.companyFilter.hidden = !companyMode;
+  if (sectionMode) state.filters.topic = "all";
+  if (els.activeTopicChip) {
+    const showChip = sectionMode && !companyMode;
+    els.activeTopicChip.hidden = !showChip;
+    els.activeTopicChip.textContent = showChip ? `${t("activeTopicLabel")}: ${displaySection(state.activeSection)} ×` : "";
+  }
 }
 
 function localizedDailyFocus(reportDate, focus) {
@@ -2514,24 +3021,32 @@ function render() {
 
 function renderPortal() {
   if (!els.portalLatestGrid) return;
+  const homeLearningItems = renderHomeLearning();
   const sorted = languageMatchedItems(state.items).sort((a, b) => (b.score || 0) - (a.score || 0));
   const lead = sorted[0];
   if (lead) {
     els.portalLeadTitle.textContent = localizedItemTitle(lead);
-    els.portalLeadSummary.textContent = heroHighlightSummary(lead);
+    els.portalLeadSummary.textContent = "";
+    els.portalLeadSummary.hidden = true;
     if (els.portalLeadLink) {
       els.portalLeadLink.href = originalArticleUrl(lead);
       els.portalLeadLink.hidden = originalArticleUrl(lead) === "#";
     }
   } else {
     els.portalLeadTitle.textContent = t("noItems");
-    els.portalLeadSummary.textContent = t("heroSubtitle");
+    els.portalLeadSummary.textContent = "";
+    els.portalLeadSummary.hidden = true;
     if (els.portalLeadLink) {
       els.portalLeadLink.hidden = true;
     }
   }
   const leadId = lead ? itemId(lead) : "";
-  const latestItems = sorted.filter(item => itemId(item) !== leadId).slice(0, 3);
+  const homeNewsIds = new Set((homeLearningItems || [])
+    .filter(item => item.type === "news" || item.type === "research")
+    .map(item => String(item.id || "").replace(/^(news|research):/, "")));
+  const latestItems = sorted
+    .filter(item => itemId(item) !== leadId && !homeNewsIds.has(itemId(item)))
+    .slice(0, 3);
   els.portalLatestGrid.innerHTML = latestItems.map(item => portalNewsCard(item)).join("");
 
   const topicDescriptions = {
@@ -2543,23 +3058,26 @@ function renderPortal() {
     research: t("topicResearchText"),
     career_learning: t("topicCareerText")
   };
-  els.portalSectionGrid.innerHTML = sectionOrder.map(section => {
-    const itemsForSection = sectionItems(section);
-    return `
-      <article class="portal-section-card">
-        <div>
-          <span>${escapeHtml(sectionLabels[section]?.symbol || "IH")}</span>
-          <h4>${escapeHtml(displaySection(section))}</h4>
-          <p>${escapeHtml(topicDescriptions[section] || "")}</p>
-        </div>
-        <button class="text-link" type="button" data-portal-section="${escapeHtml(section)}">${escapeHtml(t("open"))} (${itemsForSection.length})</button>
-      </article>
-    `;
-  }).join("");
+  if (els.portalSectionGrid) {
+    els.portalSectionGrid.innerHTML = sectionOrder.map(section => {
+      const itemsForSection = sectionItems(section);
+      return `
+        <article class="portal-section-card">
+          <div>
+            <span>${escapeHtml(sectionLabels[section]?.symbol || "IH")}</span>
+            <h4>${escapeHtml(displaySection(section))}</h4>
+            <p>${escapeHtml(topicDescriptions[section] || "")}</p>
+          </div>
+          <button class="text-link" type="button" data-portal-section="${escapeHtml(section)}">${escapeHtml(t("open"))} (${itemsForSection.length})</button>
+        </article>
+      `;
+    }).join("");
+  }
 
   els.portalLatestGrid.querySelectorAll("[data-portal-url]").forEach(button => {
     button.addEventListener("click", () => {
       state.activeSection = "全部";
+      state.dailyNavExpanded = false;
       setActivePage("daily");
       state.filters.search = button.dataset.portalTitle.toLowerCase();
       els.searchInput.value = state.filters.search;
@@ -2568,14 +3086,84 @@ function renderPortal() {
     });
   });
 
-  els.portalSectionGrid.querySelectorAll("[data-portal-section]").forEach(button => {
+  els.portalSectionGrid?.querySelectorAll("[data-portal-section]").forEach(button => {
     button.addEventListener("click", () => {
       state.activeSection = button.dataset.portalSection;
+      state.dailyNavExpanded = false;
       setActivePage("daily");
       renderSectionNav();
       render();
     });
   });
+}
+
+function renderHomeLearning() {
+  if (!els.homeTodayLearningList) return [];
+  const planItems = generateHomeTodaysLearningItems();
+  const continueItems = generateContinueLearningItems();
+  const completedItems = generateCompletedTodayLearningItems();
+  const completedCount = planItems.filter(item => isLearningItemCompletedToday(item.id)).length;
+  const todaysPlanComplete = planItems.length > 0 && completedCount >= planItems.length;
+  const recommendedItems = todaysPlanComplete
+    ? generateRecommendedLearningItems(planItems.map(item => item.id)).slice(0, 2)
+    : [];
+  const minutes = planItems.reduce((sum, item) => sum + Number(item.estimatedMinutes || 0), 0);
+  const selectedTopics = state.knowledgePlan.tracks || [];
+  const topicText = selectedTopics.slice(0, 3).map(learningTopicLabel).join(", ");
+  if (els.homeLearningSummary) {
+    els.homeLearningSummary.textContent = state.knowledgePlan.setupComplete
+      ? `${minutes || state.knowledgePlan.studyTime || 15} ${t("minutesShort")} · ${planItems.length} ${t("contentItems")} · ${topicText || t("homeLearningSummaryReady")} · ${completedCount}/${planItems.length || 0} ${t("progressToday")}`
+      : t("homeLearningSummarySetup");
+  }
+  if (els.openOnboardingButton) {
+    els.openOnboardingButton.textContent = state.knowledgePlan.setupComplete
+      ? t("editLearningPreferences")
+      : t("buildJourneyArrow");
+  }
+  els.homeTodayLearningList.innerHTML = renderHomeLearningItemList(planItems.slice(0, 3), {
+    emptyKey: state.knowledgePlan.setupComplete ? "noLearningPlanItems" : "setupLearningFirst",
+    mode: "today",
+    hideEmpty: false
+  });
+  if (els.homeContinueLearningCard && els.homeContinueLearningList) {
+    els.homeContinueLearningCard.hidden = continueItems.length === 0;
+    els.homeContinueLearningList.innerHTML = continueItems.length
+      ? renderHomeLearningItemList(continueItems.slice(0, 2), { mode: "continue", hideEmpty: true })
+      : "";
+  }
+  if (els.homeRecommendedLearningCard && els.homeRecommendedLearningList) {
+    els.homeRecommendedLearningCard.hidden = recommendedItems.length === 0;
+    els.homeRecommendedLearningList.innerHTML = recommendedItems.length
+      ? renderHomeLearningItemList(recommendedItems, { mode: "recommended", hideEmpty: true })
+      : "";
+  }
+  if (els.homeCompletedLearningCard && els.homeCompletedLearningList) {
+    els.homeCompletedLearningCard.hidden = completedItems.length === 0;
+    if (els.homeCompletedLearningTitle) {
+      els.homeCompletedLearningTitle.textContent = `${t("completedToday")} · ${completedItems.length}`;
+    }
+    els.homeCompletedLearningList.innerHTML = completedItems.length
+      ? renderCompletedLearningList(completedItems.slice(0, 4))
+      : "";
+  }
+  if (els.homeLearningSide) {
+    const showSide = continueItems.length > 0 || recommendedItems.length > 0 || completedItems.length > 0;
+    els.homeLearningSide.hidden = !showSide;
+    els.homeLearningSide.closest(".home-learning-grid")?.classList.toggle("single-column", !showSide);
+  }
+  return planItems;
+}
+
+function renderCompletedLearningList(items) {
+  if (!items.length) return `<div class="empty-state">${escapeHtml(t("noCompletedToday"))}</div>`;
+  return `
+    <details class="completed-learning-details">
+      <summary>${escapeHtml(t("completedLabel"))} · ${items.length}</summary>
+      <div class="completed-learning-items">
+        ${renderHomeLearningItemList(items, { mode: "completed", hideEmpty: true })}
+      </div>
+    </details>
+  `;
 }
 
 function portalNewsCard(item) {
@@ -2586,7 +3174,6 @@ function portalNewsCard(item) {
         <span class="chip chip-source">${escapeHtml(displayPrimarySource(item))}</span>
       </div>
       <h4>${escapeHtml(localizedItemTitle(item))}</h4>
-      <p>${escapeHtml(editorialTeaser(item))}</p>
       <button class="text-link" type="button" data-portal-url="${escapeHtml(item.url)}" data-portal-title="${escapeHtml(localizedItemTitle(item))}">${escapeHtml(t("open"))}</button>
     </article>
   `;
@@ -2594,6 +3181,7 @@ function portalNewsCard(item) {
 
 function getFilteredItems() {
   const companyMode = normalizeSection(state.activeSection) === "company_results_strategy";
+  const sectionMode = state.activeSection !== "全部";
   const sourceItems = companyMode ? state.companyReports : languageMatchedItems(state.items);
   return sourceItems.filter(item => {
     const text = [
@@ -2612,7 +3200,7 @@ function getFilteredItems() {
     if (state.activeSection !== "全部" && normalizeSection(item.platform_section) !== normalizeSection(state.activeSection)) return false;
     if (!isWithinPeriod(item)) return false;
     if (!companyMode && state.filters.lob !== "all" && classifyLob(item) !== state.filters.lob) return false;
-    if (!companyMode && state.filters.topic !== "all" && classifyTopic(item) !== state.filters.topic) return false;
+    if (!companyMode && !sectionMode && state.filters.topic !== "all" && classifyTopic(item) !== state.filters.topic) return false;
     if (!companyMode && state.filters.industry !== "all" && classifyIndustry(item) !== state.filters.industry) return false;
     if (!companyMode && state.filters.branch !== "all" && classifyBranch(item) !== state.filters.branch) return false;
     if (companyMode && state.filters.company !== "全部公司" && classifyCompany(item) !== state.filters.company) return false;
@@ -2641,6 +3229,7 @@ function isWithinPeriod(item) {
 }
 
 function renderMetrics(items) {
+  if (!els.metricGrid) return;
   const regions = new Set(items.map(item => item.region)).size;
   const sections = new Set(items.map(item => item.platform_section)).size;
   const regulatory = items.filter(isRegulatoryItem).length;
@@ -2923,8 +3512,8 @@ function renderDailyBriefingExportHtml(items) {
 }
 
 function renderBoard(items) {
-  els.savedCount.textContent = state.saved.size;
-  els.doneCount.textContent = state.done.size;
+  if (els.savedCount) els.savedCount.textContent = state.saved.size;
+  if (els.doneCount) els.doneCount.textContent = state.done.size;
   if (!els.shareText) return;
   const topItems = [...items].sort((a, b) => (b.score || 0) - (a.score || 0)).slice(0, 5);
   els.shareText.value = topItems.map((item, index) => {
@@ -2960,8 +3549,19 @@ function reportIssue(item) {
   window.alert(t("issueSaved"));
 }
 
+function flashButtonLabel(button, label, duration = 1400) {
+  if (!button) return;
+  const originalLabel = button.textContent;
+  button.textContent = label;
+  button.disabled = true;
+  setTimeout(() => {
+    button.textContent = originalLabel;
+    button.disabled = false;
+  }, duration);
+}
+
 function saveCurrentDigest() {
-  if (!state.data?.report_date) return;
+  if (!state.data?.report_date) return false;
   state.savedDigests[state.data.report_date] = {
     saved_at: new Date().toISOString(),
     data: state.data
@@ -2971,9 +3571,81 @@ function saveCurrentDigest() {
   setTimeout(() => {
     els.saveDailyButton.textContent = "☆";
   }, 1200);
+  return true;
+}
+
+function saveTodayLearningJournal() {
+  const snapshot = createLearningJournalSnapshot();
+  state.learningJournal[snapshot.date] = snapshot;
+  localStorage.setItem("actuaryRadar.learningJournal", JSON.stringify(state.learningJournal));
+  window.alert(t("learningJournalSaved"));
+  if (state.activePage === "saved") renderSavedDigests();
+}
+
+function createLearningJournalSnapshot() {
+  const date = currentLearningDate();
+  const selectedTopics = state.knowledgePlan.tracks?.length ? state.knowledgePlan.tracks : defaultKnowledgePlan.tracks;
+  const planItems = generateHomeTodaysLearningItems();
+  const concepts = currentPersonalizedDailyConcepts().map(({ topicId, concept }) => ({
+    topicId,
+    topicLabel: learningTopicLabel(topicId),
+    term: concept.term,
+    definition: concept.definition,
+    example: concept.example,
+    exercise: concept.exercise,
+    sourceUrl: concept.sourceUrl || "",
+    openUrl: concept.openUrl || ""
+  }));
+  const resourcesById = new Map();
+  selectedTopics.slice(0, 4).forEach(topicId => {
+    openSourceResourcesForTopic(topicId).forEach(resource => resourcesById.set(resource.id, {
+      id: resource.id,
+      name: resource.name,
+      url: resource.github_url,
+      language: resource.programming_language || "",
+      difficulty: displayRepositoryDifficulty(resource.difficulty),
+      summary: localizedRepositorySummary(resource)
+    }));
+  });
+  return {
+    date,
+    savedAt: new Date().toISOString(),
+    language: state.language,
+    preferences: {
+      careerStage: onboardingCareerLabel(state.knowledgePlan.careerStage || "student"),
+      learningGoal: onboardingGoalLabel(state.knowledgePlan.learningGoal || "job_ready"),
+      studyTime: state.knowledgePlan.studyTime || 15,
+      topics: selectedTopics.map(learningTopicLabel)
+    },
+    concepts,
+    learningItems: planItems.map(item => ({
+      id: item.id,
+      type: item.type,
+      typeLabel: item.typeLabel || learningTypeLabel(item.type),
+      topic: learningTopicLabel(item.topicId),
+      title: item.title,
+      estimatedMinutes: item.estimatedMinutes || 10,
+      completed: isLearningItemCompletedToday(item.id),
+      sourceUrl: item.sourceUrl || "",
+      openUrl: item.openUrl || ""
+    })),
+    openSourceResources: [...resourcesById.values()].slice(0, 6),
+    completedItems: generateCompletedTodayLearningItems().map(item => ({
+      title: item.title,
+      topic: learningTopicLabel(item.topicId),
+      completedAt: item.completedAt || ""
+    }))
+  };
 }
 
 function renderSavedDigests() {
+  els.savedTabs?.forEach(button => {
+    button.classList.toggle("active", (button.dataset.savedTab || "briefings") === state.savedView);
+  });
+  if (state.savedView === "learning") {
+    renderLearningJournal();
+    return;
+  }
   const entries = Object.entries(state.savedDigests)
     .sort(([dateA], [dateB]) => dateB.localeCompare(dateA));
   if (!entries.length) {
@@ -3002,11 +3674,163 @@ function renderSavedDigests() {
       state.data = record.data;
       state.items = record.data.items || [];
       state.activeSection = "全部";
+      state.dailyNavExpanded = false;
       renderScaffold();
       render();
       setActivePage("daily");
     });
   });
+}
+
+function renderLearningJournal() {
+  const entries = Object.entries(state.learningJournal)
+    .sort(([dateA], [dateB]) => dateB.localeCompare(dateA));
+  if (!entries.length) {
+    els.savedDigestList.innerHTML = `<div class="empty-state">${escapeHtml(t("noLearningJournal"))}</div>`;
+    return;
+  }
+  els.savedDigestList.innerHTML = entries.map(([date, record]) => {
+    const conceptCount = record.concepts?.length || 0;
+    const itemCount = record.learningItems?.length || 0;
+    const completedCount = (record.learningItems || []).filter(item => item.completed).length;
+    const conceptList = (record.concepts || []).map(concept => `<li><strong>${escapeHtml(concept.term)}</strong> · ${escapeHtml(concept.topicLabel || "")}</li>`).join("");
+    const learningList = (record.learningItems || []).map(item => `<li>${item.completed ? "✓" : "□"} ${escapeHtml(item.title)} <span>${escapeHtml(item.topic || "")}</span></li>`).join("");
+    return `
+      <article class="saved-digest-card learning-journal-card">
+        <div>
+          <strong>${escapeHtml(date)}</strong>
+          <p>${escapeHtml((record.preferences?.topics || []).slice(0, 4).join(", "))}</p>
+          <span>${conceptCount} ${escapeHtml(t("dailyConcept"))} · ${itemCount} ${escapeHtml(t("contentItems"))} · ${completedCount}/${itemCount} ${escapeHtml(t("progressToday"))}</span>
+          <details class="learning-journal-details">
+            <summary>${escapeHtml(t("open"))}</summary>
+            <div>
+              <strong>${escapeHtml(t("dailyConcept"))}</strong>
+              <ul>${conceptList}</ul>
+              <strong>${escapeHtml(t("todaysLearning"))}</strong>
+              <ul>${learningList}</ul>
+            </div>
+          </details>
+        </div>
+        <div class="saved-card-actions">
+          <button class="ghost-button" type="button" data-learning-md="${escapeHtml(date)}">${escapeHtml(t("exportMarkdown"))}</button>
+          <button class="ghost-button" type="button" data-learning-html="${escapeHtml(date)}">${escapeHtml(t("exportHtml"))}</button>
+        </div>
+      </article>
+    `;
+  }).join("");
+  els.savedDigestList.querySelectorAll("[data-learning-md]").forEach(button => {
+    button.addEventListener("click", () => exportLearningJournalMarkdown(button.dataset.learningMd));
+  });
+  els.savedDigestList.querySelectorAll("[data-learning-html]").forEach(button => {
+    button.addEventListener("click", () => exportLearningJournalHtml(button.dataset.learningHtml));
+  });
+}
+
+function exportLearningJournalMarkdown(date) {
+  const record = state.learningJournal[date];
+  if (!record) return;
+  const markdown = learningJournalMarkdown(record);
+  downloadTextFile(`actuary-radar-learning-${date}.md`, markdown, "text/markdown;charset=utf-8");
+}
+
+function exportLearningJournalHtml(date) {
+  const record = state.learningJournal[date];
+  if (!record) return;
+  const html = learningJournalHtml(record);
+  downloadTextFile(`actuary-radar-learning-${date}.html`, html, "text/html;charset=utf-8");
+}
+
+function learningJournalMarkdown(record) {
+  const lines = [
+    `# ${t("learningJournalTitle")}`,
+    "",
+    `${t("exportDate")}: ${record.date}`,
+    `${t("exportGeneratedBy")}: ${new Date(record.savedAt || Date.now()).toLocaleString()}`,
+    "",
+    `## ${t("learningPreferences")}`,
+    `- ${t("careerStageLabel")}: ${record.preferences?.careerStage || "-"}`,
+    `- ${t("learningGoalLabel")}: ${record.preferences?.learningGoal || "-"}`,
+    `- ${t("studyTimeLabel")}: ${record.preferences?.studyTime || "-"} ${t("minutesShort")}`,
+    `- ${t("studyTopics")}: ${(record.preferences?.topics || []).join(", ")}`,
+    "",
+    `## ${t("dailyConcept")}`,
+    ...(record.concepts || []).flatMap((concept, index) => [
+      `${index + 1}. **${concept.term}** (${concept.topicLabel || ""})`,
+      `   - ${concept.definition || ""}`,
+      concept.example ? `   - ${concept.example}` : "",
+      concept.exercise ? `   - ${concept.exercise}` : "",
+      concept.sourceUrl ? `   - ${t("sourceWebsite")}: ${concept.sourceUrl}` : ""
+    ].filter(Boolean)),
+    "",
+    `## ${t("todaysLearning")}`,
+    ...(record.learningItems || []).map(item => `- [${item.completed ? "x" : " "}] ${item.typeLabel || item.type}: ${item.title} (${item.topic}, ${item.estimatedMinutes} ${t("minutesShort")})`),
+    "",
+    `## ${t("openSourceResourcesTitle")}`,
+    ...(record.openSourceResources || []).map(resource => `- ${resource.name} (${resource.language || "-"}) - ${resource.url || ""}`),
+    "",
+    `## ${t("completedLabel")}`,
+    ...((record.completedItems || []).length ? record.completedItems.map(item => `- ${item.title} (${item.topic})`) : ["-"])
+  ];
+  return lines.join("\n");
+}
+
+function learningJournalHtml(record) {
+  const concepts = (record.concepts || []).map(concept => `
+    <article>
+      <h3>${escapeHtml(concept.term)}</h3>
+      <p><strong>${escapeHtml(concept.topicLabel || "")}</strong></p>
+      <p>${escapeHtml(concept.definition || "")}</p>
+      ${concept.example ? `<p>${escapeHtml(concept.example)}</p>` : ""}
+      ${concept.exercise ? `<p>${escapeHtml(concept.exercise)}</p>` : ""}
+      ${concept.sourceUrl ? `<p><a href="${escapeHtml(concept.sourceUrl)}">${escapeHtml(t("sourceWebsite"))}</a></p>` : ""}
+    </article>
+  `).join("");
+  const items = (record.learningItems || []).map(item => `
+    <li>${item.completed ? "✓" : "□"} ${escapeHtml(item.typeLabel || item.type)} · ${escapeHtml(item.title)} · ${escapeHtml(item.topic)} · ${escapeHtml(String(item.estimatedMinutes))} ${escapeHtml(t("minutesShort"))}</li>
+  `).join("");
+  const resources = (record.openSourceResources || []).map(resource => `
+    <li><a href="${escapeHtml(resource.url || "#")}">${escapeHtml(resource.name)}</a> · ${escapeHtml(resource.language || "")}</li>
+  `).join("");
+  return `<!doctype html>
+<html lang="${escapeHtml(state.language)}">
+<head>
+  <meta charset="utf-8">
+  <title>${escapeHtml(t("learningJournalTitle"))} · ${escapeHtml(record.date)}</title>
+  <style>
+    body{font-family:Inter,Arial,sans-serif;max-width:880px;margin:40px auto;padding:0 24px;color:#14213d;line-height:1.6}
+    h1,h2{color:#071a3a} article{border:1px solid #d8e0ea;border-radius:10px;padding:16px;margin:12px 0;background:#fbfdff}
+    .meta{color:#52647c} a{color:#0f766e}
+  </style>
+</head>
+<body>
+  <h1>${escapeHtml(t("learningJournalTitle"))}</h1>
+  <p class="meta">${escapeHtml(t("exportDate"))}: ${escapeHtml(record.date)} · ${escapeHtml(t("exportGeneratedBy"))} · ${escapeHtml(new Date(record.savedAt || Date.now()).toLocaleString())}</p>
+  <h2>${escapeHtml(t("learningPreferences"))}</h2>
+  <ul>
+    <li>${escapeHtml(t("careerStageLabel"))}: ${escapeHtml(record.preferences?.careerStage || "-")}</li>
+    <li>${escapeHtml(t("learningGoalLabel"))}: ${escapeHtml(record.preferences?.learningGoal || "-")}</li>
+    <li>${escapeHtml(t("studyTimeLabel"))}: ${escapeHtml(String(record.preferences?.studyTime || "-"))} ${escapeHtml(t("minutesShort"))}</li>
+    <li>${escapeHtml(t("studyTopics"))}: ${escapeHtml((record.preferences?.topics || []).join(", "))}</li>
+  </ul>
+  <h2>${escapeHtml(t("dailyConcept"))}</h2>
+  ${concepts}
+  <h2>${escapeHtml(t("todaysLearning"))}</h2>
+  <ul>${items}</ul>
+  <h2>${escapeHtml(t("openSourceResourcesTitle"))}</h2>
+  <ul>${resources}</ul>
+</body>
+</html>`;
+}
+
+function downloadTextFile(filename, content, mimeType) {
+  const blob = new Blob([content], { type: mimeType });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(link.href);
 }
 
 function renderKnowledgeFilter() {
@@ -3051,17 +3875,23 @@ function renderSourceLibrary() {
 function renderKnowledge() {
   const selectedTracks = new Set(state.knowledgePlan.tracks || []);
   const plannedModules = state.knowledge.filter(module => {
-    const topicMatch = !selectedTracks.size || [...selectedTracks].some(topicId => topicMatchesModule(topicId, module));
+    const topicMatch = !selectedTracks.size || [...selectedTracks].some(topicId => topicMatchesModule(topicId, module) && moduleSuitableForTopic(topicId, module));
     return topicMatch && difficultyMatchesModule(module);
   });
-  const modules = plannedModules
-    .slice(0, Number(state.knowledgePlan.dailyCount || 2));
-  if (!modules.length) {
+  const modules = plannedModules.slice(0, Number(state.knowledgePlan.dailyCount || 2));
+  const focusedModule = state.knowledgeFocusId
+    ? plannedModules.find(module => knowledgeCardAnchor(module) === state.knowledgeFocusId)
+    : null;
+  const visibleModules = focusedModule && !modules.some(module => module.id === focusedModule.id)
+    ? [focusedModule, ...modules]
+    : modules;
+  if (!visibleModules.length) {
     els.knowledgeGrid.innerHTML = `<div class="empty-state">${escapeHtml(t("noKnowledge"))}</div>`;
+    renderOpenSourceLearning([]);
     return;
   }
-  els.knowledgeGrid.innerHTML = modules.map(module => `
-    <article class="knowledge-card" id="${escapeHtml(knowledgeCardAnchor(module))}">
+  els.knowledgeGrid.innerHTML = visibleModules.map(module => `
+    <article class="knowledge-card${knowledgeCardAnchor(module) === state.knowledgeFocusId ? " is-focused" : ""}" id="${escapeHtml(knowledgeCardAnchor(module))}">
       <div class="card-meta">
         <span class="chip">${escapeHtml(module.track)}</span>
         <span class="chip">${escapeHtml(displayDifficulty(module.difficulty))}</span>
@@ -3081,9 +3911,9 @@ function renderKnowledge() {
         <div class="reference-answer" hidden>${escapeHtml(displayKnowledgeAnswer(module))}</div>
       </div>
       ${renderCuratedKnowledgeSourceSection(module)}
-      ${renderOpenSourceResources(module)}
     </article>
   `).join("");
+  renderOpenSourceLearning(visibleModules);
   els.knowledgeGrid.querySelectorAll(".answer-toggle").forEach(button => {
     button.addEventListener("click", () => {
       const answer = button.nextElementSibling;
@@ -3091,6 +3921,22 @@ function renderKnowledge() {
       button.textContent = answer.hidden ? t("showAnswer") : t("hideAnswer");
     });
   });
+}
+
+function renderOpenSourceLearning(modules = []) {
+  if (!els.openSourceLearningGrid) return;
+  const selectedTopics = state.knowledgePlan.tracks?.length ? state.knowledgePlan.tracks : defaultKnowledgePlan.tracks;
+  const byId = new Map();
+  selectedTopics.forEach(topicId => {
+    openSourceResourcesForTopic(topicId).forEach(resource => byId.set(resource.id, resource));
+  });
+  modules.forEach(module => {
+    openSourceResourcesForModule(module).forEach(resource => byId.set(resource.id, resource));
+  });
+  const resources = [...byId.values()].slice(0, 6);
+  els.openSourceLearningGrid.innerHTML = resources.length
+    ? resources.map(resource => renderOpenSourceResourceCard(resource)).join("")
+    : `<div class="empty-state">${escapeHtml(t("moreContentSoon"))}</div>`;
 }
 
 function renderKnowledgePlanner() {
@@ -3121,6 +3967,7 @@ function renderKnowledgePlanner() {
       const tracks = [...els.knowledgePlanner.querySelectorAll("input:checked")].map(node => node.value);
       state.knowledgePlan.tracks = tracks;
       saveKnowledgePlan();
+      if (state.data) renderScaffold();
       renderKnowledge();
       renderLearningPlan();
     });
@@ -3131,6 +3978,7 @@ function handleLearningActionClick(event) {
   const startButton = event.target.closest("[data-learning-start]");
   if (startButton) {
     markLearningItemStarted(startButton.dataset.learningStart, startButton.dataset.learningTopic);
+    navigateToLearningTarget(startButton.dataset.learningOpen);
     return;
   }
   const completeButton = event.target.closest("[data-learning-complete]");
@@ -3139,8 +3987,36 @@ function handleLearningActionClick(event) {
   }
 }
 
+function navigateToLearningTarget(openUrl) {
+  if (!openUrl) return;
+  if (/^https?:\/\//i.test(openUrl)) {
+    window.open(openUrl, "_blank", "noopener");
+    return;
+  }
+  const anchor = openUrl.startsWith("#") ? openUrl.slice(1) : openUrl;
+  if (!anchor) return;
+  state.knowledgeFocusId = anchor;
+  state.dailyNavExpanded = false;
+  setActivePage("knowledge");
+  render();
+  window.setTimeout(() => {
+    document.getElementById(anchor)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, 50);
+}
+
+function resetLearningPreferences() {
+  state.knowledgePlan = { ...defaultKnowledgePlan };
+  state.onboardingSkipped = false;
+  localStorage.removeItem("actuaryRadar.onboardingSkipped");
+  saveKnowledgePlan();
+  renderOnboardingOptions();
+  renderKnowledgePlanner();
+  if (state.activePage === "knowledge") renderKnowledge();
+  renderLearningPlan();
+  renderPortal();
+}
+
 function renderLearningPlan() {
-  if (!els.learningPlanList) return;
   const planItems = generateTodaysLearningItems();
   const recommendedItems = generateRecommendedLearningItems(planItems.map(item => item.id));
   const continueItems = generateContinueLearningItems();
@@ -3148,15 +4024,17 @@ function renderLearningPlan() {
   const completedToday = state.learningProgress.completed[todayKey] || {};
   const completedCount = planItems.filter(item => completedToday[item.id]).length;
 
-  els.completedTodayCount.textContent = `${completedCount}/${planItems.length}`;
-  els.learningStreakCount.textContent = String(calculateLearningStreak());
-  els.topicsCompletedCount.textContent = String(Object.keys(state.learningProgress.topicCompletions || {}).length);
-  els.dailyTargetSummary.textContent = `${state.knowledgePlan.studyTime || 15} ${t("minutesShort")}`;
+  if (els.completedTodayCount) els.completedTodayCount.textContent = `${completedCount}/${planItems.length}`;
+  if (els.learningStreakCount) els.learningStreakCount.textContent = String(calculateLearningStreak());
+  if (els.topicsCompletedCount) els.topicsCompletedCount.textContent = String(Object.keys(state.learningProgress.topicCompletions || {}).length);
+  if (els.dailyTargetSummary) els.dailyTargetSummary.textContent = `${state.knowledgePlan.studyTime || 15} ${t("minutesShort")}`;
 
-  els.learningPlanList.innerHTML = renderLearningItemList(planItems, {
-    emptyKey: state.knowledgePlan.setupComplete ? "noLearningPlanItems" : "setupLearningFirst",
-    mode: "today"
-  });
+  if (els.learningPlanList) {
+    els.learningPlanList.innerHTML = renderLearningItemList(planItems, {
+      emptyKey: state.knowledgePlan.setupComplete ? "noLearningPlanItems" : "setupLearningFirst",
+      mode: "today"
+    });
+  }
   if (els.continueLearningList) {
     els.continueLearningList.innerHTML = renderLearningItemList(continueItems, {
       emptyKey: "noStartedLearningItems",
@@ -3169,6 +4047,7 @@ function renderLearningPlan() {
       mode: "recommended"
     });
   }
+  renderHomeLearning();
 }
 
 function generateTodaysLearningItems() {
@@ -3178,16 +4057,16 @@ function generateTodaysLearningItems() {
   const items = [];
   const addItem = item => {
     if (!item?.id || items.some(existing => existing.id === item.id)) return;
-    if (isLearningItemCompleted(item.id)) return;
+    if (isLearningItemCompletedBeforeToday(item.id)) return;
     items.push(item);
   };
 
   addItem(dailyConceptLearningItem(selectedTopics[0] || "Fundamentals"));
 
   const knowledgeCandidates = state.knowledge
-    .filter(module => selectedTopics.some(topicId => topicMatchesModule(topicId, module)) && difficultyMatchesModule(module));
+    .filter(module => selectedTopics.some(topicId => topicMatchesModule(topicId, module) && moduleSuitableForTopic(topicId, module)) && difficultyMatchesModule(module));
   knowledgeCandidates.forEach(module => {
-    const topicId = selectedTopics.find(topic => topicMatchesModule(topic, module)) || selectedTopics[0] || "Fundamentals";
+    const topicId = selectedTopics.find(topic => topicMatchesModule(topic, module) && moduleSuitableForTopic(topic, module)) || selectedTopics[0] || "Fundamentals";
     addItem(knowledgeLearningItem(module, topicId));
   });
 
@@ -3197,6 +4076,18 @@ function generateTodaysLearningItems() {
   officialSourceItems(selectedTopics).forEach(addItem);
 
   return fitLearningItemsToTime(items, dailyCount, availableMinutes);
+}
+
+function generateHomeTodaysLearningItems() {
+  const baseItems = generateTodaysLearningItems();
+  const selectedTopics = state.knowledgePlan.tracks || [];
+  if (baseItems.some(item => item.type === "news")) return baseItems;
+  const insight = relatedNewsItems(selectedTopics).find(item => !baseItems.some(existing => existing.id === item.id) && !isLearningItemCompletedBeforeToday(item.id));
+  if (!insight) return baseItems;
+  if (!baseItems.length) return [insight];
+  const next = [...baseItems];
+  next[next.length - 1] = insight;
+  return next;
 }
 
 function knowledgeLearningItem(module, topicId) {
@@ -3225,7 +4116,7 @@ function generateRecommendedLearningItems(excludeIds = []) {
 
   selectedTopics.forEach(topicId => {
     state.knowledge
-      .filter(module => topicMatchesModule(topicId, module) && difficultyMatchesModule(module))
+      .filter(module => topicMatchesModule(topicId, module) && moduleSuitableForTopic(topicId, module) && difficultyMatchesModule(module))
       .slice(0, 3)
       .forEach(module => addItem(knowledgeLearningItem(module, topicId)));
   });
@@ -3250,6 +4141,49 @@ function generateContinueLearningItems() {
     }));
 }
 
+function generateCompletedTodayLearningItems() {
+  const completedToday = state.learningProgress.completed?.[currentLearningDate()] || {};
+  return Object.entries(completedToday)
+    .filter(([, value]) => Boolean(value))
+    .sort(([, a], [, b]) => String(completedAtValue(b)).localeCompare(String(completedAtValue(a))))
+    .map(([id, value]) => completedLearningItemFromRecord(id, value));
+}
+
+function completedAtValue(value) {
+  return value && typeof value === "object" ? value.completedAt || "" : "";
+}
+
+function completedLearningItemFromRecord(id, value) {
+  if (value && typeof value === "object") {
+    return {
+      id: value.id || id,
+      topicId: value.topicId || "Fundamentals",
+      type: value.type || "knowledge",
+      typeLabel: value.typeLabel || learningTypeLabel(value.type),
+      title: value.title || readableLearningId(id),
+      estimatedMinutes: value.estimatedMinutes || 10,
+      sourceUrl: value.sourceUrl || "",
+      openUrl: value.openUrl || "",
+      completedAt: value.completedAt || ""
+    };
+  }
+  return {
+    id,
+    topicId: "Fundamentals",
+    type: "knowledge",
+    typeLabel: t("completedLabel"),
+    title: readableLearningId(id),
+    estimatedMinutes: 0,
+    sourceUrl: "",
+    openUrl: "",
+    completedAt: ""
+  };
+}
+
+function readableLearningId(id) {
+  return String(id || "").split(":").filter(Boolean).pop() || String(id || "");
+}
+
 function fitLearningItemsToTime(items, dailyCount, availableMinutes) {
   const fitted = [];
   let minutes = 0;
@@ -3264,20 +4198,28 @@ function fitLearningItemsToTime(items, dailyCount, availableMinutes) {
 }
 
 function renderLearningItemList(items, options = {}) {
-  if (!items.length) return `<div class="empty-state">${escapeHtml(t(options.emptyKey || "noLearningPlanItems"))}</div>`;
+  if (!items.length) return options.hideEmpty ? "" : `<div class="empty-state">${escapeHtml(t(options.emptyKey || "noLearningPlanItems"))}</div>`;
   return items.map(item => renderLearningTaskItem(item, options.mode || "today")).join("");
 }
 
 function renderLearningTaskItem(item, mode) {
-  const completed = isLearningItemCompleted(item.id);
+  const completed = mode === "completed" || isLearningItemCompleted(item.id);
   const started = Boolean(state.learningProgress.started?.[item.id]);
   const sourceUrl = item.sourceUrl || item.url;
   const titleHtml = item.openUrl
     ? `<a class="learning-plan-title-link" href="${escapeHtml(item.openUrl)}">${escapeHtml(item.title)}</a>`
     : escapeHtml(item.title);
-  const progressText = mode === "continue"
+  const progressText = mode === "completed"
+    ? `<small>${escapeHtml(t("completedLabel"))}</small>`
+    : mode === "continue"
     ? `<small>${escapeHtml(started ? t("inProgress") : t("notStarted"))}</small>`
     : `<small>${escapeHtml(t("estimated"))}: ${escapeHtml(String(item.estimatedMinutes || 10))} ${escapeHtml(t("minutesShort"))}</small>`;
+  const actionHtml = mode === "completed"
+    ? `<button class="ghost-button compact-button" type="button" disabled>${escapeHtml(t("completedLabel"))}</button>`
+    : `
+        <button class="ghost-button compact-button" type="button" data-learning-start="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}" data-learning-open="${escapeHtml(item.openUrl || item.sourceUrl || "")}"${started || completed ? " disabled" : ""}>${escapeHtml(started ? t("startedLabel") : t("startLearningItem"))}</button>
+        <button class="ghost-button compact-button" type="button" data-learning-complete="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}"${completed ? " disabled" : ""}>${escapeHtml(completed ? t("completedLabel") : t("markComplete"))}</button>
+      `;
   return `
     <article class="learning-plan-item${completed ? " completed" : ""}">
       <div class="learning-plan-copy">
@@ -3290,8 +4232,45 @@ function renderLearningTaskItem(item, mode) {
         ${sourceUrl ? `<a class="learning-plan-source" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener">${escapeHtml(t("sourceWebsite"))} →</a>` : ""}
       </div>
       <div class="learning-plan-actions">
-        <button class="ghost-button compact-button" type="button" data-learning-start="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}"${started || completed ? " disabled" : ""}>${escapeHtml(started ? t("startedLabel") : t("startLearningItem"))}</button>
-        <button class="ghost-button compact-button" type="button" data-learning-complete="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}"${completed ? " disabled" : ""}>${escapeHtml(completed ? t("completedLabel") : t("markComplete"))}</button>
+        ${actionHtml}
+      </div>
+    </article>
+  `;
+}
+
+function renderHomeLearningItemList(items, options = {}) {
+  if (!items.length) return options.hideEmpty ? "" : `<div class="empty-state">${escapeHtml(t(options.emptyKey || "noLearningPlanItems"))}</div>`;
+  return items.map(item => renderHomeLearningTaskItem(item, options.mode || "today")).join("");
+}
+
+function renderHomeLearningTaskItem(item, mode) {
+  const completed = mode === "completed" || isLearningItemCompleted(item.id);
+  const started = Boolean(state.learningProgress.started?.[item.id]);
+  const sourceUrl = item.sourceUrl || item.url;
+  const titleHtml = item.openUrl
+    ? `<a class="learning-plan-title-link" href="${escapeHtml(item.openUrl)}">${escapeHtml(item.title)}</a>`
+    : escapeHtml(item.title);
+  const reason = learningRecommendationReason(item);
+  const actionLabel = started ? t("continueLearning") : t("startLearningItem");
+  return `
+    <article class="learning-plan-item home-learning-task ${escapeHtml(`learning-type-${item.type || "item"}`)}${completed ? " completed" : ""}">
+      <label class="learning-complete-box" aria-label="${escapeHtml(t("markComplete"))}">
+        <input type="checkbox" data-learning-complete="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}"${completed ? " checked disabled" : ""}>
+      </label>
+      <div class="learning-plan-copy">
+        <div class="learning-plan-meta">
+          <span>${escapeHtml(item.typeLabel || learningTypeLabel(item.type))}</span>
+          <span>${escapeHtml(learningTopicLabel(item.topicId))}</span>
+        </div>
+        <h5>${titleHtml}</h5>
+        ${reason ? `<p class="learning-reason">${escapeHtml(reason)}</p>` : ""}
+        <small>${escapeHtml(String(item.estimatedMinutes || 10))} ${escapeHtml(t("minutesShort"))}</small>
+      </div>
+      <div class="learning-plan-actions">
+        ${mode === "completed"
+          ? `<span class="learning-status-pill">${escapeHtml(t("completedLabel"))}</span>`
+          : `<button class="text-link learning-start-link" type="button" data-learning-start="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}" data-learning-open="${escapeHtml(item.openUrl || item.sourceUrl || "")}">${escapeHtml(actionLabel)} →</button>`}
+        ${sourceUrl ? `<a class="learning-plan-source" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener">${escapeHtml(t("sourceWebsite"))} →</a>` : ""}
       </div>
     </article>
   `;
@@ -3309,30 +4288,316 @@ function learningTypeLabel(type) {
   return labels[type] || type || "";
 }
 
+function learningRecommendationReason(item) {
+  if (!item) return "";
+  const selectedTopics = new Set(state.knowledgePlan.tracks || []);
+  if ((item.type === "news" || item.type === "research") && item.topicId && selectedTopics.has(item.topicId)) {
+    return t("recommendationIndustryInsight");
+  }
+  if (item.topicId && selectedTopics.has(item.topicId)) {
+    return t("recommendationSelectedTopic").replace("{topic}", learningTopicLabel(item.topicId));
+  }
+  const goal = state.knowledgePlan.learningGoal;
+  if (goal === "regulatory_literacy" && ["Solvency II", "IFRS 17", "Regulation", "Capital Management", "ERM"].includes(item.topicId)) {
+    return t("recommendationGoalRegulatory");
+  }
+  if (goal === "pricing_reserving" && ["Pricing", "Reserving", "Data Analytics"].includes(item.topicId)) {
+    return t("recommendationGoalPricing");
+  }
+  if (goal === "industry_context" && ["Insurance Fundamentals", "Reinsurance", "Life Insurance", "Health Insurance"].includes(item.topicId)) {
+    return t("recommendationGoalIndustry");
+  }
+  if (goal === "exam_ready" && ["Fundamentals", "Insurance Fundamentals", "IFRS 17", "Solvency II"].includes(item.topicId)) {
+    return t("recommendationGoalExam");
+  }
+  if (goal === "job_ready" && ["Fundamentals", "Pricing", "Reserving", "Data Analytics"].includes(item.topicId)) {
+    return t("recommendationGoalJob");
+  }
+  return "";
+}
+
 function dailyConceptLearningItem(topicId) {
-  const concept = state.data?.daily_concept ? localizedDailyConcept(state.data.daily_concept) : null;
+  const concept = personalizedDailyConceptForTopic(topicId);
   if (!concept) return null;
   return {
-    id: `concept:${currentLearningDate()}:${concept.term}`,
+    id: `concept:${currentLearningDate()}:${topicId}:${concept.term}`,
     topicId,
     type: "concept",
     typeLabel: t("learningItemDailyConcept"),
     title: concept.term,
     detail: concept.exercise || concept.definition,
     estimatedMinutes: 8,
-    openUrl: "#dailyConceptBlock",
+    openUrl: concept.openUrl || "#dailyConceptBlock",
     sourceUrl: concept.sourceUrl
   };
+}
+
+function personalizedDailyConceptForTopic(topicId) {
+  const modules = state.knowledge.filter(item => {
+    return topicMatchesModule(topicId, item)
+      && moduleSuitableForTopic(topicId, item)
+      && difficultyMatchesModule(item);
+  });
+  if (!modules.length) return null;
+  const pool = modules.flatMap(module => {
+    const concepts = (module.concepts || [displayKnowledgeTitle(module)])
+      .filter(concept => !isAdvancedReinsuranceOrCatModule({ concepts: [concept] }));
+    return (concepts.length ? concepts : [displayKnowledgeTitle(module)])
+      .map(concept => ({ concept, module }));
+  });
+  const selected = pool[deterministicLearningIndex(`${currentLearningDate()}:${topicId}`, pool.length)];
+  const module = selected.module;
+  const detail = curatedConceptDetail(selected.concept, module, topicId);
+  return {
+    term: selected.concept,
+    definition: detail.definition,
+    example: detail.example,
+    exercise: detail.exercise,
+    sourceUrl: firstKnowledgeSourceLink(module),
+    openUrl: `#${knowledgeCardAnchor(module)}`
+  };
+}
+
+function curatedConceptDetail(term, module, topicId) {
+  const key = String(term || "").toLowerCase();
+  const topic = learningTopicLabel(topicId);
+  const details = {
+    probability: {
+      zh: {
+        definition: "Probability 描述不确定事件发生的可能性，是死亡、退保、赔付频率和巨灾损失建模的基础语言。",
+        example: "通俗例子：如果某年龄段一年死亡概率是 0.2%，精算师会用它估计未来赔付现金流，而不是判断某一个人一定会不会出险。",
+        exercise: "练习：选一个保险风险，把它拆成事件、概率、暴露量和预期损失。"
+      },
+      en: {
+        definition: "Probability measures how likely an uncertain event is. It is the basic language behind mortality, lapse, claim frequency and tail-risk modelling.",
+        example: "Plain example: if annual mortality at an age is 0.2%, the actuary uses it to estimate portfolio cash flows, not to predict one individual with certainty.",
+        exercise: "Exercise: choose one insurance risk and split it into event, probability, exposure and expected loss."
+      },
+      fr: {
+        definition: "La probabilité mesure la vraisemblance d’un événement incertain. C’est le langage de base pour la mortalité, les rachats, la fréquence des sinistres et les risques extrêmes.",
+        example: "Exemple simple : si la mortalité annuelle à un âge est de 0,2 %, l’actuaire l’utilise pour estimer les flux d’un portefeuille, pas pour prédire un individu.",
+        exercise: "Exercice : choisissez un risque d’assurance et distinguez événement, probabilité, exposition et perte attendue."
+      }
+    },
+    statistics: {
+      zh: {
+        definition: "Statistics 用历史数据估计风险规律，并判断观察到的变化是随机波动还是真实趋势。",
+        example: "通俗例子：赔付率连续上升不一定代表定价失败，要先看样本量、组合变化、季节性和异常大赔案。",
+        exercise: "练习：列出判断一个赔付率变化是否显著所需的三个数据检查。"
+      },
+      en: {
+        definition: "Statistics uses historical data to estimate risk patterns and judge whether observed changes are noise or genuine trends.",
+        example: "Plain example: a rising loss ratio does not automatically mean pricing failure; check volume, mix, seasonality and large claims first.",
+        exercise: "Exercise: list three data checks before calling a loss-ratio movement significant."
+      },
+      fr: {
+        definition: "La statistique utilise les données historiques pour estimer les comportements de risque et distinguer bruit aléatoire et tendance réelle.",
+        example: "Exemple simple : une hausse du ratio de sinistralité ne prouve pas immédiatement une erreur tarifaire ; vérifiez volume, mix, saisonnalité et gros sinistres.",
+        exercise: "Exercice : citez trois contrôles avant de conclure qu’une variation de sinistralité est significative."
+      }
+    },
+    "survival analysis": {
+      zh: {
+        definition: "Survival Analysis 研究某个状态持续多久以及何时发生退出事件，在寿险死亡率、退保和长期健康险中非常常用。",
+        example: "通俗例子：一张保单不是只看今年是否退保，还要看第 1、2、3 个保单年度的持续率曲线。",
+        exercise: "练习：解释为什么退保率假设会影响 BEL、CSM 和流动性。"
+      },
+      en: {
+        definition: "Survival analysis studies how long a state lasts before an exit event. It is central to mortality, lapse and long-duration health modelling.",
+        example: "Plain example: for a policy, do not only ask whether it lapses this year; look at persistency across policy years 1, 2 and 3.",
+        exercise: "Exercise: explain how lapse assumptions affect BEL, CSM and liquidity."
+      },
+      fr: {
+        definition: "L’analyse de survie étudie la durée avant un événement de sortie. Elle est centrale pour la mortalité, les rachats et les garanties longues.",
+        example: "Exemple simple : pour un contrat, on ne regarde pas seulement le rachat cette année, mais la persistance aux années 1, 2 et 3.",
+        exercise: "Exercice : expliquez l’effet des hypothèses de rachat sur le BEL, la CSM et la liquidité."
+      }
+    },
+    "monte carlo": {
+      zh: {
+        definition: "Monte Carlo 通过大量随机情景模拟结果分布，用来评估不确定现金流、资本需求和尾部风险。",
+        example: "通俗例子：与其只看一个平均赔付结果，Monte Carlo 会模拟上万次不同赔付路径，观察 95% 或 99.5% 分位数。",
+        exercise: "练习：说明 Monte Carlo 在 SCR、嵌入式期权或巨灾损失建模中的一个用途。"
+      },
+      en: {
+        definition: "Monte Carlo simulation generates many random scenarios to estimate the distribution of uncertain cash flows, capital needs and tail losses.",
+        example: "Plain example: instead of one average claims outcome, simulate thousands of paths and inspect the 95th or 99.5th percentile.",
+        exercise: "Exercise: describe one use of Monte Carlo in SCR, embedded options or catastrophe-loss modelling."
+      },
+      fr: {
+        definition: "La simulation Monte Carlo génère de nombreux scénarios aléatoires pour estimer la distribution des flux incertains, du capital et des pertes extrêmes.",
+        example: "Exemple simple : au lieu d’un seul résultat moyen, simulez des milliers de trajectoires et observez le quantile 95 % ou 99,5 %.",
+        exercise: "Exercice : décrivez un usage de Monte Carlo pour le SCR, les options incorporées ou les pertes catastrophe."
+      }
+    },
+    "time series": {
+      zh: {
+        definition: "Time Series 关注数据随时间变化的规律，常用于赔付通胀、保费增长、利率和经验假设监测。",
+        example: "通俗例子：医疗赔付每月上升，要区分趋势、季节性、一次性冲击和数据口径变化。",
+        exercise: "练习：选一个保险指标，说明如何拆分趋势、季节性和异常点。"
+      },
+      en: {
+        definition: "Time series analysis studies how data evolves over time. It is useful for claims inflation, premium growth, interest rates and experience monitoring.",
+        example: "Plain example: if monthly medical claims rise, separate trend, seasonality, one-off shock and data-definition changes.",
+        exercise: "Exercise: choose one insurance metric and split its movement into trend, seasonality and outliers."
+      },
+      fr: {
+        definition: "L’analyse de séries temporelles étudie l’évolution des données dans le temps. Elle sert au suivi de l’inflation sinistres, des primes, des taux et de l’expérience.",
+        example: "Exemple simple : si les sinistres santé mensuels augmentent, distinguez tendance, saisonnalité, choc ponctuel et changement de périmètre.",
+        exercise: "Exercice : choisissez un indicateur d’assurance et séparez tendance, saisonnalité et valeurs atypiques."
+      }
+    },
+    bayesian: {
+      zh: {
+        definition: "Bayesian 方法把先验判断和新观察数据结合起来，适合样本少、风险新或经验逐步积累的保险问题。",
+        example: "通俗例子：一个新险种数据很少，可以先用相近组合经验作为先验，再用新赔付经验逐步更新。",
+        exercise: "练习：举一个保险场景，说明先验信息和新数据分别来自哪里。"
+      },
+      en: {
+        definition: "Bayesian methods combine prior judgment with new observations. They are useful when data is scarce, emerging or gradually accumulating.",
+        example: "Plain example: for a new product, use similar portfolio experience as a prior and update it as new claims emerge.",
+        exercise: "Exercise: name one insurance case and identify the prior information and new evidence."
+      },
+      fr: {
+        definition: "Les méthodes bayésiennes combinent jugement a priori et nouvelles observations. Elles sont utiles lorsque les données sont rares ou émergentes.",
+        example: "Exemple simple : pour un nouveau produit, utilisez l’expérience d’un portefeuille proche comme a priori, puis mettez à jour avec les sinistres observés.",
+        exercise: "Exercice : choisissez un cas d’assurance et identifiez l’a priori et les nouvelles observations."
+      }
+    },
+    "risk pooling": {
+      zh: {
+        definition: "Risk Pooling 是把大量相似但不完全同步的风险放在一起，通过大数法则降低组合层面的相对波动。",
+        example: "通俗例子：一个人的医疗费用很难预测，但十万人的年度医疗赔付会更接近稳定的组合规律。",
+        exercise: "练习：解释为什么风险池规模、同质性和相关性会影响保险定价。"
+      },
+      en: {
+        definition: "Risk pooling combines many similar but not perfectly correlated risks so that portfolio-level volatility becomes more manageable.",
+        example: "Plain example: one person’s medical cost is hard to predict, but annual claims for 100,000 people are closer to a stable portfolio pattern.",
+        exercise: "Exercise: explain why pool size, homogeneity and correlation matter for insurance pricing."
+      },
+      fr: {
+        definition: "La mutualisation regroupe de nombreux risques similaires mais imparfaitement corrélés afin de réduire la volatilité relative du portefeuille.",
+        example: "Exemple simple : la dépense médicale d’une personne est difficile à prévoir, mais celle de 100 000 assurés suit une loi plus stable.",
+        exercise: "Exercice : expliquez pourquoi taille du portefeuille, homogénéité et corrélation comptent en tarification."
+      }
+    },
+    underwriting: {
+      zh: {
+        definition: "Underwriting 是识别、选择和定价风险的过程，决定哪些风险进入组合以及以什么条件承保。",
+        example: "通俗例子：同样的保费增长，如果来自更差风险选择，可能会提高赔付率而不是提升盈利。",
+        exercise: "练习：列出核保质量恶化会影响的三个精算指标。"
+      },
+      en: {
+        definition: "Underwriting identifies, selects and prices risks, deciding which risks enter the portfolio and under what terms.",
+        example: "Plain example: premium growth from weaker risk selection may raise the loss ratio rather than improve profitability.",
+        exercise: "Exercise: list three actuarial metrics affected by deteriorating underwriting quality."
+      },
+      fr: {
+        definition: "La souscription identifie, sélectionne et tarifie les risques, en déterminant quels risques entrent au portefeuille et à quelles conditions.",
+        example: "Exemple simple : une croissance de primes issue d’une sélection dégradée peut augmenter la sinistralité au lieu d’améliorer la rentabilité.",
+        exercise: "Exercice : citez trois indicateurs actuariels affectés par une dégradation de la souscription."
+      }
+    },
+    claims: {
+      zh: {
+        definition: "Claims 是保险事故发生后的理赔现金流和处理过程，直接影响赔付率、准备金和客户体验。",
+        example: "通俗例子：理赔频率不变但案均赔款上升，可能来自通胀、服务成本或责任范围变化。",
+        exercise: "练习：把一次赔付率上升拆成频率、严重度和理赔处理三个角度。"
+      },
+      en: {
+        definition: "Claims are post-event payments and handling processes. They directly affect loss ratio, reserving and customer experience.",
+        example: "Plain example: if claim frequency is stable but severity rises, the driver may be inflation, service cost or coverage design.",
+        exercise: "Exercise: split a loss-ratio increase into frequency, severity and claims-handling effects."
+      },
+      fr: {
+        definition: "Les sinistres regroupent les paiements et la gestion après événement. Ils influencent directement sinistralité, provisionnement et expérience client.",
+        example: "Exemple simple : si la fréquence est stable mais le coût moyen augmente, la cause peut être l’inflation, les coûts de service ou les garanties.",
+        exercise: "Exercice : décomposez une hausse de sinistralité entre fréquence, coût moyen et gestion des sinistres."
+      }
+    },
+    distribution: {
+      zh: {
+        definition: "Distribution 指保险产品触达客户的渠道和销售方式，会影响获客成本、风险选择、续保和投诉风险。",
+        example: "通俗例子：同样是车险，直销、经纪和嵌入式渠道可能带来完全不同的客户结构和赔付表现。",
+        exercise: "练习：比较两个渠道，说明它们对费用率和赔付率可能产生的影响。"
+      },
+      en: {
+        definition: "Distribution is how insurance products reach customers. It affects acquisition cost, risk selection, retention and conduct risk.",
+        example: "Plain example: direct, broker and embedded motor insurance channels can bring very different customer mix and claims performance.",
+        exercise: "Exercise: compare two channels and explain their possible impact on expense ratio and loss ratio."
+      },
+      fr: {
+        definition: "La distribution désigne les canaux de commercialisation des produits d’assurance. Elle influence coût d’acquisition, sélection du risque, rétention et risque de conduite.",
+        example: "Exemple simple : en auto, vente directe, courtage et assurance embarquée peuvent produire des profils clients et sinistres très différents.",
+        exercise: "Exercice : comparez deux canaux et expliquez leur effet possible sur ratio de frais et sinistralité."
+      }
+    },
+    reinsurance: {
+      zh: {
+        definition: "Reinsurance 是保险公司把部分风险转移给再保险人的机制，用于管理波动、资本、巨灾暴露和承保能力。",
+        example: "通俗例子：保险公司保留前一部分损失，把极端大额损失的一部分转给再保险人，以降低利润和资本波动。",
+        exercise: "练习：解释再保险如何同时影响净赔付、资本需求和定价策略。"
+      },
+      en: {
+        definition: "Reinsurance lets an insurer transfer part of its risk to a reinsurer. It helps manage volatility, capital, catastrophe exposure and underwriting capacity.",
+        example: "Plain example: an insurer retains ordinary losses but cedes part of severe losses to reduce earnings and capital volatility.",
+        exercise: "Exercise: explain how reinsurance affects net claims, capital needs and pricing strategy."
+      },
+      fr: {
+        definition: "La réassurance permet à un assureur de transférer une partie de ses risques à un réassureur. Elle aide à gérer volatilité, capital, exposition catastrophe et capacité.",
+        example: "Exemple simple : l’assureur conserve les pertes ordinaires mais cède une partie des pertes sévères pour réduire la volatilité du résultat et du capital.",
+        exercise: "Exercice : expliquez l’effet de la réassurance sur les sinistres nets, le besoin en capital et la tarification."
+      }
+    },
+    capital: {
+      zh: {
+        definition: "Capital 是保险公司吸收不利偏差和维持偿付能力的缓冲，连接风险、监管和经营战略。",
+        example: "通俗例子：一个产品利润率高但资本占用很重，RAROC 可能并不优秀。",
+        exercise: "练习：解释为什么同样利润的两个产品可能有不同资本吸引力。"
+      },
+      en: {
+        definition: "Capital is the buffer that allows an insurer to absorb adverse deviations and remain solvent. It links risk, regulation and strategy.",
+        example: "Plain example: a product with high accounting margin but heavy capital usage may have weak RAROC.",
+        exercise: "Exercise: explain why two products with the same profit can have different capital attractiveness."
+      },
+      fr: {
+        definition: "Le capital est le coussin permettant d’absorber les écarts défavorables et de maintenir la solvabilité. Il relie risque, réglementation et stratégie.",
+        example: "Exemple simple : un produit très rentable comptablement mais consommateur de capital peut avoir un RAROC faible.",
+        exercise: "Exercice : expliquez pourquoi deux produits au même résultat peuvent avoir une attractivité capital différente."
+      }
+    }
+  };
+  const detail = details[key]?.[state.language] || details[key]?.en;
+  if (detail) return detail;
+  const fallbackDefinition = state.language === "zh"
+    ? `${term} 是「${topic}」主题下的学习概念。${displayKnowledgeSummary(module)}`
+    : state.language === "fr"
+    ? `${term} est un concept du thème « ${topic} ». ${displayKnowledgeSummary(module)}`
+    : `${term} is a concept within ${topic}. ${displayKnowledgeSummary(module)}`;
+  return {
+    definition: fallbackDefinition,
+    example: personalizedConceptExample({ term }, topicId),
+    exercise: displayKnowledgeQuestion(module)
+  };
+}
+
+function deterministicLearningIndex(seed, length) {
+  if (!length) return 0;
+  let hash = 0;
+  for (let index = 0; index < seed.length; index += 1) {
+    hash = ((hash << 5) - hash + seed.charCodeAt(index)) | 0;
+  }
+  return Math.abs(hash) % length;
 }
 
 function relatedNewsItems(selectedTopics) {
   const topicSet = selectedTopics.length ? selectedTopics : defaultKnowledgePlan.tracks;
   return languageMatchedItems(state.items)
-    .filter(item => topicSet.some(topicId => topicMatchesArticle(topicId, item)))
+    .filter(item => topicSet.some(topicId => topicMatchesArticle(topicId, item) && articleSuitableForTopic(topicId, item)))
     .sort((a, b) => (b.score || 0) - (a.score || 0))
     .slice(0, 4)
     .map(item => {
-      const topicId = topicSet.find(topic => topicMatchesArticle(topic, item)) || topicSet[0];
+      const topicId = topicSet.find(topic => topicMatchesArticle(topic, item) && articleSuitableForTopic(topic, item)) || topicSet[0];
       return {
         id: `news:${itemId(item)}`,
         topicId,
@@ -3350,10 +4615,10 @@ function researchLearningItems(selectedTopics) {
   const topicSet = selectedTopics.length ? selectedTopics : defaultKnowledgePlan.tracks;
   return languageMatchedItems(state.items)
     .filter(item => normalizeSection(item.platform_section) === "research" || /research|report|sigma|institute|publication/i.test(`${item.source || ""} ${item.title || ""}`))
-    .filter(item => !topicSet.length || topicSet.some(topicId => topicMatchesArticle(topicId, item)))
+    .filter(item => !topicSet.length || topicSet.some(topicId => topicMatchesArticle(topicId, item) && articleSuitableForTopic(topicId, item)))
     .slice(0, 2)
     .map(item => {
-      const topicId = topicSet.find(topic => topicMatchesArticle(topic, item)) || "Research";
+      const topicId = topicSet.find(topic => topicMatchesArticle(topic, item) && articleSuitableForTopic(topic, item)) || "Research";
       return {
         id: `research:${itemId(item)}`,
         topicId,
@@ -3417,14 +4682,35 @@ function renderTopicProgress(planItems) {
 
 function markLearningItemComplete(itemIdValue, topicId) {
   const todayKey = currentLearningDate();
+  const snapshot = learningCompletionSnapshot(itemIdValue, topicId);
   state.learningProgress.completed[todayKey] = state.learningProgress.completed[todayKey] || {};
-  state.learningProgress.completed[todayKey][itemIdValue] = true;
+  state.learningProgress.completed[todayKey][itemIdValue] = snapshot;
   delete state.learningProgress.started?.[itemIdValue];
   if (topicId) {
     state.learningProgress.topicCompletions[topicId] = (state.learningProgress.topicCompletions[topicId] || 0) + 1;
   }
   saveLearningProgress();
   renderLearningPlan();
+}
+
+function learningCompletionSnapshot(itemIdValue, topicId) {
+  const items = [
+    ...generateTodaysLearningItems(),
+    ...generateContinueLearningItems(),
+    ...generateRecommendedLearningItems()
+  ];
+  const item = items.find(candidate => candidate.id === itemIdValue) || state.learningProgress.started?.[itemIdValue] || { id: itemIdValue, topicId };
+  return {
+    id: item.id || itemIdValue,
+    topicId: item.topicId || topicId || "Fundamentals",
+    type: item.type || "knowledge",
+    typeLabel: item.typeLabel || learningTypeLabel(item.type),
+    title: item.title || readableLearningId(itemIdValue),
+    estimatedMinutes: item.estimatedMinutes || 10,
+    sourceUrl: item.sourceUrl || "",
+    openUrl: item.openUrl || "",
+    completedAt: new Date().toISOString()
+  };
 }
 
 function markLearningItemStarted(itemIdValue, topicId) {
@@ -3453,6 +4739,16 @@ function isLearningItemCompleted(itemIdValue) {
   return Object.values(state.learningProgress.completed || {}).some(day => Boolean(day?.[itemIdValue]));
 }
 
+function isLearningItemCompletedToday(itemIdValue) {
+  const today = state.learningProgress.completed?.[currentLearningDate()] || {};
+  return Boolean(today[itemIdValue]);
+}
+
+function isLearningItemCompletedBeforeToday(itemIdValue) {
+  const today = currentLearningDate();
+  return Object.entries(state.learningProgress.completed || {}).some(([date, day]) => date !== today && Boolean(day?.[itemIdValue]));
+}
+
 function calculateLearningStreak() {
   let streak = 0;
   const cursor = new Date(`${currentLearningDate()}T00:00:00`);
@@ -3467,7 +4763,7 @@ function calculateLearningStreak() {
 }
 
 function currentLearningDate() {
-  return state.data?.report_date || new Date().toISOString().slice(0, 10);
+  return formatDateKey(new Date());
 }
 
 function formatDateKey(date) {
@@ -3502,6 +4798,42 @@ function topicMatchesModule(topicId, module) {
     || (topic.keywords || []).some(keyword => haystack.includes(String(keyword).toLowerCase()));
 }
 
+function moduleSuitableForTopic(topicId, module) {
+  const moduleId = String(module?.id || module?.topic_id || "").toLowerCase();
+  const track = String(module?.track || "").toLowerCase();
+  if (topicId === "Fundamentals") {
+    return track === "fundamentals" || moduleId.startsWith("fundamentals");
+  }
+  if (topicId === "Insurance Fundamentals") {
+    return (track === "insurance fundamentals" || moduleId.startsWith("insurance-fundamentals"))
+      && !isAdvancedReinsuranceOrCatModule(module);
+  }
+  if (!["Reinsurance", "Catastrophe Risk"].includes(topicId) && isAdvancedReinsuranceOrCatModule(module)) {
+    return false;
+  }
+  return true;
+}
+
+function isAdvancedReinsuranceOrCatModule(module) {
+  const text = [
+    module?.id,
+    module?.topic_id,
+    module?.track,
+    module?.title,
+    module?.summary,
+    ...(module?.concepts || [])
+  ].join(" ").toLowerCase();
+  return text.includes("xol")
+    || text.includes("excess of loss")
+    || text.includes("catastrophe")
+    || text.includes("cat bond")
+    || text.includes("ils")
+    || text.includes("pml")
+    || text.includes("retrocession")
+    || text.includes("巨灾")
+    || text.includes("超赔");
+}
+
 function topicMatchesArticle(topicId, item) {
   const topic = learningTopicOptions.find(option => option.id === topicId);
   if (!topic) return false;
@@ -3518,6 +4850,39 @@ function topicMatchesArticle(topicId, item) {
   ].join(" ").toLowerCase();
   return (topic.keywords || []).some(keyword => haystack.includes(String(keyword).toLowerCase()))
     || (topic.tracks || []).some(track => haystack.includes(track.toLowerCase()));
+}
+
+function articleSuitableForTopic(topicId, item) {
+  if (["Reinsurance", "Catastrophe Risk"].includes(topicId)) return true;
+  const text = [
+    item?.title,
+    item?.original_title,
+    item?.summary,
+    item?.source,
+    item?.category,
+    item?.line_of_business,
+    item?.branch,
+    item?.platform_section,
+    item?.taxonomy_category,
+    ...(item?.taxonomy_tags || []),
+    ...(item?.tags || [])
+  ].join(" ").toLowerCase();
+  const advancedReinsuranceOrCat = text.includes("reinsurance")
+    || text.includes("reinsurer")
+    || text.includes("catastrophe")
+    || text.includes("cat bond")
+    || text.includes("ils")
+    || text.includes("xol")
+    || text.includes("excess of loss")
+    || text.includes("pml")
+    || text.includes("再保险")
+    || text.includes("再保")
+    || text.includes("巨灾")
+    || text.includes("超赔");
+  if (topicId === "Fundamentals" || topicId === "Insurance Fundamentals") {
+    return !advancedReinsuranceOrCat;
+  }
+  return !advancedReinsuranceOrCat;
 }
 
 function difficultyMatchesModule(module) {
