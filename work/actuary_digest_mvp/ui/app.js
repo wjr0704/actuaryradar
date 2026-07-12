@@ -1345,7 +1345,9 @@ const els = {
   saveCurrentDigestButton: document.querySelector("#saveCurrentDigestButton"),
   savedDigestList: document.querySelector("#savedDigestList"),
   knowledgeFilter: document.querySelector("#knowledgeFilter"),
+  conceptGrid: document.querySelector("#conceptGrid"),
   knowledgeGrid: document.querySelector("#knowledgeGrid"),
+  openSourceLearningGrid: document.querySelector("#openSourceLearningGrid"),
   sourceLibrary: document.querySelector("#sourceLibrary"),
   selectAllSourcesButton: document.querySelector("#selectAllSourcesButton"),
   clearSourcesButton: document.querySelector("#clearSourcesButton"),
@@ -2094,23 +2096,10 @@ function renderScaffold() {
   const datePrefix = data.is_stale ? t("latestAvailableBriefing") : t("dailyTitle");
   els.reportDate.textContent = `${datePrefix}: ${data.report_date || "-"} · ${data.mode || "-"}`;
   const localizedFocus = localizedDailyFocus(data.report_date, focus);
-  const localizedConcept = currentPersonalizedDailyConcept() || localizedDailyConcept(data.daily_concept || {});
   if (els.dailyThemeLabel) els.dailyThemeLabel.textContent = localizedFocus.theme;
   if (els.learningGoal) els.learningGoal.textContent = localizedFocus.goal;
   if (els.taskList) els.taskList.innerHTML = localizedFocus.tasks.map(task => `<li>${escapeHtml(task)}</li>`).join("");
-  els.conceptTerm.textContent = localizedConcept.term;
-  els.conceptDefinition.textContent = localizedConcept.definition;
-  els.conceptExample.textContent = localizedConcept.example;
-  els.conceptExercise.textContent = localizedConcept.exercise;
-  if (localizedConcept.sourceUrl) {
-    els.conceptSourceLink.hidden = false;
-    els.conceptSourceLink.href = localizedConcept.sourceUrl;
-    els.conceptSourceLink.textContent = localizedConcept.sourceLabel;
-  } else {
-    els.conceptSourceLink.hidden = true;
-    els.conceptSourceLink.removeAttribute("href");
-    els.conceptSourceLink.textContent = "";
-  }
+  renderPersonalizedConceptCards();
   if (els.languageSourceNotice) {
     els.languageSourceNotice.hidden = true;
     els.languageSourceNotice.textContent = "";
@@ -2122,28 +2111,33 @@ function renderScaffold() {
   updatePageHeader();
 }
 
-function currentPersonalizedDailyConcept() {
+function currentPersonalizedDailyConcepts() {
   const topicIds = (state.knowledgePlan.tracks?.length ? state.knowledgePlan.tracks : defaultKnowledgePlan.tracks).slice(0, 2);
-  const concepts = topicIds
+  return topicIds
     .map(topicId => ({ topicId, concept: personalizedDailyConceptForTopic(topicId) }))
     .filter(item => item.concept);
-  if (!concepts.length) return null;
-  const primary = concepts[0];
-  if (concepts.length === 1) {
-    return {
-      ...primary.concept,
-      example: personalizedConceptExample(primary.concept, primary.topicId),
-      sourceLabel: primary.concept.sourceUrl ? t("sourceWebsite") : ""
-    };
-  }
-  return {
-    term: concepts.map(item => item.concept.term).join(" · "),
-    definition: concepts.map((item, index) => `${index + 1}. ${item.concept.term}: ${item.concept.definition}`).join("\n"),
-    example: concepts.map(item => personalizedConceptExample(item.concept, item.topicId)).join("\n"),
-    exercise: concepts.map((item, index) => `${index + 1}. ${item.concept.exercise || item.concept.definition}`).join("\n"),
-    sourceUrl: primary.concept.sourceUrl || "",
-    sourceLabel: primary.concept.sourceUrl ? t("sourceWebsite") : ""
-  };
+}
+
+function renderPersonalizedConceptCards() {
+  if (!els.conceptGrid) return;
+  const concepts = currentPersonalizedDailyConcepts();
+  const cards = concepts.length
+    ? concepts
+    : [{ topicId: "Fundamentals", concept: localizedDailyConcept(state.data?.daily_concept || {}) }];
+  els.conceptGrid.innerHTML = cards.map(({ topicId, concept }, index) => `
+    <section class="concept-card" id="${index === 0 ? "dailyConceptBlock" : escapeHtml(`dailyConceptBlock-${index + 1}`)}">
+      <div class="card-meta">
+        <span class="chip">${escapeHtml(t("dailyConcept"))}</span>
+        <span class="chip">${escapeHtml(learningTopicLabel(topicId))}</span>
+      </div>
+      <h4>${escapeHtml(concept.term || "-")}</h4>
+      <p>${escapeHtml(concept.definition || "-")}</p>
+      ${concept.example ? `<p class="concept-example">${escapeHtml(concept.example)}</p>` : ""}
+      ${concept.exercise ? `<p class="prompt">${escapeHtml(concept.exercise)}</p>` : ""}
+      ${concept.openUrl ? `<a class="concept-source-link" href="${escapeHtml(concept.openUrl)}">${escapeHtml(t("startLearningItem"))} →</a>` : ""}
+      ${concept.sourceUrl ? `<a class="concept-source-link" href="${escapeHtml(concept.sourceUrl)}" target="_blank" rel="noopener">${escapeHtml(t("sourceWebsite"))} →</a>` : ""}
+    </section>
+  `).join("");
 }
 
 function personalizedConceptExample(concept, topicId) {
@@ -3605,6 +3599,7 @@ function renderKnowledge() {
     : modules;
   if (!visibleModules.length) {
     els.knowledgeGrid.innerHTML = `<div class="empty-state">${escapeHtml(t("noKnowledge"))}</div>`;
+    renderOpenSourceLearning([]);
     return;
   }
   els.knowledgeGrid.innerHTML = visibleModules.map(module => `
@@ -3628,9 +3623,9 @@ function renderKnowledge() {
         <div class="reference-answer" hidden>${escapeHtml(displayKnowledgeAnswer(module))}</div>
       </div>
       ${renderCuratedKnowledgeSourceSection(module)}
-      ${renderOpenSourceResources(module)}
     </article>
   `).join("");
+  renderOpenSourceLearning(visibleModules);
   els.knowledgeGrid.querySelectorAll(".answer-toggle").forEach(button => {
     button.addEventListener("click", () => {
       const answer = button.nextElementSibling;
@@ -3638,6 +3633,22 @@ function renderKnowledge() {
       button.textContent = answer.hidden ? t("showAnswer") : t("hideAnswer");
     });
   });
+}
+
+function renderOpenSourceLearning(modules = []) {
+  if (!els.openSourceLearningGrid) return;
+  const selectedTopics = state.knowledgePlan.tracks?.length ? state.knowledgePlan.tracks : defaultKnowledgePlan.tracks;
+  const byId = new Map();
+  selectedTopics.forEach(topicId => {
+    openSourceResourcesForTopic(topicId).forEach(resource => byId.set(resource.id, resource));
+  });
+  modules.forEach(module => {
+    openSourceResourcesForModule(module).forEach(resource => byId.set(resource.id, resource));
+  });
+  const resources = [...byId.values()].slice(0, 6);
+  els.openSourceLearningGrid.innerHTML = resources.length
+    ? resources.map(resource => renderOpenSourceResourceCard(resource)).join("")
+    : `<div class="empty-state">${escapeHtml(t("moreContentSoon"))}</div>`;
 }
 
 function renderKnowledgePlanner() {
@@ -4048,12 +4059,237 @@ function personalizedDailyConceptForTopic(topicId) {
   });
   const selected = pool[deterministicLearningIndex(`${currentLearningDate()}:${topicId}`, pool.length)];
   const module = selected.module;
+  const detail = curatedConceptDetail(selected.concept, module, topicId);
   return {
     term: selected.concept,
-    definition: displayKnowledgeSummary(module),
-    exercise: displayKnowledgeQuestion(module),
+    definition: detail.definition,
+    example: detail.example,
+    exercise: detail.exercise,
     sourceUrl: firstKnowledgeSourceLink(module),
     openUrl: `#${knowledgeCardAnchor(module)}`
+  };
+}
+
+function curatedConceptDetail(term, module, topicId) {
+  const key = String(term || "").toLowerCase();
+  const topic = learningTopicLabel(topicId);
+  const details = {
+    probability: {
+      zh: {
+        definition: "Probability 描述不确定事件发生的可能性，是死亡、退保、赔付频率和巨灾损失建模的基础语言。",
+        example: "通俗例子：如果某年龄段一年死亡概率是 0.2%，精算师会用它估计未来赔付现金流，而不是判断某一个人一定会不会出险。",
+        exercise: "练习：选一个保险风险，把它拆成事件、概率、暴露量和预期损失。"
+      },
+      en: {
+        definition: "Probability measures how likely an uncertain event is. It is the basic language behind mortality, lapse, claim frequency and tail-risk modelling.",
+        example: "Plain example: if annual mortality at an age is 0.2%, the actuary uses it to estimate portfolio cash flows, not to predict one individual with certainty.",
+        exercise: "Exercise: choose one insurance risk and split it into event, probability, exposure and expected loss."
+      },
+      fr: {
+        definition: "La probabilité mesure la vraisemblance d’un événement incertain. C’est le langage de base pour la mortalité, les rachats, la fréquence des sinistres et les risques extrêmes.",
+        example: "Exemple simple : si la mortalité annuelle à un âge est de 0,2 %, l’actuaire l’utilise pour estimer les flux d’un portefeuille, pas pour prédire un individu.",
+        exercise: "Exercice : choisissez un risque d’assurance et distinguez événement, probabilité, exposition et perte attendue."
+      }
+    },
+    statistics: {
+      zh: {
+        definition: "Statistics 用历史数据估计风险规律，并判断观察到的变化是随机波动还是真实趋势。",
+        example: "通俗例子：赔付率连续上升不一定代表定价失败，要先看样本量、组合变化、季节性和异常大赔案。",
+        exercise: "练习：列出判断一个赔付率变化是否显著所需的三个数据检查。"
+      },
+      en: {
+        definition: "Statistics uses historical data to estimate risk patterns and judge whether observed changes are noise or genuine trends.",
+        example: "Plain example: a rising loss ratio does not automatically mean pricing failure; check volume, mix, seasonality and large claims first.",
+        exercise: "Exercise: list three data checks before calling a loss-ratio movement significant."
+      },
+      fr: {
+        definition: "La statistique utilise les données historiques pour estimer les comportements de risque et distinguer bruit aléatoire et tendance réelle.",
+        example: "Exemple simple : une hausse du ratio de sinistralité ne prouve pas immédiatement une erreur tarifaire ; vérifiez volume, mix, saisonnalité et gros sinistres.",
+        exercise: "Exercice : citez trois contrôles avant de conclure qu’une variation de sinistralité est significative."
+      }
+    },
+    "survival analysis": {
+      zh: {
+        definition: "Survival Analysis 研究某个状态持续多久以及何时发生退出事件，在寿险死亡率、退保和长期健康险中非常常用。",
+        example: "通俗例子：一张保单不是只看今年是否退保，还要看第 1、2、3 个保单年度的持续率曲线。",
+        exercise: "练习：解释为什么退保率假设会影响 BEL、CSM 和流动性。"
+      },
+      en: {
+        definition: "Survival analysis studies how long a state lasts before an exit event. It is central to mortality, lapse and long-duration health modelling.",
+        example: "Plain example: for a policy, do not only ask whether it lapses this year; look at persistency across policy years 1, 2 and 3.",
+        exercise: "Exercise: explain how lapse assumptions affect BEL, CSM and liquidity."
+      },
+      fr: {
+        definition: "L’analyse de survie étudie la durée avant un événement de sortie. Elle est centrale pour la mortalité, les rachats et les garanties longues.",
+        example: "Exemple simple : pour un contrat, on ne regarde pas seulement le rachat cette année, mais la persistance aux années 1, 2 et 3.",
+        exercise: "Exercice : expliquez l’effet des hypothèses de rachat sur le BEL, la CSM et la liquidité."
+      }
+    },
+    "monte carlo": {
+      zh: {
+        definition: "Monte Carlo 通过大量随机情景模拟结果分布，用来评估不确定现金流、资本需求和尾部风险。",
+        example: "通俗例子：与其只看一个平均赔付结果，Monte Carlo 会模拟上万次不同赔付路径，观察 95% 或 99.5% 分位数。",
+        exercise: "练习：说明 Monte Carlo 在 SCR、嵌入式期权或巨灾损失建模中的一个用途。"
+      },
+      en: {
+        definition: "Monte Carlo simulation generates many random scenarios to estimate the distribution of uncertain cash flows, capital needs and tail losses.",
+        example: "Plain example: instead of one average claims outcome, simulate thousands of paths and inspect the 95th or 99.5th percentile.",
+        exercise: "Exercise: describe one use of Monte Carlo in SCR, embedded options or catastrophe-loss modelling."
+      },
+      fr: {
+        definition: "La simulation Monte Carlo génère de nombreux scénarios aléatoires pour estimer la distribution des flux incertains, du capital et des pertes extrêmes.",
+        example: "Exemple simple : au lieu d’un seul résultat moyen, simulez des milliers de trajectoires et observez le quantile 95 % ou 99,5 %.",
+        exercise: "Exercice : décrivez un usage de Monte Carlo pour le SCR, les options incorporées ou les pertes catastrophe."
+      }
+    },
+    "time series": {
+      zh: {
+        definition: "Time Series 关注数据随时间变化的规律，常用于赔付通胀、保费增长、利率和经验假设监测。",
+        example: "通俗例子：医疗赔付每月上升，要区分趋势、季节性、一次性冲击和数据口径变化。",
+        exercise: "练习：选一个保险指标，说明如何拆分趋势、季节性和异常点。"
+      },
+      en: {
+        definition: "Time series analysis studies how data evolves over time. It is useful for claims inflation, premium growth, interest rates and experience monitoring.",
+        example: "Plain example: if monthly medical claims rise, separate trend, seasonality, one-off shock and data-definition changes.",
+        exercise: "Exercise: choose one insurance metric and split its movement into trend, seasonality and outliers."
+      },
+      fr: {
+        definition: "L’analyse de séries temporelles étudie l’évolution des données dans le temps. Elle sert au suivi de l’inflation sinistres, des primes, des taux et de l’expérience.",
+        example: "Exemple simple : si les sinistres santé mensuels augmentent, distinguez tendance, saisonnalité, choc ponctuel et changement de périmètre.",
+        exercise: "Exercice : choisissez un indicateur d’assurance et séparez tendance, saisonnalité et valeurs atypiques."
+      }
+    },
+    bayesian: {
+      zh: {
+        definition: "Bayesian 方法把先验判断和新观察数据结合起来，适合样本少、风险新或经验逐步积累的保险问题。",
+        example: "通俗例子：一个新险种数据很少，可以先用相近组合经验作为先验，再用新赔付经验逐步更新。",
+        exercise: "练习：举一个保险场景，说明先验信息和新数据分别来自哪里。"
+      },
+      en: {
+        definition: "Bayesian methods combine prior judgment with new observations. They are useful when data is scarce, emerging or gradually accumulating.",
+        example: "Plain example: for a new product, use similar portfolio experience as a prior and update it as new claims emerge.",
+        exercise: "Exercise: name one insurance case and identify the prior information and new evidence."
+      },
+      fr: {
+        definition: "Les méthodes bayésiennes combinent jugement a priori et nouvelles observations. Elles sont utiles lorsque les données sont rares ou émergentes.",
+        example: "Exemple simple : pour un nouveau produit, utilisez l’expérience d’un portefeuille proche comme a priori, puis mettez à jour avec les sinistres observés.",
+        exercise: "Exercice : choisissez un cas d’assurance et identifiez l’a priori et les nouvelles observations."
+      }
+    },
+    "risk pooling": {
+      zh: {
+        definition: "Risk Pooling 是把大量相似但不完全同步的风险放在一起，通过大数法则降低组合层面的相对波动。",
+        example: "通俗例子：一个人的医疗费用很难预测，但十万人的年度医疗赔付会更接近稳定的组合规律。",
+        exercise: "练习：解释为什么风险池规模、同质性和相关性会影响保险定价。"
+      },
+      en: {
+        definition: "Risk pooling combines many similar but not perfectly correlated risks so that portfolio-level volatility becomes more manageable.",
+        example: "Plain example: one person’s medical cost is hard to predict, but annual claims for 100,000 people are closer to a stable portfolio pattern.",
+        exercise: "Exercise: explain why pool size, homogeneity and correlation matter for insurance pricing."
+      },
+      fr: {
+        definition: "La mutualisation regroupe de nombreux risques similaires mais imparfaitement corrélés afin de réduire la volatilité relative du portefeuille.",
+        example: "Exemple simple : la dépense médicale d’une personne est difficile à prévoir, mais celle de 100 000 assurés suit une loi plus stable.",
+        exercise: "Exercice : expliquez pourquoi taille du portefeuille, homogénéité et corrélation comptent en tarification."
+      }
+    },
+    underwriting: {
+      zh: {
+        definition: "Underwriting 是识别、选择和定价风险的过程，决定哪些风险进入组合以及以什么条件承保。",
+        example: "通俗例子：同样的保费增长，如果来自更差风险选择，可能会提高赔付率而不是提升盈利。",
+        exercise: "练习：列出核保质量恶化会影响的三个精算指标。"
+      },
+      en: {
+        definition: "Underwriting identifies, selects and prices risks, deciding which risks enter the portfolio and under what terms.",
+        example: "Plain example: premium growth from weaker risk selection may raise the loss ratio rather than improve profitability.",
+        exercise: "Exercise: list three actuarial metrics affected by deteriorating underwriting quality."
+      },
+      fr: {
+        definition: "La souscription identifie, sélectionne et tarifie les risques, en déterminant quels risques entrent au portefeuille et à quelles conditions.",
+        example: "Exemple simple : une croissance de primes issue d’une sélection dégradée peut augmenter la sinistralité au lieu d’améliorer la rentabilité.",
+        exercise: "Exercice : citez trois indicateurs actuariels affectés par une dégradation de la souscription."
+      }
+    },
+    claims: {
+      zh: {
+        definition: "Claims 是保险事故发生后的理赔现金流和处理过程，直接影响赔付率、准备金和客户体验。",
+        example: "通俗例子：理赔频率不变但案均赔款上升，可能来自通胀、服务成本或责任范围变化。",
+        exercise: "练习：把一次赔付率上升拆成频率、严重度和理赔处理三个角度。"
+      },
+      en: {
+        definition: "Claims are post-event payments and handling processes. They directly affect loss ratio, reserving and customer experience.",
+        example: "Plain example: if claim frequency is stable but severity rises, the driver may be inflation, service cost or coverage design.",
+        exercise: "Exercise: split a loss-ratio increase into frequency, severity and claims-handling effects."
+      },
+      fr: {
+        definition: "Les sinistres regroupent les paiements et la gestion après événement. Ils influencent directement sinistralité, provisionnement et expérience client.",
+        example: "Exemple simple : si la fréquence est stable mais le coût moyen augmente, la cause peut être l’inflation, les coûts de service ou les garanties.",
+        exercise: "Exercice : décomposez une hausse de sinistralité entre fréquence, coût moyen et gestion des sinistres."
+      }
+    },
+    distribution: {
+      zh: {
+        definition: "Distribution 指保险产品触达客户的渠道和销售方式，会影响获客成本、风险选择、续保和投诉风险。",
+        example: "通俗例子：同样是车险，直销、经纪和嵌入式渠道可能带来完全不同的客户结构和赔付表现。",
+        exercise: "练习：比较两个渠道，说明它们对费用率和赔付率可能产生的影响。"
+      },
+      en: {
+        definition: "Distribution is how insurance products reach customers. It affects acquisition cost, risk selection, retention and conduct risk.",
+        example: "Plain example: direct, broker and embedded motor insurance channels can bring very different customer mix and claims performance.",
+        exercise: "Exercise: compare two channels and explain their possible impact on expense ratio and loss ratio."
+      },
+      fr: {
+        definition: "La distribution désigne les canaux de commercialisation des produits d’assurance. Elle influence coût d’acquisition, sélection du risque, rétention et risque de conduite.",
+        example: "Exemple simple : en auto, vente directe, courtage et assurance embarquée peuvent produire des profils clients et sinistres très différents.",
+        exercise: "Exercice : comparez deux canaux et expliquez leur effet possible sur ratio de frais et sinistralité."
+      }
+    },
+    reinsurance: {
+      zh: {
+        definition: "Reinsurance 是保险公司把部分风险转移给再保险人的机制，用于管理波动、资本、巨灾暴露和承保能力。",
+        example: "通俗例子：保险公司保留前一部分损失，把极端大额损失的一部分转给再保险人，以降低利润和资本波动。",
+        exercise: "练习：解释再保险如何同时影响净赔付、资本需求和定价策略。"
+      },
+      en: {
+        definition: "Reinsurance lets an insurer transfer part of its risk to a reinsurer. It helps manage volatility, capital, catastrophe exposure and underwriting capacity.",
+        example: "Plain example: an insurer retains ordinary losses but cedes part of severe losses to reduce earnings and capital volatility.",
+        exercise: "Exercise: explain how reinsurance affects net claims, capital needs and pricing strategy."
+      },
+      fr: {
+        definition: "La réassurance permet à un assureur de transférer une partie de ses risques à un réassureur. Elle aide à gérer volatilité, capital, exposition catastrophe et capacité.",
+        example: "Exemple simple : l’assureur conserve les pertes ordinaires mais cède une partie des pertes sévères pour réduire la volatilité du résultat et du capital.",
+        exercise: "Exercice : expliquez l’effet de la réassurance sur les sinistres nets, le besoin en capital et la tarification."
+      }
+    },
+    capital: {
+      zh: {
+        definition: "Capital 是保险公司吸收不利偏差和维持偿付能力的缓冲，连接风险、监管和经营战略。",
+        example: "通俗例子：一个产品利润率高但资本占用很重，RAROC 可能并不优秀。",
+        exercise: "练习：解释为什么同样利润的两个产品可能有不同资本吸引力。"
+      },
+      en: {
+        definition: "Capital is the buffer that allows an insurer to absorb adverse deviations and remain solvent. It links risk, regulation and strategy.",
+        example: "Plain example: a product with high accounting margin but heavy capital usage may have weak RAROC.",
+        exercise: "Exercise: explain why two products with the same profit can have different capital attractiveness."
+      },
+      fr: {
+        definition: "Le capital est le coussin permettant d’absorber les écarts défavorables et de maintenir la solvabilité. Il relie risque, réglementation et stratégie.",
+        example: "Exemple simple : un produit très rentable comptablement mais consommateur de capital peut avoir un RAROC faible.",
+        exercise: "Exercice : expliquez pourquoi deux produits au même résultat peuvent avoir une attractivité capital différente."
+      }
+    }
+  };
+  const detail = details[key]?.[state.language] || details[key]?.en;
+  if (detail) return detail;
+  const fallbackDefinition = state.language === "zh"
+    ? `${term} 是「${topic}」主题下的学习概念。${displayKnowledgeSummary(module)}`
+    : state.language === "fr"
+    ? `${term} est un concept du thème « ${topic} ». ${displayKnowledgeSummary(module)}`
+    : `${term} is a concept within ${topic}. ${displayKnowledgeSummary(module)}`;
+  return {
+    definition: fallbackDefinition,
+    example: personalizedConceptExample({ term }, topicId),
+    exercise: displayKnowledgeQuestion(module)
   };
 }
 

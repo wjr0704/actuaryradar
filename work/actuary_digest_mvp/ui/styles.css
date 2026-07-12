@@ -1464,10 +1464,13 @@ body[data-page="daily"]:not([data-section="all"]) .focus-band {
 }
 
 .knowledge-overview {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: var(--section-gap);
   margin-bottom: clamp(12px, 1vw, 16px);
+}
+
+.concept-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--section-gap);
 }
 
 .concept-card,
@@ -1763,6 +1766,10 @@ body[data-page="daily"]:not([data-section="all"]) .focus-band {
 
 .source-library-card {
   margin-bottom: 16px;
+}
+
+.open-source-learning-card {
+  margin-top: var(--section-gap);
 }
 
 .source-library-card p {
@@ -2838,6 +2845,7 @@ textarea {
   .controls,
   .focus-band,
   .knowledge-overview,
+  .concept-grid,
   .planner-card {
     grid-template-columns: 1fr;
     display: grid;
