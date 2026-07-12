@@ -1146,7 +1146,7 @@ let learningTopicOptions = [
     id: "Fundamentals",
     labels: { zh: "精算基础", en: "Fundamentals", fr: "Fondamentaux actuariels" },
     focus: { zh: "概率、统计、生存分析和现金流基础", en: "Probability, statistics, survival analysis and cash-flow basics", fr: "Probabilités, statistique, analyse de survie et flux" },
-    tracks: ["Fundamentals", "Insurance Fundamentals"],
+    tracks: ["Fundamentals"],
     keywords: ["fundamental", "statistics", "survival", "probability", "mortality", "lapse", "基础", "概率", "统计", "mortalité", "rachat"]
   },
   {
@@ -3703,9 +3703,9 @@ function generateTodaysLearningItems() {
   addItem(dailyConceptLearningItem(selectedTopics[0] || "Fundamentals"));
 
   const knowledgeCandidates = state.knowledge
-    .filter(module => selectedTopics.some(topicId => topicMatchesModule(topicId, module)) && difficultyMatchesModule(module));
+    .filter(module => selectedTopics.some(topicId => topicMatchesModule(topicId, module) && moduleSuitableForTopic(topicId, module)) && difficultyMatchesModule(module));
   knowledgeCandidates.forEach(module => {
-    const topicId = selectedTopics.find(topic => topicMatchesModule(topic, module)) || selectedTopics[0] || "Fundamentals";
+    const topicId = selectedTopics.find(topic => topicMatchesModule(topic, module) && moduleSuitableForTopic(topic, module)) || selectedTopics[0] || "Fundamentals";
     addItem(knowledgeLearningItem(module, topicId));
   });
 
@@ -3755,7 +3755,7 @@ function generateRecommendedLearningItems(excludeIds = []) {
 
   selectedTopics.forEach(topicId => {
     state.knowledge
-      .filter(module => topicMatchesModule(topicId, module) && difficultyMatchesModule(module))
+      .filter(module => topicMatchesModule(topicId, module) && moduleSuitableForTopic(topicId, module) && difficultyMatchesModule(module))
       .slice(0, 3)
       .forEach(module => addItem(knowledgeLearningItem(module, topicId)));
   });
@@ -3974,11 +3974,11 @@ function dailyConceptLearningItem(topicId) {
 function relatedNewsItems(selectedTopics) {
   const topicSet = selectedTopics.length ? selectedTopics : defaultKnowledgePlan.tracks;
   return languageMatchedItems(state.items)
-    .filter(item => topicSet.some(topicId => topicMatchesArticle(topicId, item)))
+    .filter(item => topicSet.some(topicId => topicMatchesArticle(topicId, item) && articleSuitableForTopic(topicId, item)))
     .sort((a, b) => (b.score || 0) - (a.score || 0))
     .slice(0, 4)
     .map(item => {
-      const topicId = topicSet.find(topic => topicMatchesArticle(topic, item)) || topicSet[0];
+      const topicId = topicSet.find(topic => topicMatchesArticle(topic, item) && articleSuitableForTopic(topic, item)) || topicSet[0];
       return {
         id: `news:${itemId(item)}`,
         topicId,
@@ -3996,10 +3996,10 @@ function researchLearningItems(selectedTopics) {
   const topicSet = selectedTopics.length ? selectedTopics : defaultKnowledgePlan.tracks;
   return languageMatchedItems(state.items)
     .filter(item => normalizeSection(item.platform_section) === "research" || /research|report|sigma|institute|publication/i.test(`${item.source || ""} ${item.title || ""}`))
-    .filter(item => !topicSet.length || topicSet.some(topicId => topicMatchesArticle(topicId, item)))
+    .filter(item => !topicSet.length || topicSet.some(topicId => topicMatchesArticle(topicId, item) && articleSuitableForTopic(topicId, item)))
     .slice(0, 2)
     .map(item => {
-      const topicId = topicSet.find(topic => topicMatchesArticle(topic, item)) || "Research";
+      const topicId = topicSet.find(topic => topicMatchesArticle(topic, item) && articleSuitableForTopic(topic, item)) || "Research";
       return {
         id: `research:${itemId(item)}`,
         topicId,
@@ -4179,6 +4179,41 @@ function topicMatchesModule(topicId, module) {
     || (topic.keywords || []).some(keyword => haystack.includes(String(keyword).toLowerCase()));
 }
 
+function moduleSuitableForTopic(topicId, module) {
+  const moduleId = String(module?.id || module?.topic_id || "").toLowerCase();
+  const track = String(module?.track || "").toLowerCase();
+  if (topicId === "Fundamentals") {
+    return track === "fundamentals" || moduleId.startsWith("fundamentals");
+  }
+  if (topicId === "Insurance Fundamentals") {
+    return (track === "insurance fundamentals" || moduleId.startsWith("insurance-fundamentals"))
+      && !isAdvancedReinsuranceOrCatModule(module);
+  }
+  if (!["Reinsurance", "Catastrophe Risk"].includes(topicId) && isAdvancedReinsuranceOrCatModule(module)) {
+    return false;
+  }
+  return true;
+}
+
+function isAdvancedReinsuranceOrCatModule(module) {
+  const text = [
+    module?.id,
+    module?.topic_id,
+    module?.track,
+    module?.title,
+    module?.summary,
+    ...(module?.concepts || [])
+  ].join(" ").toLowerCase();
+  return text.includes("reinsurance")
+    || text.includes("xol")
+    || text.includes("excess of loss")
+    || text.includes("catastrophe")
+    || text.includes("pml")
+    || text.includes("再保险")
+    || text.includes("巨灾")
+    || text.includes("超赔");
+}
+
 function topicMatchesArticle(topicId, item) {
   const topic = learningTopicOptions.find(option => option.id === topicId);
   if (!topic) return false;
@@ -4195,6 +4230,39 @@ function topicMatchesArticle(topicId, item) {
   ].join(" ").toLowerCase();
   return (topic.keywords || []).some(keyword => haystack.includes(String(keyword).toLowerCase()))
     || (topic.tracks || []).some(track => haystack.includes(track.toLowerCase()));
+}
+
+function articleSuitableForTopic(topicId, item) {
+  if (["Reinsurance", "Catastrophe Risk"].includes(topicId)) return true;
+  const text = [
+    item?.title,
+    item?.original_title,
+    item?.summary,
+    item?.source,
+    item?.category,
+    item?.line_of_business,
+    item?.branch,
+    item?.platform_section,
+    item?.taxonomy_category,
+    ...(item?.taxonomy_tags || []),
+    ...(item?.tags || [])
+  ].join(" ").toLowerCase();
+  const advancedReinsuranceOrCat = text.includes("reinsurance")
+    || text.includes("reinsurer")
+    || text.includes("catastrophe")
+    || text.includes("cat bond")
+    || text.includes("ils")
+    || text.includes("xol")
+    || text.includes("excess of loss")
+    || text.includes("pml")
+    || text.includes("再保险")
+    || text.includes("再保")
+    || text.includes("巨灾")
+    || text.includes("超赔");
+  if (topicId === "Fundamentals" || topicId === "Insurance Fundamentals") {
+    return !advancedReinsuranceOrCat;
+  }
+  return !advancedReinsuranceOrCat;
 }
 
 function difficultyMatchesModule(module) {
