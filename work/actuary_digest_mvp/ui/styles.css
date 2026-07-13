@@ -4252,6 +4252,224 @@ body {
   transform: rotate(-12deg);
 }
 
+.portal-hero {
+  min-height: clamp(340px, 26vw, 470px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.32fr) minmax(320px, 0.68fr);
+  overflow: hidden;
+  border-radius: var(--atlas-radius-xl);
+  background:
+    linear-gradient(110deg, rgba(255, 253, 247, 0.98), rgba(251, 247, 237, 0.96) 56%, rgba(228, 238, 223, 0.82));
+  box-shadow: var(--atlas-shadow-float), inset 0 0 0 1px rgba(255, 253, 247, 0.74);
+}
+
+.portal-hero::before {
+  content: "";
+  position: absolute;
+  inset: 18px 34% 18px 48%;
+  pointer-events: none;
+  opacity: 0.12;
+  color: var(--atlas-forest);
+  background: var(--atlas-asset-leaf) center / contain no-repeat;
+  transform: rotate(4deg);
+}
+
+.portal-hero::after {
+  left: clamp(28px, 5vw, 88px);
+  right: 40%;
+  bottom: clamp(22px, 3vw, 48px);
+  height: 86px;
+  opacity: 0.14;
+  color: var(--atlas-forest);
+  background: var(--atlas-asset-branch) left center / contain no-repeat;
+}
+
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(34px, 4.6vw, 76px);
+}
+
+.hero-copy::before {
+  display: none;
+}
+
+.portal-kicker {
+  width: max-content;
+  border-bottom: 1px solid rgba(173, 123, 50, 0.28);
+  padding-bottom: 6px;
+  color: var(--atlas-ochre);
+}
+
+.portal-hero h2 {
+  max-width: 780px;
+  font-size: clamp(44px, 4.9vw, 78px);
+  line-height: 0.94;
+  letter-spacing: -0.055em;
+}
+
+.portal-hero .hero-lead {
+  max-width: 660px;
+  margin-top: 18px;
+  color: #33453f;
+  font-size: clamp(16px, 1.12vw, 18px);
+  line-height: 1.72;
+}
+
+.hero-actions {
+  margin-top: clamp(20px, 2.2vw, 34px);
+}
+
+.hero-actions .primary-button,
+.hero-actions .ghost-button {
+  min-height: 46px;
+  border-radius: 999px;
+  padding: 0 22px;
+}
+
+.hero-market-panel {
+  position: relative;
+  justify-content: end;
+  border-left: 1px solid rgba(255, 253, 247, 0.12);
+  padding: clamp(28px, 3.2vw, 52px);
+  background:
+    linear-gradient(160deg, rgba(16, 32, 51, 0.99), rgba(15, 42, 36, 0.97) 68%, rgba(65, 79, 54, 0.93));
+}
+
+.hero-market-panel::before {
+  height: 100%;
+  width: 5px;
+  inset: 0 auto 0 0;
+  background: linear-gradient(180deg, var(--atlas-sage-100), var(--atlas-eucalyptus), var(--atlas-ochre));
+}
+
+.hero-market-panel strong {
+  max-width: 440px;
+  margin-top: 18px;
+  font-size: clamp(24px, 2.1vw, 36px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+.hero-market-panel p {
+  max-width: 410px;
+  color: rgba(255, 253, 247, 0.72);
+}
+
+.hero-panel-link {
+  width: max-content;
+  border-radius: 999px;
+  border-color: rgba(228, 238, 223, 0.32);
+  background: rgba(255, 253, 247, 0.06);
+}
+
+.home-learning-shell {
+  padding: clamp(22px, 2.2vw, 34px);
+  border-radius: var(--atlas-radius-xl);
+  background:
+    linear-gradient(135deg, rgba(243, 248, 240, 0.96), rgba(255, 253, 247, 0.96) 44%, rgba(239, 227, 202, 0.58));
+}
+
+.home-learning-shell::before {
+  height: 6px;
+  background: linear-gradient(90deg, var(--atlas-eucalyptus), var(--atlas-ochre), var(--atlas-terracotta));
+}
+
+.home-learning-shell::after {
+  inset: auto 28px 18px auto;
+  width: min(38vw, 420px);
+  height: 180px;
+  opacity: 0.11;
+  color: var(--atlas-forest);
+  background: var(--atlas-asset-branch) right bottom / contain no-repeat;
+}
+
+.home-learning-heading {
+  display: flex;
+  gap: 24px;
+  align-items: end;
+  justify-content: space-between;
+}
+
+.home-learning-heading h3 {
+  margin-top: 4px;
+  font-size: clamp(28px, 2.35vw, 42px);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+
+.home-learning-eyebrow,
+.home-learning-heading > div > p:first-child {
+  font-family: var(--atlas-serif);
+  font-style: italic;
+  letter-spacing: 0.06em;
+  text-transform: none;
+}
+
+.home-learning-summary {
+  max-width: 760px;
+  color: #5d6b61;
+}
+
+.home-learning-primary,
+.home-learning-card {
+  border-radius: var(--atlas-radius-lg);
+  background:
+    linear-gradient(145deg, rgba(255, 253, 247, 0.88), rgba(250, 246, 237, 0.78));
+}
+
+.home-learning-primary {
+  padding: clamp(18px, 1.7vw, 28px);
+}
+
+.learning-panel-title span {
+  min-width: 38px;
+  height: 38px;
+  color: var(--atlas-forest);
+  background: rgba(228, 238, 223, 0.76);
+}
+
+.learning-panel-title h4 {
+  font-size: clamp(18px, 1.35vw, 24px);
+  letter-spacing: -0.02em;
+}
+
+.home-learning-list {
+  gap: 12px;
+}
+
+.home-learning-task {
+  border-radius: 24px;
+  padding: clamp(14px, 1.1vw, 18px);
+}
+
+.home-learning-task .learning-plan-meta {
+  gap: 7px;
+}
+
+.growth-stage-pill {
+  color: var(--atlas-ochre) !important;
+  background: rgba(239, 227, 202, 0.56) !important;
+}
+
+.home-learning-task h5 {
+  margin-top: 8px;
+  font-size: clamp(16px, 1.1vw, 18px);
+}
+
+.learning-type-concept {
+  box-shadow: inset 5px 0 0 rgba(173, 123, 50, 0.42), var(--atlas-shadow-card);
+}
+
+.learning-type-knowledge {
+  box-shadow: inset 5px 0 0 rgba(120, 160, 140, 0.48), var(--atlas-shadow-card);
+}
+
+.learning-type-news {
+  box-shadow: inset 5px 0 0 rgba(139, 124, 168, 0.38), var(--atlas-shadow-card);
+}
+
 .portal-section,
 .home-learning-shell,
 .home-learning-primary,

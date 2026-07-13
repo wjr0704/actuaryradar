@@ -504,6 +504,11 @@ const pageCopy = {
     goalGeneralKnowledge: "建立保险通识",
     completedToday: "今日开花",
     learningStreak: "连续成长",
+    growthStage: "成长阶段",
+    growthSeed: "Seed",
+    growthSprout: "Sprout",
+    growthBud: "Bud",
+    growthBloom: "Bloom",
     topicsCompleted: "已推进主题",
     dailyTarget: "今日目标",
     todaysLearningPlan: "今日学习",
@@ -775,6 +780,11 @@ const pageCopy = {
     goalGeneralKnowledge: "Build general insurance knowledge",
     completedToday: "Blooms today",
     learningStreak: "Growth streak",
+    growthStage: "Growth stage",
+    growthSeed: "Seed",
+    growthSprout: "Sprout",
+    growthBud: "Bud",
+    growthBloom: "Bloom",
     topicsCompleted: "Topics advanced",
     dailyTarget: "Daily target",
     todaysLearningPlan: "Today's Learning",
@@ -1046,6 +1056,11 @@ const pageCopy = {
     goalGeneralKnowledge: "Construire une culture assurance",
     completedToday: "Floraisons du jour",
     learningStreak: "Série de progression",
+    growthStage: "Stade",
+    growthSeed: "Graine",
+    growthSprout: "Jeune pousse",
+    growthBud: "Bourgeon",
+    growthBloom: "Floraison",
     topicsCompleted: "Thèmes travaillés",
     dailyTarget: "Objectif du jour",
     todaysLearningPlan: "Formation du jour",
@@ -4351,6 +4366,7 @@ function renderHomeLearningTaskItem(item, mode) {
   const completed = mode === "completed" || isLearningItemCompleted(item.id);
   const started = Boolean(state.learningProgress.started?.[item.id]);
   const gardenState = completed ? "garden-bloom" : started ? "garden-sprout" : "garden-seed";
+  const stageLabel = completed ? t("growthBloom") : started ? t("growthSprout") : t("growthSeed");
   const sourceUrl = item.sourceUrl || item.url;
   const titleHtml = item.openUrl
     ? `<a class="learning-plan-title-link" href="${escapeHtml(item.openUrl)}">${escapeHtml(item.title)}</a>`
@@ -4366,6 +4382,7 @@ function renderHomeLearningTaskItem(item, mode) {
         <div class="learning-plan-meta">
           <span>${escapeHtml(item.typeLabel || learningTypeLabel(item.type))}</span>
           <span>${escapeHtml(learningTopicLabel(item.topicId))}</span>
+          <span class="growth-stage-pill">${escapeHtml(t("growthStage"))}: ${escapeHtml(stageLabel)}</span>
         </div>
         <h5>${titleHtml}</h5>
         ${reason ? `<p class="learning-reason">${escapeHtml(reason)}</p>` : ""}
