@@ -2259,6 +2259,8 @@ function renderPersonalizedConceptCards() {
       <div class="card-meta">
         <span class="chip">${escapeHtml(t("dailyConcept"))}</span>
         <span class="chip">${escapeHtml(learningTopicLabel(topicId))}</span>
+        <span class="growth-stage-pill">${escapeHtml(t("growthStage"))}: ${escapeHtml(t("growthSeed"))}</span>
+        <span class="chip">${escapeHtml(t("estimated"))}: 8 ${escapeHtml(t("minutesShort"))}</span>
       </div>
       <h4>${escapeHtml(concept.term || "-")}</h4>
       <p>${escapeHtml(concept.definition || "-")}</p>
