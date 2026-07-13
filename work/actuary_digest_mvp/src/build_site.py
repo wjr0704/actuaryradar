@@ -90,7 +90,7 @@ def write_seo_files(site_dir: pathlib.Path, archives: list[dict], base_url: str)
 def build_site(site_dir: pathlib.Path = SITE_DIR, base_url: str = "") -> None:
     site_dir.mkdir(parents=True, exist_ok=True)
 
-    for filename in ["index.html", "styles.css", "app.js", "favicon.svg"]:
+    for filename in ["index.html", "styles.css", "app.js", "analytics.js", "favicon.svg"]:
         copy_file(ROOT / "ui" / filename, site_dir / filename)
     copy_file(ROOT / "ui" / "config" / "taxonomy.js", site_dir / "config" / "taxonomy.js")
     inject_absolute_meta(site_dir / "index.html", base_url)
