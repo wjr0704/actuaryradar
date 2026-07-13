@@ -4809,6 +4809,203 @@ body {
   }
 }
 
+.sidebar {
+  background:
+    linear-gradient(180deg, rgba(11, 27, 45, 0.99), rgba(15, 42, 36, 0.99) 54%, rgba(9, 25, 36, 0.99));
+}
+
+.sidebar::after {
+  content: "";
+  position: absolute;
+  inset: auto 18px 18px 18px;
+  height: 120px;
+  pointer-events: none;
+  opacity: 0.08;
+  color: var(--atlas-sage-100);
+  background: var(--atlas-asset-branch) bottom left / contain no-repeat;
+}
+
+.brand,
+.product-nav,
+.contact-panel {
+  position: relative;
+  z-index: 1;
+}
+
+.brand-logo span:last-child {
+  color: #93c9ad;
+}
+
+.nav-button {
+  color: rgba(255, 253, 247, 0.76);
+}
+
+.nav-button:hover,
+.nav-button.active {
+  color: #fffdf7;
+  background:
+    linear-gradient(135deg, rgba(120, 160, 140, 0.18), rgba(255, 253, 247, 0.055));
+  box-shadow: inset 3px 0 0 rgba(147, 201, 173, 0.82);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+summary:focus-visible {
+  outline: 3px solid rgba(120, 160, 140, 0.46);
+  outline-offset: 3px;
+}
+
+.primary-button:active,
+.ghost-button:active,
+.text-link:active,
+.learning-start-link:active {
+  transform: translateY(1px);
+}
+
+@media (max-width: 1536px) {
+  .portal-hero h2 {
+    font-size: clamp(38px, 3.8vw, 62px);
+  }
+
+  .portal-hero {
+    min-height: clamp(300px, 23vw, 390px);
+  }
+
+  .concept-card h4 {
+    font-size: clamp(25px, 2.1vw, 36px);
+  }
+}
+
+@media (max-width: 1440px) {
+  .portal-hero {
+    grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+  }
+
+  .hero-copy {
+    padding: clamp(26px, 3.3vw, 48px);
+  }
+
+  .hero-market-panel {
+    padding: clamp(24px, 2.5vw, 38px);
+  }
+
+  .home-learning-heading {
+    align-items: start;
+  }
+
+  .concept-card {
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .sidebar::after,
+  .portal-hero::before,
+  .knowledge-overview::before {
+    display: none;
+  }
+
+  .portal-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-market-panel {
+    min-height: 280px;
+  }
+
+  .home-learning-heading {
+    display: grid;
+  }
+
+  .concept-card h4,
+  .concept-card > p,
+  .concept-example,
+  .concept-card .prompt {
+    max-width: none;
+  }
+
+  .concept-card::before {
+    width: 120px;
+    opacity: 0.08;
+  }
+}
+
+@media (max-width: 760px) {
+  body {
+    background:
+      linear-gradient(135deg, var(--atlas-ivory), #f3f8f0);
+  }
+
+  .sidebar::after,
+  .portal-hero::before,
+  .portal-hero::after,
+  .home-learning-shell::after,
+  .concept-card::before,
+  .knowledge-card::after,
+  .open-source-learning-card::before,
+  .onboarding-dialog::after {
+    display: none;
+  }
+
+  .portal-hero,
+  .home-learning-shell,
+  .concept-card,
+  .knowledge-card,
+  .open-source-section,
+  .modal-card,
+  .onboarding-dialog {
+    border-radius: 24px;
+  }
+
+  .portal-hero h2 {
+    font-size: clamp(34px, 11vw, 46px);
+  }
+
+  .hero-copy,
+  .hero-market-panel {
+    padding: 22px;
+  }
+
+  .home-learning-heading {
+    gap: 16px;
+  }
+
+  .home-learning-actions {
+    justify-content: flex-start;
+  }
+
+  .home-learning-task::after {
+    opacity: 0.1;
+    transform: scale(0.86);
+  }
+
+  .concept-card {
+    min-height: auto;
+    padding: 22px;
+  }
+
+  .concept-card h4 {
+    margin-top: 16px;
+  }
+
+  .onboarding-grid,
+  .onboarding-topic-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .learning-plan-item.completed,
+  .progress-track span,
+  .progress-track span::after,
+  .page-view.active,
+  .learning-plan-item:hover::before {
+    animation: none !important;
+  }
+}
+
 @keyframes atlasPageIn {
   from {
     opacity: 0;
