@@ -4102,6 +4102,12 @@ body {
   --atlas-shadow-float: 0 30px 88px rgba(36, 49, 39, 0.13), 0 8px 24px rgba(36, 49, 39, 0.07);
   --atlas-shadow-inset: inset 0 0 0 1px rgba(255, 253, 247, 0.7);
   --atlas-serif: ui-serif, Georgia, "Times New Roman", serif;
+  --atlas-asset-seed: url("./assets/botanical/seed-line.svg");
+  --atlas-asset-sprout: url("./assets/botanical/sprout-line.svg");
+  --atlas-asset-bud: url("./assets/botanical/bud-line.svg");
+  --atlas-asset-bloom: url("./assets/botanical/bloom-line.svg");
+  --atlas-asset-leaf: url("./assets/botanical/specimen-leaf.svg");
+  --atlas-asset-branch: url("./assets/botanical/conservatory-branch.svg");
   --bg: var(--atlas-ivory);
   --panel: var(--atlas-paper);
   --panel-2: var(--atlas-sage-50);

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img" aria-labelledby="title">
+  <title id="title">Bloom line motif</title>
+  <path d="M60 61c9-15 9-31 0-48-9 17-9 33 0 48Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M60 61c17-6 28-18 34-37-19 3-31 15-34 37Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M60 61c18 1 32-7 43-23-19-4-34 4-43 23Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M60 61c-17-6-28-18-34-37 19 3 31 15 34 37Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M60 61c-18 1-32-7-43-23 19-4 34 4 43 23Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M60 99V61" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="60" cy="61" r="7" stroke="currentColor" stroke-width="3"/>
+</svg>
