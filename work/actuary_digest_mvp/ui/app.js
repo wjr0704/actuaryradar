@@ -4308,6 +4308,7 @@ function renderLearningItemList(items, options = {}) {
 function renderLearningTaskItem(item, mode) {
   const completed = mode === "completed" || isLearningItemCompleted(item.id);
   const started = Boolean(state.learningProgress.started?.[item.id]);
+  const gardenState = completed ? "garden-bloom" : started ? "garden-sprout" : "garden-seed";
   const sourceUrl = item.sourceUrl || item.url;
   const titleHtml = item.openUrl
     ? `<a class="learning-plan-title-link" href="${escapeHtml(item.openUrl)}">${escapeHtml(item.title)}</a>`
@@ -4324,7 +4325,7 @@ function renderLearningTaskItem(item, mode) {
         <button class="ghost-button compact-button" type="button" data-learning-complete="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}"${completed ? " disabled" : ""}>${escapeHtml(completed ? t("completedLabel") : t("markComplete"))}</button>
       `;
   return `
-    <article class="learning-plan-item${completed ? " completed" : ""}">
+    <article class="learning-plan-item ${escapeHtml(gardenState)}${completed ? " completed" : ""}">
       <div class="learning-plan-copy">
         <div class="learning-plan-meta">
           <span>${escapeHtml(item.typeLabel || learningTypeLabel(item.type))}</span>
@@ -4349,6 +4350,7 @@ function renderHomeLearningItemList(items, options = {}) {
 function renderHomeLearningTaskItem(item, mode) {
   const completed = mode === "completed" || isLearningItemCompleted(item.id);
   const started = Boolean(state.learningProgress.started?.[item.id]);
+  const gardenState = completed ? "garden-bloom" : started ? "garden-sprout" : "garden-seed";
   const sourceUrl = item.sourceUrl || item.url;
   const titleHtml = item.openUrl
     ? `<a class="learning-plan-title-link" href="${escapeHtml(item.openUrl)}">${escapeHtml(item.title)}</a>`
@@ -4356,7 +4358,7 @@ function renderHomeLearningTaskItem(item, mode) {
   const reason = learningRecommendationReason(item);
   const actionLabel = started ? t("continueLearning") : t("startLearningItem");
   return `
-    <article class="learning-plan-item home-learning-task ${escapeHtml(`learning-type-${item.type || "item"}`)}${completed ? " completed" : ""}">
+    <article class="learning-plan-item home-learning-task ${escapeHtml(`learning-type-${item.type || "item"}`)} ${escapeHtml(gardenState)}${completed ? " completed" : ""}">
       <label class="learning-complete-box" aria-label="${escapeHtml(t("markComplete"))}">
         <input type="checkbox" data-learning-complete="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}"${completed ? " checked disabled" : ""}>
       </label>

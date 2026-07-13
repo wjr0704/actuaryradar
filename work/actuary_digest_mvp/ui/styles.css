@@ -3692,6 +3692,74 @@ body {
   content: none;
 }
 
+.home-learning-task {
+  overflow: hidden;
+}
+
+.home-learning-task::after {
+  content: "";
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  width: 46px;
+  height: 46px;
+  pointer-events: none;
+  opacity: 0.2;
+  transition: transform 220ms ease, opacity 220ms ease;
+}
+
+.home-learning-task.garden-seed::after {
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 52% 58%, rgba(185, 139, 99, 0.9) 0 7px, transparent 8px),
+    radial-gradient(circle at 50% 50%, rgba(243, 228, 189, 0.74) 0 18px, transparent 19px);
+}
+
+.home-learning-task.garden-sprout::after {
+  border-radius: 999px;
+  background:
+    radial-gradient(ellipse at 42% 38%, rgba(79, 143, 115, 0.88) 0 11px, transparent 12px),
+    radial-gradient(ellipse at 65% 52%, rgba(122, 143, 103, 0.72) 0 9px, transparent 10px),
+    linear-gradient(90deg, transparent 0 48%, rgba(79, 143, 115, 0.8) 49% 52%, transparent 53% 100%);
+}
+
+.home-learning-task.garden-bloom::after {
+  opacity: 0.28;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 253, 248, 0.95) 0 6px, transparent 7px),
+    radial-gradient(ellipse at 50% 10%, rgba(79, 143, 115, 0.86) 0 12px, transparent 13px),
+    radial-gradient(ellipse at 88% 50%, rgba(185, 139, 99, 0.7) 0 10px, transparent 11px),
+    radial-gradient(ellipse at 50% 88%, rgba(122, 143, 103, 0.82) 0 11px, transparent 12px),
+    radial-gradient(ellipse at 12% 50%, rgba(185, 139, 99, 0.68) 0 10px, transparent 11px);
+}
+
+.home-learning-task:hover::after {
+  opacity: 0.34;
+  transform: translateY(-2px) rotate(-4deg);
+}
+
+.learning-type-concept {
+  background:
+    linear-gradient(145deg, rgba(255, 253, 248, 0.9), rgba(250, 244, 232, 0.78));
+}
+
+.learning-type-knowledge {
+  background:
+    linear-gradient(145deg, rgba(255, 253, 248, 0.92), rgba(237, 245, 237, 0.74));
+}
+
+.learning-type-news {
+  background:
+    linear-gradient(145deg, rgba(255, 253, 248, 0.94), rgba(231, 238, 242, 0.76));
+}
+
+.home-learning-task .learning-plan-copy,
+.home-learning-task .learning-plan-actions {
+  position: relative;
+  z-index: 1;
+}
+
 .learning-complete-box input {
   accent-color: var(--garden-green);
   border-radius: 50%;
@@ -3728,6 +3796,11 @@ body {
     linear-gradient(145deg, rgba(255, 253, 248, 0.98), rgba(250, 244, 232, 0.88) 48%, rgba(237, 245, 237, 0.82));
 }
 
+.concept-card:hover::after {
+  transform: translateY(-4px) rotate(-6deg);
+  opacity: 0.34;
+}
+
 .concept-card::after {
   content: "";
   position: absolute;
@@ -3741,6 +3814,38 @@ body {
   background:
     radial-gradient(circle at 50% 72%, rgba(185, 139, 99, 0.44) 0 8px, transparent 9px),
     radial-gradient(ellipse at 48% 30%, rgba(79, 143, 115, 0.58) 0 12px, transparent 13px);
+}
+
+.concept-card .card-meta,
+.concept-card h4,
+.concept-card p,
+.concept-card a {
+  position: relative;
+  z-index: 1;
+}
+
+.concept-example {
+  border-radius: 18px;
+  padding: 12px 14px;
+  background: rgba(255, 253, 248, 0.68);
+  box-shadow: inset 0 0 0 1px rgba(185, 139, 99, 0.12);
+}
+
+.concept-card .prompt {
+  border-radius: 18px;
+  padding: 12px 14px;
+  background: rgba(237, 245, 237, 0.68);
+  color: #526657;
+}
+
+.concept-source-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: max-content;
+  margin-top: 8px;
+  color: var(--garden-green-dark);
+  font-weight: 850;
 }
 
 .knowledge-card {
@@ -3759,19 +3864,83 @@ body {
   background: linear-gradient(180deg, rgba(79, 143, 115, 0.82), rgba(185, 139, 99, 0.42));
 }
 
+.knowledge-card::after {
+  content: "";
+  position: absolute;
+  right: -22px;
+  bottom: -28px;
+  width: 126px;
+  height: 126px;
+  pointer-events: none;
+  opacity: 0.11;
+  border: 1px solid rgba(79, 143, 115, 0.34);
+  border-radius: 53% 47% 46% 54%;
+  transform: rotate(18deg);
+}
+
+.knowledge-card .card-meta,
+.knowledge-card h4,
+.knowledge-card p,
+.knowledge-card .knowledge-section,
+.knowledge-card .case-box,
+.knowledge-card .curated-source-group {
+  position: relative;
+  z-index: 1;
+}
+
 .knowledge-card.is-focused {
   box-shadow: 0 0 0 4px rgba(79, 143, 115, 0.13), var(--shadow-hover);
+}
+
+.case-box {
+  background:
+    linear-gradient(145deg, rgba(255, 253, 248, 0.78), rgba(237, 245, 237, 0.62));
+}
+
+.reference-answer {
+  margin-top: 12px;
+  border-radius: 16px;
+  padding: 12px 14px;
+  background: rgba(255, 253, 248, 0.78);
+  color: #51635b;
+  box-shadow: inset 0 0 0 1px rgba(79, 143, 115, 0.12);
 }
 
 .open-source-section {
   border-radius: 28px;
   background:
     linear-gradient(145deg, rgba(231, 238, 242, 0.6), rgba(255, 253, 248, 0.8));
+  padding: clamp(16px, 1.4vw, 22px);
+  box-shadow: inset 0 0 0 1px rgba(63, 89, 77, 0.08);
 }
 
 .open-source-card {
+  position: relative;
+  overflow: hidden;
   background:
     linear-gradient(145deg, rgba(255, 253, 248, 0.96), rgba(236, 244, 241, 0.92));
+}
+
+.open-source-card::after {
+  content: "";
+  position: absolute;
+  inset: auto 18px 18px auto;
+  width: 48px;
+  height: 48px;
+  pointer-events: none;
+  opacity: 0.16;
+  border-radius: 14px;
+  background:
+    linear-gradient(90deg, rgba(79, 143, 115, 0.32) 1px, transparent 1px) 0 0 / 12px 12px,
+    linear-gradient(rgba(79, 143, 115, 0.24) 1px, transparent 1px) 0 0 / 12px 12px;
+}
+
+.open-source-card-top,
+.open-source-card p,
+.open-source-card dl,
+.open-source-actions {
+  position: relative;
+  z-index: 1;
 }
 
 .portal-news-card,
@@ -3803,6 +3972,64 @@ body {
 .progress-track span {
   background:
     linear-gradient(90deg, rgba(79, 143, 115, 0.95), rgba(185, 139, 99, 0.75));
+}
+
+.saved-tabs {
+  background: rgba(255, 253, 248, 0.64);
+  border-color: rgba(63, 89, 77, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(255, 253, 248, 0.46);
+}
+
+.saved-tab.active {
+  background: rgba(255, 253, 248, 0.94);
+}
+
+.learning-journal-card {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(145deg, rgba(255, 253, 248, 0.96), rgba(244, 232, 223, 0.55) 100%);
+}
+
+.learning-journal-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 5px;
+  background: linear-gradient(180deg, rgba(79, 143, 115, 0.88), rgba(185, 139, 99, 0.68));
+}
+
+.learning-journal-card::after {
+  content: "";
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  width: 68px;
+  height: 68px;
+  pointer-events: none;
+  opacity: 0.12;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 0 14px, rgba(79, 143, 115, 0.5) 15px 16px, transparent 17px),
+    radial-gradient(circle at 50% 18%, rgba(79, 143, 115, 0.7) 0 6px, transparent 7px),
+    radial-gradient(circle at 82% 50%, rgba(185, 139, 99, 0.62) 0 6px, transparent 7px),
+    radial-gradient(circle at 50% 82%, rgba(122, 143, 103, 0.62) 0 6px, transparent 7px),
+    radial-gradient(circle at 18% 50%, rgba(185, 139, 99, 0.62) 0 6px, transparent 7px);
+}
+
+.learning-journal-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.learning-journal-details {
+  border-radius: 16px;
+  padding: 10px 12px;
+  background: rgba(255, 253, 248, 0.66);
+}
+
+.learning-journal-details summary {
+  color: var(--garden-green-dark);
 }
 
 @keyframes seedWake {
