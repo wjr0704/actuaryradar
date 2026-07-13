@@ -4072,6 +4072,206 @@ body {
   }
 }
 
+/* Botanical Atlas system v2: tokens and shared components */
+:root {
+  --atlas-ivory: #fbf7ed;
+  --atlas-paper: #fffdf7;
+  --atlas-paper-strong: #fffaf0;
+  --atlas-sage-50: #f3f8f0;
+  --atlas-sage-100: #e4eedf;
+  --atlas-sage-200: #cfdcc8;
+  --atlas-forest: #17382f;
+  --atlas-forest-2: #0f2a24;
+  --atlas-navy: #102033;
+  --atlas-moss: #68795f;
+  --atlas-eucalyptus: #78a08c;
+  --atlas-ochre: #ad7b32;
+  --atlas-terracotta: #b8795f;
+  --atlas-parchment: #efe3ca;
+  --atlas-mist: #e7eef2;
+  --atlas-violet: #8b7ca8;
+  --atlas-line: rgba(43, 66, 52, 0.16);
+  --atlas-line-strong: rgba(43, 66, 52, 0.26);
+  --atlas-text: #14243a;
+  --atlas-text-soft: #637168;
+  --atlas-radius-sm: 14px;
+  --atlas-radius-md: 22px;
+  --atlas-radius-lg: 32px;
+  --atlas-radius-xl: 42px;
+  --atlas-shadow-card: 0 18px 46px rgba(36, 49, 39, 0.08), 0 1px 4px rgba(36, 49, 39, 0.035);
+  --atlas-shadow-float: 0 30px 88px rgba(36, 49, 39, 0.13), 0 8px 24px rgba(36, 49, 39, 0.07);
+  --atlas-shadow-inset: inset 0 0 0 1px rgba(255, 253, 247, 0.7);
+  --atlas-serif: ui-serif, Georgia, "Times New Roman", serif;
+  --bg: var(--atlas-ivory);
+  --panel: var(--atlas-paper);
+  --panel-2: var(--atlas-sage-50);
+  --panel-3: var(--atlas-mist);
+  --ink: var(--atlas-text);
+  --muted: var(--atlas-text-soft);
+  --line: var(--atlas-line);
+  --line-strong: var(--atlas-line-strong);
+  --navy: var(--atlas-navy);
+  --navy-2: var(--atlas-forest);
+  --accent: var(--atlas-eucalyptus);
+  --accent-dark: var(--atlas-forest);
+  --gold: var(--atlas-ochre);
+  --shadow: var(--atlas-shadow-float);
+  --shadow-soft: 0 18px 42px rgba(36, 49, 39, 0.075);
+  --shadow-card: var(--atlas-shadow-card);
+  --shadow-hover: 0 28px 70px rgba(36, 49, 39, 0.14), 0 8px 22px rgba(36, 49, 39, 0.08);
+  --radius: var(--atlas-radius-sm);
+  --radius-lg: var(--atlas-radius-lg);
+}
+
+body {
+  color: var(--atlas-text);
+  background:
+    linear-gradient(rgba(43, 66, 52, 0.035) 1px, transparent 1px) 0 0 / 38px 38px,
+    radial-gradient(circle at 9% 8%, rgba(228, 238, 223, 0.76), transparent 31%),
+    radial-gradient(circle at 86% 15%, rgba(239, 227, 202, 0.68), transparent 28%),
+    linear-gradient(135deg, var(--atlas-ivory) 0%, #f8f2e6 46%, #eef5ed 100%);
+}
+
+.workspace {
+  max-width: 1720px;
+}
+
+.topbar {
+  background: rgba(255, 253, 247, 0.82);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 1px 0 rgba(43, 66, 52, 0.08);
+}
+
+.page-view.active {
+  animation: atlasPageIn 320ms ease both;
+}
+
+.primary-button,
+.ghost-button,
+.icon-button,
+.source-link,
+.text-link,
+.saved-tab,
+.filters select,
+.date-loader select,
+.date-loader input,
+.search-box {
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
+}
+
+.primary-button {
+  border: 1px solid rgba(120, 160, 140, 0.36);
+  background:
+    linear-gradient(135deg, rgba(120, 160, 140, 0.96), rgba(23, 56, 47, 0.98));
+  color: #fffdf7;
+  box-shadow: 0 16px 34px rgba(23, 56, 47, 0.20);
+}
+
+.primary-button:hover {
+  box-shadow: 0 22px 48px rgba(23, 56, 47, 0.26);
+}
+
+.ghost-button,
+.icon-button,
+.source-link,
+.filters select,
+.date-loader select,
+.date-loader input,
+.search-box {
+  border: 1px solid rgba(43, 66, 52, 0.15);
+  background:
+    linear-gradient(180deg, rgba(255, 253, 247, 0.92), rgba(250, 246, 237, 0.86));
+  color: var(--atlas-text);
+  box-shadow: 0 1px 0 rgba(36, 49, 39, 0.03);
+}
+
+.ghost-button:hover,
+.icon-button:hover,
+.source-link:hover,
+.filters select:hover,
+.date-loader select:hover,
+.date-loader input:hover {
+  border-color: rgba(120, 160, 140, 0.34);
+  box-shadow: 0 12px 28px rgba(36, 49, 39, 0.07);
+}
+
+.chip,
+.chip-date,
+.chip-language,
+.chip-tag,
+.chip-more,
+.learning-plan-meta span,
+.learning-status-pill {
+  border: 0;
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(243, 248, 240, 0.92), rgba(255, 253, 247, 0.78));
+  color: var(--atlas-forest);
+  box-shadow: inset 0 0 0 1px rgba(120, 160, 140, 0.18);
+}
+
+.card-meta {
+  gap: 8px;
+}
+
+.empty-state {
+  position: relative;
+  overflow: hidden;
+  min-height: 120px;
+  padding: clamp(22px, 2vw, 32px);
+  border: 1px dashed rgba(120, 160, 140, 0.32);
+  border-radius: var(--atlas-radius-lg);
+  background:
+    linear-gradient(145deg, rgba(255, 253, 247, 0.92), rgba(243, 248, 240, 0.78));
+  color: var(--atlas-text-soft);
+  box-shadow: var(--atlas-shadow-card);
+}
+
+.empty-state::after {
+  content: "";
+  position: absolute;
+  right: 22px;
+  bottom: 18px;
+  width: 80px;
+  height: 80px;
+  opacity: 0.16;
+  pointer-events: none;
+  border: 1px solid rgba(120, 160, 140, 0.45);
+  border-radius: 48% 52% 46% 54%;
+  transform: rotate(-12deg);
+}
+
+.portal-section,
+.home-learning-shell,
+.home-learning-primary,
+.home-learning-card,
+.concept-card,
+.knowledge-card,
+.saved-digest-card,
+.open-source-card,
+.intelligence-card,
+.portal-news-card,
+.modal-card {
+  border: 1px solid rgba(43, 66, 52, 0.11);
+  box-shadow: var(--atlas-shadow-card), var(--atlas-shadow-inset);
+}
+
+@keyframes atlasPageIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media print {
   body {
     background: #ffffff;
