@@ -4656,6 +4656,159 @@ body {
   box-shadow: var(--atlas-shadow-card), var(--atlas-shadow-inset);
 }
 
+.onboarding-backdrop {
+  background:
+    radial-gradient(circle at 24% 18%, rgba(228, 238, 223, 0.18), transparent 28%),
+    rgba(15, 42, 36, 0.62);
+  backdrop-filter: blur(8px);
+}
+
+.onboarding-dialog {
+  overflow: hidden auto;
+  border: 1px solid rgba(255, 253, 247, 0.74);
+  border-radius: var(--atlas-radius-xl);
+  background:
+    linear-gradient(145deg, rgba(255, 253, 247, 0.98), rgba(250, 246, 237, 0.96));
+  box-shadow: 0 42px 110px rgba(15, 42, 36, 0.32);
+}
+
+.onboarding-dialog::after {
+  content: "";
+  position: absolute;
+  right: -20px;
+  top: 16px;
+  width: 220px;
+  height: 220px;
+  pointer-events: none;
+  opacity: 0.1;
+  color: var(--atlas-forest);
+  background: var(--atlas-asset-leaf) center / contain no-repeat;
+  transform: rotate(10deg);
+}
+
+.onboarding-header {
+  position: relative;
+  z-index: 1;
+  border-bottom-color: rgba(43, 66, 52, 0.12);
+  background:
+    linear-gradient(135deg, rgba(243, 248, 240, 0.72), rgba(255, 253, 247, 0.88));
+}
+
+.onboarding-header p:first-child {
+  color: var(--atlas-ochre);
+  font-family: var(--atlas-serif);
+  font-style: italic;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+.onboarding-header h2 {
+  color: var(--atlas-navy);
+  letter-spacing: -0.035em;
+}
+
+.onboarding-grid,
+.onboarding-topics,
+.onboarding-actions {
+  position: relative;
+  z-index: 1;
+}
+
+.onboarding-grid select {
+  border-color: rgba(43, 66, 52, 0.16);
+  background:
+    linear-gradient(180deg, rgba(255, 253, 247, 0.96), rgba(250, 246, 237, 0.88));
+}
+
+.onboarding-topic-choice {
+  border-color: rgba(43, 66, 52, 0.13);
+  border-radius: 18px;
+  background: rgba(255, 253, 247, 0.76);
+  box-shadow: inset 0 0 0 1px rgba(255, 253, 247, 0.55);
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.onboarding-topic-choice:hover {
+  transform: translateY(-2px);
+  border-color: rgba(120, 160, 140, 0.36);
+  box-shadow: var(--atlas-shadow-card);
+}
+
+.onboarding-topic-choice:has(input:checked) {
+  border-color: rgba(120, 160, 140, 0.54);
+  background:
+    linear-gradient(145deg, rgba(228, 238, 223, 0.82), rgba(255, 253, 247, 0.86));
+}
+
+.learning-complete-box input {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.learning-plan-item.completed {
+  animation: atlasCompletePulse 520ms ease both;
+}
+
+.learning-plan-item.completed h5 {
+  color: var(--atlas-forest);
+}
+
+.completed-learning-details {
+  border-color: rgba(120, 160, 140, 0.22);
+  border-radius: 20px;
+  background: rgba(255, 253, 247, 0.62);
+}
+
+.completed-learning-details summary {
+  color: var(--atlas-forest);
+}
+
+.completed-learning-details[open] {
+  box-shadow: inset 0 0 0 1px rgba(255, 253, 247, 0.62);
+}
+
+.progress-track {
+  height: 9px;
+  border-radius: 999px;
+}
+
+.progress-track span {
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-track span::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 253, 247, 0.45), transparent);
+  transform: translateX(-100%);
+  animation: atlasProgressSheen 900ms ease 180ms both;
+}
+
+@keyframes atlasCompletePulse {
+  0% {
+    transform: scale(0.992);
+    box-shadow: 0 0 0 0 rgba(120, 160, 140, 0.0), var(--atlas-shadow-card);
+  }
+  50% {
+    transform: scale(1.006);
+    box-shadow: 0 0 0 10px rgba(120, 160, 140, 0.10), var(--atlas-shadow-card);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: var(--atlas-shadow-card), var(--atlas-shadow-inset);
+  }
+}
+
+@keyframes atlasProgressSheen {
+  to {
+    transform: translateX(100%);
+  }
+}
+
 @keyframes atlasPageIn {
   from {
     opacity: 0;
