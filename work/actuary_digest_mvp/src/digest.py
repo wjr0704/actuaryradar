@@ -523,6 +523,12 @@ def collect_items(config: dict, report_date: str) -> tuple[list[NewsItem], list[
 def score_item(item: NewsItem, focus_profile: dict | None = None) -> int:
     text = f"{item.title} {item.summary}".lower()
     score = 0
+    if item.summary_basis == "article_text":
+        score += 18
+    elif item.summary_basis == "rss_excerpt":
+        score += 4
+    if item.source_type == "Publisher RSS" and not is_google_news_url(item.url):
+        score += 5
     for rule in KEYWORD_RULES:
         for keyword in rule["keywords"]:
             if keyword.lower() in text:
@@ -1175,7 +1181,15 @@ def select_items(items: Iterable[NewsItem], max_report_items: int, focus_profile
         card = build_action_card(item)
         if card.platform_section != "company_results_strategy":
             eligible.append(item)
-    return sorted(eligible, key=lambda item: score_item(item, focus_profile), reverse=True)[:max_report_items]
+    return sorted(
+        eligible,
+        key=lambda item: (
+            1 if item.summary_basis == "article_text" else 0,
+            score_item(item, focus_profile),
+            item.published or "",
+        ),
+        reverse=True,
+    )[:max_report_items]
 
 
 def render_markdown(items: list[NewsItem], cards: dict[str, ActionCard], report_date: str, errors: list[str], used_samples: bool, focus_profile: dict) -> str:

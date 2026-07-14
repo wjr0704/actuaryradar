@@ -70,4 +70,9 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Update ActuaryRadar daily intelligence for ${{ steps.paris_time.outputs.date }}"
-          file_pattern: "work/actuary_digest_mvp/ui/data"
+          file_pattern: |
+            work/actuary_digest_mvp/ui/data
+            outputs/actuary_radar_site
+            outputs/insurance_actuary_digest_*.json
+            outputs/insurance_actuary_digest_*.html
+            outputs/insurance_actuary_digest_*.md
