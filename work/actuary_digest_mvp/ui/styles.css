@@ -1434,6 +1434,10 @@ body[data-page="daily"]:not([data-section="all"]) .focus-band {
   margin-bottom: clamp(12px, 1vw, 16px);
 }
 
+.knowledge-actions-row {
+  justify-content: flex-end;
+}
+
 .page-title-row select {
   min-height: var(--control-height);
   border: 1px solid var(--line);

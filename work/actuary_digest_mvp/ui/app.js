@@ -2267,7 +2267,6 @@ function renderPersonalizedConceptCards() {
       ${concept.example ? `<p class="concept-example">${escapeHtml(concept.example)}</p>` : ""}
       ${concept.exercise ? `<p class="prompt">${escapeHtml(concept.exercise)}</p>` : ""}
       ${concept.openUrl ? `<a class="concept-source-link" href="${escapeHtml(concept.openUrl)}">${escapeHtml(t("startLearningItem"))} →</a>` : ""}
-      ${concept.sourceUrl ? `<a class="concept-source-link" href="${escapeHtml(concept.sourceUrl)}" target="_blank" rel="noopener">${escapeHtml(t("sourceWebsite"))} →</a>` : ""}
     </section>
   `).join("");
 }
@@ -4326,7 +4325,7 @@ function renderLearningTaskItem(item, mode) {
   const completed = mode === "completed" || isLearningItemCompleted(item.id);
   const started = Boolean(state.learningProgress.started?.[item.id]);
   const gardenState = completed ? "garden-bloom" : started ? "garden-sprout" : "garden-seed";
-  const sourceUrl = item.sourceUrl || item.url;
+  const sourceUrl = item.type === "concept" ? "" : (item.sourceUrl || item.url);
   const titleHtml = item.openUrl
     ? `<a class="learning-plan-title-link" href="${escapeHtml(item.openUrl)}">${escapeHtml(item.title)}</a>`
     : escapeHtml(item.title);
@@ -4369,7 +4368,7 @@ function renderHomeLearningTaskItem(item, mode) {
   const started = Boolean(state.learningProgress.started?.[item.id]);
   const gardenState = completed ? "garden-bloom" : started ? "garden-sprout" : "garden-seed";
   const stageLabel = completed ? t("growthBloom") : started ? t("growthSprout") : t("growthSeed");
-  const sourceUrl = item.sourceUrl || item.url;
+  const sourceUrl = item.type === "concept" ? "" : (item.sourceUrl || item.url);
   const titleHtml = item.openUrl
     ? `<a class="learning-plan-title-link" href="${escapeHtml(item.openUrl)}">${escapeHtml(item.title)}</a>`
     : escapeHtml(item.title);
