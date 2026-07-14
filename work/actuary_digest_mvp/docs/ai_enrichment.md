@@ -17,6 +17,16 @@ RSS sources
   -> frontend renders pre-generated fields only
 ```
 
+The frontend does not call any LLM provider. It only reads fields already saved
+in `work/actuary_digest_mvp/ui/data/digest.json`.
+
+For best results, prefer direct publisher RSS feeds over Google News RSS.
+Google News RSS links often point to `news.google.com/rss/articles/...` IDs
+instead of the publisher article URL. Those links may open in a browser, but the
+backend cannot reliably extract the original article body from them without a
+separate Google News resolver. Direct publisher RSS links are much more likely
+to provide extractable article text for LLM summarization.
+
 ## Providers
 
 The daily script supports:
@@ -56,6 +66,24 @@ Optional repository variables:
 
 The workflow runs at 08:00 Europe/Paris and writes generated results to
 `work/actuary_digest_mvp/ui/data/digest.json`.
+
+After each run, check the **Verify refreshed site data** step. It prints the
+saved AI status from `refresh_log.ai`, for example:
+
+```json
+{
+  "requested_provider": "auto",
+  "selected_provider": "openai",
+  "model": "gpt-4o-mini",
+  "eligible_articles": 6,
+  "enriched_articles": 5,
+  "status": "partial_success"
+}
+```
+
+If no API key is configured, the status will be `not_configured` and the
+frontend will hide unavailable AI summary sections instead of showing fake AI
+content.
 
 ## Safety Rules
 

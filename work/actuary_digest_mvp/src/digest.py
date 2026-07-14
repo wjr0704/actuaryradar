@@ -780,10 +780,6 @@ def localized_why_it_matters(item: NewsItem, primary: str, tags: list[str], lang
 def ai_source_text(item: NewsItem) -> str:
     if item.summary_basis == "article_text" and item.extracted_text:
         return item.extracted_text
-    if item.summary_basis == "rss_excerpt" and item.rss_description and not is_title_like(item.rss_description, item.title):
-        return item.rss_description
-    if item.summary and not is_title_like(item.summary, item.title):
-        return item.summary
     return ""
 
 
@@ -824,6 +820,7 @@ def ai_enrichment_prompt(item: NewsItem, card: ActionCard, source_text: str, lan
         "rules": [
             "Do not repeat the title as the summary.",
             "Do not mention that you are an AI.",
+            "Ignore navigation text, author/date bylines, copyright notices, newsletter prompts and legal disclaimers.",
             "Do not use generic wording such as 'may affect pricing assumptions, reserving and capital' unless the article text supports those links.",
             "Prefer actuarial relevance: pricing, reserving, capital, claims, risk management, IFRS 17, Solvency II, reinsurance, distribution, AI governance or market strategy.",
             "If the article text is only a title or too thin, return empty fields."
@@ -915,12 +912,49 @@ def sanitize_ai_enrichment(raw: dict) -> dict[str, str]:
     bullets = raw.get("summary_bullets") or raw.get("ai_summary") or []
     if isinstance(bullets, str):
         bullets = split_sentences(bullets)
-    bullets = [concise_backend_text(str(item), 220) for item in bullets if clean_text(str(item))][:3]
+    bullets = [clean_ai_enrichment_text(str(item), 220) for item in bullets]
+    bullets = [item for item in bullets if item][:3]
     return {
-        "key_takeaway": concise_backend_text(str(raw.get("key_takeaway", "")), 260),
-        "ai_summary": " ".join(bullets),
-        "why_it_matters": concise_backend_text(str(raw.get("why_it_matters", "")), 360),
+        "key_takeaway": clean_ai_enrichment_text(str(raw.get("key_takeaway", "")), 260),
+        "ai_summary": " • ".join(bullets),
+        "why_it_matters": clean_ai_enrichment_text(str(raw.get("why_it_matters", "")), 360),
     }
+
+
+def clean_ai_enrichment_text(value: str, max_length: int) -> str:
+    text = concise_backend_text(value, max_length)
+    if is_low_quality_ai_text(text):
+        return ""
+    return text
+
+
+def is_low_quality_ai_text(value: str) -> bool:
+    text = clean_text(value)
+    if not text:
+        return True
+    lowered = text.lower()
+    blocked = [
+        "copyright",
+        "infringement",
+        "all rights reserved",
+        "editorial team",
+        "customer experience itl",
+        "newsletter",
+        "subscribe",
+        "cookie",
+        "advertisement",
+    ]
+    if any(term in lowered for term in blocked):
+        return True
+    if re.search(r"\b(mon|tue|wed|thu|fri|sat|sun),?\s+\d{1,2}/\d{1,2}/\d{4}\b", text, flags=re.I):
+        return True
+    if len(text) < 45 and not re.search(r"[\u3400-\u9fff]", text):
+        return True
+    if re.match(r"^it\s+(requires|has|is|was)\b", lowered) and len(text) < 90:
+        return True
+    if not re.search(r"[A-Za-z\u3400-\u9fff]", text):
+        return True
+    return False
 
 
 def ai_enrich_cards(
@@ -929,10 +963,29 @@ def ai_enrich_cards(
     provider: str,
     model: str,
     max_items: int,
-) -> tuple[dict[str, ActionCard], list[str]]:
+) -> tuple[dict[str, ActionCard], list[str], dict]:
     selected_provider = select_ai_provider(provider)
+    ai_log = {
+        "requested_provider": provider or "auto",
+        "selected_provider": selected_provider,
+        "model": model or (
+            os.getenv("OPENAI_MODEL") if selected_provider == "openai"
+            else os.getenv("PERPLEXITY_MODEL") if selected_provider == "perplexity"
+            else ""
+        ) or (
+            DEFAULT_AI_MODEL if selected_provider == "openai"
+            else DEFAULT_PERPLEXITY_MODEL if selected_provider == "perplexity"
+            else ""
+        ),
+        "max_items": max_items,
+        "eligible_articles": 0,
+        "enriched_articles": 0,
+        "skipped_no_article_text": 0,
+        "failed_articles": 0,
+        "status": "disabled" if (provider or "").lower() == "none" else "not_configured",
+    }
     if selected_provider == "none":
-        return cards, []
+        return cards, [], ai_log
     updated = dict(cards)
     errors: list[str] = []
     enriched_count = 0
@@ -941,7 +994,9 @@ def ai_enrich_cards(
             break
         source_text = ai_source_text(item)
         if len(source_text) < 350:
+            ai_log["skipped_no_article_text"] += 1
             continue
+        ai_log["eligible_articles"] += 1
         card = updated[item.url]
         language = ai_language_for_item(item)
         messages = ai_enrichment_prompt(item, card, source_text, language)
@@ -952,9 +1007,11 @@ def ai_enrich_cards(
                 raw = call_perplexity_enrichment(messages, model or DEFAULT_PERPLEXITY_MODEL)
             clean = sanitize_ai_enrichment(raw)
         except Exception as exc:
+            ai_log["failed_articles"] += 1
             errors.append(f"AI enrichment failed for {item.source}: {exc}")
             continue
         if not any(clean.values()):
+            ai_log["failed_articles"] += 1
             continue
         key_takeaway = dict(card.key_takeaway)
         ai_summary = dict(card.ai_summary)
@@ -975,7 +1032,14 @@ def ai_enrich_cards(
             enrichment_basis=item.summary_basis,
         )
         enriched_count += 1
-    return updated, errors
+    ai_log["enriched_articles"] = enriched_count
+    if enriched_count:
+        ai_log["status"] = "success" if not ai_log["failed_articles"] else "partial_success"
+    elif ai_log["eligible_articles"]:
+        ai_log["status"] = "failed"
+    else:
+        ai_log["status"] = "no_eligible_article_text"
+    return updated, errors, ai_log
 
 
 def build_action_card(item: NewsItem) -> ActionCard:
@@ -1381,6 +1445,7 @@ def render_json(
     report_date: str,
     used_samples: bool,
     focus_profile: dict,
+    ai_log: dict | None = None,
     company_reports: list[dict] | None = None,
 ) -> str:
     concept = daily_concept(report_date)
@@ -1442,6 +1507,7 @@ def render_json(
             "articles_added": len(records),
             "daily_concept_id": concept["term"],
             "featured_article_id": featured_article_id,
+            "ai": ai_log or {},
         },
         "focus_profile": focus_profile,
         "daily_concept": concept,
@@ -1577,7 +1643,7 @@ def main(argv: list[str]) -> int:
 
     selected = select_items(items, int(config.get("limits", {}).get("max_report_items", 8)), focus_profile)
     cards = {item.url: build_action_card(item) for item in selected}
-    cards, ai_messages = ai_enrich_cards(
+    cards, ai_messages, ai_log = ai_enrich_cards(
         selected,
         cards,
         provider=args.ai_provider,
@@ -1593,6 +1659,7 @@ def main(argv: list[str]) -> int:
         args.date,
         used_samples,
         focus_profile,
+        ai_log,
         config.get("official_company_reports", []),
     )
     md_path, html_path, json_path = write_reports(pathlib.Path(args.output_dir), args.date, markdown, html_report, json_report)

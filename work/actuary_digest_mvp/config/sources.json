@@ -1,6 +1,48 @@
 {
   "rss_sources": [
     {
+      "name": "Insurance Journal - Direct RSS",
+      "url": "https://www.insurancejournal.com/rss/news/",
+      "language": "en",
+      "region": "美国",
+      "source_type": "Publisher RSS"
+    },
+    {
+      "name": "Claims Journal - Direct RSS",
+      "url": "https://www.claimsjournal.com/rss/news/",
+      "language": "en",
+      "region": "美国",
+      "source_type": "Publisher RSS"
+    },
+    {
+      "name": "Artemis - Direct RSS",
+      "url": "https://www.artemis.bm/feed/",
+      "language": "en",
+      "region": "Global",
+      "source_type": "Publisher RSS"
+    },
+    {
+      "name": "Commercial Risk Online - Direct RSS",
+      "url": "https://www.commercialriskonline.com/feed/",
+      "language": "en",
+      "region": "欧洲",
+      "source_type": "Publisher RSS"
+    },
+    {
+      "name": "Business Insurance - Direct RSS",
+      "url": "https://www.businessinsurance.com/rss",
+      "language": "en",
+      "region": "美国",
+      "source_type": "Publisher RSS"
+    },
+    {
+      "name": "Insurance Thought Leadership - Direct RSS",
+      "url": "https://www.insurancethoughtleadership.com/rss.xml",
+      "language": "en",
+      "region": "Global",
+      "source_type": "Publisher RSS"
+    },
+    {
       "name": "CN Google News - 监管/偿付能力/精算",
       "url": "https://news.google.com/rss/search?q=%E4%BF%9D%E9%99%A9+%E7%9B%91%E7%AE%A1+OR+%E5%81%BF%E4%BB%98%E8%83%BD%E5%8A%9B+OR+%E7%B2%BE%E7%AE%97+when:7d&hl=zh-CN&gl=CN&ceid=CN:zh-Hans",
       "language": "zh",
