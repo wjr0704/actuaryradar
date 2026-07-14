@@ -781,8 +781,12 @@ def ai_source_text(item: NewsItem) -> str:
     if item.summary_basis == "article_text" and item.extracted_text:
         return item.extracted_text
     if item.summary_basis == "rss_excerpt" and item.rss_description and not is_title_like(item.rss_description, item.title):
+        if is_low_quality_ai_text(item.rss_description):
+            return ""
         return item.rss_description
     if item.summary and not is_title_like(item.summary, item.title):
+        if is_low_quality_ai_text(item.summary):
+            return ""
         return item.summary
     return ""
 
@@ -824,6 +828,7 @@ def ai_enrichment_prompt(item: NewsItem, card: ActionCard, source_text: str, lan
         "rules": [
             "Do not repeat the title as the summary.",
             "Do not mention that you are an AI.",
+            "Ignore navigation text, author/date bylines, copyright notices, newsletter prompts and legal disclaimers.",
             "Do not use generic wording such as 'may affect pricing assumptions, reserving and capital' unless the article text supports those links.",
             "Prefer actuarial relevance: pricing, reserving, capital, claims, risk management, IFRS 17, Solvency II, reinsurance, distribution, AI governance or market strategy.",
             "If the article text is only a title or too thin, return empty fields."
@@ -915,12 +920,49 @@ def sanitize_ai_enrichment(raw: dict) -> dict[str, str]:
     bullets = raw.get("summary_bullets") or raw.get("ai_summary") or []
     if isinstance(bullets, str):
         bullets = split_sentences(bullets)
-    bullets = [concise_backend_text(str(item), 220) for item in bullets if clean_text(str(item))][:3]
+    bullets = [clean_ai_enrichment_text(str(item), 220) for item in bullets]
+    bullets = [item for item in bullets if item][:3]
     return {
-        "key_takeaway": concise_backend_text(str(raw.get("key_takeaway", "")), 260),
+        "key_takeaway": clean_ai_enrichment_text(str(raw.get("key_takeaway", "")), 260),
         "ai_summary": " • ".join(bullets),
-        "why_it_matters": concise_backend_text(str(raw.get("why_it_matters", "")), 360),
+        "why_it_matters": clean_ai_enrichment_text(str(raw.get("why_it_matters", "")), 360),
     }
+
+
+def clean_ai_enrichment_text(value: str, max_length: int) -> str:
+    text = concise_backend_text(value, max_length)
+    if is_low_quality_ai_text(text):
+        return ""
+    return text
+
+
+def is_low_quality_ai_text(value: str) -> bool:
+    text = clean_text(value)
+    if not text:
+        return True
+    lowered = text.lower()
+    blocked = [
+        "copyright",
+        "infringement",
+        "all rights reserved",
+        "editorial team",
+        "customer experience itl",
+        "newsletter",
+        "subscribe",
+        "cookie",
+        "advertisement",
+    ]
+    if any(term in lowered for term in blocked):
+        return True
+    if re.search(r"\b(mon|tue|wed|thu|fri|sat|sun),?\s+\d{1,2}/\d{1,2}/\d{4}\b", text, flags=re.I):
+        return True
+    if len(text) < 45 and not re.search(r"[\u3400-\u9fff]", text):
+        return True
+    if re.match(r"^it\s+(requires|has|is|was)\b", lowered) and len(text) < 90:
+        return True
+    if not re.search(r"[A-Za-z\u3400-\u9fff]", text):
+        return True
+    return False
 
 
 def ai_enrich_cards(

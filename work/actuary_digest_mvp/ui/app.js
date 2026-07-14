@@ -2899,12 +2899,27 @@ function cleanIntelligenceText(text, item) {
     /来源/,
     /分类/,
     /来自/,
-    /原文要点显示/
+    /原文要点显示/,
+    /copyright/i,
+    /infringement/i,
+    /editorial team/i,
+    /customer experience itl/i,
+    /\b(mon|tue|wed|thu|fri|sat|sun),?\s+\d{1,2}\/\d{1,2}\/\d{4}/i
   ];
   return splitReadableSentences(sanitizeGoogleNewsText(text, item))
     .filter(sentence => !blockedPatterns.some(pattern => pattern.test(sentence)))
     .filter(sentence => !isTitleLikeText(sentence, item))
+    .filter(sentence => isUsefulIntelligenceSentence(sentence))
     .join(" ");
+}
+
+function isUsefulIntelligenceSentence(sentence) {
+  const text = String(sentence || "").replace(/\s+/g, " ").trim();
+  if (!text) return false;
+  if (text.length < 45 && !/[\u3400-\u9fff]/.test(text)) return false;
+  if (/^it\s+(requires|has|is|was)\b/i.test(text) && text.length < 80) return false;
+  if (/^[\W\d\s:./-]+$/.test(text)) return false;
+  return true;
 }
 
 function localizedItemSummary(item) {
@@ -2919,7 +2934,7 @@ function localizedItemSummary(item) {
 function localizedWhyItMatters(item) {
   if (itemLanguage(item) !== state.language) return "";
   if (!item.ai_enriched) return "";
-  return item.why_it_matters?.[state.language] || "";
+  return cleanIntelligenceText(item.why_it_matters?.[state.language] || "", item);
 }
 
 function splitReadableSentences(text) {
@@ -4254,12 +4269,7 @@ function generateContinueLearningItems() {
     .filter(item => item?.id && !isLearningItemCompleted(item.id))
     .sort((a, b) => String(b.startedAt || "").localeCompare(String(a.startedAt || "")))
     .slice(0, 3)
-    .map(item => ({
-      ...item,
-      typeLabel: item.typeLabel || learningTypeLabel(item.type),
-      title: item.title || item.id,
-      estimatedMinutes: item.estimatedMinutes || 10
-    }));
+    .map(item => normalizeLearningItemSnapshot(item));
 }
 
 function generateCompletedTodayLearningItems() {
@@ -4303,6 +4313,52 @@ function completedLearningItemFromRecord(id, value) {
 
 function readableLearningId(id) {
   return String(id || "").split(":").filter(Boolean).pop() || String(id || "");
+}
+
+function normalizeLearningItemSnapshot(item) {
+  const liveItem = learningItemFromId(item.id);
+  const merged = liveItem ? { ...item, ...liveItem, startedAt: item.startedAt } : item;
+  const fallbackTitle = fallbackLearningTitle(merged);
+  return {
+    ...merged,
+    typeLabel: merged.typeLabel || learningTypeLabel(merged.type),
+    title: isRawLearningId(merged.title) ? fallbackTitle : (merged.title || fallbackTitle),
+    estimatedMinutes: merged.estimatedMinutes || 10
+  };
+}
+
+function fallbackLearningTitle(item) {
+  const id = String(item?.id || "");
+  if (id.startsWith("news:")) return t("learningItemNews");
+  if (id.startsWith("research:")) return t("learningItemResearch");
+  return readableLearningId(id);
+}
+
+function learningItemFromId(id) {
+  const value = String(id || "");
+  if (!/^(news|research):/.test(value)) return null;
+  const type = value.startsWith("research:") ? "research" : "news";
+  const articleId = value.slice(type.length + 1);
+  const article = state.items.find(item => itemId(item) === articleId || item.url === articleId || item.original_url === articleId);
+  if (!article) return null;
+  const selectedTopics = state.knowledgePlan.tracks || defaultKnowledgePlan.tracks;
+  const topicId = selectedTopics.find(topic => topicMatchesArticle(topic, article) && articleSuitableForTopic(topic, article))
+    || article.taxonomy_tags?.[0]
+    || "Insurance Fundamentals";
+  return {
+    id: value,
+    topicId,
+    type,
+    typeLabel: type === "research" ? t("learningItemResearch") : t("learningItemNews"),
+    title: localizedItemTitle(article),
+    detail: localizedItemSummary(article) || localizedWhyItMatters(article),
+    estimatedMinutes: type === "research" ? 15 : 6,
+    sourceUrl: originalArticleUrl(article)
+  };
+}
+
+function isRawLearningId(value) {
+  return /^(news|research|knowledge|concept|github|source):/.test(String(value || ""));
 }
 
 function fitLearningItemsToTime(items, dailyCount, availableMinutes) {
