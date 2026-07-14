@@ -17,6 +17,9 @@ RSS sources
   -> frontend renders pre-generated fields only
 ```
 
+The frontend does not call any LLM provider. It only reads fields already saved
+in `work/actuary_digest_mvp/ui/data/digest.json`.
+
 ## Providers
 
 The daily script supports:
@@ -56,6 +59,24 @@ Optional repository variables:
 
 The workflow runs at 08:00 Europe/Paris and writes generated results to
 `work/actuary_digest_mvp/ui/data/digest.json`.
+
+After each run, check the **Verify refreshed site data** step. It prints the
+saved AI status from `refresh_log.ai`, for example:
+
+```json
+{
+  "requested_provider": "auto",
+  "selected_provider": "openai",
+  "model": "gpt-4o-mini",
+  "eligible_articles": 6,
+  "enriched_articles": 5,
+  "status": "partial_success"
+}
+```
+
+If no API key is configured, the status will be `not_configured` and the
+frontend will hide unavailable AI summary sections instead of showing fake AI
+content.
 
 ## Safety Rules
 

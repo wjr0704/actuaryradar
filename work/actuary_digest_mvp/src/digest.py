@@ -918,7 +918,7 @@ def sanitize_ai_enrichment(raw: dict) -> dict[str, str]:
     bullets = [concise_backend_text(str(item), 220) for item in bullets if clean_text(str(item))][:3]
     return {
         "key_takeaway": concise_backend_text(str(raw.get("key_takeaway", "")), 260),
-        "ai_summary": " ".join(bullets),
+        "ai_summary": " • ".join(bullets),
         "why_it_matters": concise_backend_text(str(raw.get("why_it_matters", "")), 360),
     }
 
@@ -929,10 +929,29 @@ def ai_enrich_cards(
     provider: str,
     model: str,
     max_items: int,
-) -> tuple[dict[str, ActionCard], list[str]]:
+) -> tuple[dict[str, ActionCard], list[str], dict]:
     selected_provider = select_ai_provider(provider)
+    ai_log = {
+        "requested_provider": provider or "auto",
+        "selected_provider": selected_provider,
+        "model": model or (
+            os.getenv("OPENAI_MODEL") if selected_provider == "openai"
+            else os.getenv("PERPLEXITY_MODEL") if selected_provider == "perplexity"
+            else ""
+        ) or (
+            DEFAULT_AI_MODEL if selected_provider == "openai"
+            else DEFAULT_PERPLEXITY_MODEL if selected_provider == "perplexity"
+            else ""
+        ),
+        "max_items": max_items,
+        "eligible_articles": 0,
+        "enriched_articles": 0,
+        "skipped_short_text": 0,
+        "failed_articles": 0,
+        "status": "disabled" if (provider or "").lower() == "none" else "not_configured",
+    }
     if selected_provider == "none":
-        return cards, []
+        return cards, [], ai_log
     updated = dict(cards)
     errors: list[str] = []
     enriched_count = 0
@@ -941,7 +960,9 @@ def ai_enrich_cards(
             break
         source_text = ai_source_text(item)
         if len(source_text) < 350:
+            ai_log["skipped_short_text"] += 1
             continue
+        ai_log["eligible_articles"] += 1
         card = updated[item.url]
         language = ai_language_for_item(item)
         messages = ai_enrichment_prompt(item, card, source_text, language)
@@ -952,9 +973,11 @@ def ai_enrich_cards(
                 raw = call_perplexity_enrichment(messages, model or DEFAULT_PERPLEXITY_MODEL)
             clean = sanitize_ai_enrichment(raw)
         except Exception as exc:
+            ai_log["failed_articles"] += 1
             errors.append(f"AI enrichment failed for {item.source}: {exc}")
             continue
         if not any(clean.values()):
+            ai_log["failed_articles"] += 1
             continue
         key_takeaway = dict(card.key_takeaway)
         ai_summary = dict(card.ai_summary)
@@ -975,7 +998,14 @@ def ai_enrich_cards(
             enrichment_basis=item.summary_basis,
         )
         enriched_count += 1
-    return updated, errors
+    ai_log["enriched_articles"] = enriched_count
+    if enriched_count:
+        ai_log["status"] = "success" if not ai_log["failed_articles"] else "partial_success"
+    elif ai_log["eligible_articles"]:
+        ai_log["status"] = "failed"
+    else:
+        ai_log["status"] = "no_eligible_article_text"
+    return updated, errors, ai_log
 
 
 def build_action_card(item: NewsItem) -> ActionCard:
@@ -1381,6 +1411,7 @@ def render_json(
     report_date: str,
     used_samples: bool,
     focus_profile: dict,
+    ai_log: dict | None = None,
     company_reports: list[dict] | None = None,
 ) -> str:
     concept = daily_concept(report_date)
@@ -1442,6 +1473,7 @@ def render_json(
             "articles_added": len(records),
             "daily_concept_id": concept["term"],
             "featured_article_id": featured_article_id,
+            "ai": ai_log or {},
         },
         "focus_profile": focus_profile,
         "daily_concept": concept,
@@ -1577,7 +1609,7 @@ def main(argv: list[str]) -> int:
 
     selected = select_items(items, int(config.get("limits", {}).get("max_report_items", 8)), focus_profile)
     cards = {item.url: build_action_card(item) for item in selected}
-    cards, ai_messages = ai_enrich_cards(
+    cards, ai_messages, ai_log = ai_enrich_cards(
         selected,
         cards,
         provider=args.ai_provider,
@@ -1593,6 +1625,7 @@ def main(argv: list[str]) -> int:
         args.date,
         used_samples,
         focus_profile,
+        ai_log,
         config.get("official_company_reports", []),
     )
     md_path, html_path, json_path = write_reports(pathlib.Path(args.output_dir), args.date, markdown, html_report, json_report)

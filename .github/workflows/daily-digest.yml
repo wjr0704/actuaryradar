@@ -63,7 +63,7 @@ jobs:
       - name: Verify refreshed site data
         if: github.event_name != 'schedule' || steps.paris_time.outputs.hour == '08'
         run: |
-          python -c "import json, pathlib, sys; expected='${{ steps.paris_time.outputs.date }}'; path=pathlib.Path('outputs/actuary_radar_site/data/digest.json'); data=json.loads(path.read_text()); actual=data.get('report_date'); print(f'Expected={expected} Actual={actual} Items={len(data.get(\"items\", []))}'); sys.exit(0 if actual == expected and data.get('items') else 1)"
+          python -c "import json, pathlib, sys; expected='${{ steps.paris_time.outputs.date }}'; path=pathlib.Path('outputs/actuary_radar_site/data/digest.json'); data=json.loads(path.read_text()); actual=data.get('report_date'); ai=data.get('refresh_log', {}).get('ai', {}); print(f'Expected={expected} Actual={actual} Items={len(data.get(\"items\", []))} AI={ai}'); sys.exit(0 if actual == expected and data.get('items') else 1)"
 
       - name: Commit updated reports
         if: github.event_name != 'schedule' || steps.paris_time.outputs.hour == '08'

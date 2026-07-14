@@ -2925,7 +2925,7 @@ function localizedWhyItMatters(item) {
 function splitReadableSentences(text) {
   return String(text || "")
     .replace(/\s+/g, " ")
-    .split(/(?<=[.!?。！？])\s+|[；;]\s*/)
+    .split(/\s+•\s+|(?<=[.!?。！？])\s+|[；;]\s*/)
     .map(part => part.trim())
     .filter(Boolean);
 }
