@@ -1758,9 +1758,16 @@ body[data-page="daily"]:not([data-section="all"]) .focus-band {
   background: #f5fbf7;
 }
 
+.concept-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  margin-top: 10px;
+}
+
 .concept-source-link {
   display: inline-flex;
-  margin-top: 10px;
   color: var(--accent-dark);
   font-weight: 700;
 }
@@ -3844,7 +3851,6 @@ body {
   align-items: center;
   gap: 6px;
   width: max-content;
-  margin-top: 8px;
   color: var(--garden-green-dark);
   font-weight: 850;
 }

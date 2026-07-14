@@ -2266,7 +2266,10 @@ function renderPersonalizedConceptCards() {
       <p>${escapeHtml(concept.definition || "-")}</p>
       ${concept.example ? `<p class="concept-example">${escapeHtml(concept.example)}</p>` : ""}
       ${concept.exercise ? `<p class="prompt">${escapeHtml(concept.exercise)}</p>` : ""}
-      ${concept.openUrl ? `<a class="concept-source-link" href="${escapeHtml(concept.openUrl)}">${escapeHtml(t("startLearningItem"))} →</a>` : ""}
+      <div class="concept-card-actions">
+        ${concept.openUrl ? `<a class="concept-source-link" href="${escapeHtml(concept.openUrl)}">${escapeHtml(t("startLearningItem"))} →</a>` : ""}
+        ${concept.sourceUrl ? `<a class="concept-source-link" href="${escapeHtml(concept.sourceUrl)}" target="_blank" rel="noopener">${escapeHtml(t("sourceWebsite"))} →</a>` : ""}
+      </div>
     </section>
   `).join("");
 }
@@ -3691,6 +3694,7 @@ function createLearningJournalSnapshot() {
     definition: concept.definition,
     example: concept.example,
     exercise: concept.exercise,
+    sourceUrl: concept.sourceUrl || "",
     openUrl: concept.openUrl || ""
   }));
   const resourcesById = new Map();
@@ -3855,7 +3859,8 @@ function learningJournalMarkdown(record) {
       `${index + 1}. **${concept.term}** (${concept.topicLabel || ""})`,
       `   - ${concept.definition || ""}`,
       concept.example ? `   - ${concept.example}` : "",
-      concept.exercise ? `   - ${concept.exercise}` : ""
+      concept.exercise ? `   - ${concept.exercise}` : "",
+      concept.sourceUrl ? `   - ${t("sourceWebsite")}: ${concept.sourceUrl}` : ""
     ].filter(Boolean)),
     "",
     `## ${t("todaysLearning")}`,
@@ -3878,6 +3883,7 @@ function learningJournalHtml(record) {
       <p>${escapeHtml(concept.definition || "")}</p>
       ${concept.example ? `<p>${escapeHtml(concept.example)}</p>` : ""}
       ${concept.exercise ? `<p>${escapeHtml(concept.exercise)}</p>` : ""}
+      ${concept.sourceUrl ? `<p><a href="${escapeHtml(concept.sourceUrl)}">${escapeHtml(t("sourceWebsite"))}</a></p>` : ""}
     </article>
   `).join("");
   const items = (record.learningItems || []).map(item => `
@@ -4443,7 +4449,8 @@ function dailyConceptLearningItem(topicId) {
     title: concept.term,
     detail: concept.exercise || concept.definition,
     estimatedMinutes: 8,
-    openUrl: concept.openUrl || "#dailyConceptBlock"
+    openUrl: concept.openUrl || "#dailyConceptBlock",
+    sourceUrl: concept.sourceUrl
   };
 }
 
