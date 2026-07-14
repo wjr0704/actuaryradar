@@ -425,12 +425,12 @@ const pageCopy = {
     heroKnowledge: "精算知识库",
     heroDaily: "每日情报汇总",
     portalToday: "今日精选",
-    homeLearningEyebrow: "个性化学习",
+    homeLearningEyebrow: "学习花园",
     homeLearningTitle: "今天我该学什么？",
     buildJourneyArrow: "建立我的学习旅程",
     editLearningPreferences: "编辑学习偏好",
     next15Minutes: "接下来 15 分钟",
-    todaysLearning: "今日学习",
+    todaysLearning: "今日学习花园",
     continueLearning: "继续学习",
     recommendedNext: "推荐下一步",
     homeLearningSummaryReady: "今日学习计划已准备好",
@@ -480,7 +480,7 @@ const pageCopy = {
     resetPreferences: "重置",
     onboardingEyebrow: "个性化学习设置",
     onboardingTitle: "建立你的学习旅程",
-    onboardingIntro: "告诉 ActuaryRadar 你想学什么，我们会为你生成今天的学习计划。",
+    onboardingIntro: "选择阶段、目标、主题和每日学习时间。",
     interestedTopics: "关注主题",
     createMyPlan: "生成我的计划",
     skipForNow: "暂时跳过",
@@ -502,8 +502,13 @@ const pageCopy = {
     goalStrategyIr: "转向战略 / IR",
     goalStayUpdated: "保持行业更新",
     goalGeneralKnowledge: "建立保险通识",
-    completedToday: "今日完成",
-    learningStreak: "连续学习",
+    completedToday: "今日开花",
+    learningStreak: "连续成长",
+    growthStage: "成长阶段",
+    growthSeed: "Seed",
+    growthSprout: "Sprout",
+    growthBud: "Bud",
+    growthBloom: "Bloom",
     topicsCompleted: "已推进主题",
     dailyTarget: "今日目标",
     todaysLearningPlan: "今日学习",
@@ -516,9 +521,9 @@ const pageCopy = {
     studyTimeLabel: "预计学习时间",
     minutesShort: "分钟",
     estimated: "预计",
-    learningItemDailyConcept: "每日概念",
-    learningItemKnowledgeCard: "知识卡片",
-    learningItemNews: "行业洞察",
+    learningItemDailyConcept: "概念种子",
+    learningItemKnowledgeCard: "知识植株",
+    learningItemNews: "行业气候",
     learningItemResearch: "研究报告",
     learningItemOfficialSource: "官方学习源",
     learningItemGithubExample: "开源实践",
@@ -536,11 +541,11 @@ const pageCopy = {
     notStarted: "尚未开始",
     markComplete: "标记完成",
     completedLabel: "已完成",
-    noCompletedToday: "今天还没有完成的学习项。",
+    noCompletedToday: "今天还没有完成记录。完成一项学习后会在这里收起保存。",
     activeTopicLabel: "主题",
     noLearningPlanItems: "当前设置下暂无学习任务。请增加主题或切换难度。",
-    noStartedLearningItems: "你还没有开始任何学习内容。",
-    moreContentSoon: "这个主题的更多内容即将加入。",
+    noStartedLearningItems: "还没有正在进行的学习项。先从今日学习开始。",
+    moreContentSoon: "这个主题的更多可信资料正在整理中。",
     setupLearningFirst: "先保存你的学习偏好，ActuaryRadar 会生成今日学习旅程。",
     customizePlan: "定制学习计划",
     language: "语言",
@@ -610,7 +615,7 @@ const pageCopy = {
     saveTodayLearning: "保存今日学习",
     savedBriefingsTab: "已保存日报",
     learningJournalTab: "学习日志",
-    noLearningJournal: "还没有保存学习日志。点击首页或知识库的“保存今日学习”。",
+    noLearningJournal: "还没有学习日志。保存今日学习后，你可以在这里回看每天培养过的概念与情报。",
     exportMarkdown: "导出 Markdown",
     exportHtml: "导出 HTML",
     learningJournalTitle: "ActuaryRadar 学习日志",
@@ -661,12 +666,12 @@ const pageCopy = {
     noArchive: "暂无历史",
     loadError: "无法加载日报数据",
     knowledgeLoadError: "知识库数据暂时无法加载。",
-    noKnowledge: "当前计划下暂无知识模块。可以在上方勾选更多学习大类。",
+    noKnowledge: "当前学习设置下暂无知识卡片。可以调整主题，让学习路径重新生长。",
     coreConcepts: "核心概念",
     casePractice: "Case 练习",
     showAnswer: "查看参考答案",
     hideAnswer: "收起参考答案",
-    noSavedReports: "还没有保存日报。点击右上角 ☆ 或本页按钮保存当前日报。",
+    noSavedReports: "还没有保存内容。保存今日学习或情报后，会在这里形成你的学习记录。",
     untitledTheme: "未标注主题",
     savedAt: "保存于",
     contentItems: "条内容",
@@ -696,12 +701,12 @@ const pageCopy = {
     heroKnowledge: "Actuarial Library",
     heroDaily: "Insurance Briefing",
     portalToday: "Today’s Highlight",
-    homeLearningEyebrow: "Personalized Learning",
+    homeLearningEyebrow: "Learning Garden",
     homeLearningTitle: "What should I learn today?",
     buildJourneyArrow: "Build My Learning Journey",
     editLearningPreferences: "Edit learning preferences",
     next15Minutes: "Next 15 minutes",
-    todaysLearning: "Today’s Learning",
+    todaysLearning: "Today’s Garden",
     continueLearning: "Continue Learning",
     recommendedNext: "Recommended Next",
     homeLearningSummaryReady: "Today’s learning plan is ready",
@@ -751,7 +756,7 @@ const pageCopy = {
     resetPreferences: "Reset",
     onboardingEyebrow: "Personalized learning setup",
     onboardingTitle: "Build your learning journey",
-    onboardingIntro: "Tell ActuaryRadar what you want to learn. We’ll personalize today’s learning plan for you.",
+    onboardingIntro: "Choose your stage, goal, topics and daily study time.",
     interestedTopics: "Interested Topics",
     createMyPlan: "Create My Plan",
     skipForNow: "Skip for now",
@@ -773,8 +778,13 @@ const pageCopy = {
     goalStrategyIr: "Move into Strategy / IR",
     goalStayUpdated: "Stay up to date",
     goalGeneralKnowledge: "Build general insurance knowledge",
-    completedToday: "Completed today",
-    learningStreak: "Learning streak",
+    completedToday: "Blooms today",
+    learningStreak: "Growth streak",
+    growthStage: "Growth stage",
+    growthSeed: "Seed",
+    growthSprout: "Sprout",
+    growthBud: "Bud",
+    growthBloom: "Bloom",
     topicsCompleted: "Topics advanced",
     dailyTarget: "Daily target",
     todaysLearningPlan: "Today's Learning",
@@ -787,9 +797,9 @@ const pageCopy = {
     studyTimeLabel: "Estimated study time",
     minutesShort: "min",
     estimated: "Estimated",
-    learningItemDailyConcept: "Daily Concept",
-    learningItemKnowledgeCard: "Knowledge Card",
-    learningItemNews: "Industry Insight",
+    learningItemDailyConcept: "Concept Seed",
+    learningItemKnowledgeCard: "Knowledge Plant",
+    learningItemNews: "Industry Weather",
     learningItemResearch: "Research Report",
     learningItemOfficialSource: "Official Learning Source",
     learningItemGithubExample: "GitHub Example",
@@ -807,11 +817,11 @@ const pageCopy = {
     notStarted: "Not started",
     markComplete: "Mark complete",
     completedLabel: "Completed",
-    noCompletedToday: "No completed learning items yet today.",
+    noCompletedToday: "Nothing completed yet today. Finished items will fold into this space.",
     activeTopicLabel: "Topic",
     noLearningPlanItems: "No learning items match the current setup. Add topics or change difficulty.",
-    noStartedLearningItems: "You have not started any learning items yet.",
-    moreContentSoon: "More content for this topic will be added soon.",
+    noStartedLearningItems: "No active learning item yet. Start with today’s learning.",
+    moreContentSoon: "More trusted resources for this topic are being curated.",
     setupLearningFirst: "Save your preferences first, then ActuaryRadar will build today’s learning journey.",
     customizePlan: "Customize Plan",
     language: "Language",
@@ -881,7 +891,7 @@ const pageCopy = {
     saveTodayLearning: "Save today",
     savedBriefingsTab: "Briefings",
     learningJournalTab: "Learning Journal",
-    noLearningJournal: "No learning journal yet. Click “Save today” on Home or Actuarial Knowledge.",
+    noLearningJournal: "No learning journal yet. Save today’s learning to revisit the concepts and insights you cultivated.",
     exportMarkdown: "Export Markdown",
     exportHtml: "Export HTML",
     learningJournalTitle: "ActuaryRadar Learning Journal",
@@ -932,12 +942,12 @@ const pageCopy = {
     noArchive: "No archive",
     loadError: "Unable to load report data",
     knowledgeLoadError: "Knowledge library could not be loaded.",
-    noKnowledge: "No knowledge modules in the current plan. Select more topics above.",
+    noKnowledge: "No knowledge cards match the current setup. Adjust your topics to let the learning path grow.",
     coreConcepts: "Core Concepts",
     casePractice: "Case Practice",
     showAnswer: "Show reference answer",
     hideAnswer: "Hide reference answer",
-    noSavedReports: "No saved reports yet. Use ☆ or the button on this page to save the current report.",
+    noSavedReports: "No saved content yet. Save today’s learning or intelligence to build your learning record.",
     untitledTheme: "Untitled theme",
     savedAt: "saved at",
     contentItems: "items",
@@ -967,12 +977,12 @@ const pageCopy = {
     heroKnowledge: "Base de connaissances",
     heroDaily: "Veille assurance",
     portalToday: "À la une",
-    homeLearningEyebrow: "Formation personnalisée",
+    homeLearningEyebrow: "Jardin d’apprentissage",
     homeLearningTitle: "Que travailler aujourd’hui ?",
     buildJourneyArrow: "Construire mon parcours",
     editLearningPreferences: "Modifier mes préférences",
     next15Minutes: "Les 15 prochaines minutes",
-    todaysLearning: "Formation du jour",
+    todaysLearning: "Jardin du jour",
     continueLearning: "Poursuivre la formation",
     recommendedNext: "À travailler ensuite",
     homeLearningSummaryReady: "Votre parcours du jour est prêt",
@@ -1022,7 +1032,7 @@ const pageCopy = {
     resetPreferences: "Réinitialiser",
     onboardingEyebrow: "Paramétrage personnalisé",
     onboardingTitle: "Construire mon parcours de formation",
-    onboardingIntro: "Indiquez à ActuaryRadar ce que vous souhaitez apprendre. Nous personnaliserons votre programme du jour.",
+    onboardingIntro: "Choisissez votre profil, vos objectifs, vos thèmes et votre temps quotidien.",
     interestedTopics: "Thèmes d’intérêt",
     createMyPlan: "Créer mon parcours",
     skipForNow: "Ignorer pour l’instant",
@@ -1044,8 +1054,13 @@ const pageCopy = {
     goalStrategyIr: "Évoluer vers la stratégie / l’IR",
     goalStayUpdated: "Rester à jour",
     goalGeneralKnowledge: "Construire une culture assurance",
-    completedToday: "Réalisé aujourd’hui",
-    learningStreak: "Série de formation",
+    completedToday: "Floraisons du jour",
+    learningStreak: "Série de progression",
+    growthStage: "Stade",
+    growthSeed: "Graine",
+    growthSprout: "Jeune pousse",
+    growthBud: "Bourgeon",
+    growthBloom: "Floraison",
     topicsCompleted: "Thèmes travaillés",
     dailyTarget: "Objectif du jour",
     todaysLearningPlan: "Formation du jour",
@@ -1058,9 +1073,9 @@ const pageCopy = {
     studyTimeLabel: "Temps de formation prévu",
     minutesShort: "min",
     estimated: "Temps estimé",
-    learningItemDailyConcept: "Concept du jour",
-    learningItemKnowledgeCard: "Fiche de connaissance",
-    learningItemNews: "Éclairage sectoriel",
+    learningItemDailyConcept: "Graine de concept",
+    learningItemKnowledgeCard: "Jeune pousse de connaissance",
+    learningItemNews: "Signal sectoriel",
     learningItemResearch: "Publication de recherche",
     learningItemOfficialSource: "Source de référence",
     learningItemGithubExample: "Exemple open source",
@@ -1078,11 +1093,11 @@ const pageCopy = {
     notStarted: "Non commencé",
     markComplete: "Marquer comme fait",
     completedLabel: "Terminé",
-    noCompletedToday: "Aucun contenu terminé aujourd’hui.",
+    noCompletedToday: "Aucun contenu terminé aujourd’hui. Les éléments finalisés seront conservés ici.",
     activeTopicLabel: "Thème",
     noLearningPlanItems: "Aucun contenu ne correspond au paramétrage actuel. Ajoutez des thèmes ou changez de niveau.",
-    noStartedLearningItems: "Vous n’avez pas encore commencé de contenu de formation.",
-    moreContentSoon: "D’autres contenus seront ajoutés prochainement pour ce thème.",
+    noStartedLearningItems: "Aucun contenu en cours. Commencez par la formation du jour.",
+    moreContentSoon: "D’autres sources fiables sont en cours de sélection pour ce thème.",
     setupLearningFirst: "Enregistrez vos préférences pour générer le parcours de formation du jour.",
     customizePlan: "Personnaliser",
     language: "Langue",
@@ -1152,7 +1167,7 @@ const pageCopy = {
     saveTodayLearning: "Enregistrer le jour",
     savedBriefingsTab: "Veilles",
     learningJournalTab: "Journal de formation",
-    noLearningJournal: "Aucun journal de formation enregistré. Cliquez sur « Enregistrer le jour » depuis l’accueil ou les connaissances actuarielles.",
+    noLearningJournal: "Aucun journal de formation pour l’instant. Enregistrez la journée pour retrouver les concepts et veilles travaillés.",
     exportMarkdown: "Exporter Markdown",
     exportHtml: "Exporter HTML",
     learningJournalTitle: "Journal de formation ActuaryRadar",
@@ -1203,12 +1218,12 @@ const pageCopy = {
     noArchive: "Aucune archive",
     loadError: "Impossible de charger les données du rapport",
     knowledgeLoadError: "La base de connaissances n’a pas pu être chargée.",
-    noKnowledge: "Aucune fiche dans le parcours actuel. Sélectionnez davantage de thèmes ci-dessus.",
+    noKnowledge: "Aucune fiche ne correspond au paramétrage actuel. Ajustez vos thèmes pour relancer le parcours.",
     coreConcepts: "Concepts clés",
     casePractice: "Cas pratique",
     showAnswer: "Voir la réponse commentée",
     hideAnswer: "Masquer la réponse",
-    noSavedReports: "Aucun rapport sauvegardé. Utilisez ☆ ou le bouton de cette page.",
+    noSavedReports: "Aucun contenu sauvegardé. Enregistrez une veille ou une journée de formation pour constituer votre journal.",
     untitledTheme: "Thème non renseigné",
     savedAt: "sauvegardé le",
     contentItems: "contenus",
@@ -2244,6 +2259,8 @@ function renderPersonalizedConceptCards() {
       <div class="card-meta">
         <span class="chip">${escapeHtml(t("dailyConcept"))}</span>
         <span class="chip">${escapeHtml(learningTopicLabel(topicId))}</span>
+        <span class="growth-stage-pill">${escapeHtml(t("growthStage"))}: ${escapeHtml(t("growthSeed"))}</span>
+        <span class="chip">${escapeHtml(t("estimated"))}: 8 ${escapeHtml(t("minutesShort"))}</span>
       </div>
       <h4>${escapeHtml(concept.term || "-")}</h4>
       <p>${escapeHtml(concept.definition || "-")}</p>
@@ -4308,6 +4325,7 @@ function renderLearningItemList(items, options = {}) {
 function renderLearningTaskItem(item, mode) {
   const completed = mode === "completed" || isLearningItemCompleted(item.id);
   const started = Boolean(state.learningProgress.started?.[item.id]);
+  const gardenState = completed ? "garden-bloom" : started ? "garden-sprout" : "garden-seed";
   const sourceUrl = item.sourceUrl || item.url;
   const titleHtml = item.openUrl
     ? `<a class="learning-plan-title-link" href="${escapeHtml(item.openUrl)}">${escapeHtml(item.title)}</a>`
@@ -4324,7 +4342,7 @@ function renderLearningTaskItem(item, mode) {
         <button class="ghost-button compact-button" type="button" data-learning-complete="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}"${completed ? " disabled" : ""}>${escapeHtml(completed ? t("completedLabel") : t("markComplete"))}</button>
       `;
   return `
-    <article class="learning-plan-item${completed ? " completed" : ""}">
+    <article class="learning-plan-item ${escapeHtml(gardenState)}${completed ? " completed" : ""}">
       <div class="learning-plan-copy">
         <div class="learning-plan-meta">
           <span>${escapeHtml(item.typeLabel || learningTypeLabel(item.type))}</span>
@@ -4349,6 +4367,8 @@ function renderHomeLearningItemList(items, options = {}) {
 function renderHomeLearningTaskItem(item, mode) {
   const completed = mode === "completed" || isLearningItemCompleted(item.id);
   const started = Boolean(state.learningProgress.started?.[item.id]);
+  const gardenState = completed ? "garden-bloom" : started ? "garden-sprout" : "garden-seed";
+  const stageLabel = completed ? t("growthBloom") : started ? t("growthSprout") : t("growthSeed");
   const sourceUrl = item.sourceUrl || item.url;
   const titleHtml = item.openUrl
     ? `<a class="learning-plan-title-link" href="${escapeHtml(item.openUrl)}">${escapeHtml(item.title)}</a>`
@@ -4356,7 +4376,7 @@ function renderHomeLearningTaskItem(item, mode) {
   const reason = learningRecommendationReason(item);
   const actionLabel = started ? t("continueLearning") : t("startLearningItem");
   return `
-    <article class="learning-plan-item home-learning-task ${escapeHtml(`learning-type-${item.type || "item"}`)}${completed ? " completed" : ""}">
+    <article class="learning-plan-item home-learning-task ${escapeHtml(`learning-type-${item.type || "item"}`)} ${escapeHtml(gardenState)}${completed ? " completed" : ""}">
       <label class="learning-complete-box" aria-label="${escapeHtml(t("markComplete"))}">
         <input type="checkbox" data-learning-complete="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}"${completed ? " checked disabled" : ""}>
       </label>
@@ -4364,6 +4384,7 @@ function renderHomeLearningTaskItem(item, mode) {
         <div class="learning-plan-meta">
           <span>${escapeHtml(item.typeLabel || learningTypeLabel(item.type))}</span>
           <span>${escapeHtml(learningTopicLabel(item.topicId))}</span>
+          <span class="growth-stage-pill">${escapeHtml(t("growthStage"))}: ${escapeHtml(stageLabel)}</span>
         </div>
         <h5>${titleHtml}</h5>
         ${reason ? `<p class="learning-reason">${escapeHtml(reason)}</p>` : ""}

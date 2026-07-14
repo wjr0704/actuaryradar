@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img" aria-labelledby="title">
+  <title id="title">Bud line motif</title>
+  <path d="M60 99V61" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+  <path d="M60 63c-15-11-19-27-11-46 16 9 22 26 11 46Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M61 63c15-11 19-27 11-46-16 9-22 26-11 46Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M43 76c-10-3-18-10-23-22 13-1 23 4 30 13" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M77 76c10-3 18-10 23-22-13-1-23 4-30 13" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

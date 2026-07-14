@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 220" fill="none" role="img" aria-labelledby="title">
+  <title id="title">Botanical specimen leaf line drawing</title>
+  <path d="M88 200c2-42 2-79 0-112-2-35 8-58 30-70" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+  <path d="M91 95C55 90 32 68 24 29c38 3 62 25 67 66Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M92 109c37-8 61-33 70-75-40 7-64 32-70 75Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M88 142c-31 0-53-14-66-42 34-2 56 12 66 42Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M91 151c32-3 55-19 70-48-35 1-58 17-70 48Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M46 53c14 8 27 20 39 36M137 62c-15 14-29 28-42 43M45 119c13 6 26 12 40 19M132 122c-15 9-28 17-40 25" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

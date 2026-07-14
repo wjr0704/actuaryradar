@@ -93,6 +93,9 @@ def build_site(site_dir: pathlib.Path = SITE_DIR, base_url: str = "") -> None:
     for filename in ["index.html", "styles.css", "app.js", "analytics.js", "favicon.svg"]:
         copy_file(ROOT / "ui" / filename, site_dir / filename)
     copy_file(ROOT / "ui" / "config" / "taxonomy.js", site_dir / "config" / "taxonomy.js")
+    assets_path = ROOT / "ui" / "assets"
+    if assets_path.exists():
+        shutil.copytree(assets_path, site_dir / "assets", dirs_exist_ok=True)
     inject_absolute_meta(site_dir / "index.html", base_url)
 
     (site_dir / "data" / "archive").mkdir(parents=True, exist_ok=True)

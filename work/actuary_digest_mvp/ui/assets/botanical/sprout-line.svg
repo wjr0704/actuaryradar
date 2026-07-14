@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img" aria-labelledby="title">
+  <title id="title">Sprout line motif</title>
+  <path d="M60 98V42" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+  <path d="M60 55c-19-1-32-9-39-25 19-2 34 7 39 25Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M61 47c18-9 32-8 43 5-16 9-32 8-43-5Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M35 99h50" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+</svg>
