@@ -2924,17 +2924,20 @@ function isUsefulIntelligenceSentence(sentence) {
 
 function localizedItemSummary(item) {
   if (itemLanguage(item) !== state.language) return "";
-  if (!item.ai_enriched) return "";
-  if (item.summary_basis === "title_only" || item.summary_basis === "paywalled_or_blocked") return "";
-  const raw = item.ai_summary?.[state.language] || (item.summary_basis === "rss_excerpt" ? item.summary : "");
+  if (!hasArticleTextAiEnrichment(item)) return "";
+  const raw = item.ai_summary?.[state.language] || "";
   const clean = cleanIntelligenceText(raw, item);
   return isTitleLikeText(clean, item) ? "" : clean;
 }
 
 function localizedWhyItMatters(item) {
   if (itemLanguage(item) !== state.language) return "";
-  if (!item.ai_enriched) return "";
+  if (!hasArticleTextAiEnrichment(item)) return "";
   return cleanIntelligenceText(item.why_it_matters?.[state.language] || "", item);
+}
+
+function hasArticleTextAiEnrichment(item) {
+  return Boolean(item?.ai_enriched && (item.enrichment_basis || item.summary_basis) === "article_text");
 }
 
 function splitReadableSentences(text) {
@@ -2952,12 +2955,9 @@ function conciseText(text, maxLength = 220) {
 }
 
 function cardKeyTakeaway(item) {
-  const grounded = item.ai_enriched ? cleanIntelligenceText(item.key_takeaway?.[state.language] || "", item) : "";
+  const grounded = hasArticleTextAiEnrichment(item) ? cleanIntelligenceText(item.key_takeaway?.[state.language] || "", item) : "";
   if (grounded && !isTitleLikeText(grounded, item)) return conciseText(grounded, 260);
-  const summary = item.ai_enriched ? localizedItemSummary(item) : cleanIntelligenceText(item.summary || item.rss_description || "", item);
-  const firstSentence = splitReadableSentences(summary)[0];
-  const takeaway = firstSentence || summary;
-  return isTitleLikeText(takeaway, item) ? "" : conciseText(takeaway, 260);
+  return "";
 }
 
 function summaryBullets(item) {

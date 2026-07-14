@@ -780,14 +780,6 @@ def localized_why_it_matters(item: NewsItem, primary: str, tags: list[str], lang
 def ai_source_text(item: NewsItem) -> str:
     if item.summary_basis == "article_text" and item.extracted_text:
         return item.extracted_text
-    if item.summary_basis == "rss_excerpt" and item.rss_description and not is_title_like(item.rss_description, item.title):
-        if is_low_quality_ai_text(item.rss_description):
-            return ""
-        return item.rss_description
-    if item.summary and not is_title_like(item.summary, item.title):
-        if is_low_quality_ai_text(item.summary):
-            return ""
-        return item.summary
     return ""
 
 
@@ -988,7 +980,7 @@ def ai_enrich_cards(
         "max_items": max_items,
         "eligible_articles": 0,
         "enriched_articles": 0,
-        "skipped_short_text": 0,
+        "skipped_no_article_text": 0,
         "failed_articles": 0,
         "status": "disabled" if (provider or "").lower() == "none" else "not_configured",
     }
@@ -1002,7 +994,7 @@ def ai_enrich_cards(
             break
         source_text = ai_source_text(item)
         if len(source_text) < 350:
-            ai_log["skipped_short_text"] += 1
+            ai_log["skipped_no_article_text"] += 1
             continue
         ai_log["eligible_articles"] += 1
         card = updated[item.url]
