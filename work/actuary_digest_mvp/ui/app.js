@@ -2268,7 +2268,6 @@ function renderPersonalizedConceptCards() {
       ${concept.exercise ? `<p class="prompt">${escapeHtml(concept.exercise)}</p>` : ""}
       <div class="concept-card-actions">
         ${concept.openUrl ? `<a class="concept-source-link" href="${escapeHtml(concept.openUrl)}">${escapeHtml(t("startLearningItem"))} →</a>` : ""}
-        ${concept.sourceUrl ? `<a class="concept-source-link" href="${escapeHtml(concept.sourceUrl)}" target="_blank" rel="noopener">${escapeHtml(t("sourceWebsite"))} →</a>` : ""}
       </div>
     </section>
   `).join("");
