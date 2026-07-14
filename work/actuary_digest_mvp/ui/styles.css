@@ -1680,15 +1680,12 @@ body[data-page="daily"]:not([data-section="all"]) .focus-band {
   text-decoration: none;
 }
 
-.learning-plan-title-link:hover,
-.learning-plan-source:hover {
+.learning-plan-title-link:hover {
   text-decoration: underline;
 }
 
 .learning-plan-source {
-  justify-self: start;
-  font-size: 12px;
-  text-decoration: none;
+  display: none;
 }
 
 .learning-start-link {

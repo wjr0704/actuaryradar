@@ -3691,7 +3691,6 @@ function createLearningJournalSnapshot() {
     definition: concept.definition,
     example: concept.example,
     exercise: concept.exercise,
-    sourceUrl: concept.sourceUrl || "",
     openUrl: concept.openUrl || ""
   }));
   const resourcesById = new Map();
@@ -3856,8 +3855,7 @@ function learningJournalMarkdown(record) {
       `${index + 1}. **${concept.term}** (${concept.topicLabel || ""})`,
       `   - ${concept.definition || ""}`,
       concept.example ? `   - ${concept.example}` : "",
-      concept.exercise ? `   - ${concept.exercise}` : "",
-      concept.sourceUrl ? `   - ${t("sourceWebsite")}: ${concept.sourceUrl}` : ""
+      concept.exercise ? `   - ${concept.exercise}` : ""
     ].filter(Boolean)),
     "",
     `## ${t("todaysLearning")}`,
@@ -3880,7 +3878,6 @@ function learningJournalHtml(record) {
       <p>${escapeHtml(concept.definition || "")}</p>
       ${concept.example ? `<p>${escapeHtml(concept.example)}</p>` : ""}
       ${concept.exercise ? `<p>${escapeHtml(concept.exercise)}</p>` : ""}
-      ${concept.sourceUrl ? `<p><a href="${escapeHtml(concept.sourceUrl)}">${escapeHtml(t("sourceWebsite"))}</a></p>` : ""}
     </article>
   `).join("");
   const items = (record.learningItems || []).map(item => `
@@ -4325,7 +4322,6 @@ function renderLearningTaskItem(item, mode) {
   const completed = mode === "completed" || isLearningItemCompleted(item.id);
   const started = Boolean(state.learningProgress.started?.[item.id]);
   const gardenState = completed ? "garden-bloom" : started ? "garden-sprout" : "garden-seed";
-  const sourceUrl = item.type === "concept" ? "" : (item.sourceUrl || item.url);
   const titleHtml = item.openUrl
     ? `<a class="learning-plan-title-link" href="${escapeHtml(item.openUrl)}">${escapeHtml(item.title)}</a>`
     : escapeHtml(item.title);
@@ -4349,7 +4345,6 @@ function renderLearningTaskItem(item, mode) {
         </div>
         <h5>${titleHtml}</h5>
         ${progressText}
-        ${sourceUrl ? `<a class="learning-plan-source" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener">${escapeHtml(t("sourceWebsite"))} →</a>` : ""}
       </div>
       <div class="learning-plan-actions">
         ${actionHtml}
@@ -4368,7 +4363,6 @@ function renderHomeLearningTaskItem(item, mode) {
   const started = Boolean(state.learningProgress.started?.[item.id]);
   const gardenState = completed ? "garden-bloom" : started ? "garden-sprout" : "garden-seed";
   const stageLabel = completed ? t("growthBloom") : started ? t("growthSprout") : t("growthSeed");
-  const sourceUrl = item.type === "concept" ? "" : (item.sourceUrl || item.url);
   const titleHtml = item.openUrl
     ? `<a class="learning-plan-title-link" href="${escapeHtml(item.openUrl)}">${escapeHtml(item.title)}</a>`
     : escapeHtml(item.title);
@@ -4393,7 +4387,6 @@ function renderHomeLearningTaskItem(item, mode) {
         ${mode === "completed"
           ? `<span class="learning-status-pill">${escapeHtml(t("completedLabel"))}</span>`
           : `<button class="text-link learning-start-link" type="button" data-learning-start="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}" data-learning-open="${escapeHtml(item.openUrl || item.sourceUrl || "")}">${escapeHtml(actionLabel)} →</button>`}
-        ${sourceUrl ? `<a class="learning-plan-source" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener">${escapeHtml(t("sourceWebsite"))} →</a>` : ""}
       </div>
     </article>
   `;
@@ -4450,8 +4443,7 @@ function dailyConceptLearningItem(topicId) {
     title: concept.term,
     detail: concept.exercise || concept.definition,
     estimatedMinutes: 8,
-    openUrl: concept.openUrl || "#dailyConceptBlock",
-    sourceUrl: concept.sourceUrl
+    openUrl: concept.openUrl || "#dailyConceptBlock"
   };
 }
 
