@@ -1,13 +1,13 @@
 {
   "archives": [
     {
-      "date": "2026-07-07",
-      "title": "2026-07-07",
+      "date": "2026-07-14",
+      "title": "2026-07-14",
       "mode": "rss",
       "theme": "周二：健康险与医疗趋势",
-      "json": "./data/archive/2026-07-07.json",
-      "html": "./reports/2026-07-07.html",
-      "markdown": "./reports/2026-07-07.md"
+      "json": "./data/archive/2026-07-14.json",
+      "html": "./reports/2026-07-14.html",
+      "markdown": "./reports/2026-07-14.md"
     }
   ]
 }
