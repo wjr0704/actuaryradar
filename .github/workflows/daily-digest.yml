@@ -46,6 +46,8 @@ jobs:
           OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
           PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
           PERPLEXITY_MODEL: ${{ vars.PERPLEXITY_MODEL }}
+          AI_MAX_ITEMS: ${{ vars.AI_MAX_ITEMS }}
+          AI_MIN_ZH_ITEMS: ${{ vars.AI_MIN_ZH_ITEMS }}
         run: |
           if [ -z "${OPENAI_API_KEY:-}" ] && [ -z "${PERPLEXITY_API_KEY:-}" ]; then
             echo "Missing AI provider key. Set OPENAI_API_KEY or PERPLEXITY_API_KEY in GitHub repository secrets."
@@ -57,7 +59,7 @@ jobs:
           elif [ -n "${PERPLEXITY_MODEL:-}" ]; then
             MODEL_ARG="--ai-model ${PERPLEXITY_MODEL}"
           fi
-          python work/actuary_digest_mvp/src/digest.py --date "${{ steps.paris_time.outputs.date }}" --ai-provider auto ${MODEL_ARG}
+          python work/actuary_digest_mvp/src/digest.py --date "${{ steps.paris_time.outputs.date }}" --ai-provider auto ${MODEL_ARG} --ai-max-items "${AI_MAX_ITEMS:-8}" --ai-min-zh-items "${AI_MIN_ZH_ITEMS:-2}"
 
       - name: Build static site
         if: github.event_name != 'schedule' || steps.paris_time.outputs.hour == '08'
