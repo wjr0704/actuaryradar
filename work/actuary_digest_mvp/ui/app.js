@@ -2945,6 +2945,21 @@ function hasArticleTextAiEnrichment(item) {
   return Boolean(item?.ai_enriched && (item.enrichment_basis || item.summary_basis) === "article_text");
 }
 
+function hasReadableNewsTitle(item) {
+  const title = localizedItemTitle(item);
+  return Boolean(title && !/^news:https?:\/\//i.test(title) && !/^https?:\/\//i.test(title));
+}
+
+function compareIntelligenceItems(a, b) {
+  const aGrounded = hasArticleTextAiEnrichment(a) ? 1 : 0;
+  const bGrounded = hasArticleTextAiEnrichment(b) ? 1 : 0;
+  if (aGrounded !== bGrounded) return bGrounded - aGrounded;
+  const aTitle = hasReadableNewsTitle(a) ? 1 : 0;
+  const bTitle = hasReadableNewsTitle(b) ? 1 : 0;
+  if (aTitle !== bTitle) return bTitle - aTitle;
+  return (b.score || 0) - (a.score || 0);
+}
+
 function splitReadableSentences(text) {
   return String(text || "")
     .replace(/\s+/g, " ")
@@ -3121,7 +3136,7 @@ function render() {
 function renderPortal() {
   if (!els.portalLatestGrid) return;
   const homeLearningItems = renderHomeLearning();
-  const sorted = languageMatchedItems(state.items).sort((a, b) => (b.score || 0) - (a.score || 0));
+  const sorted = languageMatchedItems(state.items).sort(compareIntelligenceItems);
   const lead = sorted[0];
   if (lead) {
     els.portalLeadTitle.textContent = localizedItemTitle(lead);
@@ -3390,7 +3405,7 @@ function renderTopPicks(items) {
 function getTopPickItems(items) {
   const sorted = [...items]
     .filter(item => normalizeSection(item.platform_section) !== "company_results_strategy")
-    .sort((a, b) => (b.score || 0) - (a.score || 0));
+    .sort(compareIntelligenceItems);
   if (state.activeSection !== "全部") return sorted.slice(0, 4);
 
   const slots = [
@@ -3447,7 +3462,7 @@ function renderCards(items) {
   }
 
   const fragment = document.createDocumentFragment();
-  items.forEach(item => {
+  [...items].sort(compareIntelligenceItems).forEach(item => {
     const id = itemId(item);
     const node = els.itemTemplate.content.cloneNode(true);
     const card = node.querySelector(".intelligence-card");
@@ -4775,8 +4790,9 @@ function deterministicLearningIndex(seed, length) {
 function relatedNewsItems(selectedTopics) {
   const topicSet = selectedTopics.length ? selectedTopics : defaultKnowledgePlan.tracks;
   return languageMatchedItems(state.items)
+    .filter(hasReadableNewsTitle)
     .filter(item => topicSet.some(topicId => topicMatchesArticle(topicId, item) && articleSuitableForTopic(topicId, item)))
-    .sort((a, b) => (b.score || 0) - (a.score || 0))
+    .sort(compareIntelligenceItems)
     .slice(0, 4)
     .map(item => {
       const topicId = topicSet.find(topic => topicMatchesArticle(topic, item) && articleSuitableForTopic(topic, item)) || topicSet[0];
