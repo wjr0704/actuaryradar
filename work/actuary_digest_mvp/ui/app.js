@@ -2157,7 +2157,7 @@ async function refreshDigestIfStale(data, sourceUrl) {
   if (sourceUrl && sourceUrl.includes("/.netlify/functions/")) return data;
   if (!isAfterParisRefreshWindow()) return markDigestStale(data);
   const dynamicData = await fetchDailyRefresh(today);
-  return dynamicData || markDigestStale(data);
+  return isSourceGroundedDigest(dynamicData) ? dynamicData : markDigestStale(data);
 }
 
 async function fetchDailyRefresh(today) {
@@ -2171,12 +2171,17 @@ async function fetchDailyRefresh(today) {
       const response = await fetch(`${endpoint}&v=${Date.now()}`, { cache: "no-store" });
       if (!response.ok) continue;
       const payload = await response.json();
-      if (payload?.report_date === today && Array.isArray(payload.items)) return payload;
+      if (payload?.report_date === today && Array.isArray(payload.items) && isSourceGroundedDigest(payload)) return payload;
     } catch {
       // Static previews do not have a refresh function; keep the bundled digest.
     }
   }
   return null;
+}
+
+function isSourceGroundedDigest(payload) {
+  if (!payload || !Array.isArray(payload.items)) return false;
+  return payload.items.some(item => item?.ai_enriched && (item.enrichment_basis || item.summary_basis) === "article_text");
 }
 
 function todayIsoDate() {

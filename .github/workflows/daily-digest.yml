@@ -47,6 +47,10 @@ jobs:
           PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
           PERPLEXITY_MODEL: ${{ vars.PERPLEXITY_MODEL }}
         run: |
+          if [ -z "${OPENAI_API_KEY:-}" ] && [ -z "${PERPLEXITY_API_KEY:-}" ]; then
+            echo "Missing AI provider key. Set OPENAI_API_KEY or PERPLEXITY_API_KEY in GitHub repository secrets."
+            exit 1
+          fi
           MODEL_ARG=""
           if [ -n "${OPENAI_MODEL:-}" ]; then
             MODEL_ARG="--ai-model ${OPENAI_MODEL}"
@@ -63,11 +67,16 @@ jobs:
       - name: Verify refreshed site data
         if: github.event_name != 'schedule' || steps.paris_time.outputs.hour == '08'
         run: |
-          python -c "import json, pathlib, sys; expected='${{ steps.paris_time.outputs.date }}'; path=pathlib.Path('outputs/actuary_radar_site/data/digest.json'); data=json.loads(path.read_text()); actual=data.get('report_date'); ai=data.get('refresh_log', {}).get('ai', {}); print(f'Expected={expected} Actual={actual} Items={len(data.get(\"items\", []))} AI={ai}'); sys.exit(0 if actual == expected and data.get('items') else 1)"
+          python -c "import json, pathlib, sys; expected='${{ steps.paris_time.outputs.date }}'; path=pathlib.Path('outputs/actuary_radar_site/data/digest.json'); data=json.loads(path.read_text()); items=data.get('items', []); actual=data.get('report_date'); ai=data.get('refresh_log', {}).get('ai', {}); source_grounded=sum(1 for item in items if item.get('ai_enriched') and (item.get('enrichment_basis') or item.get('summary_basis')) == 'article_text'); print(f'Expected={expected} Actual={actual} Items={len(items)} SourceGroundedAI={source_grounded} AI={ai}'); sys.exit(0 if actual == expected and items and source_grounded > 0 else 1)"
 
       - name: Commit updated reports
         if: github.event_name != 'schedule' || steps.paris_time.outputs.hour == '08'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Update ActuaryRadar daily intelligence for ${{ steps.paris_time.outputs.date }}"
-          file_pattern: "work/actuary_digest_mvp/ui/data"
+          file_pattern: |
+            work/actuary_digest_mvp/ui/data
+            outputs/actuary_radar_site
+            outputs/insurance_actuary_digest_*.json
+            outputs/insurance_actuary_digest_*.html
+            outputs/insurance_actuary_digest_*.md
