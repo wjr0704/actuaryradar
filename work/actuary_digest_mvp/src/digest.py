@@ -1460,6 +1460,7 @@ def render_json(
     used_samples: bool,
     focus_profile: dict,
     ai_log: dict | None = None,
+    ai_errors: list[str] | None = None,
     company_reports: list[dict] | None = None,
 ) -> str:
     concept = daily_concept(report_date)
@@ -1522,6 +1523,7 @@ def render_json(
             "daily_concept_id": concept["term"],
             "featured_article_id": featured_article_id,
             "ai": ai_log or {},
+            "ai_errors": (ai_errors or [])[:10],
         },
         "focus_profile": focus_profile,
         "daily_concept": concept,
@@ -1665,6 +1667,10 @@ def main(argv: list[str]) -> int:
         max_items=max(0, args.ai_max_items),
     )
     errors.extend(ai_messages)
+    if ai_messages:
+        print("AI enrichment errors:")
+        for message in ai_messages[:10]:
+            print(f"- {message}")
     markdown = render_markdown(selected, cards, args.date, errors, used_samples, focus_profile)
     html_report = render_html(markdown, args.date)
     json_report = render_json(
@@ -1674,6 +1680,7 @@ def main(argv: list[str]) -> int:
         used_samples,
         focus_profile,
         ai_log,
+        ai_messages,
         config.get("official_company_reports", []),
     )
     md_path, html_path, json_path = write_reports(pathlib.Path(args.output_dir), args.date, markdown, html_report, json_report)
