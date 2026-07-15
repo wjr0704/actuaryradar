@@ -64,10 +64,41 @@ jobs:
         run: |
           python work/actuary_digest_mvp/src/build_site.py --base-url https://insuranceactuaryhub.com
 
+      - name: Publish digest to tracked UI data
+        if: github.event_name != 'schedule' || steps.paris_time.outputs.hour == '08'
+        run: |
+          mkdir -p work/actuary_digest_mvp/ui/data
+          cp "outputs/insurance_actuary_digest_${{ steps.paris_time.outputs.date }}.json" work/actuary_digest_mvp/ui/data/digest.json
+
       - name: Verify refreshed site data
         if: github.event_name != 'schedule' || steps.paris_time.outputs.hour == '08'
         run: |
-          python -c "import json, pathlib, sys; expected='${{ steps.paris_time.outputs.date }}'; path=pathlib.Path('outputs/actuary_radar_site/data/digest.json'); data=json.loads(path.read_text()); items=data.get('items', []); actual=data.get('report_date'); ai=data.get('refresh_log', {}).get('ai', {}); source_grounded=sum(1 for item in items if item.get('ai_enriched') and (item.get('enrichment_basis') or item.get('summary_basis')) == 'article_text'); print(f'Expected={expected} Actual={actual} Items={len(items)} SourceGroundedAI={source_grounded} AI={ai}'); sys.exit(0 if actual == expected and items and source_grounded > 0 else 1)"
+          python - <<'PY'
+          import json
+          import pathlib
+          import sys
+
+          expected = "${{ steps.paris_time.outputs.date }}"
+          paths = [
+              pathlib.Path("outputs/actuary_radar_site/data/digest.json"),
+              pathlib.Path("work/actuary_digest_mvp/ui/data/digest.json"),
+          ]
+
+          for path in paths:
+              data = json.loads(path.read_text())
+              items = data.get("items", [])
+              actual = data.get("report_date")
+              ai = data.get("refresh_log", {}).get("ai", {})
+              source_grounded = sum(
+                  1
+                  for item in items
+                  if item.get("ai_enriched")
+                  and (item.get("enrichment_basis") or item.get("summary_basis")) == "article_text"
+              )
+              print(f"{path}: Expected={expected} Actual={actual} Items={len(items)} SourceGroundedAI={source_grounded} AI={ai}")
+              if actual != expected or not items or source_grounded <= 0:
+                  sys.exit(1)
+          PY
 
       - name: Commit updated reports
         if: github.event_name != 'schedule' || steps.paris_time.outputs.hour == '08'

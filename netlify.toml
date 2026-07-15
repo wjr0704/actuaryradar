@@ -1,6 +1,6 @@
 [build]
   publish = "outputs/actuary_radar_site"
-  command = "python3 work/actuary_digest_mvp/src/digest.py && python3 work/actuary_digest_mvp/src/build_site.py --base-url https://insuranceactuaryhub.com"
+  command = "python3 work/actuary_digest_mvp/src/build_site.py --base-url https://insuranceactuaryhub.com"
   functions = "work/actuary_digest_mvp/netlify/functions"
 
 [[headers]]
