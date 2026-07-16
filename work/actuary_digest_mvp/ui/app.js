@@ -26,6 +26,7 @@ const state = {
   knowledge: [],
   knowledgeCatalog: [],
   knowledgeSources: { items: {}, daily_concepts: [] },
+  knowledgeVisuals: { visuals: {}, module_map: {} },
   learningTaxonomy: null,
   openSourceResources: [],
   knowledgeFocusId: "",
@@ -565,6 +566,7 @@ const pageCopy = {
     clearSources: "清空资料源",
     sourceWebsite: "资料",
     sourceVideo: "视频",
+    visualExplanation: "图解说明",
     weeklyFocus: "每周学习计划",
     autoWeekly: "按星期自动安排",
     editWeeklyPlan: "编辑计划",
@@ -843,6 +845,7 @@ const pageCopy = {
     clearSources: "Clear sources",
     sourceWebsite: "Source",
     sourceVideo: "Video",
+    visualExplanation: "Visual Explanation",
     weeklyFocus: "Weekly plan",
     autoWeekly: "Auto by weekday",
     editWeeklyPlan: "Edit plan",
@@ -1121,6 +1124,7 @@ const pageCopy = {
     clearSources: "Désélectionner",
     sourceWebsite: "Consulter",
     sourceVideo: "Vidéo",
+    visualExplanation: "Explication visuelle",
     weeklyFocus: "Parcours de formation",
     autoWeekly: "Répartition par jour",
     editWeeklyPlan: "Modifier",
@@ -1507,6 +1511,7 @@ async function init() {
   await loadArchiveIndex();
   await loadOpenSourceResources();
   await loadKnowledgeSources();
+  await loadKnowledgeVisuals();
   await loadKnowledge();
   await loadDigest("./data/digest.json");
   setActivePage(state.activePage);
@@ -2129,6 +2134,20 @@ async function loadKnowledgeSources() {
   }
 }
 
+async function loadKnowledgeVisuals() {
+  try {
+    const response = await fetch("./data/knowledge_visuals.json", { cache: "no-store" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const payload = await response.json();
+    state.knowledgeVisuals = {
+      visuals: payload.visuals || {},
+      module_map: payload.module_map || {}
+    };
+  } catch {
+    state.knowledgeVisuals = { visuals: {}, module_map: {} };
+  }
+}
+
 async function loadDigest(url) {
   try {
     const response = await fetch(url, { cache: "no-store" });
@@ -2265,23 +2284,181 @@ function renderPersonalizedConceptCards() {
   const cards = concepts.length
     ? concepts
     : [{ topicId: "Fundamentals", concept: localizedDailyConcept(state.data?.daily_concept || {}) }];
-  els.conceptGrid.innerHTML = cards.map(({ topicId, concept }, index) => `
-    <section class="concept-card" id="${index === 0 ? "dailyConceptBlock" : escapeHtml(`dailyConceptBlock-${index + 1}`)}">
-      <div class="card-meta">
-        <span class="chip">${escapeHtml(t("dailyConcept"))}</span>
-        <span class="chip">${escapeHtml(learningTopicLabel(topicId))}</span>
-        <span class="growth-stage-pill">${escapeHtml(t("growthStage"))}: ${escapeHtml(t("growthSeed"))}</span>
-        <span class="chip">${escapeHtml(t("estimated"))}: 8 ${escapeHtml(t("minutesShort"))}</span>
+  els.conceptGrid.innerHTML = cards.map(({ topicId, concept }, index) => {
+    const visual = visualForConcept(concept.term, topicId);
+    return `
+      <section class="concept-card" id="${index === 0 ? "dailyConceptBlock" : escapeHtml(`dailyConceptBlock-${index + 1}`)}">
+        <div class="card-meta">
+          <span class="chip">${escapeHtml(t("dailyConcept"))}</span>
+          <span class="chip">${escapeHtml(learningTopicLabel(topicId))}</span>
+          <span class="growth-stage-pill">${escapeHtml(t("growthStage"))}: ${escapeHtml(t("growthSeed"))}</span>
+          <span class="chip">${escapeHtml(t("estimated"))}: 8 ${escapeHtml(t("minutesShort"))}</span>
+        </div>
+        <h4>${escapeHtml(concept.term || "-")}</h4>
+        <p>${escapeHtml(concept.definition || "-")}</p>
+        ${renderKnowledgeVisual(visual, "concept")}
+        ${concept.example ? `<p class="concept-example">${escapeHtml(concept.example)}</p>` : ""}
+        ${concept.exercise ? `<p class="prompt">${escapeHtml(concept.exercise)}</p>` : ""}
+        <div class="concept-card-actions">
+          ${concept.openUrl ? `<a class="concept-source-link" href="${escapeHtml(concept.openUrl)}">${escapeHtml(t("startLearningItem"))} →</a>` : ""}
+        </div>
+      </section>
+    `;
+  }).join("");
+}
+
+function normalizeVisualKey(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "");
+}
+
+function visualForConcept(term, topicId = "") {
+  const visuals = state.knowledgeVisuals.visuals || {};
+  const normalizedTerm = normalizeVisualKey(term);
+  const direct = visuals[normalizedTerm];
+  if (direct) return { ...direct, id: normalizedTerm };
+  const entry = Object.entries(visuals).find(([, visual]) =>
+    (visual.match_terms || []).some(match => normalizeVisualKey(match) === normalizedTerm)
+  );
+  if (entry) return { ...entry[1], id: entry[0] };
+  const topicKey = normalizeVisualKey(topicId);
+  const topicEntry = Object.entries(visuals).find(([, visual]) =>
+    (visual.match_terms || []).some(match => normalizeVisualKey(match) === topicKey)
+  );
+  return topicEntry ? { ...topicEntry[1], id: topicEntry[0] } : null;
+}
+
+function visualForKnowledgeModule(module) {
+  const visuals = state.knowledgeVisuals.visuals || {};
+  const mappedIds = state.knowledgeVisuals.module_map?.[module.id] || state.knowledgeVisuals.module_map?.[module.topic_id] || [];
+  const mapped = mappedIds.map(id => visuals[id] ? { ...visuals[id], id } : null).find(Boolean);
+  if (mapped) return mapped;
+  const terms = [displayKnowledgeTitle(module), module.track, ...(module.concepts || [])];
+  for (const term of terms) {
+    const visual = visualForConcept(term, module.track);
+    if (visual) return visual;
+  }
+  return null;
+}
+
+function renderKnowledgeVisual(visual, variant = "module") {
+  if (!visual) return "";
+  const caption = visual.caption?.[state.language] || visual.caption?.en || "";
+  if (!caption) return "";
+  return `
+    <figure class="knowledge-visual ${escapeHtml(`knowledge-visual-${variant}`)}">
+      <div class="knowledge-visual-graphic" aria-hidden="true">
+        ${renderKnowledgeVisualSvg(visual.visual_type || "distribution")}
       </div>
-      <h4>${escapeHtml(concept.term || "-")}</h4>
-      <p>${escapeHtml(concept.definition || "-")}</p>
-      ${concept.example ? `<p class="concept-example">${escapeHtml(concept.example)}</p>` : ""}
-      ${concept.exercise ? `<p class="prompt">${escapeHtml(concept.exercise)}</p>` : ""}
-      <div class="concept-card-actions">
-        ${concept.openUrl ? `<a class="concept-source-link" href="${escapeHtml(concept.openUrl)}">${escapeHtml(t("startLearningItem"))} →</a>` : ""}
-      </div>
-    </section>
-  `).join("");
+      <figcaption>
+        <span>${escapeHtml(t("visualExplanation"))}</span>
+        ${escapeHtml(caption)}
+      </figcaption>
+    </figure>
+  `;
+}
+
+function renderKnowledgeVisualSvg(type) {
+  const baseAttrs = `viewBox="0 0 240 150" role="img" focusable="false"`;
+  const axis = `<path d="M32 122H210M32 122V24" class="visual-axis"/>`;
+  const svgs = {
+    distribution: `
+      <svg ${baseAttrs}>
+        ${axis}
+        <path d="M42 118C62 116 70 105 82 82C95 55 111 34 130 54C146 70 152 103 170 114C184 122 200 121 210 119" class="visual-curve"/>
+        <path d="M171 116C187 122 201 121 210 119" class="visual-tail"/>
+        <circle cx="130" cy="54" r="4" class="visual-dot"/>
+      </svg>
+    `,
+    survival_curve: `
+      <svg ${baseAttrs}>
+        ${axis}
+        <path d="M44 36H78V54H104V72H132V88H160V104H192V118" class="visual-curve"/>
+        <path d="M44 36C80 50 126 88 192 118" class="visual-guide"/>
+        <circle cx="104" cy="72" r="4" class="visual-dot"/>
+      </svg>
+    `,
+    claims_flow: `
+      <svg ${baseAttrs}>
+        <path d="M28 76H206" class="visual-axis"/>
+        <rect x="30" y="48" width="42" height="42" rx="13" class="visual-box"/>
+        <rect x="98" y="48" width="42" height="42" rx="13" class="visual-box accent"/>
+        <rect x="166" y="48" width="42" height="42" rx="13" class="visual-box"/>
+        <path d="M74 69H94M142 69H162" class="visual-curve"/>
+        <path d="M52 42V30M120 42V30M188 42V30" class="visual-stem"/>
+        <path d="M52 30C42 30 37 24 35 17C45 17 51 21 52 30ZM52 30C62 30 67 24 69 17C59 17 53 21 52 30Z" class="visual-leaf"/>
+      </svg>
+    `,
+    ratio_bar: `
+      <svg ${baseAttrs}>
+        ${axis}
+        <rect x="60" y="64" width="34" height="58" rx="8" class="visual-bar muted"/>
+        <rect x="112" y="42" width="34" height="80" rx="8" class="visual-bar"/>
+        <rect x="164" y="78" width="34" height="44" rx="8" class="visual-bar muted"/>
+        <path d="M50 55H204" class="visual-guide"/>
+      </svg>
+    `,
+    combined_ratio: `
+      <svg ${baseAttrs}>
+        ${axis}
+        <rect x="72" y="68" width="38" height="54" rx="8" class="visual-bar"/>
+        <rect x="72" y="44" width="38" height="24" rx="8" class="visual-bar warm"/>
+        <rect x="138" y="58" width="38" height="64" rx="8" class="visual-bar"/>
+        <rect x="138" y="34" width="38" height="24" rx="8" class="visual-bar warm"/>
+        <path d="M48 38H206" class="visual-guide"/>
+      </svg>
+    `,
+    reserve_stack: `
+      <svg ${baseAttrs}>
+        <rect x="58" y="88" width="124" height="28" rx="10" class="visual-bar"/>
+        <rect x="58" y="58" width="124" height="28" rx="10" class="visual-bar muted"/>
+        <rect x="58" y="28" width="124" height="28" rx="10" class="visual-bar warm"/>
+        <path d="M194 30V116" class="visual-axis"/>
+        <path d="M194 30L202 42M194 30L186 42" class="visual-curve"/>
+      </svg>
+    `,
+    triangle: `
+      <svg ${baseAttrs}>
+        <path d="M42 34H198V122H42Z" class="visual-grid-frame"/>
+        <path d="M42 56H198M42 78H198M42 100H198M73 34V122M104 34V122M135 34V122M166 34V122" class="visual-grid"/>
+        <path d="M42 34L198 122" class="visual-tail"/>
+        <circle cx="73" cy="56" r="4" class="visual-dot"/><circle cx="104" cy="78" r="4" class="visual-dot"/><circle cx="135" cy="100" r="4" class="visual-dot"/>
+      </svg>
+    `,
+    glm_pipeline: `
+      <svg ${baseAttrs}>
+        <rect x="26" y="40" width="48" height="70" rx="16" class="visual-box"/>
+        <rect x="96" y="40" width="48" height="70" rx="16" class="visual-box accent"/>
+        <rect x="166" y="40" width="48" height="70" rx="16" class="visual-box"/>
+        <path d="M76 75H92M146 75H162" class="visual-curve"/>
+        <path d="M43 62H58M43 76H62M43 90H54M112 58C122 70 122 82 112 94M180 90L188 72L197 84L206 58" class="visual-stem"/>
+      </svg>
+    `,
+    capital_stack: `
+      <svg ${baseAttrs}>
+        ${axis}
+        <rect x="74" y="82" width="92" height="40" rx="10" class="visual-bar"/>
+        <rect x="74" y="48" width="92" height="32" rx="10" class="visual-bar muted"/>
+        <rect x="74" y="24" width="92" height="22" rx="10" class="visual-bar warm"/>
+        <path d="M52 82H190" class="visual-tail"/>
+        <path d="M52 48H190" class="visual-guide"/>
+      </svg>
+    `,
+    csm_rollforward: `
+      <svg ${baseAttrs}>
+        ${axis}
+        <path d="M48 50H88V122H48Z" class="visual-box"/>
+        <path d="M104 34H144V122H104Z" class="visual-box accent"/>
+        <path d="M160 72H200V122H160Z" class="visual-box"/>
+        <path d="M88 58C98 50 98 46 104 42M144 46C154 54 154 64 160 76" class="visual-curve"/>
+        <path d="M116 22C126 22 132 16 134 9C124 9 118 13 116 22Z" class="visual-leaf"/>
+      </svg>
+    `
+  };
+  return svgs[type] || svgs.distribution;
 }
 
 function personalizedConceptExample(concept, topicId) {
@@ -4040,6 +4217,7 @@ function renderKnowledge() {
       </div>
       <h4>${escapeHtml(displayKnowledgeTitle(module))}</h4>
       <p>${escapeHtml(displayKnowledgeSummary(module))}</p>
+      ${renderKnowledgeVisual(visualForKnowledgeModule(module), "module")}
       <div class="knowledge-section">
         <strong>${escapeHtml(t("coreConcepts"))}</strong>
         <div class="tag-cloud static-tags">
