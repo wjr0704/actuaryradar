@@ -27,6 +27,15 @@
         "fr": "Les sinistres relient exposition, événement, règlement et provisionnement. L’actuaire distingue fréquence, coût moyen et calendrier avant d’interpréter l’expérience."
       }
     },
+    "business_model": {
+      "match_terms": ["Insurance Company Business Model", "Risk Pooling", "Underwriting", "Distribution", "Capital"],
+      "visual_type": "business_model",
+      "caption": {
+        "en": "An insurer’s business model connects premiums, risk pooling, underwriting, claims, distribution, reinsurance and capital into one profitability engine.",
+        "zh": "保险公司的商业模式把保费、风险池、核保、理赔、渠道、再保险和资本连接成一个盈利机制。",
+        "fr": "Le modèle économique d’un assureur relie primes, mutualisation, souscription, sinistres, distribution, réassurance et capital dans une même mécanique de rentabilité."
+      }
+    },
     "loss_ratio": {
       "match_terms": ["Loss Ratio"],
       "visual_type": "ratio_bar",
@@ -93,7 +102,7 @@
   },
   "module_map": {
     "fundamentals-survival": ["probability", "survival_analysis"],
-    "insurance-fundamentals-business-model": ["claims"],
+    "insurance-fundamentals-business-model": ["business_model"],
     "pricing-glm-auto": ["glm"],
     "reserving-chain-ladder": ["chain_ladder", "reserving"],
     "solvency-scr": ["scr"],

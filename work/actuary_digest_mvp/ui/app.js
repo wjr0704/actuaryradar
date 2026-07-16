@@ -2335,13 +2335,7 @@ function visualForKnowledgeModule(module) {
   const visuals = state.knowledgeVisuals.visuals || {};
   const mappedIds = state.knowledgeVisuals.module_map?.[module.id] || state.knowledgeVisuals.module_map?.[module.topic_id] || [];
   const mapped = mappedIds.map(id => visuals[id] ? { ...visuals[id], id } : null).find(Boolean);
-  if (mapped) return mapped;
-  const terms = [displayKnowledgeTitle(module), module.track, ...(module.concepts || [])];
-  for (const term of terms) {
-    const visual = visualForConcept(term, module.track);
-    if (visual) return visual;
-  }
-  return null;
+  return mapped || null;
 }
 
 function renderKnowledgeVisual(visual, variant = "module") {
@@ -2390,6 +2384,18 @@ function renderKnowledgeVisualSvg(type) {
         <path d="M74 69H94M142 69H162" class="visual-curve"/>
         <path d="M52 42V30M120 42V30M188 42V30" class="visual-stem"/>
         <path d="M52 30C42 30 37 24 35 17C45 17 51 21 52 30ZM52 30C62 30 67 24 69 17C59 17 53 21 52 30Z" class="visual-leaf"/>
+      </svg>
+    `,
+    business_model: `
+      <svg ${baseAttrs}>
+        <circle cx="120" cy="76" r="30" class="visual-box"/>
+        <circle cx="50" cy="42" r="18" class="visual-box muted"/>
+        <circle cx="190" cy="42" r="18" class="visual-box warm"/>
+        <circle cx="50" cy="112" r="18" class="visual-box warm"/>
+        <circle cx="190" cy="112" r="18" class="visual-box muted"/>
+        <path d="M66 50L94 66M174 50L146 66M66 104L94 88M174 104L146 88" class="visual-curve"/>
+        <path d="M106 76H134M120 62V90" class="visual-stem"/>
+        <path d="M120 33C110 33 104 27 102 20C112 20 118 24 120 33ZM120 33C130 33 136 27 138 20C128 20 122 24 120 33Z" class="visual-leaf"/>
       </svg>
     `,
     ratio_bar: `
