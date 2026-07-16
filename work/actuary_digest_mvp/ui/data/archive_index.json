@@ -1,13 +1,13 @@
 {
   "archives": [
     {
-      "date": "2026-07-15",
-      "title": "2026-07-15",
+      "date": "2026-07-16",
+      "title": "2026-07-16",
       "mode": "rss",
-      "theme": "周三：财险、车险与巨灾风险",
-      "json": "./data/archive/2026-07-15.json",
-      "html": "./reports/2026-07-15.html",
-      "markdown": "./reports/2026-07-15.md"
+      "theme": "周四：再保险、经纪与风险转移",
+      "json": "./data/archive/2026-07-16.json",
+      "html": "./reports/2026-07-16.html",
+      "markdown": "./reports/2026-07-16.md"
     }
   ]
 }
