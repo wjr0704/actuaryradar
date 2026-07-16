@@ -3850,25 +3850,26 @@ body {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(150px, 220px) minmax(0, 1fr);
-  gap: clamp(14px, 1.4vw, 22px);
+  grid-template-columns: 104px minmax(0, 1fr);
+  gap: 12px;
   align-items: center;
-  margin: clamp(16px, 1.5vw, 24px) 0;
-  padding: clamp(14px, 1.3vw, 20px);
+  margin: 14px 0 16px;
+  padding: 10px 12px;
   border: 1px solid rgba(79, 143, 115, 0.16);
-  border-radius: 22px;
+  border-radius: 16px;
   background:
-    linear-gradient(135deg, rgba(255, 253, 248, 0.86), rgba(236, 246, 240, 0.72));
+    linear-gradient(135deg, rgba(255, 253, 248, 0.72), rgba(236, 246, 240, 0.48));
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
 }
 
 .knowledge-visual-concept {
-  max-width: 82%;
+  max-width: 74%;
+  grid-template-columns: 96px minmax(0, 1fr);
 }
 
 .knowledge-visual-graphic {
-  min-height: 112px;
-  border-radius: 18px;
+  min-height: 68px;
+  border-radius: 14px;
   background:
     radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.86), transparent 38%),
     linear-gradient(145deg, rgba(241, 248, 241, 0.88), rgba(250, 241, 224, 0.48));
@@ -3879,23 +3880,27 @@ body {
   display: block;
   width: 100%;
   height: auto;
-  min-height: 112px;
+  min-height: 68px;
   color: var(--garden-green-dark);
 }
 
 .knowledge-visual figcaption {
   margin: 0;
   color: #4d6055;
-  font-size: 0.94rem;
-  line-height: 1.62;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .knowledge-visual figcaption span {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 3px;
   color: var(--atlas-ochre, #b98b63);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 0.82rem;
+  font-size: 0.72rem;
   font-style: italic;
   font-weight: 700;
 }
@@ -5112,13 +5117,22 @@ summary:focus-visible {
 
   .knowledge-visual,
   .knowledge-visual-concept {
-    grid-template-columns: 1fr;
+    grid-template-columns: 82px minmax(0, 1fr);
     max-width: 100%;
   }
 
   .knowledge-visual-graphic,
   .knowledge-visual svg {
-    min-height: 96px;
+    min-height: 58px;
+  }
+
+  .knowledge-visual {
+    padding: 8px 10px;
+  }
+
+  .knowledge-visual figcaption {
+    font-size: 0.78rem;
+    -webkit-line-clamp: 2;
   }
 
   .app-shell,
