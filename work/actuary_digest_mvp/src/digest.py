@@ -471,6 +471,30 @@ def parse_rss(payload: bytes, source_name: str, max_items: int) -> list[NewsItem
                 rss_title=title,
                 rss_description=summary,
             ))
+    if items:
+        return items
+
+    atom_ns = "{http://www.w3.org/2005/Atom}"
+    for node in root.findall(f".//{atom_ns}entry")[:max_items]:
+        title = clean_text(node.findtext(f"{atom_ns}title"))
+        link_node = node.find(f"{atom_ns}link[@rel='alternate']") or node.find(f"{atom_ns}link")
+        link = clean_text(link_node.attrib.get("href", "") if link_node is not None else "")
+        published = parse_date(node.findtext(f"{atom_ns}published") or node.findtext(f"{atom_ns}updated") or "")
+        summary = clean_text(node.findtext(f"{atom_ns}summary") or node.findtext(f"{atom_ns}content") or "")
+        if title and link:
+            items.append(NewsItem(
+                title=title,
+                source=source_name,
+                url=link,
+                published=published,
+                summary=summary,
+                source_name=source_name,
+                source_url="",
+                original_url=link,
+                via_source="",
+                rss_title=title,
+                rss_description=summary,
+            ))
     return items
 
 

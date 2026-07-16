@@ -43,6 +43,48 @@
       "source_type": "Publisher RSS"
     },
     {
+      "name": "News Assurances Pro - Direct RSS",
+      "url": "https://www.newsassurancespro.com/feed/",
+      "language": "fr",
+      "region": "France",
+      "source_type": "Publisher RSS"
+    },
+    {
+      "name": "France Assureurs - Actualités RSS",
+      "url": "https://www.franceassureurs.fr/actualites/feed/",
+      "language": "fr",
+      "region": "France",
+      "source_type": "Association RSS"
+    },
+    {
+      "name": "France Assureurs - Communiqués RSS",
+      "url": "https://www.franceassureurs.fr/espace-presse/les-communiques-de-presse/feed/",
+      "language": "fr",
+      "region": "France",
+      "source_type": "Association RSS"
+    },
+    {
+      "name": "ACPR - Actualités RSS",
+      "url": "https://acpr.banque-france.fr/fr/actualites/feed",
+      "language": "fr",
+      "region": "France",
+      "source_type": "Regulator RSS"
+    },
+    {
+      "name": "Institut des Actuaires - Direct RSS",
+      "url": "https://www.institutdesactuaires.com/feed/",
+      "language": "fr",
+      "region": "France",
+      "source_type": "Actuarial Association RSS"
+    },
+    {
+      "name": "L'Argus de l'assurance - Direct RSS",
+      "url": "https://www.argusdelassurance.com/rss",
+      "language": "fr",
+      "region": "France",
+      "source_type": "Publisher RSS"
+    },
+    {
       "name": "CN Google News - 监管/偿付能力/精算",
       "url": "https://news.google.com/rss/search?q=%E4%BF%9D%E9%99%A9+%E7%9B%91%E7%AE%A1+OR+%E5%81%BF%E4%BB%98%E8%83%BD%E5%8A%9B+OR+%E7%B2%BE%E7%AE%97+when:7d&hl=zh-CN&gl=CN&ceid=CN:zh-Hans",
       "language": "zh",
