@@ -545,6 +545,8 @@ const pageCopy = {
     activeTopicLabel: "主题",
     noLearningPlanItems: "当前设置下暂无学习任务。请增加主题或切换难度。",
     noStartedLearningItems: "还没有正在进行的学习项。先从今日学习开始。",
+    viewInsight: "查看情报",
+    viewResearch: "查看资料",
     moreContentSoon: "这个主题的更多可信资料正在整理中。",
     setupLearningFirst: "先保存你的学习偏好，ActuaryRadar 会生成今日学习旅程。",
     customizePlan: "定制学习计划",
@@ -821,6 +823,8 @@ const pageCopy = {
     activeTopicLabel: "Topic",
     noLearningPlanItems: "No learning items match the current setup. Add topics or change difficulty.",
     noStartedLearningItems: "No active learning item yet. Start with today’s learning.",
+    viewInsight: "View Insight",
+    viewResearch: "View Research",
     moreContentSoon: "More trusted resources for this topic are being curated.",
     setupLearningFirst: "Save your preferences first, then ActuaryRadar will build today’s learning journey.",
     customizePlan: "Customize Plan",
@@ -1097,6 +1101,8 @@ const pageCopy = {
     activeTopicLabel: "Thème",
     noLearningPlanItems: "Aucun contenu ne correspond au paramétrage actuel. Ajoutez des thèmes ou changez de niveau.",
     noStartedLearningItems: "Aucun contenu en cours. Commencez par la formation du jour.",
+    viewInsight: "Voir la veille",
+    viewResearch: "Consulter",
     moreContentSoon: "D’autres sources fiables sont en cours de sélection pour ce thème.",
     setupLearningFirst: "Enregistrez vos préférences pour générer le parcours de formation du jour.",
     customizePlan: "Personnaliser",
@@ -3466,6 +3472,7 @@ function renderCards(items) {
     const id = itemId(item);
     const node = els.itemTemplate.content.cloneNode(true);
     const card = node.querySelector(".intelligence-card");
+    card.dataset.articleId = id;
     const meta = node.querySelector(".card-meta");
     const title = node.querySelector("h4");
     const keyTakeaway = node.querySelector(".key-takeaway");
@@ -4134,6 +4141,10 @@ function handleLearningActionClick(event) {
 
 function navigateToLearningTarget(openUrl) {
   if (!openUrl) return;
+  if (/^(news|research):/.test(openUrl)) {
+    navigateToBriefingArticle(openUrl);
+    return;
+  }
   if (/^https?:\/\//i.test(openUrl)) {
     analyticsEvent("industry_insight_opened", {
       destination_url: openUrl
@@ -4158,6 +4169,41 @@ function navigateToLearningTarget(openUrl) {
   window.setTimeout(() => {
     document.getElementById(anchor)?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, 50);
+}
+
+function navigateToBriefingArticle(articleLearningId) {
+  const articleId = String(articleLearningId || "").replace(/^(news|research):/, "");
+  const article = state.items.find(item => itemId(item) === articleId || item.url === articleId || item.original_url === articleId);
+  if (!article) return;
+  state.activeSection = normalizeSection(article.platform_section) || "全部";
+  state.dailyNavExpanded = false;
+  state.filters.search = "";
+  setActivePage("daily");
+  renderSectionNav();
+  render();
+  window.setTimeout(() => {
+    let card = findRenderedArticleCard(article);
+    if (!card && state.filters.period !== "all") {
+      state.filters.period = "all";
+      updateSectionFilters();
+      render();
+      card = findRenderedArticleCard(article);
+    }
+    card?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, 80);
+  analyticsEvent("industry_insight_opened", {
+    article_id: itemId(article),
+    article_title: localizedItemTitle(article),
+    source_name: displayPrimarySource(article),
+    topic: normalizeSection(article.platform_section),
+    source: "home_learning"
+  });
+}
+
+function findRenderedArticleCard(article) {
+  const targetId = itemId(article);
+  return Array.from(document.querySelectorAll(".intelligence-card"))
+    .find(card => card.dataset.articleId === targetId);
 }
 
 function resetLearningPreferences() {
@@ -4373,6 +4419,7 @@ function learningItemFromId(id) {
     title: localizedItemTitle(article),
     detail: localizedItemSummary(article) || localizedWhyItMatters(article),
     estimatedMinutes: type === "research" ? 15 : 6,
+    openUrl: value,
     sourceUrl: originalArticleUrl(article)
   };
 }
@@ -4403,7 +4450,7 @@ function renderLearningTaskItem(item, mode) {
   const completed = mode === "completed" || isLearningItemCompleted(item.id);
   const started = Boolean(state.learningProgress.started?.[item.id]);
   const gardenState = completed ? "garden-bloom" : started ? "garden-sprout" : "garden-seed";
-  const titleHtml = item.openUrl
+  const titleHtml = item.openUrl && item.openUrl.startsWith("#")
     ? `<a class="learning-plan-title-link" href="${escapeHtml(item.openUrl)}">${escapeHtml(item.title)}</a>`
     : escapeHtml(item.title);
   const progressText = mode === "completed"
@@ -4414,7 +4461,7 @@ function renderLearningTaskItem(item, mode) {
   const actionHtml = mode === "completed"
     ? `<button class="ghost-button compact-button" type="button" disabled>${escapeHtml(t("completedLabel"))}</button>`
     : `
-        <button class="ghost-button compact-button" type="button" data-learning-start="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}" data-learning-open="${escapeHtml(item.openUrl || item.sourceUrl || "")}"${started || completed ? " disabled" : ""}>${escapeHtml(started ? t("startedLabel") : t("startLearningItem"))}</button>
+        <button class="ghost-button compact-button" type="button" data-learning-start="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}" data-learning-open="${escapeHtml(learningOpenTarget(item))}"${started || completed ? " disabled" : ""}>${escapeHtml(started ? t("startedLabel") : learningPrimaryActionLabel(item))}</button>
         <button class="ghost-button compact-button" type="button" data-learning-complete="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}"${completed ? " disabled" : ""}>${escapeHtml(completed ? t("completedLabel") : t("markComplete"))}</button>
       `;
   return `
@@ -4444,11 +4491,11 @@ function renderHomeLearningTaskItem(item, mode) {
   const started = Boolean(state.learningProgress.started?.[item.id]);
   const gardenState = completed ? "garden-bloom" : started ? "garden-sprout" : "garden-seed";
   const stageLabel = completed ? t("growthBloom") : started ? t("growthSprout") : t("growthSeed");
-  const titleHtml = item.openUrl
+  const titleHtml = item.openUrl && item.openUrl.startsWith("#")
     ? `<a class="learning-plan-title-link" href="${escapeHtml(item.openUrl)}">${escapeHtml(item.title)}</a>`
     : escapeHtml(item.title);
   const reason = learningRecommendationReason(item);
-  const actionLabel = started ? t("continueLearning") : t("startLearningItem");
+  const actionLabel = started ? t("continueLearning") : learningPrimaryActionLabel(item);
   return `
     <article class="learning-plan-item home-learning-task ${escapeHtml(`learning-type-${item.type || "item"}`)} ${escapeHtml(gardenState)}${completed ? " completed" : ""}">
       <label class="learning-complete-box" aria-label="${escapeHtml(t("markComplete"))}">
@@ -4467,10 +4514,21 @@ function renderHomeLearningTaskItem(item, mode) {
       <div class="learning-plan-actions">
         ${mode === "completed"
           ? `<span class="learning-status-pill">${escapeHtml(t("completedLabel"))}</span>`
-          : `<button class="text-link learning-start-link" type="button" data-learning-start="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}" data-learning-open="${escapeHtml(item.openUrl || item.sourceUrl || "")}">${escapeHtml(actionLabel)} →</button>`}
+          : `<button class="text-link learning-start-link" type="button" data-learning-start="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}" data-learning-open="${escapeHtml(learningOpenTarget(item))}">${escapeHtml(actionLabel)} →</button>`}
       </div>
     </article>
   `;
+}
+
+function learningOpenTarget(item) {
+  if (item?.type === "news" || item?.type === "research") return item.id || "";
+  return item?.openUrl || item?.sourceUrl || "";
+}
+
+function learningPrimaryActionLabel(item) {
+  if (item?.type === "news") return t("viewInsight");
+  if (item?.type === "research") return t("viewResearch");
+  return t("startLearningItem");
 }
 
 function learningTypeLabel(type) {
@@ -4804,6 +4862,7 @@ function relatedNewsItems(selectedTopics) {
         title: localizedItemTitle(item),
         detail: localizedItemSummary(item) || localizedWhyItMatters(item),
         estimatedMinutes: 6,
+        openUrl: `news:${itemId(item)}`,
         sourceUrl: originalArticleUrl(item)
       };
     });
@@ -4825,6 +4884,7 @@ function researchLearningItems(selectedTopics) {
         title: localizedItemTitle(item),
         detail: localizedWhyItMatters(item) || localizedItemSummary(item),
         estimatedMinutes: 15,
+        openUrl: `research:${itemId(item)}`,
         sourceUrl: originalArticleUrl(item)
       };
     });
