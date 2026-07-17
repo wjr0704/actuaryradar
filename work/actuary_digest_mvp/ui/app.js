@@ -460,6 +460,16 @@ const pageCopy = {
     portalLatestTitle: "最新保险情报",
     viewAllBriefings: "查看全部情报",
     viewAllIntelligence: "查看全部情报",
+    newsletterEyebrow: "日报订阅",
+    newsletterTitle: "把 ActuaryRadar 发到邮箱",
+    newsletterIntro: "接收最新可用保险情报和每日学习提示。发送邮件时不会实时调用 AI，也不会额外消耗 token。",
+    newsletterEmailLabel: "邮箱地址",
+    newsletterEmailPlaceholder: "you@example.com",
+    newsletterSubmit: "订阅日报",
+    newsletterPrivacy: "之后可以退订。你的邮箱仅用于 ActuaryRadar 日报。",
+    newsletterSuccess: "订阅已提交。上线后可在 Netlify Forms 后台查看邮箱。",
+    newsletterError: "订阅暂时失败，请稍后再试。",
+    newsletterLocalPreview: "本地预览已记录提交动作；上线后会保存到 Netlify Forms。",
     portalSectionsEyebrow: "专业栏目",
     portalSectionsTitle: "按主题探索",
     topicRegulationText: "跟踪监管、资本要求、消费者保护和合规变化。",
@@ -740,6 +750,16 @@ const pageCopy = {
     portalLatestTitle: "Latest Intelligence",
     viewAllBriefings: "View all briefings",
     viewAllIntelligence: "View all intelligence",
+    newsletterEyebrow: "Daily briefing",
+    newsletterTitle: "Get ActuaryRadar in your inbox",
+    newsletterIntro: "Receive the latest available insurance briefing and daily learning prompt. No real-time AI calls are made when the email is sent.",
+    newsletterEmailLabel: "Email address",
+    newsletterEmailPlaceholder: "you@example.com",
+    newsletterSubmit: "Subscribe",
+    newsletterPrivacy: "You can unsubscribe later. Your email is used only for the ActuaryRadar daily briefing.",
+    newsletterSuccess: "Subscription submitted. On production, emails are stored in Netlify Forms.",
+    newsletterError: "Subscription failed for now. Please try again later.",
+    newsletterLocalPreview: "Local preview recorded the action; production will save it to Netlify Forms.",
     portalSectionsEyebrow: "Coverage areas",
     portalSectionsTitle: "Explore by Topic",
     topicRegulationText: "Track supervision, capital requirements, consumer protection and compliance changes.",
@@ -1020,6 +1040,16 @@ const pageCopy = {
     portalLatestTitle: "Dernières veilles",
     viewAllBriefings: "Voir toutes les veilles",
     viewAllIntelligence: "Voir toute la veille",
+    newsletterEyebrow: "Veille quotidienne",
+    newsletterTitle: "Recevoir ActuaryRadar par e-mail",
+    newsletterIntro: "Recevez la dernière veille assurance disponible et un point de formation du jour. Aucun appel IA en temps réel n’est effectué lors de l’envoi.",
+    newsletterEmailLabel: "Adresse e-mail",
+    newsletterEmailPlaceholder: "vous@example.com",
+    newsletterSubmit: "S’abonner",
+    newsletterPrivacy: "Vous pourrez vous désabonner ultérieurement. Votre e-mail sert uniquement à la veille quotidienne ActuaryRadar.",
+    newsletterSuccess: "Abonnement envoyé. En production, les e-mails sont enregistrés dans Netlify Forms.",
+    newsletterError: "L’abonnement a échoué pour le moment. Veuillez réessayer plus tard.",
+    newsletterLocalPreview: "L’aperçu local a enregistré l’action ; en production, Netlify Forms la conservera.",
     portalSectionsEyebrow: "Domaines couverts",
     portalSectionsTitle: "Explorer par thème",
     topicRegulationText: "Suivre la supervision, les exigences de capital, la protection des assurés et la conformité.",
@@ -1490,7 +1520,9 @@ const els = {
   homeCompletedLearningTitle: document.querySelector("#homeCompletedLearningTitle"),
   homeCompletedLearningList: document.querySelector("#homeCompletedLearningList"),
   portalLatestGrid: document.querySelector("#portalLatestGrid"),
-  portalSectionGrid: document.querySelector("#portalSectionGrid")
+  portalSectionGrid: document.querySelector("#portalSectionGrid"),
+  newsletterForm: document.querySelector("#newsletterForm"),
+  newsletterStatus: document.querySelector("#newsletterStatus")
 };
 
 async function init() {
@@ -1993,6 +2025,7 @@ function bindEvents() {
   els.onboardingModal?.querySelectorAll("[data-close-onboarding]").forEach(node => {
     node.addEventListener("click", closeOnboardingModal);
   });
+  els.newsletterForm?.addEventListener("submit", handleNewsletterSubmit);
 
   els.selectAllSourcesButton.addEventListener("click", () => {
     state.sourcePlan = sourceLibrary.map(source => source.id);
@@ -2041,6 +2074,55 @@ function setActivePage(page) {
   }
   if (page === "home") renderPortal();
   analyticsPageView("route_change");
+}
+
+async function handleNewsletterSubmit(event) {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const status = els.newsletterStatus;
+  const emailInput = form.querySelector("input[name='email']");
+  const email = String(emailInput?.value || "").trim();
+  if (!email) return;
+  const submitButton = form.querySelector("button[type='submit']");
+  submitButton?.setAttribute("disabled", "disabled");
+  if (status) {
+    status.textContent = "";
+    status.className = "newsletter-status";
+  }
+
+  const formData = new FormData(form);
+  const body = new URLSearchParams(formData);
+  try {
+    if (window.location.protocol === "file:" || window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+      if (status) {
+        status.textContent = t("newsletterLocalPreview");
+        status.classList.add("success");
+      }
+    } else {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString()
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      if (status) {
+        status.textContent = t("newsletterSuccess");
+        status.classList.add("success");
+      }
+    }
+    analyticsEvent("daily_briefing_subscription_submitted", {
+      locale: state.language,
+      source: "homepage"
+    });
+    form.reset();
+  } catch {
+    if (status) {
+      status.textContent = t("newsletterError");
+      status.classList.add("error");
+    }
+  } finally {
+    submitButton?.removeAttribute("disabled");
+  }
 }
 
 function syncBodyState() {

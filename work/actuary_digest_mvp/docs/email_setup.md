@@ -1,3 +1,44 @@
+# Daily briefing email setup
+
+## MVP: collect subscribers with Netlify Forms
+
+The current website includes a homepage subscription form named:
+
+```text
+actuaryradar-daily-briefing
+```
+
+On Netlify production deploys, submissions are stored in:
+
+```text
+Netlify project -> Forms -> actuaryradar-daily-briefing
+```
+
+This MVP does not call OpenAI when a visitor subscribes. It only stores the
+email address through Netlify Forms. The daily email content should reuse the
+already-generated `digest.json` and report files.
+
+Recommended rollout:
+
+1. Deploy the site to Netlify.
+2. Submit your own email through the homepage form.
+3. Confirm it appears in Netlify Forms.
+4. Export the subscriber list or connect a mailing provider.
+5. Send the same generated daily briefing to subscribers after the daily refresh.
+
+Recommended production mail providers:
+
+- Resend
+- Brevo
+- Buttondown
+- Mailchimp
+- SendGrid
+
+For public subscriptions, add unsubscribe handling before sending recurring
+emails to a wider audience.
+
+---
+
 # Gmail 推送配置
 
 ## 1. 准备 Gmail App Password

@@ -3278,6 +3278,132 @@ body {
   background: rgba(255, 255, 255, 0.84);
 }
 
+.newsletter-card {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.75fr);
+  gap: clamp(18px, 2.4vw, 34px);
+  margin-top: 24px;
+  padding: clamp(22px, 2.4vw, 34px);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 88% 10%, rgba(231, 244, 235, 0.86), transparent 34%),
+    linear-gradient(135deg, rgba(255, 253, 247, 0.96), rgba(243, 250, 247, 0.92));
+  box-shadow: var(--shadow-card);
+}
+
+.newsletter-card::after {
+  content: "";
+  position: absolute;
+  right: clamp(18px, 4vw, 64px);
+  bottom: -32px;
+  width: 190px;
+  height: 150px;
+  opacity: 0.11;
+  background: url("./assets/botanical/sprout-line.svg") center / contain no-repeat;
+  pointer-events: none;
+}
+
+.newsletter-copy,
+.newsletter-form {
+  position: relative;
+  z-index: 1;
+}
+
+.newsletter-copy p:first-child {
+  margin: 0 0 8px;
+  color: var(--atlas-ochre, #b98b63);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.newsletter-copy h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(24px, 2vw, 34px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.newsletter-copy p:last-child {
+  max-width: 620px;
+  margin: 12px 0 0;
+  color: #5d6d62;
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.newsletter-form {
+  align-self: center;
+  padding: 16px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.66);
+  box-shadow: inset 0 0 0 1px rgba(25, 61, 52, 0.07);
+}
+
+.newsletter-input-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #526657;
+  font-size: 0.82rem;
+  font-weight: 850;
+}
+
+.newsletter-row {
+  display: flex;
+  gap: 10px;
+}
+
+.newsletter-row input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid rgba(25, 61, 52, 0.13);
+  border-radius: 16px;
+  padding: 12px 14px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.86);
+  font: inherit;
+  box-shadow: 0 1px 0 rgba(18, 31, 53, 0.035);
+}
+
+.newsletter-row input:focus-visible {
+  outline: 3px solid rgba(79, 143, 115, 0.18);
+  border-color: rgba(79, 143, 115, 0.42);
+}
+
+.newsletter-row .primary-button {
+  white-space: nowrap;
+}
+
+.newsletter-note,
+.newsletter-status {
+  margin: 10px 0 0;
+  color: #6b7a70;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.newsletter-status.success {
+  color: var(--garden-green-dark);
+  font-weight: 800;
+}
+
+.newsletter-status.error {
+  color: #a34532;
+  font-weight: 800;
+}
+
+.hidden-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .portal-news-card h4,
 .portal-section-card h4,
 .knowledge-card h4,
@@ -5166,9 +5292,24 @@ summary:focus-visible {
   .onboarding-dialog,
   .portal-hero,
   .home-learning-shell,
-  .portal-section {
+  .portal-section,
+  .newsletter-card {
     min-width: 0;
     max-width: 100%;
+  }
+
+  .newsletter-card {
+    grid-template-columns: 1fr;
+    margin: 14px;
+    padding: 22px;
+  }
+
+  .newsletter-row {
+    flex-direction: column;
+  }
+
+  .newsletter-row .primary-button {
+    width: 100%;
   }
 
   .onboarding-modal {

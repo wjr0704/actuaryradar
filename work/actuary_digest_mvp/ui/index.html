@@ -167,6 +167,27 @@
           </div>
           <div class="portal-news-grid" id="portalLatestGrid"></div>
         </section>
+
+        <section class="newsletter-card" aria-labelledby="newsletterTitle">
+          <div class="newsletter-copy">
+            <p data-i18n="newsletterEyebrow">Daily briefing</p>
+            <h3 id="newsletterTitle" data-i18n="newsletterTitle">Get ActuaryRadar in your inbox</h3>
+            <p data-i18n="newsletterIntro">Receive the latest available insurance briefing and daily learning prompt. No real-time AI calls are made when the email is sent.</p>
+          </div>
+          <form class="newsletter-form" id="newsletterForm" name="actuaryradar-daily-briefing" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="actuaryradar-daily-briefing">
+            <p class="hidden-field">
+              <label>Do not fill this out: <input name="bot-field"></label>
+            </p>
+            <label class="newsletter-input-label" for="newsletterEmail" data-i18n="newsletterEmailLabel">Email address</label>
+            <div class="newsletter-row">
+              <input id="newsletterEmail" name="email" type="email" autocomplete="email" required placeholder="you@example.com" data-i18n-placeholder="newsletterEmailPlaceholder">
+              <button class="primary-button" type="submit" data-i18n="newsletterSubmit">Subscribe</button>
+            </div>
+            <p class="newsletter-note" data-i18n="newsletterPrivacy">You can unsubscribe later. Your email is used only for the ActuaryRadar daily briefing.</p>
+            <p class="newsletter-status" id="newsletterStatus" aria-live="polite"></p>
+          </form>
+        </section>
       </section>
 
       <section class="page-view" id="dailyPage">
