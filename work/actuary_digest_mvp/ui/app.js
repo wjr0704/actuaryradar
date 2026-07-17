@@ -675,6 +675,7 @@ const pageCopy = {
     casePractice: "Case 练习",
     showAnswer: "查看参考答案",
     hideAnswer: "收起参考答案",
+    referenceAnswer: "参考答案",
     noSavedReports: "还没有保存内容。保存今日学习或情报后，会在这里形成你的学习记录。",
     untitledTheme: "未标注主题",
     savedAt: "保存于",
@@ -954,6 +955,7 @@ const pageCopy = {
     casePractice: "Case Practice",
     showAnswer: "Show reference answer",
     hideAnswer: "Hide reference answer",
+    referenceAnswer: "Reference answer",
     noSavedReports: "No saved content yet. Save today’s learning or intelligence to build your learning record.",
     untitledTheme: "Untitled theme",
     savedAt: "saved at",
@@ -1233,6 +1235,7 @@ const pageCopy = {
     casePractice: "Cas pratique",
     showAnswer: "Voir la réponse commentée",
     hideAnswer: "Masquer la réponse",
+    referenceAnswer: "Réponse commentée",
     noSavedReports: "Aucun contenu sauvegardé. Enregistrez une veille ou une journée de formation pour constituer votre journal.",
     untitledTheme: "Thème non renseigné",
     savedAt: "sauvegardé le",
@@ -2299,12 +2302,24 @@ function renderPersonalizedConceptCards() {
         ${renderKnowledgeVisual(visual, "concept")}
         ${concept.example ? `<p class="concept-example">${escapeHtml(concept.example)}</p>` : ""}
         ${concept.exercise ? `<p class="prompt">${escapeHtml(concept.exercise)}</p>` : ""}
+        ${renderDailyConceptReferenceAnswer(concept)}
         <div class="concept-card-actions">
           ${concept.openUrl ? `<a class="concept-source-link" href="${escapeHtml(concept.openUrl)}">${escapeHtml(t("startLearningItem"))} →</a>` : ""}
         </div>
       </section>
     `;
   }).join("");
+}
+
+function renderDailyConceptReferenceAnswer(concept) {
+  const answer = String(concept.answer || "").trim();
+  if (!answer || answer === noVerifiedSourceText()) return "";
+  return `
+    <details class="concept-reference-answer">
+      <summary>${escapeHtml(t("referenceAnswer"))}</summary>
+      <p>${escapeHtml(answer)}</p>
+    </details>
+  `;
 }
 
 function normalizeVisualKey(value) {
@@ -2468,14 +2483,13 @@ function renderKnowledgeVisualSvg(type) {
 }
 
 function personalizedConceptExample(concept, topicId) {
-  const topic = learningTopicLabel(topicId);
   if (state.language === "zh") {
-    return `通俗理解：这是你当前学习主题「${topic}」下的今日概念。先用一句话解释 ${concept.term}，再把它连接到一个保险现金流、假设或风险管理场景。`;
+    return `通俗理解：先用一句话解释 ${concept.term}，再把它连接到一个保险现金流、假设或风险管理场景。`;
   }
   if (state.language === "fr") {
-    return `Exemple simple : ce concept vient de votre thème « ${topic} ». Expliquez ${concept.term} en une phrase, puis reliez-le à un flux d’assurance, une hypothèse ou une décision de gestion des risques.`;
+    return `Exemple simple : expliquez ${concept.term} en une phrase, puis reliez-le à un flux d’assurance, une hypothèse ou une décision de gestion des risques.`;
   }
-  return `Plain example: this concept comes from your selected topic, ${topic}. Explain ${concept.term} in one sentence, then connect it to an insurance cash flow, assumption or risk-management decision.`;
+  return `Plain example: explain ${concept.term} in one sentence, then connect it to an insurance cash flow, assumption or risk-management decision.`;
 }
 
 function renderSectionNav() {
@@ -4792,14 +4806,19 @@ function personalizedDailyConceptForTopic(topicId) {
     definition: detail.definition,
     example: detail.example,
     exercise: detail.exercise,
+    answer: dailyConceptReferenceAnswer(module),
     sourceUrl: firstKnowledgeSourceLink(module),
     openUrl: `#${knowledgeCardAnchor(module)}`
   };
 }
 
+function dailyConceptReferenceAnswer(module) {
+  const answer = displayKnowledgeAnswer(module);
+  return answer && answer !== noVerifiedSourceText() ? answer : "";
+}
+
 function curatedConceptDetail(term, module, topicId) {
   const key = String(term || "").toLowerCase();
-  const topic = learningTopicLabel(topicId);
   const details = {
     probability: {
       zh: {
@@ -5008,11 +5027,12 @@ function curatedConceptDetail(term, module, topicId) {
   };
   const detail = details[key]?.[state.language] || details[key]?.en;
   if (detail) return detail;
+  const summary = displayKnowledgeSummary(module);
   const fallbackDefinition = state.language === "zh"
-    ? `${term} 是「${topic}」主题下的学习概念。${displayKnowledgeSummary(module)}`
+    ? `${term}：${summary || "把这个概念连接到保险现金流、假设、盈利和资本管理。"}`
     : state.language === "fr"
-    ? `${term} est un concept du thème « ${topic} ». ${displayKnowledgeSummary(module)}`
-    : `${term} is a concept within ${topic}. ${displayKnowledgeSummary(module)}`;
+    ? `${term} : ${summary || "Reliez ce concept aux flux d’assurance, aux hypothèses, au résultat et au capital."}`
+    : `${term}: ${summary || "Connect this concept to insurance cash flows, assumptions, earnings and capital."}`;
   return {
     definition: fallbackDefinition,
     example: personalizedConceptExample({ term }, topicId),

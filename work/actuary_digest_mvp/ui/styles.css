@@ -3846,6 +3846,31 @@ body {
   color: #526657;
 }
 
+.concept-reference-answer {
+  position: relative;
+  z-index: 1;
+  max-width: 78%;
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid rgba(79, 143, 115, 0.15);
+  border-radius: 16px;
+  background: rgba(255, 253, 248, 0.64);
+}
+
+.concept-reference-answer summary {
+  cursor: pointer;
+  color: var(--garden-green-dark);
+  font-weight: 850;
+}
+
+.concept-reference-answer p {
+  max-width: none;
+  margin: 10px 0 0;
+  color: #53675a;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
 .knowledge-visual {
   position: relative;
   z-index: 1;
@@ -3889,10 +3914,6 @@ body {
   color: #4d6055;
   font-size: 0.82rem;
   line-height: 1.45;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
 .knowledge-visual figcaption span {
@@ -5121,6 +5142,10 @@ summary:focus-visible {
     max-width: 100%;
   }
 
+  .concept-reference-answer {
+    max-width: 100%;
+  }
+
   .knowledge-visual-graphic,
   .knowledge-visual svg {
     min-height: 58px;
@@ -5132,7 +5157,6 @@ summary:focus-visible {
 
   .knowledge-visual figcaption {
     font-size: 0.78rem;
-    -webkit-line-clamp: 2;
   }
 
   .app-shell,
