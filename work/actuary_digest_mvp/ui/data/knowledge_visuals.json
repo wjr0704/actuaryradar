@@ -1,0 +1,112 @@
+{
+  "visuals": {
+    "probability": {
+      "match_terms": ["Probability"],
+      "visual_type": "distribution",
+      "caption": {
+        "en": "Probability turns uncertainty into a measurable distribution: the centre describes expected outcomes, while the tail highlights rare but material insurance losses.",
+        "zh": "概率把不确定性转化为可度量的分布：中间代表常见结果，尾部提醒我们关注少见但影响很大的保险损失。",
+        "fr": "La probabilité transforme l’incertitude en distribution mesurable : le centre décrit les résultats attendus, tandis que la queue met en évidence les pertes rares mais importantes."
+      }
+    },
+    "survival_analysis": {
+      "match_terms": ["Survival Analysis"],
+      "visual_type": "survival_curve",
+      "caption": {
+        "en": "A survival curve shows the probability that a policy, claim state or insured life remains in force over time.",
+        "zh": "生存曲线表示保单、理赔状态或被保险人在时间推移中仍然处于某一状态的概率。",
+        "fr": "Une courbe de survie représente la probabilité qu’un contrat, un état de sinistre ou un assuré reste dans un état donné au fil du temps."
+      }
+    },
+    "claims": {
+      "match_terms": ["Claims"],
+      "visual_type": "claims_flow",
+      "caption": {
+        "en": "Claims connect exposure, events, settlement and reserves. Actuaries separate frequency, severity and timing before interpreting loss experience.",
+        "zh": "理赔连接风险暴露、事故发生、赔付处理和准备金。精算分析通常先拆分频率、严重度和时间节奏。",
+        "fr": "Les sinistres relient exposition, événement, règlement et provisionnement. L’actuaire distingue fréquence, coût moyen et calendrier avant d’interpréter l’expérience."
+      }
+    },
+    "business_model": {
+      "match_terms": ["Insurance Company Business Model", "Risk Pooling", "Underwriting", "Distribution", "Capital"],
+      "visual_type": "business_model",
+      "caption": {
+        "en": "An insurer’s business model connects premiums, risk pooling, underwriting, claims, distribution, reinsurance and capital into one profitability engine.",
+        "zh": "保险公司的商业模式把保费、风险池、核保、理赔、渠道、再保险和资本连接成一个盈利机制。",
+        "fr": "Le modèle économique d’un assureur relie primes, mutualisation, souscription, sinistres, distribution, réassurance et capital dans une même mécanique de rentabilité."
+      }
+    },
+    "loss_ratio": {
+      "match_terms": ["Loss Ratio"],
+      "visual_type": "ratio_bar",
+      "caption": {
+        "en": "Loss ratio compares claims cost with earned premium. A rise can come from frequency, severity, mix, inflation or reserving changes.",
+        "zh": "赔付率比较赔款成本与已赚保费。上升可能来自频率、严重度、业务结构、通胀或准备金变化。",
+        "fr": "Le ratio de sinistralité compare le coût des sinistres aux primes acquises. Sa hausse peut venir de la fréquence, du coût moyen, du mix, de l’inflation ou du provisionnement."
+      }
+    },
+    "combined_ratio": {
+      "match_terms": ["Combined Ratio"],
+      "visual_type": "combined_ratio",
+      "caption": {
+        "en": "Combined ratio adds loss ratio and expense ratio. Below 100% indicates underwriting profit before investment income.",
+        "zh": "综合成本率等于赔付率加费用率。低于 100% 通常表示承保端在投资收益前实现盈利。",
+        "fr": "Le ratio combiné additionne ratio de sinistralité et ratio de frais. En dessous de 100 %, il indique un résultat technique positif avant produits financiers."
+      }
+    },
+    "reserving": {
+      "match_terms": ["Reserving", "IBNR"],
+      "visual_type": "reserve_stack",
+      "caption": {
+        "en": "Reserving estimates the unpaid cost of past events by separating reported claims, case reserves and IBNR.",
+        "zh": "准备金估计已发生事件尚未支付的成本，通常拆分为已报案赔款、个案准备金和 IBNR。",
+        "fr": "Le provisionnement estime le coût non réglé des événements passés en distinguant sinistres déclarés, provisions dossier et IBNR."
+      }
+    },
+    "chain_ladder": {
+      "match_terms": ["Chain Ladder"],
+      "visual_type": "triangle",
+      "caption": {
+        "en": "The chain ladder method projects incomplete accident years by reading development patterns across a claims triangle.",
+        "zh": "链梯法通过赔款三角形中的发展模式，推算尚未完全发展的事故年度最终赔款。",
+        "fr": "La méthode Chain Ladder projette les années de survenance incomplètes à partir des cadences observées dans un triangle de sinistres."
+      }
+    },
+    "glm": {
+      "match_terms": ["Poisson GLM", "Gamma GLM", "Tweedie", "GLM"],
+      "visual_type": "glm_pipeline",
+      "caption": {
+        "en": "A GLM links rating factors to expected claims through a structured model, producing relativities used in pricing.",
+        "zh": "GLM 将定价因子与预期赔款连接起来，形成可解释的费率相对因子。",
+        "fr": "Un GLM relie les variables tarifaires au coût attendu des sinistres et produit des relativités utilisées en tarification."
+      }
+    },
+    "scr": {
+      "match_terms": ["SCR", "MCR", "Own Funds", "Solvency II"],
+      "visual_type": "capital_stack",
+      "caption": {
+        "en": "Solvency II compares eligible own funds with capital requirements. The buffer above SCR is the room available before management action becomes urgent.",
+        "zh": "Solvency II 将合格自有资金与资本要求比较。SCR 之上的缓冲反映公司在需要紧急管理行动前的空间。",
+        "fr": "Solvabilité II compare les fonds propres éligibles aux exigences de capital. La marge au-dessus du SCR mesure la capacité d’absorption avant action de gestion."
+      }
+    },
+    "ifrs17_csm": {
+      "match_terms": ["IFRS 17", "CSM", "Risk Adjustment", "Coverage Unit"],
+      "visual_type": "csm_rollforward",
+      "caption": {
+        "en": "IFRS 17 explains how expected future profit is stored in the CSM and released as insurance service is provided.",
+        "zh": "IFRS 17 通过 CSM 展示预期未来利润如何递延，并随保险服务提供逐步释放。",
+        "fr": "IFRS 17 montre comment le profit futur attendu est différé dans la CSM puis reconnu au rythme du service d’assurance rendu."
+      }
+    }
+  },
+  "module_map": {
+    "fundamentals-survival": ["probability", "survival_analysis"],
+    "insurance-fundamentals-business-model": ["business_model"],
+    "pricing-glm-auto": ["glm"],
+    "reserving-chain-ladder": ["chain_ladder", "reserving"],
+    "solvency-scr": ["scr"],
+    "ifrs17-csm": ["ifrs17_csm"],
+    "finance-ratio": ["loss_ratio", "combined_ratio"]
+  }
+}

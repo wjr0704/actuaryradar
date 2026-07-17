@@ -471,6 +471,30 @@ def parse_rss(payload: bytes, source_name: str, max_items: int) -> list[NewsItem
                 rss_title=title,
                 rss_description=summary,
             ))
+    if items:
+        return items
+
+    atom_ns = "{http://www.w3.org/2005/Atom}"
+    for node in root.findall(f".//{atom_ns}entry")[:max_items]:
+        title = clean_text(node.findtext(f"{atom_ns}title"))
+        link_node = node.find(f"{atom_ns}link[@rel='alternate']") or node.find(f"{atom_ns}link")
+        link = clean_text(link_node.attrib.get("href", "") if link_node is not None else "")
+        published = parse_date(node.findtext(f"{atom_ns}published") or node.findtext(f"{atom_ns}updated") or "")
+        summary = clean_text(node.findtext(f"{atom_ns}summary") or node.findtext(f"{atom_ns}content") or "")
+        if title and link:
+            items.append(NewsItem(
+                title=title,
+                source=source_name,
+                url=link,
+                published=published,
+                summary=summary,
+                source_name=source_name,
+                source_url="",
+                original_url=link,
+                via_source="",
+                rss_title=title,
+                rss_description=summary,
+            ))
     return items
 
 
@@ -803,8 +827,23 @@ def select_ai_provider(requested: str) -> str:
 
 
 def ai_language_for_item(item: NewsItem) -> str:
-    detected = detect_language(item)
+    detected = detect_language(item).lower()
     return detected if detected in {"en", "zh", "fr"} else "en"
+
+
+def ai_enrichment_order(items: list[NewsItem], min_zh_items: int) -> list[NewsItem]:
+    """Prioritize a small Chinese-language quota without removing other items."""
+    if min_zh_items <= 0:
+        return items
+    picked: list[NewsItem] = []
+    picked_urls: set[str] = set()
+    for item in items:
+        if len(picked) >= min_zh_items:
+            break
+        if ai_language_for_item(item) == "zh" and len(ai_source_text(item)) >= 350:
+            picked.append(item)
+            picked_urls.add(item.url)
+    return picked + [item for item in items if item.url not in picked_urls]
 
 
 def ai_enrichment_prompt(item: NewsItem, card: ActionCard, source_text: str, language: str) -> list[dict[str, str]]:
@@ -969,6 +1008,7 @@ def ai_enrich_cards(
     provider: str,
     model: str,
     max_items: int,
+    min_zh_items: int = 0,
 ) -> tuple[dict[str, ActionCard], list[str], dict]:
     selected_provider = select_ai_provider(provider)
     ai_log = {
@@ -984,8 +1024,10 @@ def ai_enrich_cards(
             else ""
         ),
         "max_items": max_items,
+        "min_zh_items": min_zh_items,
         "eligible_articles": 0,
         "enriched_articles": 0,
+        "enriched_by_language": {"en": 0, "zh": 0, "fr": 0},
         "skipped_no_article_text": 0,
         "failed_articles": 0,
         "status": "disabled" if (provider or "").lower() == "none" else "not_configured",
@@ -995,7 +1037,7 @@ def ai_enrich_cards(
     updated = dict(cards)
     errors: list[str] = []
     enriched_count = 0
-    for item in items:
+    for item in ai_enrichment_order(items, min_zh_items):
         if enriched_count >= max_items:
             break
         source_text = ai_source_text(item)
@@ -1038,6 +1080,7 @@ def ai_enrich_cards(
             enrichment_basis=item.summary_basis,
         )
         enriched_count += 1
+        ai_log["enriched_by_language"][language] = ai_log["enriched_by_language"].get(language, 0) + 1
     ai_log["enriched_articles"] = enriched_count
     if enriched_count:
         ai_log["status"] = "success" if not ai_log["failed_articles"] else "partial_success"
@@ -1643,6 +1686,7 @@ def main(argv: list[str]) -> int:
     parser.add_argument("--ai-provider", default="auto", choices=["auto", "none", "openai", "perplexity"], help="Optional daily AI enrichment provider. Default auto uses OPENAI_API_KEY then PERPLEXITY_API_KEY.")
     parser.add_argument("--ai-model", default="", help=f"Optional AI model override. Defaults: OpenAI {DEFAULT_AI_MODEL}, Perplexity {DEFAULT_PERPLEXITY_MODEL}.")
     parser.add_argument("--ai-max-items", type=int, default=8, help="Maximum selected articles to enrich with AI.")
+    parser.add_argument("--ai-min-zh-items", type=int, default=2, help="Minimum Chinese-language articles to prioritize for daily AI enrichment when article text is available.")
     args = parser.parse_args(argv)
 
     config = load_config()
@@ -1665,6 +1709,7 @@ def main(argv: list[str]) -> int:
         provider=args.ai_provider,
         model=args.ai_model,
         max_items=max(0, args.ai_max_items),
+        min_zh_items=max(0, args.ai_min_zh_items),
     )
     errors.extend(ai_messages)
     if ai_messages:

@@ -26,6 +26,7 @@ const state = {
   knowledge: [],
   knowledgeCatalog: [],
   knowledgeSources: { items: {}, daily_concepts: [] },
+  knowledgeVisuals: { visuals: {}, module_map: {} },
   learningTaxonomy: null,
   openSourceResources: [],
   knowledgeFocusId: "",
@@ -459,6 +460,15 @@ const pageCopy = {
     portalLatestTitle: "最新保险情报",
     viewAllBriefings: "查看全部情报",
     viewAllIntelligence: "查看全部情报",
+    newsletterEyebrow: "日报订阅",
+    newsletterTitle: "把 ActuaryRadar 发到邮箱",
+    newsletterEmailLabel: "邮箱地址",
+    newsletterEmailPlaceholder: "you@example.com",
+    newsletterSubmit: "订阅日报",
+    newsletterPrivacy: "之后可以退订。你的邮箱仅用于 ActuaryRadar 日报。",
+    newsletterSuccess: "订阅已提交。上线后可在 Netlify Forms 后台查看邮箱。",
+    newsletterError: "订阅暂时失败，请稍后再试。",
+    newsletterLocalPreview: "本地预览已记录提交动作；上线后会保存到 Netlify Forms。",
     portalSectionsEyebrow: "专业栏目",
     portalSectionsTitle: "按主题探索",
     topicRegulationText: "跟踪监管、资本要求、消费者保护和合规变化。",
@@ -545,6 +555,8 @@ const pageCopy = {
     activeTopicLabel: "主题",
     noLearningPlanItems: "当前设置下暂无学习任务。请增加主题或切换难度。",
     noStartedLearningItems: "还没有正在进行的学习项。先从今日学习开始。",
+    viewInsight: "查看情报",
+    viewResearch: "查看资料",
     moreContentSoon: "这个主题的更多可信资料正在整理中。",
     setupLearningFirst: "先保存你的学习偏好，ActuaryRadar 会生成今日学习旅程。",
     customizePlan: "定制学习计划",
@@ -563,6 +575,7 @@ const pageCopy = {
     clearSources: "清空资料源",
     sourceWebsite: "资料",
     sourceVideo: "视频",
+    visualExplanation: "图解说明",
     weeklyFocus: "每周学习计划",
     autoWeekly: "按星期自动安排",
     editWeeklyPlan: "编辑计划",
@@ -671,6 +684,7 @@ const pageCopy = {
     casePractice: "Case 练习",
     showAnswer: "查看参考答案",
     hideAnswer: "收起参考答案",
+    referenceAnswer: "参考答案",
     noSavedReports: "还没有保存内容。保存今日学习或情报后，会在这里形成你的学习记录。",
     untitledTheme: "未标注主题",
     savedAt: "保存于",
@@ -735,6 +749,15 @@ const pageCopy = {
     portalLatestTitle: "Latest Intelligence",
     viewAllBriefings: "View all briefings",
     viewAllIntelligence: "View all intelligence",
+    newsletterEyebrow: "Daily briefing",
+    newsletterTitle: "Get ActuaryRadar in your inbox",
+    newsletterEmailLabel: "Email address",
+    newsletterEmailPlaceholder: "you@example.com",
+    newsletterSubmit: "Subscribe",
+    newsletterPrivacy: "You can unsubscribe later. Your email is used only for the ActuaryRadar daily briefing.",
+    newsletterSuccess: "Subscription submitted. On production, emails are stored in Netlify Forms.",
+    newsletterError: "Subscription failed for now. Please try again later.",
+    newsletterLocalPreview: "Local preview recorded the action; production will save it to Netlify Forms.",
     portalSectionsEyebrow: "Coverage areas",
     portalSectionsTitle: "Explore by Topic",
     topicRegulationText: "Track supervision, capital requirements, consumer protection and compliance changes.",
@@ -821,6 +844,8 @@ const pageCopy = {
     activeTopicLabel: "Topic",
     noLearningPlanItems: "No learning items match the current setup. Add topics or change difficulty.",
     noStartedLearningItems: "No active learning item yet. Start with today’s learning.",
+    viewInsight: "View Insight",
+    viewResearch: "View Research",
     moreContentSoon: "More trusted resources for this topic are being curated.",
     setupLearningFirst: "Save your preferences first, then ActuaryRadar will build today’s learning journey.",
     customizePlan: "Customize Plan",
@@ -839,6 +864,7 @@ const pageCopy = {
     clearSources: "Clear sources",
     sourceWebsite: "Source",
     sourceVideo: "Video",
+    visualExplanation: "Visual Explanation",
     weeklyFocus: "Weekly plan",
     autoWeekly: "Auto by weekday",
     editWeeklyPlan: "Edit plan",
@@ -947,6 +973,7 @@ const pageCopy = {
     casePractice: "Case Practice",
     showAnswer: "Show reference answer",
     hideAnswer: "Hide reference answer",
+    referenceAnswer: "Reference answer",
     noSavedReports: "No saved content yet. Save today’s learning or intelligence to build your learning record.",
     untitledTheme: "Untitled theme",
     savedAt: "saved at",
@@ -1011,6 +1038,15 @@ const pageCopy = {
     portalLatestTitle: "Dernières veilles",
     viewAllBriefings: "Voir toutes les veilles",
     viewAllIntelligence: "Voir toute la veille",
+    newsletterEyebrow: "Veille quotidienne",
+    newsletterTitle: "Recevoir ActuaryRadar par e-mail",
+    newsletterEmailLabel: "Adresse e-mail",
+    newsletterEmailPlaceholder: "vous@example.com",
+    newsletterSubmit: "S’abonner",
+    newsletterPrivacy: "Vous pourrez vous désabonner ultérieurement. Votre e-mail sert uniquement à la veille quotidienne ActuaryRadar.",
+    newsletterSuccess: "Abonnement envoyé. En production, les e-mails sont enregistrés dans Netlify Forms.",
+    newsletterError: "L’abonnement a échoué pour le moment. Veuillez réessayer plus tard.",
+    newsletterLocalPreview: "L’aperçu local a enregistré l’action ; en production, Netlify Forms la conservera.",
     portalSectionsEyebrow: "Domaines couverts",
     portalSectionsTitle: "Explorer par thème",
     topicRegulationText: "Suivre la supervision, les exigences de capital, la protection des assurés et la conformité.",
@@ -1097,6 +1133,8 @@ const pageCopy = {
     activeTopicLabel: "Thème",
     noLearningPlanItems: "Aucun contenu ne correspond au paramétrage actuel. Ajoutez des thèmes ou changez de niveau.",
     noStartedLearningItems: "Aucun contenu en cours. Commencez par la formation du jour.",
+    viewInsight: "Voir la veille",
+    viewResearch: "Consulter",
     moreContentSoon: "D’autres sources fiables sont en cours de sélection pour ce thème.",
     setupLearningFirst: "Enregistrez vos préférences pour générer le parcours de formation du jour.",
     customizePlan: "Personnaliser",
@@ -1115,6 +1153,7 @@ const pageCopy = {
     clearSources: "Désélectionner",
     sourceWebsite: "Consulter",
     sourceVideo: "Vidéo",
+    visualExplanation: "Explication visuelle",
     weeklyFocus: "Parcours de formation",
     autoWeekly: "Répartition par jour",
     editWeeklyPlan: "Modifier",
@@ -1223,6 +1262,7 @@ const pageCopy = {
     casePractice: "Cas pratique",
     showAnswer: "Voir la réponse commentée",
     hideAnswer: "Masquer la réponse",
+    referenceAnswer: "Réponse commentée",
     noSavedReports: "Aucun contenu sauvegardé. Enregistrez une veille ou une journée de formation pour constituer votre journal.",
     untitledTheme: "Thème non renseigné",
     savedAt: "sauvegardé le",
@@ -1477,7 +1517,9 @@ const els = {
   homeCompletedLearningTitle: document.querySelector("#homeCompletedLearningTitle"),
   homeCompletedLearningList: document.querySelector("#homeCompletedLearningList"),
   portalLatestGrid: document.querySelector("#portalLatestGrid"),
-  portalSectionGrid: document.querySelector("#portalSectionGrid")
+  portalSectionGrid: document.querySelector("#portalSectionGrid"),
+  newsletterForm: document.querySelector("#newsletterForm"),
+  newsletterStatus: document.querySelector("#newsletterStatus")
 };
 
 async function init() {
@@ -1501,6 +1543,7 @@ async function init() {
   await loadArchiveIndex();
   await loadOpenSourceResources();
   await loadKnowledgeSources();
+  await loadKnowledgeVisuals();
   await loadKnowledge();
   await loadDigest("./data/digest.json");
   setActivePage(state.activePage);
@@ -1979,6 +2022,7 @@ function bindEvents() {
   els.onboardingModal?.querySelectorAll("[data-close-onboarding]").forEach(node => {
     node.addEventListener("click", closeOnboardingModal);
   });
+  els.newsletterForm?.addEventListener("submit", handleNewsletterSubmit);
 
   els.selectAllSourcesButton.addEventListener("click", () => {
     state.sourcePlan = sourceLibrary.map(source => source.id);
@@ -2027,6 +2071,55 @@ function setActivePage(page) {
   }
   if (page === "home") renderPortal();
   analyticsPageView("route_change");
+}
+
+async function handleNewsletterSubmit(event) {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const status = els.newsletterStatus;
+  const emailInput = form.querySelector("input[name='email']");
+  const email = String(emailInput?.value || "").trim();
+  if (!email) return;
+  const submitButton = form.querySelector("button[type='submit']");
+  submitButton?.setAttribute("disabled", "disabled");
+  if (status) {
+    status.textContent = "";
+    status.className = "newsletter-status";
+  }
+
+  const formData = new FormData(form);
+  const body = new URLSearchParams(formData);
+  try {
+    if (window.location.protocol === "file:" || window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+      if (status) {
+        status.textContent = t("newsletterLocalPreview");
+        status.classList.add("success");
+      }
+    } else {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString()
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      if (status) {
+        status.textContent = t("newsletterSuccess");
+        status.classList.add("success");
+      }
+    }
+    analyticsEvent("daily_briefing_subscription_submitted", {
+      locale: state.language,
+      source: "homepage"
+    });
+    form.reset();
+  } catch {
+    if (status) {
+      status.textContent = t("newsletterError");
+      status.classList.add("error");
+    }
+  } finally {
+    submitButton?.removeAttribute("disabled");
+  }
 }
 
 function syncBodyState() {
@@ -2120,6 +2213,20 @@ async function loadKnowledgeSources() {
     };
   } catch {
     state.knowledgeSources = { items: {}, daily_concepts: [] };
+  }
+}
+
+async function loadKnowledgeVisuals() {
+  try {
+    const response = await fetch("./data/knowledge_visuals.json", { cache: "no-store" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const payload = await response.json();
+    state.knowledgeVisuals = {
+      visuals: payload.visuals || {},
+      module_map: payload.module_map || {}
+    };
+  } catch {
+    state.knowledgeVisuals = { visuals: {}, module_map: {} };
   }
 }
 
@@ -2259,34 +2366,209 @@ function renderPersonalizedConceptCards() {
   const cards = concepts.length
     ? concepts
     : [{ topicId: "Fundamentals", concept: localizedDailyConcept(state.data?.daily_concept || {}) }];
-  els.conceptGrid.innerHTML = cards.map(({ topicId, concept }, index) => `
-    <section class="concept-card" id="${index === 0 ? "dailyConceptBlock" : escapeHtml(`dailyConceptBlock-${index + 1}`)}">
-      <div class="card-meta">
-        <span class="chip">${escapeHtml(t("dailyConcept"))}</span>
-        <span class="chip">${escapeHtml(learningTopicLabel(topicId))}</span>
-        <span class="growth-stage-pill">${escapeHtml(t("growthStage"))}: ${escapeHtml(t("growthSeed"))}</span>
-        <span class="chip">${escapeHtml(t("estimated"))}: 8 ${escapeHtml(t("minutesShort"))}</span>
+  els.conceptGrid.innerHTML = cards.map(({ topicId, concept }, index) => {
+    const visual = visualForConcept(concept.term, topicId);
+    return `
+      <section class="concept-card" id="${index === 0 ? "dailyConceptBlock" : escapeHtml(`dailyConceptBlock-${index + 1}`)}">
+        <div class="card-meta">
+          <span class="chip">${escapeHtml(t("dailyConcept"))}</span>
+          <span class="chip">${escapeHtml(learningTopicLabel(topicId))}</span>
+          <span class="growth-stage-pill">${escapeHtml(t("growthStage"))}: ${escapeHtml(t("growthSeed"))}</span>
+          <span class="chip">${escapeHtml(t("estimated"))}: 8 ${escapeHtml(t("minutesShort"))}</span>
+        </div>
+        <h4>${escapeHtml(concept.term || "-")}</h4>
+        <p>${escapeHtml(concept.definition || "-")}</p>
+        ${renderKnowledgeVisual(visual, "concept")}
+        ${concept.example ? `<p class="concept-example">${escapeHtml(concept.example)}</p>` : ""}
+        ${concept.exercise ? `<p class="prompt">${escapeHtml(concept.exercise)}</p>` : ""}
+        ${renderDailyConceptReferenceAnswer(concept)}
+        <div class="concept-card-actions">
+          ${concept.openUrl ? `<a class="concept-source-link" href="${escapeHtml(concept.openUrl)}">${escapeHtml(t("startLearningItem"))} →</a>` : ""}
+        </div>
+      </section>
+    `;
+  }).join("");
+}
+
+function renderDailyConceptReferenceAnswer(concept) {
+  const answer = String(concept.answer || "").trim();
+  if (!answer || answer === noVerifiedSourceText()) return "";
+  return `
+    <details class="concept-reference-answer">
+      <summary>${escapeHtml(t("referenceAnswer"))}</summary>
+      <p>${escapeHtml(answer)}</p>
+    </details>
+  `;
+}
+
+function normalizeVisualKey(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "");
+}
+
+function visualForConcept(term, topicId = "") {
+  const visuals = state.knowledgeVisuals.visuals || {};
+  const normalizedTerm = normalizeVisualKey(term);
+  const direct = visuals[normalizedTerm];
+  if (direct) return { ...direct, id: normalizedTerm };
+  const entry = Object.entries(visuals).find(([, visual]) =>
+    (visual.match_terms || []).some(match => normalizeVisualKey(match) === normalizedTerm)
+  );
+  if (entry) return { ...entry[1], id: entry[0] };
+  const topicKey = normalizeVisualKey(topicId);
+  const topicEntry = Object.entries(visuals).find(([, visual]) =>
+    (visual.match_terms || []).some(match => normalizeVisualKey(match) === topicKey)
+  );
+  return topicEntry ? { ...topicEntry[1], id: topicEntry[0] } : null;
+}
+
+function visualForKnowledgeModule(module) {
+  const visuals = state.knowledgeVisuals.visuals || {};
+  const mappedIds = state.knowledgeVisuals.module_map?.[module.id] || state.knowledgeVisuals.module_map?.[module.topic_id] || [];
+  const mapped = mappedIds.map(id => visuals[id] ? { ...visuals[id], id } : null).find(Boolean);
+  return mapped || null;
+}
+
+function renderKnowledgeVisual(visual, variant = "module") {
+  if (!visual) return "";
+  const caption = visual.caption?.[state.language] || visual.caption?.en || "";
+  if (!caption) return "";
+  return `
+    <figure class="knowledge-visual ${escapeHtml(`knowledge-visual-${variant}`)}">
+      <div class="knowledge-visual-graphic" aria-hidden="true">
+        ${renderKnowledgeVisualSvg(visual.visual_type || "distribution")}
       </div>
-      <h4>${escapeHtml(concept.term || "-")}</h4>
-      <p>${escapeHtml(concept.definition || "-")}</p>
-      ${concept.example ? `<p class="concept-example">${escapeHtml(concept.example)}</p>` : ""}
-      ${concept.exercise ? `<p class="prompt">${escapeHtml(concept.exercise)}</p>` : ""}
-      <div class="concept-card-actions">
-        ${concept.openUrl ? `<a class="concept-source-link" href="${escapeHtml(concept.openUrl)}">${escapeHtml(t("startLearningItem"))} →</a>` : ""}
-      </div>
-    </section>
-  `).join("");
+      <figcaption>
+        <span>${escapeHtml(t("visualExplanation"))}</span>
+        ${escapeHtml(caption)}
+      </figcaption>
+    </figure>
+  `;
+}
+
+function renderKnowledgeVisualSvg(type) {
+  const baseAttrs = `viewBox="0 0 240 150" role="img" focusable="false"`;
+  const axis = `<path d="M32 122H210M32 122V24" class="visual-axis"/>`;
+  const svgs = {
+    distribution: `
+      <svg ${baseAttrs}>
+        ${axis}
+        <path d="M42 118C62 116 70 105 82 82C95 55 111 34 130 54C146 70 152 103 170 114C184 122 200 121 210 119" class="visual-curve"/>
+        <path d="M171 116C187 122 201 121 210 119" class="visual-tail"/>
+        <circle cx="130" cy="54" r="4" class="visual-dot"/>
+      </svg>
+    `,
+    survival_curve: `
+      <svg ${baseAttrs}>
+        ${axis}
+        <path d="M44 36H78V54H104V72H132V88H160V104H192V118" class="visual-curve"/>
+        <path d="M44 36C80 50 126 88 192 118" class="visual-guide"/>
+        <circle cx="104" cy="72" r="4" class="visual-dot"/>
+      </svg>
+    `,
+    claims_flow: `
+      <svg ${baseAttrs}>
+        <path d="M28 76H206" class="visual-axis"/>
+        <rect x="30" y="48" width="42" height="42" rx="13" class="visual-box"/>
+        <rect x="98" y="48" width="42" height="42" rx="13" class="visual-box accent"/>
+        <rect x="166" y="48" width="42" height="42" rx="13" class="visual-box"/>
+        <path d="M74 69H94M142 69H162" class="visual-curve"/>
+        <path d="M52 42V30M120 42V30M188 42V30" class="visual-stem"/>
+        <path d="M52 30C42 30 37 24 35 17C45 17 51 21 52 30ZM52 30C62 30 67 24 69 17C59 17 53 21 52 30Z" class="visual-leaf"/>
+      </svg>
+    `,
+    business_model: `
+      <svg ${baseAttrs}>
+        <circle cx="120" cy="76" r="30" class="visual-box"/>
+        <circle cx="50" cy="42" r="18" class="visual-box muted"/>
+        <circle cx="190" cy="42" r="18" class="visual-box warm"/>
+        <circle cx="50" cy="112" r="18" class="visual-box warm"/>
+        <circle cx="190" cy="112" r="18" class="visual-box muted"/>
+        <path d="M66 50L94 66M174 50L146 66M66 104L94 88M174 104L146 88" class="visual-curve"/>
+        <path d="M106 76H134M120 62V90" class="visual-stem"/>
+        <path d="M120 33C110 33 104 27 102 20C112 20 118 24 120 33ZM120 33C130 33 136 27 138 20C128 20 122 24 120 33Z" class="visual-leaf"/>
+      </svg>
+    `,
+    ratio_bar: `
+      <svg ${baseAttrs}>
+        ${axis}
+        <rect x="60" y="64" width="34" height="58" rx="8" class="visual-bar muted"/>
+        <rect x="112" y="42" width="34" height="80" rx="8" class="visual-bar"/>
+        <rect x="164" y="78" width="34" height="44" rx="8" class="visual-bar muted"/>
+        <path d="M50 55H204" class="visual-guide"/>
+      </svg>
+    `,
+    combined_ratio: `
+      <svg ${baseAttrs}>
+        ${axis}
+        <rect x="72" y="68" width="38" height="54" rx="8" class="visual-bar"/>
+        <rect x="72" y="44" width="38" height="24" rx="8" class="visual-bar warm"/>
+        <rect x="138" y="58" width="38" height="64" rx="8" class="visual-bar"/>
+        <rect x="138" y="34" width="38" height="24" rx="8" class="visual-bar warm"/>
+        <path d="M48 38H206" class="visual-guide"/>
+      </svg>
+    `,
+    reserve_stack: `
+      <svg ${baseAttrs}>
+        <rect x="58" y="88" width="124" height="28" rx="10" class="visual-bar"/>
+        <rect x="58" y="58" width="124" height="28" rx="10" class="visual-bar muted"/>
+        <rect x="58" y="28" width="124" height="28" rx="10" class="visual-bar warm"/>
+        <path d="M194 30V116" class="visual-axis"/>
+        <path d="M194 30L202 42M194 30L186 42" class="visual-curve"/>
+      </svg>
+    `,
+    triangle: `
+      <svg ${baseAttrs}>
+        <path d="M42 34H198V122H42Z" class="visual-grid-frame"/>
+        <path d="M42 56H198M42 78H198M42 100H198M73 34V122M104 34V122M135 34V122M166 34V122" class="visual-grid"/>
+        <path d="M42 34L198 122" class="visual-tail"/>
+        <circle cx="73" cy="56" r="4" class="visual-dot"/><circle cx="104" cy="78" r="4" class="visual-dot"/><circle cx="135" cy="100" r="4" class="visual-dot"/>
+      </svg>
+    `,
+    glm_pipeline: `
+      <svg ${baseAttrs}>
+        <rect x="26" y="40" width="48" height="70" rx="16" class="visual-box"/>
+        <rect x="96" y="40" width="48" height="70" rx="16" class="visual-box accent"/>
+        <rect x="166" y="40" width="48" height="70" rx="16" class="visual-box"/>
+        <path d="M76 75H92M146 75H162" class="visual-curve"/>
+        <path d="M43 62H58M43 76H62M43 90H54M112 58C122 70 122 82 112 94M180 90L188 72L197 84L206 58" class="visual-stem"/>
+      </svg>
+    `,
+    capital_stack: `
+      <svg ${baseAttrs}>
+        ${axis}
+        <rect x="74" y="82" width="92" height="40" rx="10" class="visual-bar"/>
+        <rect x="74" y="48" width="92" height="32" rx="10" class="visual-bar muted"/>
+        <rect x="74" y="24" width="92" height="22" rx="10" class="visual-bar warm"/>
+        <path d="M52 82H190" class="visual-tail"/>
+        <path d="M52 48H190" class="visual-guide"/>
+      </svg>
+    `,
+    csm_rollforward: `
+      <svg ${baseAttrs}>
+        ${axis}
+        <path d="M48 50H88V122H48Z" class="visual-box"/>
+        <path d="M104 34H144V122H104Z" class="visual-box accent"/>
+        <path d="M160 72H200V122H160Z" class="visual-box"/>
+        <path d="M88 58C98 50 98 46 104 42M144 46C154 54 154 64 160 76" class="visual-curve"/>
+        <path d="M116 22C126 22 132 16 134 9C124 9 118 13 116 22Z" class="visual-leaf"/>
+      </svg>
+    `
+  };
+  return svgs[type] || svgs.distribution;
 }
 
 function personalizedConceptExample(concept, topicId) {
-  const topic = learningTopicLabel(topicId);
   if (state.language === "zh") {
-    return `通俗理解：这是你当前学习主题「${topic}」下的今日概念。先用一句话解释 ${concept.term}，再把它连接到一个保险现金流、假设或风险管理场景。`;
+    return `通俗理解：先用一句话解释 ${concept.term}，再把它连接到一个保险现金流、假设或风险管理场景。`;
   }
   if (state.language === "fr") {
-    return `Exemple simple : ce concept vient de votre thème « ${topic} ». Expliquez ${concept.term} en une phrase, puis reliez-le à un flux d’assurance, une hypothèse ou une décision de gestion des risques.`;
+    return `Exemple simple : expliquez ${concept.term} en une phrase, puis reliez-le à un flux d’assurance, une hypothèse ou une décision de gestion des risques.`;
   }
-  return `Plain example: this concept comes from your selected topic, ${topic}. Explain ${concept.term} in one sentence, then connect it to an insurance cash flow, assumption or risk-management decision.`;
+  return `Plain example: explain ${concept.term} in one sentence, then connect it to an insurance cash flow, assumption or risk-management decision.`;
 }
 
 function renderSectionNav() {
@@ -3466,6 +3748,7 @@ function renderCards(items) {
     const id = itemId(item);
     const node = els.itemTemplate.content.cloneNode(true);
     const card = node.querySelector(".intelligence-card");
+    card.dataset.articleId = id;
     const meta = node.querySelector(".card-meta");
     const title = node.querySelector("h4");
     const keyTakeaway = node.querySelector(".key-takeaway");
@@ -4033,6 +4316,7 @@ function renderKnowledge() {
       </div>
       <h4>${escapeHtml(displayKnowledgeTitle(module))}</h4>
       <p>${escapeHtml(displayKnowledgeSummary(module))}</p>
+      ${renderKnowledgeVisual(visualForKnowledgeModule(module), "module")}
       <div class="knowledge-section">
         <strong>${escapeHtml(t("coreConcepts"))}</strong>
         <div class="tag-cloud static-tags">
@@ -4134,6 +4418,10 @@ function handleLearningActionClick(event) {
 
 function navigateToLearningTarget(openUrl) {
   if (!openUrl) return;
+  if (/^(news|research):/.test(openUrl)) {
+    navigateToBriefingArticle(openUrl);
+    return;
+  }
   if (/^https?:\/\//i.test(openUrl)) {
     analyticsEvent("industry_insight_opened", {
       destination_url: openUrl
@@ -4158,6 +4446,41 @@ function navigateToLearningTarget(openUrl) {
   window.setTimeout(() => {
     document.getElementById(anchor)?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, 50);
+}
+
+function navigateToBriefingArticle(articleLearningId) {
+  const articleId = String(articleLearningId || "").replace(/^(news|research):/, "");
+  const article = state.items.find(item => itemId(item) === articleId || item.url === articleId || item.original_url === articleId);
+  if (!article) return;
+  state.activeSection = normalizeSection(article.platform_section) || "全部";
+  state.dailyNavExpanded = false;
+  state.filters.search = "";
+  setActivePage("daily");
+  renderSectionNav();
+  render();
+  window.setTimeout(() => {
+    let card = findRenderedArticleCard(article);
+    if (!card && state.filters.period !== "all") {
+      state.filters.period = "all";
+      updateSectionFilters();
+      render();
+      card = findRenderedArticleCard(article);
+    }
+    card?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, 80);
+  analyticsEvent("industry_insight_opened", {
+    article_id: itemId(article),
+    article_title: localizedItemTitle(article),
+    source_name: displayPrimarySource(article),
+    topic: normalizeSection(article.platform_section),
+    source: "home_learning"
+  });
+}
+
+function findRenderedArticleCard(article) {
+  const targetId = itemId(article);
+  return Array.from(document.querySelectorAll(".intelligence-card"))
+    .find(card => card.dataset.articleId === targetId);
 }
 
 function resetLearningPreferences() {
@@ -4373,6 +4696,7 @@ function learningItemFromId(id) {
     title: localizedItemTitle(article),
     detail: localizedItemSummary(article) || localizedWhyItMatters(article),
     estimatedMinutes: type === "research" ? 15 : 6,
+    openUrl: value,
     sourceUrl: originalArticleUrl(article)
   };
 }
@@ -4403,7 +4727,7 @@ function renderLearningTaskItem(item, mode) {
   const completed = mode === "completed" || isLearningItemCompleted(item.id);
   const started = Boolean(state.learningProgress.started?.[item.id]);
   const gardenState = completed ? "garden-bloom" : started ? "garden-sprout" : "garden-seed";
-  const titleHtml = item.openUrl
+  const titleHtml = item.openUrl && item.openUrl.startsWith("#")
     ? `<a class="learning-plan-title-link" href="${escapeHtml(item.openUrl)}">${escapeHtml(item.title)}</a>`
     : escapeHtml(item.title);
   const progressText = mode === "completed"
@@ -4414,7 +4738,7 @@ function renderLearningTaskItem(item, mode) {
   const actionHtml = mode === "completed"
     ? `<button class="ghost-button compact-button" type="button" disabled>${escapeHtml(t("completedLabel"))}</button>`
     : `
-        <button class="ghost-button compact-button" type="button" data-learning-start="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}" data-learning-open="${escapeHtml(item.openUrl || item.sourceUrl || "")}"${started || completed ? " disabled" : ""}>${escapeHtml(started ? t("startedLabel") : t("startLearningItem"))}</button>
+        <button class="ghost-button compact-button" type="button" data-learning-start="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}" data-learning-open="${escapeHtml(learningOpenTarget(item))}"${started || completed ? " disabled" : ""}>${escapeHtml(started ? t("startedLabel") : learningPrimaryActionLabel(item))}</button>
         <button class="ghost-button compact-button" type="button" data-learning-complete="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}"${completed ? " disabled" : ""}>${escapeHtml(completed ? t("completedLabel") : t("markComplete"))}</button>
       `;
   return `
@@ -4444,11 +4768,11 @@ function renderHomeLearningTaskItem(item, mode) {
   const started = Boolean(state.learningProgress.started?.[item.id]);
   const gardenState = completed ? "garden-bloom" : started ? "garden-sprout" : "garden-seed";
   const stageLabel = completed ? t("growthBloom") : started ? t("growthSprout") : t("growthSeed");
-  const titleHtml = item.openUrl
+  const titleHtml = item.openUrl && item.openUrl.startsWith("#")
     ? `<a class="learning-plan-title-link" href="${escapeHtml(item.openUrl)}">${escapeHtml(item.title)}</a>`
     : escapeHtml(item.title);
   const reason = learningRecommendationReason(item);
-  const actionLabel = started ? t("continueLearning") : t("startLearningItem");
+  const actionLabel = started ? t("continueLearning") : learningPrimaryActionLabel(item);
   return `
     <article class="learning-plan-item home-learning-task ${escapeHtml(`learning-type-${item.type || "item"}`)} ${escapeHtml(gardenState)}${completed ? " completed" : ""}">
       <label class="learning-complete-box" aria-label="${escapeHtml(t("markComplete"))}">
@@ -4467,10 +4791,21 @@ function renderHomeLearningTaskItem(item, mode) {
       <div class="learning-plan-actions">
         ${mode === "completed"
           ? `<span class="learning-status-pill">${escapeHtml(t("completedLabel"))}</span>`
-          : `<button class="text-link learning-start-link" type="button" data-learning-start="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}" data-learning-open="${escapeHtml(item.openUrl || item.sourceUrl || "")}">${escapeHtml(actionLabel)} →</button>`}
+          : `<button class="text-link learning-start-link" type="button" data-learning-start="${escapeHtml(item.id)}" data-learning-topic="${escapeHtml(item.topicId)}" data-learning-open="${escapeHtml(learningOpenTarget(item))}">${escapeHtml(actionLabel)} →</button>`}
       </div>
     </article>
   `;
+}
+
+function learningOpenTarget(item) {
+  if (item?.type === "news" || item?.type === "research") return item.id || "";
+  return item?.openUrl || item?.sourceUrl || "";
+}
+
+function learningPrimaryActionLabel(item) {
+  if (item?.type === "news") return t("viewInsight");
+  if (item?.type === "research") return t("viewResearch");
+  return t("startLearningItem");
 }
 
 function learningTypeLabel(type) {
@@ -4550,14 +4885,19 @@ function personalizedDailyConceptForTopic(topicId) {
     definition: detail.definition,
     example: detail.example,
     exercise: detail.exercise,
+    answer: dailyConceptReferenceAnswer(module),
     sourceUrl: firstKnowledgeSourceLink(module),
     openUrl: `#${knowledgeCardAnchor(module)}`
   };
 }
 
+function dailyConceptReferenceAnswer(module) {
+  const answer = displayKnowledgeAnswer(module);
+  return answer && answer !== noVerifiedSourceText() ? answer : "";
+}
+
 function curatedConceptDetail(term, module, topicId) {
   const key = String(term || "").toLowerCase();
-  const topic = learningTopicLabel(topicId);
   const details = {
     probability: {
       zh: {
@@ -4766,11 +5106,12 @@ function curatedConceptDetail(term, module, topicId) {
   };
   const detail = details[key]?.[state.language] || details[key]?.en;
   if (detail) return detail;
+  const summary = displayKnowledgeSummary(module);
   const fallbackDefinition = state.language === "zh"
-    ? `${term} 是「${topic}」主题下的学习概念。${displayKnowledgeSummary(module)}`
+    ? `${term}：${summary || "把这个概念连接到保险现金流、假设、盈利和资本管理。"}`
     : state.language === "fr"
-    ? `${term} est un concept du thème « ${topic} ». ${displayKnowledgeSummary(module)}`
-    : `${term} is a concept within ${topic}. ${displayKnowledgeSummary(module)}`;
+    ? `${term} : ${summary || "Reliez ce concept aux flux d’assurance, aux hypothèses, au résultat et au capital."}`
+    : `${term}: ${summary || "Connect this concept to insurance cash flows, assumptions, earnings and capital."}`;
   return {
     definition: fallbackDefinition,
     example: personalizedConceptExample({ term }, topicId),
@@ -4804,6 +5145,7 @@ function relatedNewsItems(selectedTopics) {
         title: localizedItemTitle(item),
         detail: localizedItemSummary(item) || localizedWhyItMatters(item),
         estimatedMinutes: 6,
+        openUrl: `news:${itemId(item)}`,
         sourceUrl: originalArticleUrl(item)
       };
     });
@@ -4825,6 +5167,7 @@ function researchLearningItems(selectedTopics) {
         title: localizedItemTitle(item),
         detail: localizedWhyItMatters(item) || localizedItemSummary(item),
         estimatedMinutes: 15,
+        openUrl: `research:${itemId(item)}`,
         sourceUrl: originalArticleUrl(item)
       };
     });
