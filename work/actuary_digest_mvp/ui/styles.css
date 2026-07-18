@@ -2086,6 +2086,8 @@ body[data-page="daily"]:not([data-section="all"]) .focus-band {
   color: #334155;
   font-size: clamp(13px, 0.92vw, 14px);
   line-height: 1.5;
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
 
 .summary-list li + li {
@@ -2256,6 +2258,10 @@ body[data-page="daily"]:not([data-section="all"]) .focus-band {
   top: var(--section-gap);
   display: grid;
   gap: clamp(8px, 0.8vw, 10px);
+  max-height: calc(100vh - (var(--section-gap) * 2));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 2px;
 }
 
 .board-section {
@@ -2304,6 +2310,10 @@ body[data-page="daily"]:not([data-section="all"]) .focus-band {
   color: var(--muted);
   font-size: 13px;
   line-height: 1.5;
+  max-height: min(56vh, 620px);
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+  padding-right: 4px;
 }
 
 .tag-cloud {
@@ -2651,9 +2661,15 @@ body[data-page="daily"]:not([data-section="all"]) .focus-band {
   color: var(--muted);
   font-size: 13px;
   line-height: 1.5;
+  max-height: min(56vh, 620px);
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+  padding-right: 4px;
+  scrollbar-gutter: stable;
 }
 
-.ai-answer ol {
+.ai-answer ol,
+.ai-summary-list {
   padding-left: 20px;
 }
 
@@ -2664,6 +2680,13 @@ body[data-page="daily"]:not([data-section="all"]) .focus-band {
 .ai-answer ul {
   margin: 6px 0 0;
   padding-left: 18px;
+}
+
+.ai-answer p,
+.ai-answer small,
+.ai-summary-list,
+.ai-summary-list li {
+  overflow-wrap: anywhere;
 }
 
 .ai-answer small {
