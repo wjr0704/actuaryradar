@@ -810,6 +810,11 @@ def localized_why_it_matters(item: NewsItem, primary: str, tags: list[str], lang
 def ai_source_text(item: NewsItem) -> str:
     if item.summary_basis == "article_text" and item.extracted_text:
         return item.extracted_text
+    if item.summary_basis == "rss_excerpt" and item.summary:
+        normalized_summary = normalize_for_similarity(item.summary)
+        normalized_title = normalize_for_similarity(item.title)
+        if normalized_summary and normalized_summary != normalized_title:
+            return item.summary
     return ""
 
 
@@ -831,16 +836,38 @@ def ai_language_for_item(item: NewsItem) -> str:
     return detected if detected in {"en", "zh", "fr"} else "en"
 
 
+def minimum_ai_source_length(item: NewsItem) -> int:
+    if item.summary_basis == "article_text":
+        return 350
+    if item.summary_basis == "rss_excerpt" and ai_language_for_item(item) == "zh":
+        return 30
+    return 350
+
+
+def has_ai_source_text(item: NewsItem) -> bool:
+    return len(ai_source_text(item)) >= minimum_ai_source_length(item)
+
+
 def ai_enrichment_order(items: list[NewsItem], min_zh_items: int) -> list[NewsItem]:
-    """Prioritize a small Chinese-language quota without removing other items."""
+    """Reserve a small Chinese-language quota before filling the remaining AI slots."""
     if min_zh_items <= 0:
         return items
     picked: list[NewsItem] = []
     picked_urls: set[str] = set()
-    for item in items:
-        if len(picked) >= min_zh_items:
-            break
-        if ai_language_for_item(item) == "zh" and len(ai_source_text(item)) >= 350:
+    zh_article_text = [
+        item for item in items
+        if ai_language_for_item(item) == "zh"
+        and item.summary_basis == "article_text"
+        and has_ai_source_text(item)
+    ]
+    zh_excerpt = [
+        item for item in items
+        if ai_language_for_item(item) == "zh"
+        and item.summary_basis == "rss_excerpt"
+        and has_ai_source_text(item)
+    ]
+    for item in zh_article_text + zh_excerpt:
+        if len(picked) < min_zh_items and item.url not in picked_urls:
             picked.append(item)
             picked_urls.add(item.url)
     return picked + [item for item in items if item.url not in picked_urls]
@@ -850,7 +877,7 @@ def ai_enrichment_prompt(item: NewsItem, card: ActionCard, source_text: str, lan
     language_name = {"en": "English", "zh": "Chinese", "fr": "French"}.get(language, "English")
     system = (
         "You are an insurance intelligence editor for actuaries, reinsurers and risk professionals. "
-        "Use only the supplied article text. Do not invent facts, figures, sources or URLs. "
+        "Use only the supplied source text or RSS excerpt. Do not invent facts, figures, sources or URLs. "
         "If the text is insufficient, return empty strings. "
         "Return strict JSON only."
     )
@@ -1041,7 +1068,7 @@ def ai_enrich_cards(
         if enriched_count >= max_items:
             break
         source_text = ai_source_text(item)
-        if len(source_text) < 350:
+        if len(source_text) < minimum_ai_source_length(item):
             ai_log["skipped_no_article_text"] += 1
             continue
         ai_log["eligible_articles"] += 1
@@ -1245,7 +1272,7 @@ def select_items(
     selected_urls = {item.url for item in selected}
     selected_zh = [
         item for item in selected
-        if ai_language_for_item(item) == "zh" and item.summary_basis == "article_text"
+        if ai_language_for_item(item) == "zh" and has_ai_source_text(item)
     ]
     if len(selected_zh) >= min_zh_article_text_items:
         return selected
@@ -1254,7 +1281,7 @@ def select_items(
         item for item in ranked
         if item.url not in selected_urls
         and ai_language_for_item(item) == "zh"
-        and item.summary_basis == "article_text"
+        and has_ai_source_text(item)
     ]
     needed = min_zh_article_text_items - len(selected_zh)
     for candidate in zh_candidates[:needed]:
@@ -1264,7 +1291,7 @@ def select_items(
     if len(selected) <= max_report_items:
         return selected
 
-    protected = {item.url for item in selected if ai_language_for_item(item) == "zh" and item.summary_basis == "article_text"}
+    protected = {item.url for item in selected if ai_language_for_item(item) == "zh" and has_ai_source_text(item)}
     trimmed: list[NewsItem] = []
     for item in selected:
         if len(trimmed) < max_report_items:
