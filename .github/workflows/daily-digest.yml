@@ -74,13 +74,17 @@ jobs:
 
       - name: Verify refreshed site data
         if: github.event_name != 'schedule' || steps.paris_time.outputs.hour == '08'
+        env:
+          AI_MIN_ZH_ITEMS: ${{ vars.AI_MIN_ZH_ITEMS }}
         run: |
           python - <<'PY'
           import json
+          import os
           import pathlib
           import sys
 
           expected = "${{ steps.paris_time.outputs.date }}"
+          min_zh = int(os.environ.get("AI_MIN_ZH_ITEMS") or "2")
           paths = [
               pathlib.Path("outputs/actuary_radar_site/data/digest.json"),
               pathlib.Path("work/actuary_digest_mvp/ui/data/digest.json"),
@@ -97,8 +101,15 @@ jobs:
                   if item.get("ai_enriched")
                   and (item.get("enrichment_basis") or item.get("summary_basis")) == "article_text"
               )
-              print(f"{path}: Expected={expected} Actual={actual} Items={len(items)} SourceGroundedAI={source_grounded} AI={ai}")
-              if actual != expected or not items or source_grounded <= 0:
+              source_grounded_zh = sum(
+                  1
+                  for item in items
+                  if item.get("ai_enriched")
+                  and (item.get("enrichment_basis") or item.get("summary_basis")) == "article_text"
+                  and (item.get("source_language") or item.get("original_language") or "").lower().startswith("zh")
+              )
+              print(f"{path}: Expected={expected} Actual={actual} Items={len(items)} SourceGroundedAI={source_grounded} SourceGroundedZH={source_grounded_zh} AI={ai}")
+              if actual != expected or not items or source_grounded <= 0 or source_grounded_zh < min_zh:
                   sys.exit(1)
           PY
 

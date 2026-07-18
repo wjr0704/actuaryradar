@@ -1218,13 +1218,18 @@ def infer_platform_section(category: str, item: NewsItem) -> str:
     return "行业趋势与学习"
 
 
-def select_items(items: Iterable[NewsItem], max_report_items: int, focus_profile: dict | None = None) -> list[NewsItem]:
+def select_items(
+    items: Iterable[NewsItem],
+    max_report_items: int,
+    focus_profile: dict | None = None,
+    min_zh_article_text_items: int = 0,
+) -> list[NewsItem]:
     eligible = []
     for item in items:
         card = build_action_card(item)
         if card.platform_section != "company_results_strategy":
             eligible.append(item)
-    return sorted(
+    ranked = sorted(
         eligible,
         key=lambda item: (
             1 if item.summary_basis == "article_text" else 0,
@@ -1232,7 +1237,45 @@ def select_items(items: Iterable[NewsItem], max_report_items: int, focus_profile
             item.published or "",
         ),
         reverse=True,
-    )[:max_report_items]
+    )
+    selected = ranked[:max_report_items]
+    if min_zh_article_text_items <= 0:
+        return selected
+
+    selected_urls = {item.url for item in selected}
+    selected_zh = [
+        item for item in selected
+        if ai_language_for_item(item) == "zh" and item.summary_basis == "article_text"
+    ]
+    if len(selected_zh) >= min_zh_article_text_items:
+        return selected
+
+    zh_candidates = [
+        item for item in ranked
+        if item.url not in selected_urls
+        and ai_language_for_item(item) == "zh"
+        and item.summary_basis == "article_text"
+    ]
+    needed = min_zh_article_text_items - len(selected_zh)
+    for candidate in zh_candidates[:needed]:
+        selected.append(candidate)
+        selected_urls.add(candidate.url)
+
+    if len(selected) <= max_report_items:
+        return selected
+
+    protected = {item.url for item in selected if ai_language_for_item(item) == "zh" and item.summary_basis == "article_text"}
+    trimmed: list[NewsItem] = []
+    for item in selected:
+        if len(trimmed) < max_report_items:
+            trimmed.append(item)
+            continue
+        if item.url in protected:
+            for index in range(len(trimmed) - 1, -1, -1):
+                if trimmed[index].url not in protected:
+                    trimmed[index] = item
+                    break
+    return trimmed
 
 
 def render_markdown(items: list[NewsItem], cards: dict[str, ActionCard], report_date: str, errors: list[str], used_samples: bool, focus_profile: dict) -> str:
@@ -1701,7 +1744,12 @@ def main(argv: list[str]) -> int:
         items = load_samples()
         used_samples = True
 
-    selected = select_items(items, int(config.get("limits", {}).get("max_report_items", 8)), focus_profile)
+    selected = select_items(
+        items,
+        int(config.get("limits", {}).get("max_report_items", 8)),
+        focus_profile,
+        min_zh_article_text_items=max(0, args.ai_min_zh_items),
+    )
     cards = {item.url: build_action_card(item) for item in selected}
     cards, ai_messages, ai_log = ai_enrich_cards(
         selected,
