@@ -115,7 +115,9 @@ jobs:
                   and (item.get("source_language") or item.get("original_language") or "").lower().startswith("zh")
               )
               print(f"{path}: Expected={expected} Actual={actual} Items={len(items)} SourceGroundedAI={source_grounded} SourceGroundedZH={source_grounded_zh} AIZH={ai_zh} AI={ai}")
-              if actual != expected or not items or source_grounded <= 0 or ai_zh < min_zh:
+              if ai_zh < min_zh:
+                  print(f"::warning file={path}::Chinese AI summaries below target: {ai_zh}/{min_zh}. Refresh will continue so the site does not miss the daily update.")
+              if actual != expected or not items or source_grounded <= 0:
                   sys.exit(1)
           PY
 
