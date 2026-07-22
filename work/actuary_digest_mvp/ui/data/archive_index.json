@@ -1,13 +1,13 @@
 {
   "archives": [
     {
-      "date": "2026-07-18",
-      "title": "2026-07-18",
+      "date": "2026-07-22",
+      "title": "2026-07-22",
       "mode": "rss",
-      "theme": "周六：保险科技与跨行业联动",
-      "json": "./data/archive/2026-07-18.json",
-      "html": "./reports/2026-07-18.html",
-      "markdown": "./reports/2026-07-18.md"
+      "theme": "周三：财险、车险与巨灾风险",
+      "json": "./data/archive/2026-07-22.json",
+      "html": "./reports/2026-07-22.html",
+      "markdown": "./reports/2026-07-22.md"
     }
   ]
 }
