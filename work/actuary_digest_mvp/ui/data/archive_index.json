@@ -1,13 +1,13 @@
 {
   "archives": [
     {
-      "date": "2026-08-09",
-      "title": "2026-08-09",
+      "date": "2026-08-11",
+      "title": "2026-08-11",
       "mode": "rss",
-      "theme": "周日：研究报告、战略复盘与下周计划",
-      "json": "./data/archive/2026-08-09.json",
-      "html": "./reports/2026-08-09.html",
-      "markdown": "./reports/2026-08-09.md"
+      "theme": "周二：健康险与医疗趋势",
+      "json": "./data/archive/2026-08-11.json",
+      "html": "./reports/2026-08-11.html",
+      "markdown": "./reports/2026-08-11.md"
     }
   ]
 }
