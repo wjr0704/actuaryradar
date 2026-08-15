@@ -1,13 +1,13 @@
 {
   "archives": [
     {
-      "date": "2026-08-11",
-      "title": "2026-08-11",
+      "date": "2026-08-15",
+      "title": "2026-08-15",
       "mode": "rss",
-      "theme": "周二：健康险与医疗趋势",
-      "json": "./data/archive/2026-08-11.json",
-      "html": "./reports/2026-08-11.html",
-      "markdown": "./reports/2026-08-11.md"
+      "theme": "周六：保险科技与跨行业联动",
+      "json": "./data/archive/2026-08-15.json",
+      "html": "./reports/2026-08-15.html",
+      "markdown": "./reports/2026-08-15.md"
     }
   ]
 }
