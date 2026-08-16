@@ -1,13 +1,13 @@
 {
   "archives": [
     {
-      "date": "2026-08-15",
-      "title": "2026-08-15",
+      "date": "2026-08-16",
+      "title": "2026-08-16",
       "mode": "rss",
-      "theme": "周六：保险科技与跨行业联动",
-      "json": "./data/archive/2026-08-15.json",
-      "html": "./reports/2026-08-15.html",
-      "markdown": "./reports/2026-08-15.md"
+      "theme": "周日：研究报告、战略复盘与下周计划",
+      "json": "./data/archive/2026-08-16.json",
+      "html": "./reports/2026-08-16.html",
+      "markdown": "./reports/2026-08-16.md"
     }
   ]
 }
