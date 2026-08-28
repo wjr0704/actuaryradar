@@ -1,13 +1,13 @@
 {
   "archives": [
     {
-      "date": "2026-08-26",
-      "title": "2026-08-26",
+      "date": "2026-08-28",
+      "title": "2026-08-28",
       "mode": "rss",
-      "theme": "周三：财险、车险与巨灾风险",
-      "json": "./data/archive/2026-08-26.json",
-      "html": "./reports/2026-08-26.html",
-      "markdown": "./reports/2026-08-26.md"
+      "theme": "周五：IFRS 17、财报与资本管理",
+      "json": "./data/archive/2026-08-28.json",
+      "html": "./reports/2026-08-28.html",
+      "markdown": "./reports/2026-08-28.md"
     }
   ]
 }
