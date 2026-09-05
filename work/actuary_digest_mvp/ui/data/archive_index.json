@@ -1,13 +1,13 @@
 {
   "archives": [
     {
-      "date": "2026-09-03",
-      "title": "2026-09-03",
+      "date": "2026-09-05",
+      "title": "2026-09-05",
       "mode": "rss",
-      "theme": "周四：再保险、经纪与风险转移",
-      "json": "./data/archive/2026-09-03.json",
-      "html": "./reports/2026-09-03.html",
-      "markdown": "./reports/2026-09-03.md"
+      "theme": "周六：保险科技与跨行业联动",
+      "json": "./data/archive/2026-09-05.json",
+      "html": "./reports/2026-09-05.html",
+      "markdown": "./reports/2026-09-05.md"
     }
   ]
 }
