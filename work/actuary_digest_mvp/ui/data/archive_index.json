@@ -1,13 +1,13 @@
 {
   "archives": [
     {
-      "date": "2026-09-10",
-      "title": "2026-09-10",
+      "date": "2026-09-15",
+      "title": "2026-09-15",
       "mode": "rss",
-      "theme": "周四：再保险、经纪与风险转移",
-      "json": "./data/archive/2026-09-10.json",
-      "html": "./reports/2026-09-10.html",
-      "markdown": "./reports/2026-09-10.md"
+      "theme": "周二：健康险与医疗趋势",
+      "json": "./data/archive/2026-09-15.json",
+      "html": "./reports/2026-09-15.html",
+      "markdown": "./reports/2026-09-15.md"
     }
   ]
 }
