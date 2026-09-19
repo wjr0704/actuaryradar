@@ -20,8 +20,9 @@ export async function handler(event) {
     const subscriber = tokenHash ? await getSubscriberByConfirmationTokenHash(tokenHash) : null;
     if (!subscriber) {
       return htmlResponse(statusPage({
-        title: "Subscription link expired",
-        body: "This confirmation link is invalid or has already been used."
+        title: "This confirmation link is no longer active",
+        body: "This one-time link may have already confirmed your subscription, or a newer confirmation email may have replaced it. If you already confirmed, no further action is needed. Otherwise, subscribe again to receive a new link.",
+        cta: "Open ActuaryRadar"
       }), 400);
     }
     await updateSubscriberById(subscriber.id, {
