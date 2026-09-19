@@ -467,6 +467,7 @@ const pageCopy = {
     newsletterSubmit: "订阅日报",
     newsletterPrivacy: "之后可以退订。你的邮箱仅用于 ActuaryRadar 日报。",
     newsletterSuccess: "订阅确认邮件已发送，请检查邮箱完成确认。",
+    newsletterAlreadySubscribed: "该邮箱已经订阅 ActuaryRadar 日报，无需重复提交。",
     newsletterError: "订阅暂时失败，请稍后再试。",
     newsletterLocalPreview: "本地预览不会发送确认邮件；上线后会通过订阅 API 处理。",
     portalSectionsEyebrow: "专业栏目",
@@ -756,6 +757,7 @@ const pageCopy = {
     newsletterSubmit: "Subscribe",
     newsletterPrivacy: "You can unsubscribe later. Your email is used only for the ActuaryRadar daily briefing.",
     newsletterSuccess: "Confirmation email sent. Please check your inbox to complete subscription.",
+    newsletterAlreadySubscribed: "This email is already subscribed to ActuaryRadar Daily. No further action is needed.",
     newsletterError: "Subscription failed for now. Please try again later.",
     newsletterLocalPreview: "Local preview does not send confirmation email; production will use the newsletter API.",
     portalSectionsEyebrow: "Coverage areas",
@@ -1045,6 +1047,7 @@ const pageCopy = {
     newsletterSubmit: "S’abonner",
     newsletterPrivacy: "Vous pourrez vous désabonner ultérieurement. Votre e-mail sert uniquement à la veille quotidienne ActuaryRadar.",
     newsletterSuccess: "E-mail de confirmation envoyé. Veuillez consulter votre boîte de réception.",
+    newsletterAlreadySubscribed: "Cette adresse e-mail est déjà abonnée à ActuaryRadar Daily. Aucune autre action n’est nécessaire.",
     newsletterError: "L’abonnement a échoué pour le moment. Veuillez réessayer plus tard.",
     newsletterLocalPreview: "L’aperçu local n’envoie pas d’e-mail ; la production utilisera l’API d’abonnement.",
     portalSectionsEyebrow: "Domaines couverts",
@@ -2104,9 +2107,12 @@ async function handleNewsletterSubmit(event) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
       });
+      const result = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       if (status) {
-        status.textContent = t("newsletterSuccess");
+        status.textContent = result.status === "already_subscribed"
+          ? t("newsletterAlreadySubscribed")
+          : t("newsletterSuccess");
         status.classList.add("success");
       }
     }

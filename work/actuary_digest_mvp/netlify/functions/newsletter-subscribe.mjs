@@ -26,17 +26,27 @@ export async function handler(event) {
     checkRateLimit(`${clientIp(event)}:${email}`);
     requireNewsletterEnv();
 
+    const existing = await getSubscriberByEmail(email);
+
+    if (existing?.status === "active") {
+      console.log(JSON.stringify({ event: "newsletter_subscribe_duplicate", status: "active", language }));
+      return jsonResponse({
+        ok: true,
+        status: "already_subscribed",
+        message: "This email is already subscribed to ActuaryRadar Daily. No further action is needed."
+      });
+    }
+
     const confirmationToken = makeToken();
     const unsubscribeToken = makeToken();
     const confirmationHash = hashToken(confirmationToken);
-    const existing = await getSubscriberByEmail(email);
     let subscriber = existing;
 
     if (existing) {
       subscriber = await updateSubscriberById(existing.id, {
-        status: existing.status === "active" ? "active" : "pending",
+        status: "pending",
         language,
-        confirmation_token: existing.status === "active" ? null : confirmationHash,
+        confirmation_token: confirmationHash,
         unsubscribe_token: existing.unsubscribe_token || unsubscribeToken,
         unsubscribed_at: null
       });
@@ -58,6 +68,7 @@ export async function handler(event) {
     console.log(JSON.stringify({ event: "newsletter_subscribe", status: subscriber?.status, language }));
     return jsonResponse({
       ok: true,
+      status: "confirmation_sent",
       message: "Please check your inbox to confirm your ActuaryRadar Daily subscription."
     });
   } catch (error) {
