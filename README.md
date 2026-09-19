@@ -123,6 +123,30 @@ See [.env.example](./.env.example) for supported environment variables.
 
 Do not commit real API keys, Gmail app passwords, database URLs, Netlify secrets, or service-role credentials.
 
+## Newsletter
+
+The production newsletter MVP uses Supabase for subscriber storage and Resend
+for email delivery. It supports double opt-in confirmation, unsubscribe links,
+and delivery de-duplication by subscriber and digest date.
+
+Run the Supabase migration before enabling the feature:
+
+```text
+supabase/migrations/202609020001_newsletter.sql
+```
+
+Required server-side environment variables:
+
+```text
+SUPABASE_URL
+SUPABASE_SERVICE_ROLE_KEY
+RESEND_API_KEY
+DAILY_BRIEFING_FROM
+SITE_BASE_URL
+```
+
+See [Email setup](./work/actuary_digest_mvp/docs/email_setup.md) for details.
+
 ## Documentation
 
 - [Production automation architecture](./work/actuary_digest_mvp/docs/production_automation_architecture.md)

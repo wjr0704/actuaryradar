@@ -1,41 +1,91 @@
 # Daily briefing email setup
 
-## MVP: collect subscribers with Netlify Forms
+## Production MVP: Supabase + Resend
 
-The current website includes a homepage subscription form named:
-
-```text
-actuaryradar-daily-briefing
-```
-
-On Netlify production deploys, submissions are stored in:
+The homepage subscription form posts to:
 
 ```text
-Netlify project -> Forms -> actuaryradar-daily-briefing
+/api/newsletter/subscribe
 ```
 
-This MVP does not call OpenAI when a visitor subscribes. It only stores the
-email address through Netlify Forms. The daily email content should reuse the
-already-generated `digest.json` and report files.
+Netlify redirects this path to the server-side function:
 
-Recommended rollout:
+```text
+/.netlify/functions/newsletter-subscribe
+```
 
-1. Deploy the site to Netlify.
-2. Submit your own email through the homepage form.
-3. Confirm it appears in Netlify Forms.
-4. Export the subscriber list or connect a mailing provider.
-5. Send the same generated daily briefing to subscribers after the daily refresh.
+The subscription system uses:
 
-Recommended production mail providers:
+- Supabase/PostgreSQL for subscribers and delivery logs
+- Resend for double-opt-in confirmation and daily email delivery
+- Netlify Scheduled Functions for the daily send job
 
-- Resend
-- Brevo
-- Buttondown
-- Mailchimp
-- SendGrid
+The daily email does not call OpenAI per subscriber. It reuses the latest
+already-generated `digest.json`.
 
-For public subscriptions, add unsubscribe handling before sending recurring
-emails to a wider audience.
+### 1. Create Supabase tables
+
+Run this migration in Supabase SQL Editor:
+
+```text
+supabase/migrations/202609020001_newsletter.sql
+```
+
+It creates:
+
+- `newsletter_subscribers`
+- `newsletter_deliveries`
+
+The unique `subscriber_id + digest_date` constraint prevents duplicate daily
+editions for the same subscriber.
+
+### 2. Configure Netlify environment variables
+
+Set these in Netlify:
+
+```bash
+SUPABASE_URL="https://your-project.supabase.co"
+SUPABASE_SECRET_KEY="your_sb_secret_key"
+RESEND_API_KEY="your_resend_api_key"
+DAILY_BRIEFING_FROM="ActuaryRadar <briefing@your-domain.com>"
+SITE_BASE_URL="https://insuranceactuaryhub.com"
+```
+
+Keep `SUPABASE_SECRET_KEY` and `RESEND_API_KEY` server-side only. Do not put
+them in frontend JavaScript or commit them to GitHub. Existing projects may
+use `SUPABASE_SERVICE_ROLE_KEY` as a legacy fallback.
+
+### 3. Confirm Resend sender domain
+
+For production, verify the sender domain in Resend before using a custom
+`DAILY_BRIEFING_FROM` address.
+
+### 4. Endpoints
+
+```text
+POST /api/newsletter/subscribe
+GET  /api/newsletter/confirm?token=...
+GET  /api/newsletter/unsubscribe?token=...
+GET  /api/newsletter/send-daily
+```
+
+### 5. Daily send schedule
+
+`newsletter-daily-send` runs daily through Netlify Scheduled Functions. It:
+
+1. Loads the latest `digest.json`.
+2. Fetches active subscribers from Supabase.
+3. Skips subscribers already sent for the same `digest_date`.
+4. Sends through Resend.
+5. Writes a delivery record.
+
+### 6. Privacy notes
+
+- Email addresses are stored in Supabase.
+- Confirmation tokens are stored as SHA-256 hashes.
+- Unsubscribe tokens are stable random tokens so links in older emails continue to work.
+- The frontend never sees Supabase service-role keys or Resend keys.
+- Add a public privacy notice before inviting a wider audience.
 
 ---
 

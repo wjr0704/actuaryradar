@@ -3,6 +3,26 @@
   command = "python3 work/actuary_digest_mvp/src/build_site.py --base-url https://insuranceactuaryhub.com"
   functions = "work/actuary_digest_mvp/netlify/functions"
 
+[[redirects]]
+  from = "/api/newsletter/subscribe"
+  to = "/.netlify/functions/newsletter-subscribe"
+  status = 200
+
+[[redirects]]
+  from = "/api/newsletter/confirm"
+  to = "/.netlify/functions/newsletter-confirm"
+  status = 200
+
+[[redirects]]
+  from = "/api/newsletter/unsubscribe"
+  to = "/.netlify/functions/newsletter-unsubscribe"
+  status = 200
+
+[[redirects]]
+  from = "/api/newsletter/send-daily"
+  to = "/.netlify/functions/newsletter-daily-send"
+  status = 200
+
 [[headers]]
   for = "/data/*.json"
   [headers.values]

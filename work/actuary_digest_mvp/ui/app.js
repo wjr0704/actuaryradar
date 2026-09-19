@@ -466,9 +466,9 @@ const pageCopy = {
     newsletterEmailPlaceholder: "you@example.com",
     newsletterSubmit: "订阅日报",
     newsletterPrivacy: "之后可以退订。你的邮箱仅用于 ActuaryRadar 日报。",
-    newsletterSuccess: "订阅已提交。上线后可在 Netlify Forms 后台查看邮箱。",
+    newsletterSuccess: "订阅确认邮件已发送，请检查邮箱完成确认。",
     newsletterError: "订阅暂时失败，请稍后再试。",
-    newsletterLocalPreview: "本地预览已记录提交动作；上线后会保存到 Netlify Forms。",
+    newsletterLocalPreview: "本地预览不会发送确认邮件；上线后会通过订阅 API 处理。",
     portalSectionsEyebrow: "专业栏目",
     portalSectionsTitle: "按主题探索",
     topicRegulationText: "跟踪监管、资本要求、消费者保护和合规变化。",
@@ -755,9 +755,9 @@ const pageCopy = {
     newsletterEmailPlaceholder: "you@example.com",
     newsletterSubmit: "Subscribe",
     newsletterPrivacy: "You can unsubscribe later. Your email is used only for the ActuaryRadar daily briefing.",
-    newsletterSuccess: "Subscription submitted. On production, emails are stored in Netlify Forms.",
+    newsletterSuccess: "Confirmation email sent. Please check your inbox to complete subscription.",
     newsletterError: "Subscription failed for now. Please try again later.",
-    newsletterLocalPreview: "Local preview recorded the action; production will save it to Netlify Forms.",
+    newsletterLocalPreview: "Local preview does not send confirmation email; production will use the newsletter API.",
     portalSectionsEyebrow: "Coverage areas",
     portalSectionsTitle: "Explore by Topic",
     topicRegulationText: "Track supervision, capital requirements, consumer protection and compliance changes.",
@@ -1044,9 +1044,9 @@ const pageCopy = {
     newsletterEmailPlaceholder: "vous@example.com",
     newsletterSubmit: "S’abonner",
     newsletterPrivacy: "Vous pourrez vous désabonner ultérieurement. Votre e-mail sert uniquement à la veille quotidienne ActuaryRadar.",
-    newsletterSuccess: "Abonnement envoyé. En production, les e-mails sont enregistrés dans Netlify Forms.",
+    newsletterSuccess: "E-mail de confirmation envoyé. Veuillez consulter votre boîte de réception.",
     newsletterError: "L’abonnement a échoué pour le moment. Veuillez réessayer plus tard.",
-    newsletterLocalPreview: "L’aperçu local a enregistré l’action ; en production, Netlify Forms la conservera.",
+    newsletterLocalPreview: "L’aperçu local n’envoie pas d’e-mail ; la production utilisera l’API d’abonnement.",
     portalSectionsEyebrow: "Domaines couverts",
     portalSectionsTitle: "Explorer par thème",
     topicRegulationText: "Suivre la supervision, les exigences de capital, la protection des assurés et la conformité.",
@@ -2087,8 +2087,11 @@ async function handleNewsletterSubmit(event) {
     status.className = "newsletter-status";
   }
 
-  const formData = new FormData(form);
-  const body = new URLSearchParams(formData);
+  const body = {
+    email,
+    language: state.language,
+    source: "homepage"
+  };
   try {
     if (window.location.protocol === "file:" || window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
       if (status) {
@@ -2096,10 +2099,10 @@ async function handleNewsletterSubmit(event) {
         status.classList.add("success");
       }
     } else {
-      const response = await fetch("/", {
+      const response = await fetch("/api/newsletter/subscribe", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: body.toString()
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
       });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       if (status) {
