@@ -3,7 +3,7 @@ name: Daily ActuaryRadar Refresh
 on:
   schedule:
     # GitHub cron is UTC. Paris 08:00 is 06:00 UTC in summer and 07:00 UTC in winter.
-    # The workflow guards on Europe/Paris local hour so only the correct run updates content.
+    # Select the matching cron from the Paris UTC offset so delayed GitHub runs still execute.
     - cron: "0 6 * * *"
     - cron: "0 7 * * *"
   workflow_dispatch:
@@ -29,18 +29,34 @@ jobs:
 
       - name: Resolve Europe/Paris refresh window
         id: paris_time
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_SCHEDULE: ${{ github.event.schedule }}
         run: |
           echo "date=$(TZ=Europe/Paris date +%F)" >> "$GITHUB_OUTPUT"
           echo "hour=$(TZ=Europe/Paris date +%H)" >> "$GITHUB_OUTPUT"
+          echo "offset=$(TZ=Europe/Paris date +%z)" >> "$GITHUB_OUTPUT"
           echo "timestamp=$(TZ=Europe/Paris date --iso-8601=seconds)" >> "$GITHUB_OUTPUT"
 
-      - name: Skip non-08:00 Paris scheduled run
-        if: github.event_name == 'schedule' && steps.paris_time.outputs.hour != '08'
+          should_run=true
+          if [ "$EVENT_NAME" = "schedule" ]; then
+            should_run=false
+            paris_offset=$(TZ=Europe/Paris date +%z)
+            if [ "$EVENT_SCHEDULE" = "0 6 * * *" ] && [ "$paris_offset" = "+0200" ]; then
+              should_run=true
+            elif [ "$EVENT_SCHEDULE" = "0 7 * * *" ] && [ "$paris_offset" = "+0100" ]; then
+              should_run=true
+            fi
+          fi
+          echo "should_run=$should_run" >> "$GITHUB_OUTPUT"
+
+      - name: Skip inactive Paris schedule
+        if: github.event_name == 'schedule' && steps.paris_time.outputs.should_run != 'true'
         run: |
-          echo "Skipping because Europe/Paris local hour is ${{ steps.paris_time.outputs.hour }}, not 08."
+          echo "Skipping cron '${{ github.event.schedule }}' for Europe/Paris offset ${{ steps.paris_time.outputs.offset }}."
 
       - name: Generate today's digest
-        if: github.event_name != 'schedule' || steps.paris_time.outputs.hour == '08'
+        if: github.event_name != 'schedule' || steps.paris_time.outputs.should_run == 'true'
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
@@ -62,18 +78,18 @@ jobs:
           python work/actuary_digest_mvp/src/digest.py --date "${{ steps.paris_time.outputs.date }}" --ai-provider auto ${MODEL_ARG} --ai-max-items "${AI_MAX_ITEMS:-8}" --ai-min-zh-items "${AI_MIN_ZH_ITEMS:-2}"
 
       - name: Build static site
-        if: github.event_name != 'schedule' || steps.paris_time.outputs.hour == '08'
+        if: github.event_name != 'schedule' || steps.paris_time.outputs.should_run == 'true'
         run: |
           python work/actuary_digest_mvp/src/build_site.py --base-url https://insuranceactuaryhub.com
 
       - name: Publish digest to tracked UI data
-        if: github.event_name != 'schedule' || steps.paris_time.outputs.hour == '08'
+        if: github.event_name != 'schedule' || steps.paris_time.outputs.should_run == 'true'
         run: |
           mkdir -p work/actuary_digest_mvp/ui/data
           cp "outputs/insurance_actuary_digest_${{ steps.paris_time.outputs.date }}.json" work/actuary_digest_mvp/ui/data/digest.json
 
       - name: Verify refreshed site data
-        if: github.event_name != 'schedule' || steps.paris_time.outputs.hour == '08'
+        if: github.event_name != 'schedule' || steps.paris_time.outputs.should_run == 'true'
         env:
           AI_MIN_ZH_ITEMS: ${{ vars.AI_MIN_ZH_ITEMS }}
         run: |
@@ -122,7 +138,7 @@ jobs:
           PY
 
       - name: Commit updated reports
-        if: github.event_name != 'schedule' || steps.paris_time.outputs.hour == '08'
+        if: github.event_name != 'schedule' || steps.paris_time.outputs.should_run == 'true'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Update ActuaryRadar daily intelligence for ${{ steps.paris_time.outputs.date }}"
