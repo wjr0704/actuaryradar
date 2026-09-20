@@ -11,16 +11,27 @@ import {
   sendResendEmail
 } from "./shared/newsletter-service.mjs";
 
-export const config = {
-  schedule: "30 6 * * *"
-};
-
 export async function handler(event) {
   try {
     requireNewsletterEnv();
     const digest = await loadLatestDigest();
     const digestDate = digest.report_date || digest.generation_date;
     if (!digestDate) throw new HttpError(500, "Digest date missing", "Latest digest is not available yet.");
+    const expectedDate = currentParisDate();
+    if (digestDate !== expectedDate) {
+      const result = {
+        ok: true,
+        status: "waiting_for_today_digest",
+        digest_date: digestDate,
+        expected_date: expectedDate,
+        attempted: 0,
+        sent: 0,
+        skipped: 0,
+        failed: 0
+      };
+      console.log(JSON.stringify({ event: "newsletter_daily_send_waiting", ...result }));
+      return jsonResponse(result);
+    }
     const subscribers = await listActiveSubscribers();
     const deliveries = await listDeliveriesForDate(digestDate);
     const alreadySent = new Set((deliveries || []).filter(row => row.status === "sent").map(row => row.subscriber_id));
@@ -67,4 +78,15 @@ export async function handler(event) {
     console.error("newsletter_daily_send_failed", error);
     return jsonResponse({ ok: false, error: error.publicMessage || "Newsletter send failed." }, error.status || 500);
   }
+}
+
+export function currentParisDate(now = new Date()) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Europe/Paris",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).formatToParts(now);
+  const values = Object.fromEntries(parts.map(part => [part.type, part.value]));
+  return `${values.year}-${values.month}-${values.day}`;
 }
