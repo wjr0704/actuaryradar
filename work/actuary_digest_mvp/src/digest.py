@@ -36,6 +36,8 @@ DEFAULT_OUTPUT_DIR = WORKSPACE / "outputs"
 DEFAULT_PREFERENCES_PATH = ROOT / "config" / "preferences.json"
 DEFAULT_AI_MODEL = "gpt-4o-mini"
 DEFAULT_PERPLEXITY_MODEL = "sonar"
+DAILY_PICK_LANGUAGES = ("en", "zh", "fr")
+DAILY_PICK_LOOKBACK_EDITIONS = 3
 
 
 @dataclasses.dataclass(frozen=True)
@@ -1566,6 +1568,119 @@ def inline(value: str) -> str:
     return escaped
 
 
+def daily_pick_record_id(record: dict) -> str:
+    return str(record.get("original_url") or record.get("url") or "").strip()
+
+
+def daily_pick_language(record: dict) -> str:
+    language = str(record.get("source_language") or record.get("original_language") or "en").lower()
+    return language.split("-", 1)[0]
+
+
+def daily_pick_rank(record: dict, report_date: str, recent_ids: set[str]) -> tuple:
+    record_id = daily_pick_record_id(record)
+    published = str(record.get("published") or "")
+    freshness = 0
+    try:
+        age = (dt.date.fromisoformat(report_date) - dt.date.fromisoformat(published[:10])).days
+        freshness = 2 if age <= 1 else 1 if age <= 3 else 0
+    except ValueError:
+        pass
+    title = str(record.get("title") or "")
+    readable_title = not re.match(r"^(?:news:)?https?://", title, re.IGNORECASE)
+    grounded = bool(
+        record.get("ai_enriched")
+        and (record.get("enrichment_basis") or record.get("summary_basis")) == "article_text"
+    )
+    return (
+        0 if record_id in recent_ids else 1,
+        freshness,
+        1 if grounded else 0,
+        1 if readable_title else 0,
+        int(record.get("score") or 0),
+        published,
+    )
+
+
+def select_daily_pick_ids(
+    records: list[dict],
+    report_date: str,
+    recent_ids_by_language: dict[str, set[str]] | None = None,
+    limit: int = 4,
+) -> dict[str, list[str]]:
+    recent_ids_by_language = recent_ids_by_language or {}
+    result: dict[str, list[str]] = {}
+    slots = ("market", "technology_ai", "reinsurance", "research")
+    for language in DAILY_PICK_LANGUAGES:
+        recent_ids = recent_ids_by_language.get(language, set())
+        candidates = [
+            record
+            for record in records
+            if daily_pick_language(record) == language
+            and record.get("platform_section") != "company_results_strategy"
+            and daily_pick_record_id(record)
+        ]
+        ranked = sorted(
+            candidates,
+            key=lambda record: daily_pick_rank(record, report_date, recent_ids),
+            reverse=True,
+        )
+        picks: list[dict] = []
+        used: set[str] = set()
+        for section in slots:
+            match = next(
+                (
+                    record
+                    for record in ranked
+                    if daily_pick_record_id(record) not in used
+                    and daily_pick_record_id(record) not in recent_ids
+                    and record.get("platform_section") == section
+                ),
+                None,
+            )
+            if match:
+                picks.append(match)
+                used.add(daily_pick_record_id(match))
+        for record in ranked:
+            if len(picks) >= limit:
+                break
+            record_id = daily_pick_record_id(record)
+            if record_id not in used:
+                picks.append(record)
+                used.add(record_id)
+        result[language] = [daily_pick_record_id(record) for record in picks[:limit]]
+    return result
+
+
+def load_recent_daily_pick_ids(
+    output_dir: pathlib.Path,
+    report_date: str,
+    lookback_editions: int = DAILY_PICK_LOOKBACK_EDITIONS,
+) -> dict[str, set[str]]:
+    recent = {language: set() for language in DAILY_PICK_LANGUAGES}
+    prior_paths = []
+    for path in sorted(output_dir.glob("insurance_actuary_digest_*.json"), reverse=True):
+        match = re.search(r"insurance_actuary_digest_(\d{4}-\d{2}-\d{2})\.json$", path.name)
+        if match and match.group(1) < report_date:
+            prior_paths.append(path)
+        if len(prior_paths) >= lookback_editions:
+            break
+    for path in prior_paths:
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        stored = payload.get("daily_picks", {}).get("ids_by_language", {})
+        if not stored:
+            stored = select_daily_pick_ids(
+                payload.get("items", []),
+                payload.get("report_date", path.stem[-10:]),
+            )
+        for language in DAILY_PICK_LANGUAGES:
+            recent[language].update(str(value) for value in stored.get(language, []) if value)
+    return recent
+
+
 def render_json(
     items: list[NewsItem],
     cards: dict[str, ActionCard],
@@ -1575,6 +1690,7 @@ def render_json(
     ai_log: dict | None = None,
     ai_errors: list[str] | None = None,
     company_reports: list[dict] | None = None,
+    output_dir: pathlib.Path | None = None,
 ) -> str:
     concept = daily_concept(report_date)
     records = []
@@ -1622,7 +1738,12 @@ def render_json(
             "learning_prompt": card.learning_prompt,
             "shareable": card.shareable,
         })
-    featured_article_id = records[0]["url"] if records else ""
+    recent_daily_pick_ids = load_recent_daily_pick_ids(output_dir, report_date) if output_dir else {}
+    daily_pick_ids = select_daily_pick_ids(records, report_date, recent_daily_pick_ids)
+    featured_article_id = next(
+        (record_id for language in DAILY_PICK_LANGUAGES for record_id in daily_pick_ids.get(language, [])),
+        records[0]["url"] if records else "",
+    )
     payload = {
         "report_date": report_date,
         "generation_date": report_date,
@@ -1639,6 +1760,10 @@ def render_json(
             "ai_errors": (ai_errors or [])[:10],
         },
         "focus_profile": focus_profile,
+        "daily_picks": {
+            "lookback_editions": DAILY_PICK_LOOKBACK_EDITIONS,
+            "ids_by_language": daily_pick_ids,
+        },
         "daily_concept": concept,
         "items": records,
         "company_reports": company_reports or [],
@@ -1793,6 +1918,7 @@ def main(argv: list[str]) -> int:
             print(f"- {message}")
     markdown = render_markdown(selected, cards, args.date, errors, used_samples, focus_profile)
     html_report = render_html(markdown, args.date)
+    output_dir = pathlib.Path(args.output_dir)
     json_report = render_json(
         selected,
         cards,
@@ -1802,8 +1928,9 @@ def main(argv: list[str]) -> int:
         ai_log,
         ai_messages,
         config.get("official_company_reports", []),
+        output_dir,
     )
-    md_path, html_path, json_path = write_reports(pathlib.Path(args.output_dir), args.date, markdown, html_report, json_report)
+    md_path, html_path, json_path = write_reports(output_dir, args.date, markdown, html_report, json_report)
 
     if args.send_email:
         recipients = args.email_to or preferences.get("email", {}).get("default_recipients", [])

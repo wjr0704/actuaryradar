@@ -3251,6 +3251,18 @@ function compareIntelligenceItems(a, b) {
   return (b.score || 0) - (a.score || 0);
 }
 
+function compareTopPickItems(a, b) {
+  const reportTime = Date.parse(`${state.data?.report_date || ""}T00:00:00`);
+  const freshness = item => {
+    const publishedTime = Date.parse(`${item.published || ""}T00:00:00`);
+    if (Number.isNaN(reportTime) || Number.isNaN(publishedTime)) return 0;
+    const age = (reportTime - publishedTime) / (1000 * 60 * 60 * 24);
+    return age <= 1 ? 2 : age <= 3 ? 1 : 0;
+  };
+  const freshnessDifference = freshness(b) - freshness(a);
+  return freshnessDifference || compareIntelligenceItems(a, b);
+}
+
 function splitReadableSentences(text) {
   return String(text || "")
     .replace(/\s+/g, " ")
@@ -3696,8 +3708,13 @@ function renderTopPicks(items) {
 function getTopPickItems(items) {
   const sorted = [...items]
     .filter(item => normalizeSection(item.platform_section) !== "company_results_strategy")
-    .sort(compareIntelligenceItems);
+    .sort(compareTopPickItems);
   if (state.activeSection !== "全部") return sorted.slice(0, 4);
+
+  const configuredIds = state.data?.daily_picks?.ids_by_language?.[state.language] || [];
+  const configuredPicks = configuredIds
+    .map(id => sorted.find(item => itemId(item) === id || item.url === id || item.original_url === id))
+    .filter(Boolean);
 
   const slots = [
     item => normalizeSection(item.platform_section) === "market",
@@ -3705,9 +3722,10 @@ function getTopPickItems(items) {
     item => normalizeSection(item.platform_section) === "reinsurance" || isReinsuranceMarketItem(item),
     item => normalizeSection(item.platform_section) === "research"
   ];
-  const picks = [];
-  const used = new Set();
+  const picks = configuredPicks.slice(0, 4);
+  const used = new Set(picks.map(itemId));
   slots.forEach(match => {
+    if (picks.length >= 4) return;
     const item = sorted.find(candidate => !used.has(itemId(candidate)) && match(candidate));
     if (item) {
       picks.push(item);
