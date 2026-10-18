@@ -1,13 +1,13 @@
 {
   "archives": [
     {
-      "date": "2026-10-17",
-      "title": "2026-10-17",
+      "date": "2026-10-18",
+      "title": "2026-10-18",
       "mode": "rss",
-      "theme": "周六：保险科技与跨行业联动",
-      "json": "./data/archive/2026-10-17.json",
-      "html": "./reports/2026-10-17.html",
-      "markdown": "./reports/2026-10-17.md"
+      "theme": "周日：研究报告、战略复盘与下周计划",
+      "json": "./data/archive/2026-10-18.json",
+      "html": "./reports/2026-10-18.html",
+      "markdown": "./reports/2026-10-18.md"
     }
   ]
 }
