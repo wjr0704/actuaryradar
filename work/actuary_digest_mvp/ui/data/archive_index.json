@@ -1,13 +1,13 @@
 {
   "archives": [
     {
-      "date": "2026-10-23",
-      "title": "2026-10-23",
+      "date": "2026-10-24",
+      "title": "2026-10-24",
       "mode": "rss",
-      "theme": "周五：IFRS 17、财报与资本管理",
-      "json": "./data/archive/2026-10-23.json",
-      "html": "./reports/2026-10-23.html",
-      "markdown": "./reports/2026-10-23.md"
+      "theme": "周六：保险科技与跨行业联动",
+      "json": "./data/archive/2026-10-24.json",
+      "html": "./reports/2026-10-24.html",
+      "markdown": "./reports/2026-10-24.md"
     }
   ]
 }
