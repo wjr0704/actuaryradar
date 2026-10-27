@@ -1,13 +1,13 @@
 {
   "archives": [
     {
-      "date": "2026-10-26",
-      "title": "2026-10-26",
+      "date": "2026-10-27",
+      "title": "2026-10-27",
       "mode": "rss",
-      "theme": "周一：寿险与年金",
-      "json": "./data/archive/2026-10-26.json",
-      "html": "./reports/2026-10-26.html",
-      "markdown": "./reports/2026-10-26.md"
+      "theme": "周二：健康险与医疗趋势",
+      "json": "./data/archive/2026-10-27.json",
+      "html": "./reports/2026-10-27.html",
+      "markdown": "./reports/2026-10-27.md"
     }
   ]
 }
