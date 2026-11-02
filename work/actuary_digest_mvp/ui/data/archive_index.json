@@ -1,13 +1,13 @@
 {
   "archives": [
     {
-      "date": "2026-11-01",
-      "title": "2026-11-01",
+      "date": "2026-11-02",
+      "title": "2026-11-02",
       "mode": "rss",
-      "theme": "周日：研究报告、战略复盘与下周计划",
-      "json": "./data/archive/2026-11-01.json",
-      "html": "./reports/2026-11-01.html",
-      "markdown": "./reports/2026-11-01.md"
+      "theme": "周一：寿险与年金",
+      "json": "./data/archive/2026-11-02.json",
+      "html": "./reports/2026-11-02.html",
+      "markdown": "./reports/2026-11-02.md"
     }
   ]
 }
