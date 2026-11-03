@@ -29,11 +29,14 @@ export async function handler(event) {
     const existing = await getSubscriberByEmail(email);
 
     if (existing?.status === "active") {
+      if (existing.language !== language) {
+        await updateSubscriberById(existing.id, { language });
+      }
       console.log(JSON.stringify({ event: "newsletter_subscribe_duplicate", status: "active", language }));
       return jsonResponse({
         ok: true,
         status: "already_subscribed",
-        message: "This email is already subscribed to ActuaryRadar Daily. No further action is needed."
+        message: "This email is already subscribed. Its language preference has been updated."
       });
     }
 

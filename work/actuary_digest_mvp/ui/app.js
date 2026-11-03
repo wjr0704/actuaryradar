@@ -463,11 +463,15 @@ const pageCopy = {
     newsletterEyebrow: "日报订阅",
     newsletterTitle: "把 ActuaryRadar 发到邮箱",
     newsletterEmailLabel: "邮箱地址",
+    newsletterLanguageLabel: "简报语言",
+    newsletterLanguageEnglish: "English",
+    newsletterLanguageChinese: "中文",
+    newsletterLanguageBoth: "English + 中文",
     newsletterEmailPlaceholder: "you@example.com",
     newsletterSubmit: "订阅日报",
     newsletterPrivacy: "之后可以退订。你的邮箱仅用于 ActuaryRadar 日报。",
     newsletterSuccess: "订阅确认邮件已发送，请检查邮箱完成确认。",
-    newsletterAlreadySubscribed: "该邮箱已经订阅 ActuaryRadar 日报，无需重复提交。",
+    newsletterAlreadySubscribed: "该邮箱已经订阅，语言偏好已更新。",
     newsletterError: "订阅暂时失败，请稍后再试。",
     newsletterLocalPreview: "本地预览不会发送确认邮件；上线后会通过订阅 API 处理。",
     portalSectionsEyebrow: "专业栏目",
@@ -753,11 +757,15 @@ const pageCopy = {
     newsletterEyebrow: "Daily briefing",
     newsletterTitle: "Get ActuaryRadar in your inbox",
     newsletterEmailLabel: "Email address",
+    newsletterLanguageLabel: "Briefing language",
+    newsletterLanguageEnglish: "English",
+    newsletterLanguageChinese: "中文",
+    newsletterLanguageBoth: "English + 中文",
     newsletterEmailPlaceholder: "you@example.com",
     newsletterSubmit: "Subscribe",
     newsletterPrivacy: "You can unsubscribe later. Your email is used only for the ActuaryRadar daily briefing.",
     newsletterSuccess: "Confirmation email sent. Please check your inbox to complete subscription.",
-    newsletterAlreadySubscribed: "This email is already subscribed to ActuaryRadar Daily. No further action is needed.",
+    newsletterAlreadySubscribed: "This email is already subscribed. Its language preference has been updated.",
     newsletterError: "Subscription failed for now. Please try again later.",
     newsletterLocalPreview: "Local preview does not send confirmation email; production will use the newsletter API.",
     portalSectionsEyebrow: "Coverage areas",
@@ -1043,11 +1051,15 @@ const pageCopy = {
     newsletterEyebrow: "Veille quotidienne",
     newsletterTitle: "Recevoir ActuaryRadar par e-mail",
     newsletterEmailLabel: "Adresse e-mail",
+    newsletterLanguageLabel: "Langue de la veille",
+    newsletterLanguageEnglish: "English",
+    newsletterLanguageChinese: "中文",
+    newsletterLanguageBoth: "English + 中文",
     newsletterEmailPlaceholder: "vous@example.com",
     newsletterSubmit: "S’abonner",
     newsletterPrivacy: "Vous pourrez vous désabonner ultérieurement. Votre e-mail sert uniquement à la veille quotidienne ActuaryRadar.",
     newsletterSuccess: "E-mail de confirmation envoyé. Veuillez consulter votre boîte de réception.",
-    newsletterAlreadySubscribed: "Cette adresse e-mail est déjà abonnée à ActuaryRadar Daily. Aucune autre action n’est nécessaire.",
+    newsletterAlreadySubscribed: "Cette adresse est déjà abonnée. La préférence linguistique a été mise à jour.",
     newsletterError: "L’abonnement a échoué pour le moment. Veuillez réessayer plus tard.",
     newsletterLocalPreview: "L’aperçu local n’envoie pas d’e-mail ; la production utilisera l’API d’abonnement.",
     portalSectionsEyebrow: "Domaines couverts",
@@ -2092,7 +2104,7 @@ async function handleNewsletterSubmit(event) {
 
   const body = {
     email,
-    language: state.language,
+    language: form.querySelector("input[name='language']:checked")?.value || "both",
     source: "homepage"
   };
   try {
@@ -2118,6 +2130,7 @@ async function handleNewsletterSubmit(event) {
     }
     analyticsEvent("daily_briefing_subscription_submitted", {
       locale: state.language,
+      briefing_language: body.language,
       source: "homepage"
     });
     form.reset();

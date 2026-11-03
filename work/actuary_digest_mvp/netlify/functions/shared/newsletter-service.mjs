@@ -71,7 +71,7 @@ export function normalizeEmail(value) {
 
 export function normalizeLanguage(value) {
   const language = String(value || "en").trim().toLowerCase();
-  return ["en", "zh", "fr"].includes(language) ? language : "en";
+  return ["en", "zh", "fr", "both"].includes(language) ? language : "en";
 }
 
 export function makeToken() {
@@ -209,12 +209,13 @@ export async function loadLatestDigest() {
 }
 
 export function pickNewsletterStories(digest, language = "en") {
+  const normalizedLanguage = ["en", "zh", "fr"].includes(language) ? language : "en";
   const items = Array.isArray(digest?.items) ? digest.items : [];
   const languageItems = items.filter(item => {
     const itemLanguage = String(item.source_language || item.original_language || "en").toLowerCase();
-    return itemLanguage.startsWith(language);
+    return itemLanguage.startsWith(normalizedLanguage);
   });
-  const configuredIds = digest?.daily_picks?.ids_by_language?.[language] || [];
+  const configuredIds = digest?.daily_picks?.ids_by_language?.[normalizedLanguage] || [];
   const configuredItems = configuredIds
     .map(id => languageItems.find(item => (item.original_url || item.url) === id || item.url === id))
     .filter(Boolean);
@@ -225,21 +226,24 @@ export function pickNewsletterStories(digest, language = "en") {
       .slice(0, 5);
   return selectedItems
     .map(item => ({
-      title: item.title || item.original_title || "Untitled",
+      title: strictLocalizedValue(item.localized_title, normalizedLanguage)
+        || item.title
+        || item.original_title
+        || (normalizedLanguage === "zh" ? "无标题" : "Untitled"),
       source: item.source_name || item.source || "Source",
       url: item.original_url || item.url || siteBaseUrl(),
-      keyTakeaway: localizedValue(item.key_takeaway, language) || item.summary || "",
-      whyItMatters: localizedValue(item.why_it_matters, language) || item.actuarial_angle || "",
-      topic: item.platform_section || item.taxonomy_category || "market"
+      keyTakeaway: strictLocalizedValue(item.key_takeaway, normalizedLanguage) || item.summary || "",
+      whyItMatters: strictLocalizedValue(item.why_it_matters, normalizedLanguage),
+      topic: localizedTopic(item.platform_section || item.taxonomy_category || "market", normalizedLanguage)
     }));
 }
 
 export function pickLearningItem(digest, language = "en") {
   const concept = digest?.daily_concept || {};
-  const term = concept.term || (language === "zh" ? "今日概念" : language === "fr" ? "Concept du jour" : "Daily concept");
+  const translated = translateDailyConcept(concept.term, language);
   return {
-    title: term,
-    time: "8 min",
+    title: translated,
+    time: language === "zh" ? "8 分钟" : "8 min",
     reason: language === "zh"
       ? "基于今日学习内容生成。"
       : language === "fr"
@@ -248,10 +252,64 @@ export function pickLearningItem(digest, language = "en") {
   };
 }
 
-export function localizedValue(value, language) {
+export function strictLocalizedValue(value, language) {
   if (!value) return "";
   if (typeof value === "string") return value;
-  return value[language] || value.en || "";
+  return value[language] || "";
+}
+
+function translateDailyConcept(term, language) {
+  const raw = String(term || "").trim();
+  const concepts = [
+    {
+      match: ["CSM", "合同服务边际"],
+      en: "Contractual Service Margin (CSM)",
+      zh: "CSM 合同服务边际",
+      fr: "Marge sur services contractuels (CSM)"
+    },
+    {
+      match: ["风险边际", "Risk Margin"],
+      en: "Risk Margin",
+      zh: "风险边际",
+      fr: "Marge de risque"
+    },
+    {
+      match: ["赔付率", "Loss Ratio"],
+      en: "Loss Ratio",
+      zh: "赔付率",
+      fr: "Ratio de sinistralité"
+    },
+    {
+      match: ["资产负债久期匹配"],
+      en: "Asset–Liability Duration Matching",
+      zh: "资产负债久期匹配",
+      fr: "Adéquation de duration actif-passif"
+    },
+    {
+      match: ["巨灾超赔再保险", "XL"],
+      en: "Catastrophe Excess-of-Loss Reinsurance",
+      zh: "巨灾超赔再保险 XL",
+      fr: "Réassurance catastrophe en excédent de sinistre"
+    }
+  ];
+  const match = concepts.find(entry => entry.match.some(value => raw.includes(value)));
+  if (match) return match[language] || match.en;
+  if (language === "zh") return raw || "今日精算概念";
+  if (language === "fr") return "Concept actuariel du jour";
+  return "Daily actuarial concept";
+}
+
+function localizedTopic(topic, language) {
+  const labels = {
+    regulation: { en: "Regulation", zh: "监管", fr: "Réglementation" },
+    market: { en: "Market", zh: "市场", fr: "Marché" },
+    reinsurance: { en: "Reinsurance", zh: "再保险", fr: "Réassurance" },
+    technology_ai: { en: "Technology & AI", zh: "科技与 AI", fr: "Technologie et IA" },
+    company_results_strategy: { en: "Company Results", zh: "公司业绩", fr: "Résultats" },
+    research: { en: "Research", zh: "研究", fr: "Recherche" },
+    career_learning: { en: "Career & Learning", zh: "职业与学习", fr: "Carrière et formation" }
+  };
+  return labels[topic]?.[language] || labels[topic]?.en || topic;
 }
 
 export function confirmationEmail({ email, token, language }) {
@@ -277,6 +335,13 @@ export function confirmationEmail({ email, token, language }) {
       body: "Click the button below to confirm your subscription. Once confirmed, you will receive the daily insurance briefing and learning prompt.",
       cta: "Confirm subscription",
       note: "If you did not request this, you can ignore this email."
+    },
+    both: {
+      subject: "Confirm your ActuaryRadar Daily subscription / 确认订阅",
+      title: "Confirm subscription / 确认订阅",
+      body: "Confirm to receive both the English and Chinese editions. 确认后，你将同时收到英文版和中文版日报。",
+      cta: "Confirm / 确认",
+      note: "If you did not request this, ignore this email. 如果不是你提交的订阅，请忽略此邮件。"
     }
   }[language] || {};
   return {
@@ -291,12 +356,10 @@ export function confirmationEmail({ email, token, language }) {
 }
 
 export function dailyNewsletterEmail({ digest, subscriber }) {
-  const language = normalizeLanguage(subscriber.language);
-  const stories = pickNewsletterStories(digest, language);
-  const learning = pickLearningItem(digest, language);
+  const preference = normalizeLanguage(subscriber.language);
   const digestDate = digest.report_date || digest.generation_date || new Date().toISOString().slice(0, 10);
   const unsubscribeUrl = `${siteBaseUrl()}/api/newsletter/unsubscribe?token=${encodeURIComponent(subscriber.unsubscribe_token || "")}`;
-  const labels = {
+  const labelsByLanguage = {
     zh: {
       subject: `ActuaryRadar Daily · ${digestDate}`,
       title: "ActuaryRadar Daily",
@@ -305,7 +368,10 @@ export function dailyNewsletterEmail({ digest, subscriber }) {
       takeaway: "核心要点",
       why: "为什么重要",
       cta: "继续学习",
-      footer: "你收到这封邮件，是因为你订阅了 ActuaryRadar Daily。"
+      footer: "你收到这封邮件，是因为你订阅了 ActuaryRadar Daily。",
+      empty: "今日暂无可发送的中文情报。",
+      unsubscribe: "退订",
+      privacy: "隐私说明：你的邮箱仅用于发送 ActuaryRadar 日报。"
     },
     fr: {
       subject: `ActuaryRadar Daily · ${digestDate}`,
@@ -315,7 +381,10 @@ export function dailyNewsletterEmail({ digest, subscriber }) {
       takeaway: "Point clé",
       why: "Pourquoi c’est important",
       cta: "Continuer sur ActuaryRadar",
-      footer: "Vous recevez cet e-mail car vous êtes abonné à ActuaryRadar Daily."
+      footer: "Vous recevez cet e-mail car vous êtes abonné à ActuaryRadar Daily.",
+      empty: "Aucune veille disponible aujourd’hui.",
+      unsubscribe: "Se désabonner",
+      privacy: "Votre adresse est utilisée uniquement pour ActuaryRadar Daily."
     },
     en: {
       subject: `ActuaryRadar Daily · ${digestDate}`,
@@ -325,9 +394,44 @@ export function dailyNewsletterEmail({ digest, subscriber }) {
       takeaway: "Key Takeaway",
       why: "Why It Matters",
       cta: "Continue learning on ActuaryRadar",
-      footer: "You are receiving this email because you subscribed to ActuaryRadar Daily."
+      footer: "You are receiving this email because you subscribed to ActuaryRadar Daily.",
+      empty: "No English briefing items are available today.",
+      unsubscribe: "Unsubscribe",
+      privacy: "Privacy notice: your email is used only for ActuaryRadar Daily."
     }
-  }[language];
+  };
+  const languages = preference === "both" ? ["en", "zh"] : [preference];
+  const sections = languages.map(language => renderNewsletterEdition({
+    digest,
+    language,
+    labels: labelsByLanguage[language]
+  })).join('<hr class="edition-divider">');
+  const primaryLabels = labelsByLanguage[preference === "both" ? "en" : preference];
+  const subject = preference === "both"
+    ? `ActuaryRadar Daily · English + 中文 · ${digestDate}`
+    : primaryLabels.subject;
+  const footer = preference === "both"
+    ? `You are receiving this email because you subscribed to ActuaryRadar Daily. 你收到这封邮件，是因为你订阅了 ActuaryRadar 日报。`
+    : primaryLabels.footer;
+  const unsubscribeLabel = preference === "both" ? "Unsubscribe / 退订" : primaryLabels.unsubscribe;
+  const privacy = preference === "both"
+    ? "Privacy notice: your email is used only for ActuaryRadar Daily. 隐私说明：你的邮箱仅用于发送 ActuaryRadar 日报。"
+    : primaryLabels.privacy;
+  return {
+    subject,
+    html: emailShell("ActuaryRadar Daily", `
+      <p class="date">${escapeHtml(digestDate)}</p>
+      ${sections}
+      <p><a class="button" href="${siteBaseUrl()}">${escapeHtml(preference === "both" ? "Continue learning / 继续学习" : primaryLabels.cta)}</a></p>
+      <p class="muted">${escapeHtml(footer)}</p>
+      <p class="muted"><a href="${unsubscribeUrl}">${escapeHtml(unsubscribeLabel)}</a> · ${escapeHtml(privacy)}</p>
+    `)
+  };
+}
+
+function renderNewsletterEdition({ digest, language, labels }) {
+  const stories = pickNewsletterStories(digest, language);
+  const learning = pickLearningItem(digest, language);
   const storyHtml = stories.length
     ? stories.map(story => `
       <article class="story">
@@ -337,11 +441,9 @@ export function dailyNewsletterEmail({ digest, subscriber }) {
         ${story.whyItMatters ? `<p><strong>${escapeHtml(labels.why)}:</strong> ${escapeHtml(story.whyItMatters)}</p>` : ""}
       </article>
     `).join("")
-    : `<p>${language === "zh" ? "今日暂无可发送情报。" : language === "fr" ? "Aucune veille disponible aujourd’hui." : "No briefing items are available today."}</p>`;
-  return {
-    subject: labels.subject,
-    html: emailShell(labels.title, `
-      <p class="date">${escapeHtml(digestDate)}</p>
+    : `<p>${escapeHtml(labels.empty)}</p>`;
+  return `
+      <section lang="${escapeAttribute(language === "zh" ? "zh-CN" : language)}">
       <h2>${escapeHtml(labels.radar)}</h2>
       ${storyHtml}
       <section class="learning">
@@ -349,11 +451,7 @@ export function dailyNewsletterEmail({ digest, subscriber }) {
         <h3>${escapeHtml(learning.title)}</h3>
         <p>${escapeHtml(learning.time)} · ${escapeHtml(learning.reason)}</p>
       </section>
-      <p><a class="button" href="${siteBaseUrl()}">${escapeHtml(labels.cta)}</a></p>
-      <p class="muted">${escapeHtml(labels.footer)}</p>
-      <p class="muted"><a href="${unsubscribeUrl}">Unsubscribe</a> · Privacy notice: your email is used only for ActuaryRadar Daily.</p>
-    `)
-  };
+      </section>`;
 }
 
 export function statusPage({ title, body, cta = "Open ActuaryRadar" }) {
@@ -383,6 +481,7 @@ function emailShell(title, content) {
     .story { padding:16px 0; border-top:1px solid #e7ece4; }
     .meta, .muted, .date { color:#66746d; font-size:13px; }
     .learning { background:#eef7f0; border-radius:18px; padding:16px; margin:24px 0; }
+    .edition-divider { border:0; border-top:2px solid #dfe8dc; margin:34px 0; }
   </style>
 </head>
 <body><div class="wrap"><div class="card"><h1>${escapeHtml(title)}</h1>${content}</div></div></body>

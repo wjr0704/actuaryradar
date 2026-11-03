@@ -178,6 +178,21 @@
               <label>Do not fill this out: <input name="bot-field"></label>
             </p>
             <label class="newsletter-input-label" for="newsletterEmail" data-i18n="newsletterEmailLabel">Email address</label>
+            <fieldset class="newsletter-language-picker">
+              <legend data-i18n="newsletterLanguageLabel">Briefing language</legend>
+              <label>
+                <input type="radio" name="language" value="en">
+                <span data-i18n="newsletterLanguageEnglish">English</span>
+              </label>
+              <label>
+                <input type="radio" name="language" value="zh">
+                <span data-i18n="newsletterLanguageChinese">中文</span>
+              </label>
+              <label>
+                <input type="radio" name="language" value="both" checked>
+                <span data-i18n="newsletterLanguageBoth">English + 中文</span>
+              </label>
+            </fieldset>
             <div class="newsletter-row">
               <input id="newsletterEmail" name="email" type="email" autocomplete="email" required placeholder="you@example.com" data-i18n-placeholder="newsletterEmailPlaceholder">
               <button class="primary-button" type="submit" data-i18n="newsletterSubmit">Subscribe</button>
