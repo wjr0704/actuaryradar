@@ -46,6 +46,7 @@
       <nav class="product-nav" aria-label="Product navigation">
         <button class="nav-button product-tab active" type="button" data-page="home"><span><span class="nav-icon" data-icon="home"></span><span data-i18n="navHome">Home</span></span></button>
         <button class="nav-button product-tab" type="button" data-page="knowledge"><span><span class="nav-icon" data-icon="book"></span><span data-i18n="navKnowledge">Actuarial Knowledge</span></span></button>
+        <button class="nav-button product-tab" type="button" data-page="career"><span><span class="nav-icon" data-icon="career"></span><span data-i18n="navCareer">Career Radar</span></span></button>
         <div class="daily-nav-group" id="dailyNavGroup">
           <button class="nav-button product-tab" type="button" data-page="daily"><span><span class="nav-icon" data-icon="brief"></span><span data-i18n="navDaily">Insurance Briefing</span></span><span class="nav-chevron" aria-hidden="true">⌄</span></button>
           <nav class="nav-list section-subnav" id="sectionNav" aria-label="Briefing topics" hidden></nav>
@@ -303,6 +304,114 @@
             <button class="ghost-button compact-button" id="clearSourcesButton" type="button" data-i18n="clearSources">清空资料源</button>
           </div>
           <div class="source-grid" id="sourceLibrary"></div>
+        </section>
+      </section>
+
+      <section class="page-view" id="careerPage">
+        <div class="career-intro">
+          <div>
+            <p class="section-kicker" data-i18n="careerEyebrow">Insurance career planning</p>
+            <h3 data-i18n="careerHeading">Find the role behind the job title.</h3>
+            <p data-i18n="careerIntro">Compare insurance career paths, understand the evidence each role expects, then tailor your existing experience without inventing new claims.</p>
+          </div>
+          <div class="career-intro-stat" aria-label="Career role count">
+            <strong id="careerRoleCount">12</strong>
+            <span data-i18n="careerRoleCountLabel">role paths</span>
+          </div>
+        </div>
+
+        <section class="career-atlas" aria-labelledby="careerAtlasTitle">
+          <div class="career-section-heading">
+            <div>
+              <p data-i18n="careerAtlasEyebrow">Career atlas</p>
+              <h3 id="careerAtlasTitle" data-i18n="careerAtlasTitle">Explore insurance career paths</h3>
+            </div>
+            <label class="career-filter">
+              <span class="visually-hidden" data-i18n="careerFilterLabel">Filter career paths</span>
+              <select id="careerFamilyFilter" aria-label="Filter career paths" data-i18n-aria="careerFilterLabel"></select>
+            </label>
+          </div>
+          <div class="career-role-grid" id="careerRoleGrid"></div>
+        </section>
+
+        <section class="resume-studio" id="resumeStudio" aria-labelledby="resumeStudioTitle">
+          <div class="resume-studio-heading">
+            <div>
+              <p data-i18n="resumeStudioEyebrow">Resume Studio</p>
+              <h3 id="resumeStudioTitle" data-i18n="resumeStudioTitle">Tailor your resume to a target insurance role</h3>
+              <p data-i18n="resumeStudioIntro">Upload an existing resume and optionally paste a job description. The result only reframes evidence already present in your resume.</p>
+            </div>
+            <span class="privacy-badge" data-i18n="resumePrivacyBadge">Processed once · not stored</span>
+          </div>
+
+          <form class="resume-form" id="resumeTailorForm">
+            <p class="hidden-field"><label>Do not fill this out: <input name="bot-field"></label></p>
+            <div class="resume-form-grid">
+              <label>
+                <span data-i18n="targetRoleLabel">Target role</span>
+                <select id="resumeTargetRole" name="targetRole" required></select>
+              </label>
+              <label>
+                <span data-i18n="resumeOutputLanguageLabel">Output language</span>
+                <select id="resumeOutputLanguage" name="outputLanguage">
+                  <option value="en">English</option>
+                  <option value="zh">中文</option>
+                  <option value="fr">Français</option>
+                </select>
+              </label>
+            </div>
+
+            <label class="resume-upload" for="resumeFile">
+              <input id="resumeFile" name="resume" type="file" required accept=".pdf,.doc,.docx,.rtf,.txt,.md,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,text/markdown">
+              <span class="resume-upload-icon" aria-hidden="true">↑</span>
+              <strong data-i18n="resumeUploadTitle">Choose your current resume</strong>
+              <small id="resumeFileHelp" data-i18n="resumeUploadHelp">PDF, Word, RTF, TXT or Markdown · maximum 3 MB</small>
+              <span class="resume-file-name" id="resumeFileName"></span>
+            </label>
+
+            <label class="resume-jd-field">
+              <span data-i18n="jobDescriptionLabel">Job description (recommended)</span>
+              <textarea id="resumeJobDescription" name="jobDescription" rows="8" maxlength="16000" data-i18n-placeholder="jobDescriptionPlaceholder" placeholder="Paste the responsibilities and requirements from the role you want to apply for."></textarea>
+              <small data-i18n="jobDescriptionHelp">Paste the text rather than a link so the analysis is based on the exact role.</small>
+            </label>
+
+            <label class="resume-consent">
+              <input id="resumeConsent" name="consent" type="checkbox" required>
+              <span data-i18n="resumeConsent">I understand that my file is sent securely to the AI provider for this analysis and is not saved by ActuaryRadar.</span>
+            </label>
+
+            <div class="resume-form-actions">
+              <button class="primary-button" id="resumeSubmitButton" type="submit" data-i18n="resumeSubmit">Analyse and tailor resume</button>
+              <button class="ghost-button" id="resumeClearButton" type="button" data-i18n="resumeClear">Clear</button>
+            </div>
+            <p class="resume-status" id="resumeStatus" aria-live="polite"></p>
+          </form>
+
+          <section class="resume-result" id="resumeResult" hidden aria-live="polite">
+            <div class="resume-result-header">
+              <div>
+                <p data-i18n="resumeResultEyebrow">Your role-fit analysis</p>
+                <h3 id="resumePositioning">-</h3>
+              </div>
+              <div class="fit-score"><strong id="resumeFitScore">-</strong><span data-i18n="resumeFitScoreLabel">fit score</span></div>
+            </div>
+            <div class="resume-result-grid">
+              <section><h4 data-i18n="matchedStrengths">Evidence-backed strengths</h4><div id="resumeStrengths"></div></section>
+              <section><h4 data-i18n="skillGaps">Gaps to address honestly</h4><div id="resumeGaps"></div></section>
+            </div>
+            <section class="tailored-resume-output">
+              <div class="resume-output-heading">
+                <h4 data-i18n="tailoredResume">Tailored resume draft</h4>
+                <button class="ghost-button" id="downloadResumeButton" type="button" data-i18n="downloadResume">Download Markdown</button>
+              </div>
+              <pre id="tailoredResumeText"></pre>
+            </section>
+            <div class="resume-result-grid">
+              <section><h4 data-i18n="interviewPreparation">Interview preparation</h4><div id="resumeInterview"></div></section>
+              <section><h4 data-i18n="recommendedLearning">Recommended learning</h4><div id="resumeLearning"></div></section>
+            </div>
+            <section class="integrity-notes"><h4 data-i18n="integrityNotes">Evidence and integrity notes</h4><ul id="resumeIntegrityNotes"></ul></section>
+          </section>
         </section>
       </section>
 

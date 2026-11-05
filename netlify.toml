@@ -28,6 +28,11 @@
   to = "/.netlify/functions/newsletter-daily-send"
   status = 200
 
+[[redirects]]
+  from = "/api/career/tailor"
+  to = "/.netlify/functions/career-resume-tailor"
+  status = 200
+
 [[headers]]
   for = "/data/*.json"
   [headers.values]

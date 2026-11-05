@@ -1,0 +1,137 @@
+{
+  "version": "2026-11-05",
+  "roles": [
+    {
+      "id": "actuarial_pricing",
+      "family": "actuarial",
+      "title": { "en": "Actuarial Pricing", "zh": "精算定价", "fr": "Tarification actuarielle" },
+      "summary": { "en": "Turn claims, exposure and market evidence into sustainable rates and portfolio actions.", "zh": "把赔付、暴露和市场信息转化为可持续费率与组合经营动作。", "fr": "Transformer sinistres, exposition et marché en tarifs durables." },
+      "responsibilities": ["Rate indication and profitability analysis", "Segmentation and predictive modelling", "Portfolio monitoring and filing support"],
+      "skills": ["Loss cost modelling", "GLM / machine learning", "SQL / Python / R", "Commercial judgement"],
+      "learning_tracks": ["Pricing", "Statistics", "Data Analytics", "Insurance Fundamentals"],
+      "transitions": ["Product development", "Underwriting analytics", "Portfolio strategy"],
+      "interview_themes": ["Rate adequacy", "Frequency versus severity", "Model governance"]
+    },
+    {
+      "id": "actuarial_reserving",
+      "family": "actuarial",
+      "title": { "en": "Actuarial Reserving", "zh": "精算准备金", "fr": "Provisionnement actuariel" },
+      "summary": { "en": "Estimate ultimate claims, explain uncertainty and connect reserve movements to management decisions.", "zh": "估计最终赔款、解释不确定性，并把准备金变化连接到经营决策。", "fr": "Estimer les sinistres ultimes et expliquer l'incertitude." },
+      "responsibilities": ["Quarterly reserve reviews", "IBNR and development analysis", "Management and regulatory reporting"],
+      "skills": ["Chain ladder / Bornhuetter-Ferguson", "Claims diagnostics", "IFRS 17", "Clear technical communication"],
+      "learning_tracks": ["Reserving", "IFRS 17", "Statistics", "Risk Management"],
+      "transitions": ["Capital modelling", "Claims analytics", "Actuarial consulting"],
+      "interview_themes": ["Reserve uncertainty", "Large losses", "Assumption governance"]
+    },
+    {
+      "id": "insurance_sales_distribution",
+      "family": "commercial",
+      "title": { "en": "Insurance Sales & Distribution", "zh": "保险销售与渠道", "fr": "Vente et distribution" },
+      "summary": { "en": "Build trusted distribution relationships and translate protection needs into suitable propositions.", "zh": "建立可信渠道关系，把客户保障需求转化为适当的保险方案。", "fr": "Développer les canaux et adapter l'offre aux besoins clients." },
+      "responsibilities": ["Broker and partner development", "Pipeline and conversion management", "Customer proposition feedback"],
+      "skills": ["Consultative selling", "Insurance product knowledge", "Negotiation", "CRM and pipeline analytics"],
+      "learning_tracks": ["Insurance Fundamentals", "Distribution", "Product Development", "Regulation"],
+      "transitions": ["Distribution strategy", "Product management", "Partnerships"],
+      "interview_themes": ["Sales ethics", "Channel economics", "Customer retention"]
+    },
+    {
+      "id": "underwriting",
+      "family": "insurance_operations",
+      "title": { "en": "Underwriting", "zh": "核保", "fr": "Souscription" },
+      "summary": { "en": "Select, price and structure risk while balancing customer needs and portfolio appetite.", "zh": "在客户需求与组合风险偏好之间，完成风险选择、定价和条款设计。", "fr": "Sélectionner, tarifer et structurer les risques." },
+      "responsibilities": ["Risk selection and pricing", "Terms, limits and wording", "Portfolio and broker management"],
+      "skills": ["Risk assessment", "Policy wording", "Negotiation", "Portfolio analytics"],
+      "learning_tracks": ["Insurance Fundamentals", "Pricing", "Claims", "Reinsurance"],
+      "transitions": ["Product development", "Underwriting strategy", "Reinsurance"],
+      "interview_themes": ["Risk appetite", "Referral decisions", "Portfolio accumulation"]
+    },
+    {
+      "id": "risk_erm",
+      "family": "risk",
+      "title": { "en": "Enterprise Risk Management", "zh": "企业风险管理 ERM", "fr": "Gestion des risques d'entreprise" },
+      "summary": { "en": "Connect risk appetite, scenarios, controls and capital into an enterprise decision framework.", "zh": "把风险偏好、情景、控制与资本连接成企业级决策框架。", "fr": "Relier appétit au risque, scénarios, contrôles et capital." },
+      "responsibilities": ["Risk appetite and limits", "Scenario and stress testing", "Board risk reporting"],
+      "skills": ["Risk taxonomy", "Capital and solvency", "Scenario design", "Executive communication"],
+      "learning_tracks": ["ERM", "Solvency II", "Capital Management", "Climate Risk"],
+      "transitions": ["Chief risk office", "Capital management", "Regulatory supervision"],
+      "interview_themes": ["Risk appetite", "Emerging risk", "Three lines model"]
+    },
+    {
+      "id": "investment_alm",
+      "family": "finance_risk",
+      "title": { "en": "Investment & ALM", "zh": "投资与资产负债管理 ALM", "fr": "Investissement et ALM" },
+      "summary": { "en": "Manage assets against liability cash flows, liquidity, capital and return objectives.", "zh": "围绕负债现金流、流动性、资本与收益目标管理资产组合。", "fr": "Gérer les actifs face aux flux de passif, à la liquidité et au capital." },
+      "responsibilities": ["Duration and cash-flow matching", "Strategic asset allocation", "Liquidity and market-risk monitoring"],
+      "skills": ["Fixed income", "Interest-rate risk", "Cash-flow modelling", "Capital constraints"],
+      "learning_tracks": ["Investment & ALM", "Life Insurance", "Capital Management", "Solvency II"],
+      "transitions": ["Insurance investment", "Treasury", "Capital management"],
+      "interview_themes": ["Duration gap", "Liquidity stress", "Spread risk"]
+    },
+    {
+      "id": "product_development",
+      "family": "product",
+      "title": { "en": "Insurance Product Development", "zh": "保险产品开发", "fr": "Développement produit" },
+      "summary": { "en": "Design viable customer propositions across coverage, pricing, operations, regulation and distribution.", "zh": "综合保障、定价、运营、监管和渠道，设计可落地的客户产品方案。", "fr": "Concevoir des offres viables entre garanties, prix et distribution." },
+      "responsibilities": ["Customer and market research", "Product design and business case", "Cross-functional launch governance"],
+      "skills": ["Product economics", "Customer research", "Regulatory literacy", "Programme management"],
+      "learning_tracks": ["Insurance Fundamentals", "Pricing", "Distribution", "Regulation"],
+      "transitions": ["Product strategy", "Innovation", "Distribution strategy"],
+      "interview_themes": ["Value proposition", "Product governance", "Launch metrics"]
+    },
+    {
+      "id": "reinsurance",
+      "family": "reinsurance",
+      "title": { "en": "Reinsurance", "zh": "再保险", "fr": "Réassurance" },
+      "summary": { "en": "Structure and price risk transfer to manage volatility, capacity and capital.", "zh": "通过风险转移结构和定价管理波动、承保能力与资本。", "fr": "Structurer et tarifer le transfert de risque." },
+      "responsibilities": ["Treaty and facultative analysis", "Pricing and portfolio modelling", "Cedant, broker and market negotiation"],
+      "skills": ["Reinsurance structures", "Catastrophe and exposure analysis", "Pricing", "Negotiation"],
+      "learning_tracks": ["Reinsurance", "Catastrophe Risk", "Pricing", "Capital Management"],
+      "transitions": ["Reinsurance broking", "Capital solutions", "Specialty underwriting"],
+      "interview_themes": ["Quota share versus excess of loss", "Attachment selection", "Cycle management"]
+    },
+    {
+      "id": "regulation_supervision",
+      "family": "public_policy",
+      "title": { "en": "Insurance Regulation & Supervision", "zh": "保险监管机构", "fr": "Réglementation et supervision" },
+      "summary": { "en": "Assess insurer safety, market conduct and systemic implications through policy and supervision.", "zh": "通过规则制定与审慎监管评估保险公司稳健性、市场行为和系统影响。", "fr": "Évaluer la solidité des assureurs et la conduite de marché." },
+      "responsibilities": ["Prudential or conduct supervision", "Policy analysis", "Industry data and thematic reviews"],
+      "skills": ["Regulatory frameworks", "Financial analysis", "Policy writing", "Stakeholder judgement"],
+      "learning_tracks": ["Regulation", "Solvency II", "Capital Management", "ERM"],
+      "transitions": ["Public policy", "Compliance", "Risk governance"],
+      "interview_themes": ["Supervisory judgement", "Consumer protection", "Proportionality"]
+    },
+    {
+      "id": "rating_agency",
+      "family": "external_analysis",
+      "title": { "en": "Insurance Rating Agency", "zh": "保险评级机构", "fr": "Agence de notation assurance" },
+      "summary": { "en": "Form independent views on insurer financial strength, business profile and capital resilience.", "zh": "独立判断保险公司的财务实力、业务特征与资本韧性。", "fr": "Évaluer la solidité financière et le profil d'activité des assureurs." },
+      "responsibilities": ["Financial-strength analysis", "Management meetings", "Rating committee recommendations"],
+      "skills": ["Insurance accounting", "Capital analysis", "Credit writing", "Comparative judgement"],
+      "learning_tracks": ["Company Results", "Capital Management", "IFRS 17", "Reinsurance"],
+      "transitions": ["Credit research", "Insurance investment", "Corporate strategy"],
+      "interview_themes": ["Capital quality", "Earnings resilience", "Business profile"]
+    },
+    {
+      "id": "insurance_consulting",
+      "family": "advisory",
+      "title": { "en": "Insurance & Actuarial Consulting", "zh": "保险与精算咨询", "fr": "Conseil en assurance et actuariat" },
+      "summary": { "en": "Solve client problems across actuarial, finance, risk, transformation and transactions.", "zh": "围绕精算、财务、风险、转型和交易解决客户问题。", "fr": "Résoudre des problèmes clients en actuariat, risque et transformation." },
+      "responsibilities": ["Problem structuring and analysis", "Client-ready deliverables", "Project and stakeholder management"],
+      "skills": ["Structured problem solving", "Actuarial or insurance depth", "Presentation", "Project delivery"],
+      "learning_tracks": ["Insurance Fundamentals", "Data Analytics", "IFRS 17", "ERM"],
+      "transitions": ["Insurance strategy", "Transformation", "Specialist leadership"],
+      "interview_themes": ["Case interviews", "Client influence", "Delivering under ambiguity"]
+    },
+    {
+      "id": "strategy_investment_banking",
+      "family": "strategy_transactions",
+      "title": { "en": "Insurance Strategy, M&A & Investment Banking", "zh": "保险战略咨询、并购与投行", "fr": "Stratégie, M&A et banque d'affaires" },
+      "summary": { "en": "Evaluate insurer strategy, valuation, capital and transactions with sector-specific judgement.", "zh": "结合保险行业逻辑分析战略、估值、资本与并购交易。", "fr": "Évaluer stratégie, valorisation, capital et transactions d'assurance." },
+      "responsibilities": ["Market and competitor analysis", "Valuation and transaction modelling", "Strategic recommendations and execution"],
+      "skills": ["Insurance financial statements", "Valuation", "Financial modelling", "Executive storytelling"],
+      "learning_tracks": ["Company Results", "Capital Management", "Insurance Fundamentals", "Investment & ALM"],
+      "transitions": ["Corporate development", "Investor relations", "Insurance private equity"],
+      "interview_themes": ["Insurance valuation", "Deal rationale", "Capital generation"]
+    }
+  ]
+}

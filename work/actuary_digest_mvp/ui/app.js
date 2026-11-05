@@ -27,6 +27,9 @@ const state = {
   knowledgeCatalog: [],
   knowledgeSources: { items: {}, daily_concepts: [] },
   knowledgeVisuals: { visuals: {}, module_map: {} },
+  careers: [],
+  careerFamily: "all",
+  resumeResult: null,
   learningTaxonomy: null,
   openSourceResources: [],
   knowledgeFocusId: "",
@@ -408,6 +411,7 @@ const pageCopy = {
     navHome: "首页",
     navDaily: "每日情报",
     navKnowledge: "精算知识库",
+    navCareer: "职业发展",
     navSaved: "保存与学习日志",
     dailyConcept: "每日概念",
     heroTitle: "每天明确该学什么。",
@@ -474,6 +478,48 @@ const pageCopy = {
     newsletterAlreadySubscribed: "该邮箱已经订阅，语言偏好已更新。",
     newsletterError: "订阅暂时失败，请稍后再试。",
     newsletterLocalPreview: "本地预览不会发送确认邮件；上线后会通过订阅 API 处理。",
+    careerTitle: "职业发展",
+    pageCareerSubtitle: "了解保险岗位能力，针对目标职位优化简历与学习路径",
+    careerEyebrow: "保险职业规划",
+    careerHeading: "看懂职位名称背后的真实工作。",
+    careerIntro: "比较保险职业路径，理解不同岗位需要的能力证据，并在不虚构经历的前提下调整简历。",
+    careerRoleCountLabel: "条职业路径",
+    careerAtlasEyebrow: "职业地图",
+    careerAtlasTitle: "探索保险行业职业路径",
+    careerFilterLabel: "筛选职业路径",
+    careerAllFamilies: "全部岗位方向",
+    careerCoreSkills: "核心技能",
+    careerLearningTracks: "学习主题",
+    careerTransitions: "可转路径",
+    careerUseRole: "用此岗位优化简历",
+    resumeStudioEyebrow: "简历工作室",
+    resumeStudioTitle: "让现有简历适配目标保险岗位",
+    resumeStudioIntro: "上传原始简历，并可粘贴具体职位描述。系统只会重新组织简历中已有的事实证据。",
+    resumePrivacyBadge: "单次处理 · 不保存文件",
+    targetRoleLabel: "目标岗位",
+    resumeOutputLanguageLabel: "输出语言",
+    resumeUploadTitle: "选择你当前的简历",
+    resumeUploadHelp: "PDF、Word、RTF、TXT 或 Markdown · 最大 3 MB",
+    jobDescriptionLabel: "职位描述（推荐）",
+    jobDescriptionPlaceholder: "粘贴你要申请岗位的职责和要求。",
+    jobDescriptionHelp: "请粘贴文字而不是链接，确保分析对应这一份具体职位。",
+    resumeConsent: "我了解文件会安全发送给 AI 服务商用于本次分析，ActuaryRadar 不保存该文件。",
+    resumeSubmit: "分析并优化简历",
+    resumeClear: "清空",
+    resumeResultEyebrow: "你的岗位匹配分析",
+    resumeFitScoreLabel: "匹配度",
+    matchedStrengths: "有事实支持的优势",
+    skillGaps: "需要如实处理的缺口",
+    tailoredResume: "定制简历草稿",
+    downloadResume: "下载 Markdown",
+    interviewPreparation: "面试准备",
+    recommendedLearning: "推荐学习",
+    integrityNotes: "证据与真实性说明",
+    resumeProcessing: "正在读取简历并生成岗位适配分析……",
+    resumeLocalPreview: "本地预览无法调用简历分析 API，请在部署网站上使用。",
+    resumeFileTooLarge: "文件不能超过 3 MB。",
+    resumeFileUnsupported: "请上传 PDF、Word、RTF、TXT 或 Markdown 文件。",
+    resumeFailed: "暂时无法完成分析，请稍后重试。",
     portalSectionsEyebrow: "专业栏目",
     portalSectionsTitle: "按主题探索",
     topicRegulationText: "跟踪监管、资本要求、消费者保护和合规变化。",
@@ -702,6 +748,7 @@ const pageCopy = {
     navHome: "Home",
     navDaily: "Insurance Briefing",
     navKnowledge: "Actuarial Knowledge",
+    navCareer: "Career Radar",
     navSaved: "Saved & Journal",
     dailyConcept: "Daily Concept",
     heroTitle: "Know what to learn today.",
@@ -768,6 +815,48 @@ const pageCopy = {
     newsletterAlreadySubscribed: "This email is already subscribed. Its language preference has been updated.",
     newsletterError: "Subscription failed for now. Please try again later.",
     newsletterLocalPreview: "Local preview does not send confirmation email; production will use the newsletter API.",
+    careerTitle: "Career Radar",
+    pageCareerSubtitle: "Understand insurance roles, tailor your resume and turn gaps into a learning path",
+    careerEyebrow: "Insurance career planning",
+    careerHeading: "Find the role behind the job title.",
+    careerIntro: "Compare insurance career paths, understand the evidence each role expects, then tailor your experience without inventing new claims.",
+    careerRoleCountLabel: "role paths",
+    careerAtlasEyebrow: "Career atlas",
+    careerAtlasTitle: "Explore insurance career paths",
+    careerFilterLabel: "Filter career paths",
+    careerAllFamilies: "All role families",
+    careerCoreSkills: "Core skills",
+    careerLearningTracks: "Learning tracks",
+    careerTransitions: "Next moves",
+    careerUseRole: "Tailor resume for this role",
+    resumeStudioEyebrow: "Resume Studio",
+    resumeStudioTitle: "Tailor your resume to a target insurance role",
+    resumeStudioIntro: "Upload an existing resume and optionally paste a job description. The result only reframes evidence already present in your resume.",
+    resumePrivacyBadge: "Processed once · not stored",
+    targetRoleLabel: "Target role",
+    resumeOutputLanguageLabel: "Output language",
+    resumeUploadTitle: "Choose your current resume",
+    resumeUploadHelp: "PDF, Word, RTF, TXT or Markdown · maximum 3 MB",
+    jobDescriptionLabel: "Job description (recommended)",
+    jobDescriptionPlaceholder: "Paste the responsibilities and requirements from the role you want to apply for.",
+    jobDescriptionHelp: "Paste the text rather than a link so the analysis is based on the exact role.",
+    resumeConsent: "I understand that my file is sent securely to the AI provider for this analysis and is not saved by ActuaryRadar.",
+    resumeSubmit: "Analyse and tailor resume",
+    resumeClear: "Clear",
+    resumeResultEyebrow: "Your role-fit analysis",
+    resumeFitScoreLabel: "fit score",
+    matchedStrengths: "Evidence-backed strengths",
+    skillGaps: "Gaps to address honestly",
+    tailoredResume: "Tailored resume draft",
+    downloadResume: "Download Markdown",
+    interviewPreparation: "Interview preparation",
+    recommendedLearning: "Recommended learning",
+    integrityNotes: "Evidence and integrity notes",
+    resumeProcessing: "Reading your resume and preparing the role-fit analysis…",
+    resumeLocalPreview: "Resume analysis is available on the deployed site, not in local preview.",
+    resumeFileTooLarge: "The file must be no larger than 3 MB.",
+    resumeFileUnsupported: "Upload a PDF, Word, RTF, TXT or Markdown file.",
+    resumeFailed: "The analysis could not be completed right now. Please try again later.",
     portalSectionsEyebrow: "Coverage areas",
     portalSectionsTitle: "Explore by Topic",
     topicRegulationText: "Track supervision, capital requirements, consumer protection and compliance changes.",
@@ -996,6 +1085,7 @@ const pageCopy = {
     navHome: "Accueil",
     navDaily: "Veille assurance",
     navKnowledge: "Connaissances actuarielles",
+    navCareer: "Carrières",
     navSaved: "Sauvegardes & journal",
     dailyConcept: "Concept du jour",
     heroTitle: "Sachez quoi apprendre aujourd’hui.",
@@ -1062,6 +1152,48 @@ const pageCopy = {
     newsletterAlreadySubscribed: "Cette adresse est déjà abonnée. La préférence linguistique a été mise à jour.",
     newsletterError: "L’abonnement a échoué pour le moment. Veuillez réessayer plus tard.",
     newsletterLocalPreview: "L’aperçu local n’envoie pas d’e-mail ; la production utilisera l’API d’abonnement.",
+    careerTitle: "Career Radar",
+    pageCareerSubtitle: "Comprendre les métiers de l’assurance et adapter son CV au poste visé",
+    careerEyebrow: "Parcours professionnels en assurance",
+    careerHeading: "Comprendre le métier derrière l’intitulé.",
+    careerIntro: "Comparer les parcours, identifier les preuves attendues et adapter son expérience sans inventer de compétences.",
+    careerRoleCountLabel: "parcours métiers",
+    careerAtlasEyebrow: "Carte des métiers",
+    careerAtlasTitle: "Explorer les carrières de l’assurance",
+    careerFilterLabel: "Filtrer les métiers",
+    careerAllFamilies: "Toutes les familles",
+    careerCoreSkills: "Compétences clés",
+    careerLearningTracks: "Thèmes de formation",
+    careerTransitions: "Évolutions possibles",
+    careerUseRole: "Adapter le CV à ce métier",
+    resumeStudioEyebrow: "Atelier CV",
+    resumeStudioTitle: "Adapter votre CV à un métier de l’assurance",
+    resumeStudioIntro: "Téléversez votre CV et, si possible, la description du poste. Le résultat reformule uniquement les éléments déjà présents.",
+    resumePrivacyBadge: "Traitement unique · fichier non conservé",
+    targetRoleLabel: "Métier ciblé",
+    resumeOutputLanguageLabel: "Langue de sortie",
+    resumeUploadTitle: "Choisir votre CV actuel",
+    resumeUploadHelp: "PDF, Word, RTF, TXT ou Markdown · 3 Mo maximum",
+    jobDescriptionLabel: "Description du poste (recommandée)",
+    jobDescriptionPlaceholder: "Collez les responsabilités et exigences du poste visé.",
+    jobDescriptionHelp: "Collez le texte plutôt qu’un lien afin d’analyser exactement ce poste.",
+    resumeConsent: "Je comprends que le fichier est transmis de manière sécurisée au fournisseur IA pour cette analyse et n’est pas conservé par ActuaryRadar.",
+    resumeSubmit: "Analyser et adapter le CV",
+    resumeClear: "Effacer",
+    resumeResultEyebrow: "Analyse d’adéquation",
+    resumeFitScoreLabel: "adéquation",
+    matchedStrengths: "Atouts étayés par le CV",
+    skillGaps: "Écarts à traiter honnêtement",
+    tailoredResume: "Projet de CV adapté",
+    downloadResume: "Télécharger en Markdown",
+    interviewPreparation: "Préparation à l’entretien",
+    recommendedLearning: "Formation recommandée",
+    integrityNotes: "Notes de preuve et d’intégrité",
+    resumeProcessing: "Lecture du CV et préparation de l’analyse…",
+    resumeLocalPreview: "L’analyse de CV est disponible sur le site déployé, pas dans l’aperçu local.",
+    resumeFileTooLarge: "Le fichier ne doit pas dépasser 3 Mo.",
+    resumeFileUnsupported: "Téléversez un fichier PDF, Word, RTF, TXT ou Markdown.",
+    resumeFailed: "L’analyse n’a pas pu être effectuée. Veuillez réessayer plus tard.",
     portalSectionsEyebrow: "Domaines couverts",
     portalSectionsTitle: "Explorer par thème",
     topicRegulationText: "Suivre la supervision, les exigences de capital, la protection des assurés et la conformité.",
@@ -1534,7 +1666,29 @@ const els = {
   portalLatestGrid: document.querySelector("#portalLatestGrid"),
   portalSectionGrid: document.querySelector("#portalSectionGrid"),
   newsletterForm: document.querySelector("#newsletterForm"),
-  newsletterStatus: document.querySelector("#newsletterStatus")
+  newsletterStatus: document.querySelector("#newsletterStatus"),
+  careerRoleCount: document.querySelector("#careerRoleCount"),
+  careerFamilyFilter: document.querySelector("#careerFamilyFilter"),
+  careerRoleGrid: document.querySelector("#careerRoleGrid"),
+  resumeTailorForm: document.querySelector("#resumeTailorForm"),
+  resumeTargetRole: document.querySelector("#resumeTargetRole"),
+  resumeOutputLanguage: document.querySelector("#resumeOutputLanguage"),
+  resumeFile: document.querySelector("#resumeFile"),
+  resumeFileName: document.querySelector("#resumeFileName"),
+  resumeJobDescription: document.querySelector("#resumeJobDescription"),
+  resumeSubmitButton: document.querySelector("#resumeSubmitButton"),
+  resumeClearButton: document.querySelector("#resumeClearButton"),
+  resumeStatus: document.querySelector("#resumeStatus"),
+  resumeResult: document.querySelector("#resumeResult"),
+  resumePositioning: document.querySelector("#resumePositioning"),
+  resumeFitScore: document.querySelector("#resumeFitScore"),
+  resumeStrengths: document.querySelector("#resumeStrengths"),
+  resumeGaps: document.querySelector("#resumeGaps"),
+  tailoredResumeText: document.querySelector("#tailoredResumeText"),
+  resumeInterview: document.querySelector("#resumeInterview"),
+  resumeLearning: document.querySelector("#resumeLearning"),
+  resumeIntegrityNotes: document.querySelector("#resumeIntegrityNotes"),
+  downloadResumeButton: document.querySelector("#downloadResumeButton")
 };
 
 async function init() {
@@ -1560,6 +1714,7 @@ async function init() {
   await loadKnowledgeSources();
   await loadKnowledgeVisuals();
   await loadKnowledge();
+  await loadCareers();
   await loadDigest("./data/digest.json");
   setActivePage(state.activePage);
   render();
@@ -1568,6 +1723,11 @@ async function init() {
 }
 
 function applyInitialRouteState() {
+  const params = new URLSearchParams(window.location.search);
+  const requestedPage = params.get("page");
+  if (["home", "knowledge", "career", "daily", "saved"].includes(requestedPage)) {
+    state.activePage = requestedPage;
+  }
   const section = currentRouteBriefingSection();
   if (section) {
     state.activePage = "daily";
@@ -1842,6 +2002,10 @@ function bindEvents() {
     renderKnowledgePlanner();
     renderKnowledge();
     renderLearningPlan();
+    renderCareerAtlas();
+    renderCareerRoleOptions();
+    if (els.resumeOutputLanguage) els.resumeOutputLanguage.value = state.language;
+    if (state.resumeResult) renderResumeResult(state.resumeResult);
     renderFilters();
     render();
   });
@@ -2038,6 +2202,21 @@ function bindEvents() {
     node.addEventListener("click", closeOnboardingModal);
   });
   els.newsletterForm?.addEventListener("submit", handleNewsletterSubmit);
+  els.careerFamilyFilter?.addEventListener("change", event => {
+    state.careerFamily = event.target.value;
+    renderCareerAtlas();
+  });
+  els.careerRoleGrid?.addEventListener("click", event => {
+    const button = event.target.closest("[data-career-role]");
+    if (!button) return;
+    if (els.resumeTargetRole) els.resumeTargetRole.value = button.dataset.careerRole;
+    document.querySelector("#resumeStudio")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    analyticsEvent("career_role_selected", { role_id: button.dataset.careerRole });
+  });
+  els.resumeFile?.addEventListener("change", updateResumeFileName);
+  els.resumeTailorForm?.addEventListener("submit", handleResumeTailorSubmit);
+  els.resumeClearButton?.addEventListener("click", resetResumeStudio);
+  els.downloadResumeButton?.addEventListener("click", downloadTailoredResume);
 
   els.selectAllSourcesButton.addEventListener("click", () => {
     state.sourcePlan = sourceLibrary.map(source => source.id);
@@ -2084,6 +2263,7 @@ function setActivePage(page) {
     if (state.data) renderScaffold();
     renderKnowledge();
   }
+  if (page === "career") renderCareerAtlas();
   if (page === "home") renderPortal();
   analyticsPageView("route_change");
 }
@@ -2167,6 +2347,8 @@ function syncBriefingUrl() {
   } else {
     url.searchParams.delete("topic");
   }
+  if (state.activePage === "home") url.searchParams.delete("page");
+  else url.searchParams.set("page", state.activePage);
   const next = `${url.pathname}${url.search}${url.hash}`;
   const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
   if (next !== current) window.history.replaceState({}, "", next);
@@ -2211,6 +2393,254 @@ async function loadKnowledge() {
     state.knowledge = [];
     els.knowledgeGrid.innerHTML = `<div class="empty-state">${escapeHtml(t("knowledgeLoadError"))}</div>`;
   }
+}
+
+async function loadCareers() {
+  try {
+    const response = await fetch("./data/careers.json", { cache: "no-store" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const payload = await response.json();
+    state.careers = Array.isArray(payload.roles) ? payload.roles : [];
+    if (els.careerRoleCount) els.careerRoleCount.textContent = String(state.careers.length);
+    renderCareerFilters();
+    renderCareerRoleOptions();
+    renderCareerAtlas();
+    if (els.resumeOutputLanguage) els.resumeOutputLanguage.value = state.language;
+  } catch (error) {
+    state.careers = [];
+    if (els.careerRoleGrid) els.careerRoleGrid.innerHTML = `<div class="empty-state">${escapeHtml(t("resumeFailed"))}</div>`;
+    console.warn("career_catalog_load_failed", error);
+  }
+}
+
+const careerFamilyLabels = {
+  actuarial: { en: "Actuarial", zh: "精算", fr: "Actuariat" },
+  commercial: { en: "Commercial", zh: "销售与渠道", fr: "Commercial" },
+  insurance_operations: { en: "Insurance operations", zh: "保险经营", fr: "Opérations" },
+  risk: { en: "Risk", zh: "风险管理", fr: "Risques" },
+  finance_risk: { en: "Finance & risk", zh: "投资与风险", fr: "Finance et risques" },
+  product: { en: "Product", zh: "保险产品", fr: "Produit" },
+  reinsurance: { en: "Reinsurance", zh: "再保险", fr: "Réassurance" },
+  public_policy: { en: "Regulation", zh: "监管与公共政策", fr: "Réglementation" },
+  external_analysis: { en: "External analysis", zh: "外部研究", fr: "Analyse externe" },
+  advisory: { en: "Advisory", zh: "咨询", fr: "Conseil" },
+  strategy_transactions: { en: "Strategy & transactions", zh: "战略与交易", fr: "Stratégie et transactions" }
+};
+
+function localizedCareerValue(value) {
+  if (!value) return "";
+  if (typeof value === "string") return value;
+  return value[state.language] || value.en || value.zh || "";
+}
+
+function careerFamilyLabel(family) {
+  return careerFamilyLabels[family]?.[state.language] || careerFamilyLabels[family]?.en || family;
+}
+
+function renderCareerFilters() {
+  if (!els.careerFamilyFilter) return;
+  const families = [...new Set(state.careers.map(role => role.family).filter(Boolean))];
+  els.careerFamilyFilter.innerHTML = [
+    `<option value="all">${escapeHtml(t("careerAllFamilies"))}</option>`,
+    ...families.map(family => `<option value="${escapeHtml(family)}">${escapeHtml(careerFamilyLabel(family))}</option>`)
+  ].join("");
+  els.careerFamilyFilter.value = families.includes(state.careerFamily) ? state.careerFamily : "all";
+}
+
+function renderCareerRoleOptions() {
+  if (!els.resumeTargetRole) return;
+  const selected = els.resumeTargetRole.value;
+  els.resumeTargetRole.innerHTML = state.careers.map(role => `
+    <option value="${escapeHtml(role.id)}">${escapeHtml(localizedCareerValue(role.title))}</option>
+  `).join("");
+  if (state.careers.some(role => role.id === selected)) els.resumeTargetRole.value = selected;
+}
+
+function renderCareerAtlas() {
+  if (!els.careerRoleGrid) return;
+  renderCareerFilters();
+  const roles = state.careerFamily === "all"
+    ? state.careers
+    : state.careers.filter(role => role.family === state.careerFamily);
+  els.careerRoleGrid.innerHTML = roles.map(role => `
+    <article class="career-role-card">
+      <header>
+        <h4>${escapeHtml(localizedCareerValue(role.title))}</h4>
+        <span class="career-family-tag">${escapeHtml(careerFamilyLabel(role.family))}</span>
+      </header>
+      <p>${escapeHtml(localizedCareerValue(role.summary))}</p>
+      <dl class="career-role-meta">
+        <div><dt>${escapeHtml(t("careerCoreSkills"))}</dt><dd>${escapeHtml((role.skills || []).slice(0, 3).join(" · "))}</dd></div>
+        <div><dt>${escapeHtml(t("careerLearningTracks"))}</dt><dd>${escapeHtml((role.learning_tracks || []).slice(0, 3).join(" · "))}</dd></div>
+        <div><dt>${escapeHtml(t("careerTransitions"))}</dt><dd>${escapeHtml((role.transitions || []).slice(0, 2).join(" · "))}</dd></div>
+      </dl>
+      <button class="ghost-button" type="button" data-career-role="${escapeHtml(role.id)}">${escapeHtml(t("careerUseRole"))}</button>
+    </article>
+  `).join("");
+}
+
+function updateResumeFileName() {
+  const file = els.resumeFile?.files?.[0];
+  if (els.resumeFileName) els.resumeFileName.textContent = file ? `${file.name} · ${formatFileSize(file.size)}` : "";
+}
+
+function formatFileSize(bytes) {
+  if (!Number.isFinite(bytes)) return "";
+  if (bytes < 1024 * 1024) return `${Math.ceil(bytes / 1024)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+async function handleResumeTailorSubmit(event) {
+  event.preventDefault();
+  const file = els.resumeFile?.files?.[0];
+  if (!file) return;
+  const supportedExtensions = ["pdf", "doc", "docx", "rtf", "txt", "md"];
+  const extension = file.name.split(".").pop()?.toLowerCase() || "";
+  if (!supportedExtensions.includes(extension)) {
+    setResumeStatus(t("resumeFileUnsupported"), true);
+    return;
+  }
+  if (file.size > 3 * 1024 * 1024) {
+    setResumeStatus(t("resumeFileTooLarge"), true);
+    return;
+  }
+  if (window.location.protocol === "file:" || window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+    setResumeStatus(t("resumeLocalPreview"), true);
+    return;
+  }
+
+  const selectedRole = state.careers.find(role => role.id === els.resumeTargetRole?.value);
+  const body = {
+    fileName: file.name,
+    mimeType: file.type || mimeTypeForExtension(extension),
+    fileData: await readFileAsDataUrl(file),
+    targetRole: {
+      id: selectedRole?.id || els.resumeTargetRole?.value || "general_insurance",
+      title: localizedCareerValue(selectedRole?.title) || "Insurance role",
+      summary: localizedCareerValue(selectedRole?.summary),
+      responsibilities: selectedRole?.responsibilities || [],
+      skills: selectedRole?.skills || [],
+      learningTracks: selectedRole?.learning_tracks || []
+    },
+    jobDescription: String(els.resumeJobDescription?.value || "").trim(),
+    outputLanguage: els.resumeOutputLanguage?.value || state.language,
+    consent: Boolean(document.querySelector("#resumeConsent")?.checked),
+    "bot-field": String(event.currentTarget.elements["bot-field"]?.value || "")
+  };
+
+  setResumeStatus(t("resumeProcessing"));
+  els.resumeSubmitButton?.setAttribute("disabled", "disabled");
+  if (els.resumeResult) els.resumeResult.hidden = true;
+  try {
+    const response = await fetch("/api/career/tailor", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok || !payload.analysis) throw new Error(payload.error || `HTTP ${response.status}`);
+    state.resumeResult = payload.analysis;
+    renderResumeResult(payload.analysis);
+    setResumeStatus("");
+    analyticsEvent("career_resume_tailored", {
+      role_id: body.targetRole.id,
+      output_language: body.outputLanguage,
+      has_job_description: Boolean(body.jobDescription)
+    });
+  } catch (error) {
+    setResumeStatus(error.message && !error.message.startsWith("HTTP") ? error.message : t("resumeFailed"), true);
+  } finally {
+    els.resumeSubmitButton?.removeAttribute("disabled");
+  }
+}
+
+function setResumeStatus(message, isError = false) {
+  if (!els.resumeStatus) return;
+  els.resumeStatus.textContent = message;
+  els.resumeStatus.className = `resume-status${isError ? " error" : ""}`;
+}
+
+function readFileAsDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result || ""));
+    reader.onerror = () => reject(new Error(t("resumeFailed")));
+    reader.readAsDataURL(file);
+  });
+}
+
+function mimeTypeForExtension(extension) {
+  return {
+    pdf: "application/pdf",
+    doc: "application/msword",
+    docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    rtf: "application/rtf",
+    txt: "text/plain",
+    md: "text/markdown"
+  }[extension] || "application/octet-stream";
+}
+
+function renderResumeResult(result) {
+  if (!els.resumeResult) return;
+  els.resumeResult.hidden = false;
+  els.resumePositioning.textContent = result.positioning || "-";
+  els.resumeFitScore.textContent = `${Math.max(0, Math.min(100, Number(result.fit_score) || 0))}%`;
+  els.resumeStrengths.innerHTML = renderEvidenceItems(result.matched_strengths, "evidence");
+  els.resumeGaps.innerHTML = renderEvidenceItems(result.gaps, "recommendation");
+  els.tailoredResumeText.textContent = result.tailored_resume_markdown || "";
+  els.resumeInterview.innerHTML = renderQuestionItems(result.interview_questions);
+  els.resumeLearning.innerHTML = renderLearningItems(result.learning_plan);
+  els.resumeIntegrityNotes.innerHTML = (result.integrity_notes || []).map(note => `<li>${escapeHtml(note)}</li>`).join("");
+  els.resumeResult.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function renderEvidenceItems(items, detailKey) {
+  return (items || []).map(item => `
+    <div class="resume-evidence-item">
+      <strong>${escapeHtml(item.requirement || item.topic || "")}</strong>
+      <span>${escapeHtml(item[detailKey] || item.status || "")}</span>
+    </div>
+  `).join("");
+}
+
+function renderQuestionItems(items) {
+  return (items || []).map(item => `
+    <div class="resume-evidence-item">
+      <strong>${escapeHtml(item.question || "")}</strong>
+      <span>${escapeHtml(item.answer_direction || "")}</span>
+    </div>
+  `).join("");
+}
+
+function renderLearningItems(items) {
+  return (items || []).map(item => `
+    <div class="resume-evidence-item">
+      <strong>${escapeHtml(item.topic || "")}</strong>
+      <span>${escapeHtml([item.reason, item.first_step].filter(Boolean).join(" · "))}</span>
+    </div>
+  `).join("");
+}
+
+function resetResumeStudio() {
+  els.resumeTailorForm?.reset();
+  if (els.resumeOutputLanguage) els.resumeOutputLanguage.value = state.language;
+  if (els.resumeFileName) els.resumeFileName.textContent = "";
+  if (els.resumeResult) els.resumeResult.hidden = true;
+  state.resumeResult = null;
+  setResumeStatus("");
+}
+
+function downloadTailoredResume() {
+  const markdown = state.resumeResult?.tailored_resume_markdown;
+  if (!markdown) return;
+  const roleId = els.resumeTargetRole?.value || "insurance-role";
+  const blob = new Blob([markdown], { type: "text/markdown;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = `actuaryradar-${roleId}-resume.md`;
+  anchor.click();
+  URL.revokeObjectURL(url);
 }
 
 async function loadOpenSourceResources() {
@@ -2759,6 +3189,11 @@ function updatePageHeader() {
   if (state.activePage === "knowledge") {
     els.pageTitle.textContent = t("knowledgeTitle");
     els.pageSubtitle.textContent = t("pageKnowledgeSubtitle");
+    return;
+  }
+  if (state.activePage === "career") {
+    els.pageTitle.textContent = t("careerTitle");
+    els.pageSubtitle.textContent = t("pageCareerSubtitle");
     return;
   }
   els.pageTitle.textContent = t("savedTitle");
@@ -5941,6 +6376,7 @@ function navIcon(name) {
   const icons = {
     home: '<path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9Z"/>',
     book: '<path d="M4 5.5A3.5 3.5 0 0 1 7.5 2H21v17H7.5A3.5 3.5 0 0 0 4 22.5v-17Z"/><path d="M4 5.5A3.5 3.5 0 0 1 7.5 2H21"/>',
+    career: '<path d="M4 7h16v12H4z"/><path d="M9 7V4h6v3M4 12h16M10 12v2h4v-2"/>',
     brief: '<path d="M7 7h10v14H7z"/><path d="M9 3h6v4H9z"/><path d="M10 12h4M10 16h4"/>',
     star: '<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"/>',
     shield: '<path d="M12 3 20 6v6c0 5.5-3.2 8.8-8 10-4.8-1.2-8-4.5-8-10V6l8-3Z"/><path d="m8 12 2.6 2.6L16 9"/>',

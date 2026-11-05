@@ -134,6 +134,9 @@ def build_site(site_dir: pathlib.Path = SITE_DIR, base_url: str = "") -> None:
     knowledge_visuals_path = ROOT / "ui" / "data" / "knowledge_visuals.json"
     if knowledge_visuals_path.exists():
         copy_file(knowledge_visuals_path, site_dir / "data" / "knowledge_visuals.json")
+    careers_path = ROOT / "ui" / "data" / "careers.json"
+    if careers_path.exists():
+        copy_file(careers_path, site_dir / "data" / "careers.json")
     open_source_path = ROOT / "config" / "open_source_resources.json"
     if open_source_path.exists():
         copy_file(open_source_path, site_dir / "data" / "open_source_resources.json")
