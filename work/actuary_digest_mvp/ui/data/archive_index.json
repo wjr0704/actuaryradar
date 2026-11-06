@@ -1,13 +1,13 @@
 {
   "archives": [
     {
-      "date": "2026-11-05",
-      "title": "2026-11-05",
+      "date": "2026-11-06",
+      "title": "2026-11-06",
       "mode": "rss",
-      "theme": "周四：再保险、经纪与风险转移",
-      "json": "./data/archive/2026-11-05.json",
-      "html": "./reports/2026-11-05.html",
-      "markdown": "./reports/2026-11-05.md"
+      "theme": "周五：IFRS 17、财报与资本管理",
+      "json": "./data/archive/2026-11-06.json",
+      "html": "./reports/2026-11-06.html",
+      "markdown": "./reports/2026-11-06.md"
     }
   ]
 }
