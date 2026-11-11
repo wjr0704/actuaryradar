@@ -222,22 +222,29 @@ export function pickNewsletterStories(digest, language = "en") {
     .map(id => languageItems.find(item => (item.original_url || item.url) === id || item.url === id))
     .filter(Boolean);
   const selectedItems = hasConfiguredPicks
-    ? configuredItems.slice(0, 5)
+    ? configuredItems.slice(0, 3)
     : [...languageItems]
       .sort((a, b) => String(b.published || "").localeCompare(String(a.published || "")))
-      .slice(0, 5);
+      .slice(0, 3);
   return selectedItems
     .map(item => ({
-      title: strictLocalizedValue(item.localized_title, normalizedLanguage)
+      title: item.original_title
         || item.title
-        || item.original_title
+        || strictLocalizedValue(item.localized_title, normalizedLanguage)
         || (normalizedLanguage === "zh" ? "无标题" : "Untitled"),
-      source: item.source_name || item.source || "Source",
+      source: publicNewsletterSource(item.source_name || item.source || "Source"),
       url: item.original_url || item.url || siteBaseUrl(),
+      published: String(item.published || "").slice(0, 10),
       keyTakeaway: strictLocalizedValue(item.key_takeaway, normalizedLanguage) || item.summary || "",
       whyItMatters: strictLocalizedValue(item.why_it_matters, normalizedLanguage),
       topic: localizedTopic(item.platform_section || item.taxonomy_category || "market", normalizedLanguage)
     }));
+}
+
+function publicNewsletterSource(value) {
+  return String(value || "Source")
+    .replace(/\s*[-–—]\s*Direct RSS\s*$/i, "")
+    .trim() || "Source";
 }
 
 export function pickLearningItem(digest, language = "en") {
@@ -369,6 +376,7 @@ export function dailyNewsletterEmail({ digest, subscriber }) {
       learning: "今日学习",
       takeaway: "核心要点",
       why: "为什么重要",
+      original: "阅读原文",
       cta: "继续学习",
       footer: "你收到这封邮件，是因为你订阅了 ActuaryRadar Daily。",
       empty: "今日暂无可发送的中文情报。",
@@ -382,6 +390,7 @@ export function dailyNewsletterEmail({ digest, subscriber }) {
       learning: "Apprentissage du jour",
       takeaway: "Point clé",
       why: "Pourquoi c’est important",
+      original: "Lire l’article",
       cta: "Continuer sur ActuaryRadar",
       footer: "Vous recevez cet e-mail car vous êtes abonné à ActuaryRadar Daily.",
       empty: "Aucune veille disponible aujourd’hui.",
@@ -395,6 +404,7 @@ export function dailyNewsletterEmail({ digest, subscriber }) {
       learning: "Today's Learning",
       takeaway: "Key Takeaway",
       why: "Why It Matters",
+      original: "Read original",
       cta: "Continue learning on ActuaryRadar",
       footer: "You are receiving this email because you subscribed to ActuaryRadar Daily.",
       empty: "No English briefing items are available today.",
@@ -437,10 +447,11 @@ function renderNewsletterEdition({ digest, language, labels }) {
   const storyHtml = stories.length
     ? stories.map(story => `
       <article class="story">
-        <p class="meta">${escapeHtml(story.source)} · ${escapeHtml(story.topic)}</p>
+        <p class="meta">${escapeHtml(story.source)} · ${escapeHtml(story.topic)}${story.published ? ` · ${escapeHtml(story.published)}` : ""}</p>
         <h3><a href="${escapeAttribute(story.url)}">${escapeHtml(story.title)}</a></h3>
-        ${story.keyTakeaway ? `<p><strong>${escapeHtml(labels.takeaway)}:</strong> ${escapeHtml(story.keyTakeaway)}</p>` : ""}
-        ${story.whyItMatters ? `<p><strong>${escapeHtml(labels.why)}:</strong> ${escapeHtml(story.whyItMatters)}</p>` : ""}
+        ${story.keyTakeaway ? `<p class="story-copy"><strong>${escapeHtml(labels.takeaway)}</strong>${escapeHtml(story.keyTakeaway)}</p>` : ""}
+        ${story.whyItMatters ? `<p class="story-copy"><strong>${escapeHtml(labels.why)}</strong>${escapeHtml(story.whyItMatters)}</p>` : ""}
+        <p class="story-link"><a href="${escapeAttribute(story.url)}">${escapeHtml(labels.original)} →</a></p>
       </article>
     `).join("")
     : `<p>${escapeHtml(labels.empty)}</p>`;
@@ -469,21 +480,34 @@ function emailShell(title, content) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="x-apple-disable-message-reformatting">
   <title>${escapeHtml(title)}</title>
   <style>
-    body { margin:0; background:#f7f5ec; color:#102033; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; line-height:1.55; }
+    body { margin:0; background:#f7f5ec; color:#102033; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; line-height:1.55; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
     .wrap { max-width:680px; margin:0 auto; padding:32px 18px; }
-    .card { background:#fffdf7; border:1px solid #dfe8dc; border-radius:24px; padding:28px; box-shadow:0 18px 45px rgba(23,52,43,.08); }
+    .card { background:#fffdf7; border:1px solid #dfe8dc; border-radius:14px; padding:28px; box-shadow:0 18px 45px rgba(23,52,43,.08); }
     h1 { margin:0 0 14px; font-size:28px; }
     h2 { margin:28px 0 12px; font-size:20px; }
-    h3 { margin:6px 0 8px; font-size:17px; }
+    h3 { margin:6px 0 10px; font-size:18px; line-height:1.35; }
     p { margin:0 0 14px; }
     a { color:#1f6f5b; }
     .button { display:inline-block; background:#245f4b; color:#fff !important; text-decoration:none; padding:12px 18px; border-radius:999px; font-weight:700; }
-    .story { padding:16px 0; border-top:1px solid #e7ece4; }
+    .story { padding:18px 0; border-top:1px solid #e7ece4; }
+    .story h3 a { text-decoration:none; overflow-wrap:anywhere; }
+    .story-copy { color:#263a34; }
+    .story-copy strong { display:block; color:#102033; font-size:13px; margin-bottom:3px; }
+    .story-link { margin:2px 0 0; font-size:13px; font-weight:700; }
     .meta, .muted, .date { color:#66746d; font-size:13px; }
     .learning { background:#eef7f0; border-radius:18px; padding:16px; margin:24px 0; }
     .edition-divider { border:0; border-top:2px solid #dfe8dc; margin:34px 0; }
+    @media only screen and (max-width:520px) {
+      .wrap { padding:14px 8px !important; }
+      .card { padding:20px 18px !important; border-radius:10px !important; }
+      h1 { font-size:25px !important; }
+      h2 { margin-top:24px !important; font-size:19px !important; }
+      h3 { font-size:17px !important; }
+      .story { padding:16px 0 !important; }
+    }
   </style>
 </head>
 <body><div class="wrap"><div class="card"><h1>${escapeHtml(title)}</h1>${content}</div></div></body>
