@@ -1,8 +1,55 @@
 {
   "editions": [
     {
+      "date": "2026-11-11",
+      "ids_by_language": {
+        "en": [
+          "https://www.artemis.bm/news/cortina-shows-another-avenue-for-third-party-capital-to-enter-the-reinsurance-market-evercore-isi/?utm_source=rss&utm_medium=rss&utm_campaign=cortina-shows-another-avenue-for-third-party-capital-to-enter-the-reinsurance-market-evercore-isi",
+          "https://www.businessinsurance.com/insured-cat-losses-top-100b-for-10th-straight-year-gallagher-re/",
+          "https://www.artemis.bm/news/cat-bond-market-primed-for-growth-as-perils-sponsors-and-capacity-expands-man-group/?utm_source=rss&utm_medium=rss&utm_campaign=cat-bond-market-primed-for-growth-as-perils-sponsors-and-capacity-expands-man-group",
+          "https://www.insurancejournal.com/news/southcentral/2026/11/10/892289.htm"
+        ],
+        "zh": [
+          "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9NUks5MFQwekJPZXZRVWhZTk9BM0JaTnlJSGN2ME9GeEM1Zm1yXzdzNnVfWUllMEdoV3MzNm9Hb2t2SlBUN2JJazNCcVVUVTBHNXZDTmVpQVVYS2JyTEtjTER3LWhJQQ?oc=5",
+          "https://news.google.com/rss/articles/CBMiTkFVX3lxTFBKdGR6U2pJWXh3SHI4bHV4NFVZUENpRmY5bmRpUlNERVVES01SRS1DZkVHZDlNQVRnQ3BxYzE0ZkxSTm5GWmNRN1Bld3ljZw?oc=5",
+          "https://news.google.com/rss/articles/CBMiZkFVX3lxTFBEZEFJSUJhWWZVanlWNHA2VFhaTlhpQzRKNFBHMG5LUWJLOWRYcEsxMHJGT1EtQkFhLUhmdEhjSnVOZGRhZDZCdkRHSExNcXJzNncwQVpWNWE4YlZ0SmRCZi1Lb0YtUQ?oc=5",
+          "https://news.google.com/rss/articles/CBMiYkFVX3lxTFBoUnFlZXNmM083clRyQVZZQ2phZWQ4Nmw1cTZyR3ZjQU1GZ0FLY09WblVRbXBmLW9iQlNFa2VQT1FmSmtHdzVPYndTTFM3T3ZLNG85Rkx2TjlacDVaZ0JMR193?oc=5"
+        ],
+        "fr": [
+          "https://www.franceassureurs.fr/actualites/assurement-margaux-le-podcast-pratique-de-france-assureurs/",
+          "https://www.franceassureurs.fr/espace-presse/les-communiques-de-presse/violences-urbaines-assureurs-se-mobilisent-pour-accompagner-assures-accelerer-indemnisation/",
+          "https://www.franceassureurs.fr/nos-chiffres-cles/emploi-dans-lassurance/lemploi-dans-lassurance-en-2025-publication-des-donnees-cles/",
+          "https://www.franceassureurs.fr/actualites/guide-professionnel-assurance-blanchiment-capitaux-financement-terrorisme/"
+        ]
+      },
+      "title_keys_by_language": {
+        "en": [
+          "cortinashowsanotheravenueforthirdpartycapitaltoenterthereinsurancemarketevercoreisi",
+          "insuredcatlossestop100bfor10thstraightyeargallagherre",
+          "catbondmarketprimedforgrowthasperilssponsorsandcapacityexpandsmangroup",
+          "ambestrevisesoutlooktostableformembersoftexasfarmbureauinsurancegroup"
+        ],
+        "zh": [
+          "生态协同与数智赋能法巴天星保险以专业深耕新能源车险赛道每日经济新闻",
+          "兴业银行因数据安全科技外包等问题被罚695万元安全内参",
+          "偿付能力充足前三季度财险业承保质量持续改善湖南红网",
+          "中保协推出首版商业保险药品清单医保局商业健康险创新药纳入9种财新"
+        ],
+        "fr": [
+          "assurémentmargauxlepodcastpratiquedefranceassureurs",
+          "violencesurbaineslesassureurssemobilisentpouraccompagnerleursassurésetaccélérerlindemnisation",
+          "lemploidanslassuranceen2025publicationdesdonnéesclés",
+          "lcbftunguidepourconnaîtrelesinformationsjustificatifsetdonnéespersonnellesquevotreprofessionneldelassurancepeutvousdemander"
+        ]
+      }
+    },
+    {
       "date": "2026-11-10",
-      "ids_by_language": {"en": [], "zh": [], "fr": []},
+      "ids_by_language": {
+        "en": [],
+        "zh": [],
+        "fr": []
+      },
       "title_keys_by_language": {
         "en": [
           "ilsexpansionbeyondcatmustbedrivenbypricingstructureunderstandingdoristwelvesecuris",
@@ -26,7 +73,11 @@
     },
     {
       "date": "2026-11-09",
-      "ids_by_language": {"en": [], "zh": [], "fr": []},
+      "ids_by_language": {
+        "en": [],
+        "zh": [],
+        "fr": []
+      },
       "title_keys_by_language": {
         "en": [
           "illinoisroofingcompanytopay700kinraceandsexharassmentsuit",
@@ -50,7 +101,11 @@
     },
     {
       "date": "2026-11-08",
-      "ids_by_language": {"en": [], "zh": [], "fr": []},
+      "ids_by_language": {
+        "en": [],
+        "zh": [],
+        "fr": []
+      },
       "title_keys_by_language": {
         "en": [
           "noreliefforthepittlawsuit",
