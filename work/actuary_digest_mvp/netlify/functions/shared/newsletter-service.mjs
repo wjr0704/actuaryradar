@@ -208,8 +208,9 @@ export async function loadLatestDigest() {
   return response.json();
 }
 
-export function pickNewsletterStories(digest, language = "en") {
+export function pickNewsletterStories(digest, language = "en", limit = 3) {
   const normalizedLanguage = ["en", "zh", "fr"].includes(language) ? language : "en";
+  const storyLimit = Math.max(1, Math.min(Number(limit) || 3, 5));
   const items = Array.isArray(digest?.items) ? digest.items : [];
   const languageItems = items.filter(item => {
     const itemLanguage = String(item.source_language || item.original_language || "en").toLowerCase();
@@ -222,10 +223,10 @@ export function pickNewsletterStories(digest, language = "en") {
     .map(id => languageItems.find(item => (item.original_url || item.url) === id || item.url === id))
     .filter(Boolean);
   const selectedItems = hasConfiguredPicks
-    ? configuredItems.slice(0, 3)
+    ? configuredItems.slice(0, storyLimit)
     : [...languageItems]
       .sort((a, b) => String(b.published || "").localeCompare(String(a.published || "")))
-      .slice(0, 3);
+      .slice(0, storyLimit);
   return selectedItems
     .map(item => ({
       title: item.original_title
@@ -377,6 +378,8 @@ export function dailyNewsletterEmail({ digest, subscriber }) {
       takeaway: "核心要点",
       why: "为什么重要",
       original: "阅读原文",
+      stories: "条精选",
+      minutes: "分钟阅读",
       cta: "继续学习",
       footer: "你收到这封邮件，是因为你订阅了 ActuaryRadar Daily。",
       empty: "今日暂无可发送的中文情报。",
@@ -391,6 +394,8 @@ export function dailyNewsletterEmail({ digest, subscriber }) {
       takeaway: "Point clé",
       why: "Pourquoi c’est important",
       original: "Lire l’article",
+      stories: "articles",
+      minutes: "min de lecture",
       cta: "Continuer sur ActuaryRadar",
       footer: "Vous recevez cet e-mail car vous êtes abonné à ActuaryRadar Daily.",
       empty: "Aucune veille disponible aujourd’hui.",
@@ -405,6 +410,8 @@ export function dailyNewsletterEmail({ digest, subscriber }) {
       takeaway: "Key Takeaway",
       why: "Why It Matters",
       original: "Read original",
+      stories: "stories",
+      minutes: "min read",
       cta: "Continue learning on ActuaryRadar",
       footer: "You are receiving this email because you subscribed to ActuaryRadar Daily.",
       empty: "No English briefing items are available today.",
@@ -413,10 +420,15 @@ export function dailyNewsletterEmail({ digest, subscriber }) {
     }
   };
   const languages = preference === "both" ? ["en", "zh"] : [preference];
+  const storyLimit = preference === "both" ? 2 : 3;
+  const storiesByLanguage = Object.fromEntries(
+    languages.map(language => [language, pickNewsletterStories(digest, language, storyLimit)])
+  );
   const sections = languages.map(language => renderNewsletterEdition({
     digest,
     language,
-    labels: labelsByLanguage[language]
+    labels: labelsByLanguage[language],
+    stories: storiesByLanguage[language]
   })).join('<hr class="edition-divider">');
   const primaryLabels = labelsByLanguage[preference === "both" ? "en" : preference];
   const subject = preference === "both"
@@ -429,34 +441,56 @@ export function dailyNewsletterEmail({ digest, subscriber }) {
   const privacy = preference === "both"
     ? "Privacy notice: your email is used only for ActuaryRadar Daily. 隐私说明：你的邮箱仅用于发送 ActuaryRadar 日报。"
     : primaryLabels.privacy;
+  const storyCount = languages.reduce((total, language) => total + storiesByLanguage[language].length, 0);
+  const readMinutes = Math.max(3, storyCount * 2);
+  const briefingMeta = preference === "both"
+    ? `${storyCount} stories / ${storyCount} 条精选 · ${readMinutes} min`
+    : `${storyCount} ${primaryLabels.stories} · ${readMinutes} ${primaryLabels.minutes}`;
+  const languageNav = preference === "both"
+    ? '<p class="language-nav">Jump to / 跳转：<a href="#edition-en">English</a><span>·</span><a href="#edition-zh">中文</a></p>'
+    : "";
+  const preheader = conciseEmailCopy(
+    languages.flatMap(language => storiesByLanguage[language].map(story => story.title)).join(" · "),
+    140,
+    2
+  );
   return {
     subject,
     html: emailShell("ActuaryRadar Daily", `
-      <p class="date">${escapeHtml(digestDate)}</p>
+      <div class="briefing-header">
+        <p class="date">${escapeHtml(digestDate)}</p>
+        <p class="briefing-meta">${escapeHtml(briefingMeta)}</p>
+        ${languageNav}
+      </div>
       ${sections}
       <p><a class="button" href="${siteBaseUrl()}">${escapeHtml(preference === "both" ? "Continue learning / 继续学习" : primaryLabels.cta)}</a></p>
       <p class="muted">${escapeHtml(footer)}</p>
       <p class="muted"><a href="${unsubscribeUrl}">${escapeHtml(unsubscribeLabel)}</a> · ${escapeHtml(privacy)}</p>
-    `)
+    `, { preheader })
   };
 }
 
-function renderNewsletterEdition({ digest, language, labels }) {
-  const stories = pickNewsletterStories(digest, language);
+function renderNewsletterEdition({ digest, language, labels, stories = pickNewsletterStories(digest, language) }) {
   const learning = pickLearningItem(digest, language);
   const storyHtml = stories.length
-    ? stories.map(story => `
+    ? stories.map((story, index) => `
       <article class="story">
-        <p class="meta">${escapeHtml(story.source)} · ${escapeHtml(story.topic)}${story.published ? ` · ${escapeHtml(story.published)}` : ""}</p>
-        <h3><a href="${escapeAttribute(story.url)}">${escapeHtml(story.title)}</a></h3>
-        ${story.keyTakeaway ? `<p class="story-copy"><strong>${escapeHtml(labels.takeaway)}</strong>${escapeHtml(story.keyTakeaway)}</p>` : ""}
-        ${story.whyItMatters ? `<p class="story-copy"><strong>${escapeHtml(labels.why)}</strong>${escapeHtml(story.whyItMatters)}</p>` : ""}
+        <table class="story-heading" role="presentation" cellspacing="0" cellpadding="0"><tr>
+          <td class="story-number">${String(index + 1).padStart(2, "0")}</td>
+          <td>
+            <p class="topic">${escapeHtml(story.topic)}</p>
+            <h3><a href="${escapeAttribute(story.url)}">${escapeHtml(story.title)}</a></h3>
+            <p class="meta">${escapeHtml(story.source)}${story.published ? ` · ${escapeHtml(story.published)}` : ""}</p>
+          </td>
+        </tr></table>
+        ${story.keyTakeaway ? `<p class="story-copy"><strong>${escapeHtml(labels.takeaway)}</strong>${escapeHtml(conciseEmailCopy(story.keyTakeaway, 220, 2))}</p>` : ""}
+        ${story.whyItMatters ? `<p class="story-copy"><strong>${escapeHtml(labels.why)}</strong>${escapeHtml(conciseEmailCopy(story.whyItMatters, 240, 1))}</p>` : ""}
         <p class="story-link"><a href="${escapeAttribute(story.url)}">${escapeHtml(labels.original)} →</a></p>
       </article>
     `).join("")
     : `<p>${escapeHtml(labels.empty)}</p>`;
   return `
-      <section lang="${escapeAttribute(language === "zh" ? "zh-CN" : language)}">
+      <section id="edition-${escapeAttribute(language)}" lang="${escapeAttribute(language === "zh" ? "zh-CN" : language)}">
       <h2>${escapeHtml(labels.radar)}</h2>
       ${storyHtml}
       <section class="learning">
@@ -474,7 +508,19 @@ export function statusPage({ title, body, cta = "Open ActuaryRadar" }) {
   `);
 }
 
-function emailShell(title, content) {
+function conciseEmailCopy(value, maxChars, maxSentences) {
+  const text = String(value || "").replace(/\s+/g, " ").trim();
+  if (!text) return "";
+  const sentences = text.match(/[^.!?。！？]+[.!?。！？]?/g) || [text];
+  let concise = sentences.slice(0, maxSentences).join(" ").replace(/\s+([.!?。！？])/g, "$1").trim();
+  if (concise.length <= maxChars) return concise;
+  let shortened = concise.slice(0, maxChars - 1).trim();
+  const lastSpace = shortened.lastIndexOf(" ");
+  if (lastSpace > maxChars * 0.65) shortened = shortened.slice(0, lastSpace);
+  return `${shortened.replace(/[,:;，：；\s]+$/g, "")}…`;
+}
+
+function emailShell(title, content, { preheader = "" } = {}) {
   return `<!doctype html>
 <html>
 <head>
@@ -484,21 +530,32 @@ function emailShell(title, content) {
   <title>${escapeHtml(title)}</title>
   <style>
     body { margin:0; background:#f7f5ec; color:#102033; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; line-height:1.55; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
-    .wrap { max-width:680px; margin:0 auto; padding:32px 18px; }
-    .card { background:#fffdf7; border:1px solid #dfe8dc; border-radius:14px; padding:28px; box-shadow:0 18px 45px rgba(23,52,43,.08); }
-    h1 { margin:0 0 14px; font-size:28px; }
-    h2 { margin:28px 0 12px; font-size:20px; }
+    .preheader { display:none !important; visibility:hidden; opacity:0; color:transparent; height:0; width:0; overflow:hidden; mso-hide:all; }
+    .wrap { max-width:640px; margin:0 auto; padding:24px 14px; }
+    .card { background:#fffdf7; border:1px solid #dfe8dc; border-radius:10px; padding:26px; box-shadow:0 12px 32px rgba(23,52,43,.06); }
+    h1 { margin:0 0 8px; font-size:26px; line-height:1.2; }
+    h2 { margin:26px 0 10px; font-size:19px; }
     h3 { margin:6px 0 10px; font-size:18px; line-height:1.35; }
     p { margin:0 0 14px; }
     a { color:#1f6f5b; }
     .button { display:inline-block; background:#245f4b; color:#fff !important; text-decoration:none; padding:12px 18px; border-radius:999px; font-weight:700; }
-    .story { padding:18px 0; border-top:1px solid #e7ece4; }
+    .briefing-header { margin-bottom:20px; }
+    .briefing-meta { margin:2px 0 0; color:#40554c; font-size:14px; font-weight:700; }
+    .language-nav { margin:12px 0 0; font-size:13px; }
+    .language-nav span { padding:0 8px; color:#9aa69f; }
+    .story { padding:18px 0 20px; border-top:1px solid #dfe8dc; }
+    .story-heading { width:100%; border:0; }
+    .story-heading td { vertical-align:top; }
+    .story-number { width:36px; padding:3px 12px 0 0; color:#1f6f5b; font-size:13px; font-weight:800; }
+    .topic { margin:0 0 3px; color:#9a641f; font-size:12px; font-weight:800; text-transform:uppercase; }
     .story h3 a { text-decoration:none; overflow-wrap:anywhere; }
-    .story-copy { color:#263a34; }
-    .story-copy strong { display:block; color:#102033; font-size:13px; margin-bottom:3px; }
-    .story-link { margin:2px 0 0; font-size:13px; font-weight:700; }
+    .story-copy { margin-left:48px; color:#263a34; }
+    .story-copy strong { display:block; color:#102033; font-size:12px; margin-bottom:3px; }
+    .story-link { margin:2px 0 0 48px; font-size:13px; font-weight:700; }
     .meta, .muted, .date { color:#66746d; font-size:13px; }
-    .learning { background:#eef7f0; border-radius:18px; padding:16px; margin:24px 0; }
+    .date { margin-bottom:0; }
+    .learning { background:#eef7f0; border-left:3px solid #7ba891; border-radius:8px; padding:14px 16px; margin:22px 0; }
+    .learning h2 { margin-top:0; }
     .edition-divider { border:0; border-top:2px solid #dfe8dc; margin:34px 0; }
     @media only screen and (max-width:520px) {
       .wrap { padding:14px 8px !important; }
@@ -507,10 +564,12 @@ function emailShell(title, content) {
       h2 { margin-top:24px !important; font-size:19px !important; }
       h3 { font-size:17px !important; }
       .story { padding:16px 0 !important; }
+      .story-number { width:32px !important; padding-right:8px !important; }
+      .story-copy, .story-link { margin-left:40px !important; }
     }
   </style>
 </head>
-<body><div class="wrap"><div class="card"><h1>${escapeHtml(title)}</h1>${content}</div></div></body>
+<body>${preheader ? `<div class="preheader">${escapeHtml(preheader)}</div>` : ""}<div class="wrap"><div class="card"><h1>${escapeHtml(title)}</h1>${content}</div></div></body>
 </html>`;
 }
 
