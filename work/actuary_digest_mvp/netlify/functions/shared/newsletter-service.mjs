@@ -215,11 +215,13 @@ export function pickNewsletterStories(digest, language = "en") {
     const itemLanguage = String(item.source_language || item.original_language || "en").toLowerCase();
     return itemLanguage.startsWith(normalizedLanguage);
   });
-  const configuredIds = digest?.daily_picks?.ids_by_language?.[normalizedLanguage] || [];
+  const configuredIdsValue = digest?.daily_picks?.ids_by_language?.[normalizedLanguage];
+  const hasConfiguredPicks = Array.isArray(configuredIdsValue);
+  const configuredIds = hasConfiguredPicks ? configuredIdsValue : [];
   const configuredItems = configuredIds
     .map(id => languageItems.find(item => (item.original_url || item.url) === id || item.url === id))
     .filter(Boolean);
-  const selectedItems = configuredItems.length >= 3
+  const selectedItems = hasConfiguredPicks
     ? configuredItems.slice(0, 5)
     : [...languageItems]
       .sort((a, b) => String(b.published || "").localeCompare(String(a.published || "")))

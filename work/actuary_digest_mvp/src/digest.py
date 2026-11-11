@@ -38,6 +38,8 @@ DEFAULT_AI_MODEL = "gpt-4o-mini"
 DEFAULT_PERPLEXITY_MODEL = "sonar"
 DAILY_PICK_LANGUAGES = ("en", "zh", "fr")
 DAILY_PICK_LOOKBACK_EDITIONS = 3
+DAILY_PICK_HISTORY_PATH = ROOT / "ui" / "data" / "daily_pick_history.json"
+DAILY_PICK_HISTORY_LIMIT = 30
 
 
 @dataclasses.dataclass(frozen=True)
@@ -1572,13 +1574,24 @@ def daily_pick_record_id(record: dict) -> str:
     return str(record.get("original_url") or record.get("url") or "").strip()
 
 
+def daily_pick_title_key(record: dict) -> str:
+    title = html.unescape(str(record.get("original_title") or record.get("title") or ""))
+    return re.sub(r"[\W_]+", "", title.lower(), flags=re.UNICODE)[:240]
+
+
 def daily_pick_language(record: dict) -> str:
     language = str(record.get("source_language") or record.get("original_language") or "en").lower()
     return language.split("-", 1)[0]
 
 
-def daily_pick_rank(record: dict, report_date: str, recent_ids: set[str]) -> tuple:
+def daily_pick_rank(
+    record: dict,
+    report_date: str,
+    recent_ids: set[str],
+    recent_title_keys: set[str],
+) -> tuple:
     record_id = daily_pick_record_id(record)
+    title_key = daily_pick_title_key(record)
     published = str(record.get("published") or "")
     freshness = 0
     try:
@@ -1593,7 +1606,7 @@ def daily_pick_rank(record: dict, report_date: str, recent_ids: set[str]) -> tup
         and (record.get("enrichment_basis") or record.get("summary_basis")) == "article_text"
     )
     return (
-        0 if record_id in recent_ids else 1,
+        0 if record_id in recent_ids or title_key in recent_title_keys else 1,
         freshness,
         1 if grounded else 0,
         1 if readable_title else 0,
@@ -1606,13 +1619,16 @@ def select_daily_pick_ids(
     records: list[dict],
     report_date: str,
     recent_ids_by_language: dict[str, set[str]] | None = None,
+    recent_title_keys_by_language: dict[str, set[str]] | None = None,
     limit: int = 4,
 ) -> dict[str, list[str]]:
     recent_ids_by_language = recent_ids_by_language or {}
+    recent_title_keys_by_language = recent_title_keys_by_language or {}
     result: dict[str, list[str]] = {}
     slots = ("market", "technology_ai", "reinsurance", "research")
     for language in DAILY_PICK_LANGUAGES:
         recent_ids = recent_ids_by_language.get(language, set())
+        recent_title_keys = recent_title_keys_by_language.get(language, set())
         candidates = [
             record
             for record in records
@@ -1620,20 +1636,27 @@ def select_daily_pick_ids(
             and record.get("platform_section") != "company_results_strategy"
             and daily_pick_record_id(record)
         ]
+        fresh_candidates = [
+            record
+            for record in candidates
+            if daily_pick_record_id(record) not in recent_ids
+            and daily_pick_title_key(record) not in recent_title_keys
+        ]
         ranked = sorted(
-            candidates,
-            key=lambda record: daily_pick_rank(record, report_date, recent_ids),
+            fresh_candidates,
+            key=lambda record: daily_pick_rank(record, report_date, recent_ids, recent_title_keys),
             reverse=True,
         )
         picks: list[dict] = []
         used: set[str] = set()
+        used_title_keys: set[str] = set()
         for section in slots:
             match = next(
                 (
                     record
                     for record in ranked
                     if daily_pick_record_id(record) not in used
-                    and daily_pick_record_id(record) not in recent_ids
+                    and daily_pick_title_key(record) not in used_title_keys
                     and record.get("platform_section") == section
                 ),
                 None,
@@ -1641,24 +1664,69 @@ def select_daily_pick_ids(
             if match:
                 picks.append(match)
                 used.add(daily_pick_record_id(match))
+                used_title_keys.add(daily_pick_title_key(match))
         for record in ranked:
             if len(picks) >= limit:
                 break
             record_id = daily_pick_record_id(record)
-            if record_id not in used:
+            title_key = daily_pick_title_key(record)
+            if record_id not in used and title_key not in used_title_keys:
                 picks.append(record)
                 used.add(record_id)
+                used_title_keys.add(title_key)
         result[language] = [daily_pick_record_id(record) for record in picks[:limit]]
     return result
 
 
-def load_recent_daily_pick_ids(
+def daily_pick_history_entry(payload: dict) -> dict:
+    items = payload.get("items", [])
+    stored_ids = payload.get("daily_picks", {}).get("ids_by_language", {})
+    if not stored_ids:
+        stored_ids = select_daily_pick_ids(items, payload.get("report_date", ""))
+    by_id = {daily_pick_record_id(record): record for record in items if daily_pick_record_id(record)}
+    title_keys = {
+        language: [
+            daily_pick_title_key(by_id[record_id])
+            for record_id in stored_ids.get(language, [])
+            if record_id in by_id and daily_pick_title_key(by_id[record_id])
+        ]
+        for language in DAILY_PICK_LANGUAGES
+    }
+    return {
+        "date": str(payload.get("report_date") or ""),
+        "ids_by_language": {
+            language: [str(value) for value in stored_ids.get(language, []) if value]
+            for language in DAILY_PICK_LANGUAGES
+        },
+        "title_keys_by_language": title_keys,
+    }
+
+
+def load_recent_daily_pick_history(
     output_dir: pathlib.Path,
     report_date: str,
     lookback_editions: int = DAILY_PICK_LOOKBACK_EDITIONS,
-) -> dict[str, set[str]]:
-    recent = {language: set() for language in DAILY_PICK_LANGUAGES}
-    prior_paths = []
+) -> tuple[dict[str, set[str]], dict[str, set[str]]]:
+    recent_ids = {language: set() for language in DAILY_PICK_LANGUAGES}
+    recent_title_keys = {language: set() for language in DAILY_PICK_LANGUAGES}
+    editions: list[dict] = []
+
+    try:
+        stored_history = json.loads(DAILY_PICK_HISTORY_PATH.read_text(encoding="utf-8"))
+        editions.extend(stored_history.get("editions", []))
+    except (OSError, json.JSONDecodeError):
+        pass
+
+    # Bootstrap the tracked history from the previous committed digest. GitHub
+    # Actions checks out this file even though generated outputs are ignored.
+    tracked_digest_path = DAILY_PICK_HISTORY_PATH.parent / "digest.json"
+    try:
+        tracked_digest = json.loads(tracked_digest_path.read_text(encoding="utf-8"))
+        editions.append(daily_pick_history_entry(tracked_digest))
+    except (OSError, json.JSONDecodeError):
+        pass
+
+    prior_paths: list[pathlib.Path] = []
     for path in sorted(output_dir.glob("insurance_actuary_digest_*.json"), reverse=True):
         match = re.search(r"insurance_actuary_digest_(\d{4}-\d{2}-\d{2})\.json$", path.name)
         if match and match.group(1) < report_date:
@@ -1670,15 +1738,23 @@ def load_recent_daily_pick_ids(
             payload = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError):
             continue
-        stored = payload.get("daily_picks", {}).get("ids_by_language", {})
-        if not stored:
-            stored = select_daily_pick_ids(
-                payload.get("items", []),
-                payload.get("report_date", path.stem[-10:]),
-            )
+        editions.append(daily_pick_history_entry(payload))
+
+    unique_editions: dict[str, dict] = {}
+    for edition in editions:
+        date = str(edition.get("date") or "")
+        if date and date < report_date:
+            unique_editions[date] = edition
+    selected_editions = sorted(unique_editions.values(), key=lambda item: item["date"], reverse=True)[:lookback_editions]
+    for edition in selected_editions:
         for language in DAILY_PICK_LANGUAGES:
-            recent[language].update(str(value) for value in stored.get(language, []) if value)
-    return recent
+            recent_ids[language].update(
+                str(value) for value in edition.get("ids_by_language", {}).get(language, []) if value
+            )
+            recent_title_keys[language].update(
+                str(value) for value in edition.get("title_keys_by_language", {}).get(language, []) if value
+            )
+    return recent_ids, recent_title_keys
 
 
 def render_json(
@@ -1738,8 +1814,19 @@ def render_json(
             "learning_prompt": card.learning_prompt,
             "shareable": card.shareable,
         })
-    recent_daily_pick_ids = load_recent_daily_pick_ids(output_dir, report_date) if output_dir else {}
-    daily_pick_ids = select_daily_pick_ids(records, report_date, recent_daily_pick_ids)
+    if output_dir:
+        recent_daily_pick_ids, recent_daily_pick_title_keys = load_recent_daily_pick_history(
+            output_dir,
+            report_date,
+        )
+    else:
+        recent_daily_pick_ids, recent_daily_pick_title_keys = {}, {}
+    daily_pick_ids = select_daily_pick_ids(
+        records,
+        report_date,
+        recent_daily_pick_ids,
+        recent_daily_pick_title_keys,
+    )
     featured_article_id = next(
         (record_id for language in DAILY_PICK_LANGUAGES for record_id in daily_pick_ids.get(language, [])),
         records[0]["url"] if records else "",
@@ -1783,8 +1870,29 @@ def write_reports(output_dir: pathlib.Path, report_date: str, markdown: str, htm
     ui_data_dir = ROOT / "ui" / "data"
     if ui_data_dir.exists():
         (ui_data_dir / "digest.json").write_text(json_report, encoding="utf-8")
+        update_daily_pick_history(json_report, ui_data_dir)
         update_archive_index(output_dir, ui_data_dir)
     return md_path, html_path, json_path
+
+
+def update_daily_pick_history(json_report: str, ui_data_dir: pathlib.Path) -> None:
+    try:
+        payload = json.loads(json_report)
+    except json.JSONDecodeError:
+        return
+    entry = daily_pick_history_entry(payload)
+    history_path = ui_data_dir / "daily_pick_history.json"
+    try:
+        existing = json.loads(history_path.read_text(encoding="utf-8")).get("editions", [])
+    except (OSError, json.JSONDecodeError):
+        existing = []
+    editions = [item for item in existing if item.get("date") != entry["date"]]
+    editions.append(entry)
+    editions = sorted(editions, key=lambda item: str(item.get("date") or ""), reverse=True)
+    history_path.write_text(
+        json.dumps({"editions": editions[:DAILY_PICK_HISTORY_LIMIT]}, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
 
 
 def update_archive_index(output_dir: pathlib.Path, ui_data_dir: pathlib.Path) -> None:

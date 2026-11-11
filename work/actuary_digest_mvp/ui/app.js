@@ -4159,10 +4159,14 @@ function getTopPickItems(items) {
     .sort(compareTopPickItems);
   if (state.activeSection !== "全部") return sorted.slice(0, 4);
 
-  const configuredIds = state.data?.daily_picks?.ids_by_language?.[state.language] || [];
+  const configuredIdsValue = state.data?.daily_picks?.ids_by_language?.[state.language];
+  const hasConfiguredPicks = Array.isArray(configuredIdsValue);
+  const configuredIds = hasConfiguredPicks ? configuredIdsValue : [];
   const configuredPicks = configuredIds
     .map(id => sorted.find(item => itemId(item) === id || item.url === id || item.original_url === id))
     .filter(Boolean);
+
+  if (hasConfiguredPicks) return configuredPicks.slice(0, 4);
 
   const slots = [
     item => normalizeSection(item.platform_section) === "market",
