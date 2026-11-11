@@ -228,18 +228,69 @@ export function pickNewsletterStories(digest, language = "en", limit = 3) {
       .sort((a, b) => String(b.published || "").localeCompare(String(a.published || "")))
       .slice(0, storyLimit);
   return selectedItems
-    .map(item => ({
-      title: item.original_title
+    .map(item => {
+      const title = item.original_title
         || item.title
         || strictLocalizedValue(item.localized_title, normalizedLanguage)
-        || (normalizedLanguage === "zh" ? "无标题" : "Untitled"),
-      source: publicNewsletterSource(item.source_name || item.source || "Source"),
-      url: item.original_url || item.url || siteBaseUrl(),
-      published: String(item.published || "").slice(0, 10),
-      keyTakeaway: strictLocalizedValue(item.key_takeaway, normalizedLanguage) || item.summary || "",
-      whyItMatters: strictLocalizedValue(item.why_it_matters, normalizedLanguage),
-      topic: localizedTopic(item.platform_section || item.taxonomy_category || "market", normalizedLanguage)
-    }));
+        || (normalizedLanguage === "zh" ? "无标题" : "Untitled");
+      return {
+        title,
+        source: publicNewsletterSource(item.source_name || item.source || "Source"),
+        url: item.original_url || item.url || siteBaseUrl(),
+        published: String(item.published || "").slice(0, 10),
+        keyTakeaway: newsletterKeyTakeaway(item, normalizedLanguage, title),
+        whyItMatters: strictLocalizedValue(item.why_it_matters, normalizedLanguage),
+        topic: localizedTopic(item.platform_section || item.taxonomy_category || "market", normalizedLanguage)
+      };
+    });
+}
+
+export function newsletterKeyTakeaway(item, language, title = "") {
+  const localized = strictLocalizedValue(item?.key_takeaway, language);
+  const url = String(item?.original_url || item?.url || "");
+  const sourceGrounded = item?.summary_basis === "article_text"
+    || item?.enrichment_basis === "article_text";
+  const googleNewsItem = isGoogleNewsUrl(url);
+  if (localized && !isTitleLikeCopy(localized, title) && (!googleNewsItem || sourceGrounded)) {
+    return localized;
+  }
+
+  // RSS descriptions from Google News are usually just the headline and
+  // publisher. They are discovery metadata, not source-grounded summaries.
+  const fallback = String(item?.summary || "").trim();
+  if (!sourceGrounded || googleNewsItem || isTitleLikeCopy(fallback, title)) return "";
+  return fallback;
+}
+
+function isGoogleNewsUrl(value) {
+  try {
+    return new URL(value).hostname.toLowerCase().endsWith("news.google.com");
+  } catch {
+    return false;
+  }
+}
+
+function normalizedComparableCopy(value) {
+  return String(value || "")
+    .toLocaleLowerCase()
+    .replace(/\s*[-–—|｜·]\s*(?:[^-–—|｜·]{1,40})$/u, "")
+    .replace(/[\p{P}\p{S}\s_]+/gu, "");
+}
+
+function isTitleLikeCopy(value, title) {
+  const candidate = normalizedComparableCopy(value);
+  const headline = normalizedComparableCopy(title);
+  if (!candidate || !headline) return false;
+  if (candidate === headline || candidate.includes(headline) || headline.includes(candidate)) return true;
+  const shorter = Math.min(candidate.length, headline.length);
+  if (shorter < 8) return false;
+  let shared = 0;
+  const grams = new Set();
+  for (let index = 0; index < headline.length - 1; index += 1) grams.add(headline.slice(index, index + 2));
+  for (let index = 0; index < candidate.length - 1; index += 1) {
+    if (grams.has(candidate.slice(index, index + 2))) shared += 1;
+  }
+  return shared / Math.max(1, shorter - 1) >= 0.82;
 }
 
 function publicNewsletterSource(value) {

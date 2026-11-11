@@ -368,6 +368,21 @@ def extract_readable_article_text(url: str, timeout: int = 8) -> tuple[str, str]
         return "", "title_only"
     if is_google_news_url(url):
         return "", "unresolved_google_news"
+    nfra_match = re.search(r"(?:[?&]docId=|/)(\d{5,})(?:[&#/?]|$)", url)
+    if "nfra.gov.cn" in urllib.parse.urlparse(url).netloc.lower() and nfra_match:
+        api_url = f"https://www.nfra.gov.cn/cbircweb/DocInfo/SelectByDocId?docId={nfra_match.group(1)}"
+        try:
+            payload = fetch_url(api_url, timeout=timeout)
+            record = json.loads(payload.decode("utf-8")).get("data") or {}
+            extractor = ReadableTextExtractor()
+            extractor.feed(record.get("docClob") or "")
+            extracted = extractor.text()
+            if len(extracted) >= 300:
+                return extracted[:12_000], "extracted"
+        except (ValueError, KeyError, urllib.error.URLError, TimeoutError):
+            return "", "fetch_failed"
+        return "", "no_readable_text"
+
     request = urllib.request.Request(
         url,
         headers={
@@ -538,6 +553,40 @@ def collect_items(config: dict, report_date: str) -> tuple[list[NewsItem], list[
         except (urllib.error.URLError, TimeoutError, ET.ParseError, KeyError) as exc:
             errors.append(f"{source.get('name', 'Unknown source')}: {exc}")
 
+    for source in config.get("api_sources", []):
+        if source.get("kind") != "nfra_documents":
+            continue
+        try:
+            payload = fetch_url(source["url"])
+            data = json.loads(payload.decode("utf-8"))
+            rows = (data.get("data") or {}).get("rows") or []
+            keywords = [str(value).lower() for value in source.get("title_keywords", [])]
+            for row in rows[:limit * 3]:
+                title = clean_text(row.get("docTitle") or row.get("docSubtitle") or "")
+                if not title or (keywords and not any(keyword in title.lower() for keyword in keywords)):
+                    continue
+                doc_id = row.get("docId")
+                if not doc_id:
+                    continue
+                public_url = source["public_url"].format(doc_id=doc_id)
+                items.append(NewsItem(
+                    title=title,
+                    source=source["name"],
+                    url=public_url,
+                    published=parse_date(row.get("publishDate") or ""),
+                    summary=clean_text(row.get("docSummary") or ""),
+                    region=source.get("region", "中国"),
+                    source_type=source.get("source_type", "Regulator API"),
+                    language=source.get("language", "zh"),
+                    source_name=source["name"],
+                    source_url=source.get("source_url", ""),
+                    original_url=public_url,
+                    rss_title=title,
+                    rss_description=clean_text(row.get("docSummary") or ""),
+                ))
+        except (urllib.error.URLError, TimeoutError, ValueError, KeyError) as exc:
+            errors.append(f"{source.get('name', 'Unknown API source')}: {exc}")
+
     deduped: list[NewsItem] = []
     seen: set[str] = set()
     for item in items:
@@ -677,7 +726,9 @@ def localized_intelligence_title(item: NewsItem, primary: str, tags: list[str], 
 
 
 def normalize_for_similarity(value: str) -> str:
-    return re.sub(r"[\W_]+", "", clean_text(value).lower())
+    text = clean_text(value).lower()
+    text = re.sub(r"\s*[-–—|｜·]\s*[^-–—|｜·]{1,40}$", "", text)
+    return re.sub(r"[\W_]+", "", text)
 
 
 def is_title_like(value: str, title: str) -> bool:
@@ -687,7 +738,17 @@ def is_title_like(value: str, title: str) -> bool:
         return False
     if normalized == normalized_title:
         return True
-    return len(normalized) < 260 and (normalized in normalized_title or normalized_title in normalized)
+    if len(normalized) < 260 and (normalized in normalized_title or normalized_title in normalized):
+        return True
+    shorter = min(len(normalized), len(normalized_title))
+    if shorter < 8:
+        return False
+    title_bigrams = {normalized_title[index:index + 2] for index in range(len(normalized_title) - 1)}
+    shared = sum(
+        1 for index in range(len(normalized) - 1)
+        if normalized[index:index + 2] in title_bigrams
+    )
+    return shared / max(1, shorter - 1) >= 0.82
 
 
 def source_text_for_summary(item: NewsItem) -> str:
@@ -984,14 +1045,17 @@ def call_perplexity_enrichment(messages: list[dict[str, str]], model: str) -> di
     return extract_json_object(content)
 
 
-def sanitize_ai_enrichment(raw: dict) -> dict[str, str]:
+def sanitize_ai_enrichment(raw: dict, title: str = "") -> dict[str, str]:
     bullets = raw.get("summary_bullets") or raw.get("ai_summary") or []
     if isinstance(bullets, str):
         bullets = split_sentences(bullets)
     bullets = [clean_ai_enrichment_text(str(item), 220) for item in bullets]
-    bullets = [item for item in bullets if item][:3]
+    bullets = [item for item in bullets if item and not is_title_like(item, title)][:3]
+    key_takeaway = clean_ai_enrichment_text(str(raw.get("key_takeaway", "")), 260)
+    if key_takeaway and is_title_like(key_takeaway, title):
+        key_takeaway = ""
     return {
-        "key_takeaway": clean_ai_enrichment_text(str(raw.get("key_takeaway", "")), 260),
+        "key_takeaway": key_takeaway,
         "ai_summary": " • ".join(bullets),
         "why_it_matters": clean_ai_enrichment_text(str(raw.get("why_it_matters", "")), 360),
     }
@@ -1084,7 +1148,7 @@ def ai_enrich_cards(
                 raw = call_openai_enrichment(messages, model or DEFAULT_AI_MODEL)
             else:
                 raw = call_perplexity_enrichment(messages, model or DEFAULT_PERPLEXITY_MODEL)
-            clean = sanitize_ai_enrichment(raw)
+            clean = sanitize_ai_enrichment(raw, item.title)
         except Exception as exc:
             ai_log["failed_articles"] += 1
             errors.append(f"AI enrichment failed for {item.source}: {exc}")
