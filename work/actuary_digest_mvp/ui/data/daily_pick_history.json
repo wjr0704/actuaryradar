@@ -1,6 +1,45 @@
 {
   "editions": [
     {
+      "date": "2026-11-12",
+      "ids_by_language": {
+        "en": [
+          "https://www.insurancejournal.com/news/southeast/2026/11/12/892410.htm",
+          "https://www.insurancejournal.com/news/international/2026/11/12/892378.htm",
+          "https://www.artemis.bm/news/munich-res-pc-reinsurance-sees-decline-in-q3-while-net-result-rises-to-e5-7bn-for-9m26/?utm_source=rss&utm_medium=rss&utm_campaign=munich-res-pc-reinsurance-sees-decline-in-q3-while-net-result-rises-to-e5-7bn-for-9m26",
+          "https://www.businessinsurance.com/european-insurers-pull-back-from-riot-risks/"
+        ],
+        "zh": [
+          "https://news.google.com/rss/articles/CBMijwFBVV95cUxPNDV3WUxFbVZzU21GMjFqdXVOU2xEVTd2NjNhTWJFNFA1MGY5dGRuUURkR2M1R0FjaWxHZkRJTm5JNFhZbGVLajlEbEhjVU1Tek9aQUJWVHVwNVJHZXdYNjNnZHhWTHJWWDNob1dKVl9ETVM5Z2pQNnVYZElZQ0ZmRWlLbXkwYWZuYlpkVFhZVQ?oc=5",
+          "https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=1278255&itemId=915&generaltype=0",
+          "https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=1278246&itemId=915&generaltype=0",
+          "https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=1275881&itemId=915&generaltype=0"
+        ],
+        "fr": [
+          "https://www.franceassureurs.fr/actualites/podcast-assurance-scolaire-obligatoire/",
+          "https://www.franceassureurs.fr/espace-presse/les-communiques-de-presse/cotisations-assurance-vie-juillet-2026/"
+        ]
+      },
+      "title_keys_by_language": {
+        "en": [
+          "kingriskacquiresfortmyerslottgayloragency",
+          "zurichinsurancesayseuropestormsdrovecatastrophelosses",
+          "munichrespcreinsuranceseesdeclineinq3whilenetresultrisesto57bnfor9m26",
+          "europeaninsurerspullbackfromriotrisks"
+        ],
+        "zh": [
+          "中国银保信牵头开展商业健康险行业标准编制工作21财经",
+          "国家金融监督管理总局就保险公司董事监事和高级管理人员任职资格管理办法征求意见稿公开征求意见",
+          "金融监管总局交通运输部等七部委联合印发关于加快航运保险高质量发展的指导意见",
+          "西藏那曲市巴青县发生70级地震金融监管总局启动保险业三级救灾应急响应"
+        ],
+        "fr": [
+          "nouvelépisodedassurémentmargauxassurancescolaireobligatoireoupas",
+          "avec188milliardsdeurosdecotisationsenjuillet2026lassuranceviemaintientsoncapauservicedufinancementdeléconomie"
+        ]
+      }
+    },
+    {
       "date": "2026-11-11",
       "ids_by_language": {
         "en": [
