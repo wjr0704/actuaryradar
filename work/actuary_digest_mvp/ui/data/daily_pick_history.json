@@ -1,6 +1,37 @@
 {
   "editions": [
     {
+      "date": "2026-11-13",
+      "ids_by_language": {
+        "en": [
+          "https://www.businessinsurance.com/washington-university-names-enterprise-risk-management-leader/",
+          "https://www.artemis.bm/news/cortina-just-a-soft-market-trend-or-clearing-the-floor-for-reinsurances-next-act/?utm_source=rss&utm_medium=rss&utm_campaign=cortina-just-a-soft-market-trend-or-clearing-the-floor-for-reinsurances-next-act",
+          "https://www.artemis.bm/news/cat-bond-market-breadth-expands-issuance-concentrates-in-1-to-3-el-range-euler-ils-partners/?utm_source=rss&utm_medium=rss&utm_campaign=cat-bond-market-breadth-expands-issuance-concentrates-in-1-to-3-el-range-euler-ils-partners",
+          "https://www.insurancejournal.com/news/national/2026/11/13/892529.htm"
+        ],
+        "zh": [
+          "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNdTl3R2F1cVlnU2I5T29TaHRvV3FwenNoVjVIY2hsU3NRUHprSExrRW4tS1hqS292T09PamItdU45LUczdFVpWENzVXdOTGJBZTJzeFB4d2dnQ0N3aHpUcE9BYjBzS1FFYm8xVk9JT3RkOFJWWXN4SkN1UjJmeUEyd3Q2bktZMmNK?oc=5",
+          "https://news.google.com/rss/articles/CBMijwFBVV95cUxOemlCWm9TVlZpWEFnTjJZNGZ0cVpfTWNzaWdLVFJZWV9ta2RqZ2lvYldUYkMtamk5NkhITkh2NFJfWHVhVmRZaUtramUxTFZIOG83V3JUUmo1bXNCX3A0OEZyaDhRQk1Ed252Zlo5SktmTDNJcmdvV1FtYXNRVU9mdXhLWnBKSFU3Mk5PU2xBcw?oc=5",
+          "https://news.google.com/rss/articles/CBMiYkFVX3lxTE40eVRXeDNsM3Uwckh0VnlZUlVmM09DWEVZTlJ1SDRZcFBzSVd6T3hTc09nelpUY3NfVEdUQTZJRXNVV29iZWlseXVaa1lJN0hNNWtpaFc4aDV1dnVCSEtSTW53?oc=5"
+        ],
+        "fr": []
+      },
+      "title_keys_by_language": {
+        "en": [
+          "washingtonuniversitynamesenterpriseriskmanagementleader",
+          "cortinajustasoftmarkettrendorclearingthefloorforreinsurancesnextact",
+          "catbondmarketbreadthexpandsissuanceconcentratesin1to3elrangeeulerilspartners",
+          "viewpointthecyberinsuranceindustrysaiblindspot"
+        ],
+        "zh": [
+          "国际保险业监管及业界代表在港探讨ai时代保险风险监管sohu",
+          "同一监管框架下寿险公司与财险公司的偿付能力为何相差巨大21财经",
+          "提升财务数据真实性财险公司迎费用分摊新规财新"
+        ],
+        "fr": []
+      }
+    },
+    {
       "date": "2026-11-12",
       "ids_by_language": {
         "en": [
