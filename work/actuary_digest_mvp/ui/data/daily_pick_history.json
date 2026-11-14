@@ -1,6 +1,47 @@
 {
   "editions": [
     {
+      "date": "2026-11-14",
+      "ids_by_language": {
+        "en": [
+          "https://www.businessinsurance.com/microsoft-outages-financial-toll-may-fall-short-of-disruption/",
+          "https://www.businessinsurance.com/nurses-long-covid-claim-fails-over-lack-of-medical-evidence/",
+          "https://www.artemis.bm/news/vig-re-secures-debut-e60m-charles-bridge-re-catastrophe-bond-priced-at-low-end/?utm_source=rss&utm_medium=rss&utm_campaign=vig-re-secures-debut-e60m-charles-bridge-re-catastrophe-bond-priced-at-low-end",
+          "https://www.artemis.bm/news/ils-seeks-growth-beyond-property-cat-as-investors-explore-new-opportunities-pwc-insurance-summit/?utm_source=rss&utm_medium=rss&utm_campaign=ils-seeks-growth-beyond-property-cat-as-investors-explore-new-opportunities-pwc-insurance-summit"
+        ],
+        "zh": [
+          "https://news.google.com/rss/articles/CBMiU0FVX3lxTE8wVC05cUh6aEx4U2Mxb0tFZVdCREJ6TDdpMGFaS1lwWWxnR01KVV81VmhSUU9VRGFNa1NRWHpOM0RhbDlZd3hOZnNFM04tMW9TM2t3?oc=5",
+          "https://news.google.com/rss/articles/CBMiSkFVX3lxTFBtMWotcmxLeUV6ZUEtNThPckxiZGdnT0JSaEpCb3BZWFFyeWtNaHBlcWJzMEQzaEJPSnFfQUNpQ1NRakZxb1hZRjdB?oc=5",
+          "https://news.google.com/rss/articles/CBMickFVX3lxTE9uUllTdGY5TzdldW4wMHptUEZRUEk3R294dk5aaUNzb2xmNEt2U0xxS3N5a0tlOE14WkpseENWZy1jaHNCMUJ6UDEwTXZia0ExTUltbHc3MVZ2OU0tbE1JU1dxdlpiSWxiRGxsZ2dOQ2d3UQ?oc=5"
+        ],
+        "fr": [
+          "https://www.franceassureurs.fr/actualites/journee-nationale-resilience2026-france-assureurs-mobilisee-face-inondations/",
+          "https://www.franceassureurs.fr/espace-presse/les-communiques-de-presse/assurance-vie-cotisations-aout-2026/",
+          "https://www.franceassureurs.fr/espace-presse/les-communiques-de-presse/assurance-vie-cotisations-septembre2026/",
+          "https://www.franceassureurs.fr/espace-presse/les-communiques-de-presse/le-conseil-constitutionnel-abroge-la-mesure-de-gel-des-tarifs-des-complementaires-sante-en-2026/"
+        ]
+      },
+      "title_keys_by_language": {
+        "en": [
+          "microsoftoutagesfinancialtollmayfallshortofdisruption",
+          "nurseslongcovidclaimfailsoverlackofmedicalevidence",
+          "vigresecuresdebut60mcharlesbridgerecatastrophebondpricedatlowend",
+          "ilsseeksgrowthbeyondpropertycatasinvestorsexplorenewopportunitiespwcinsurancesummit"
+        ],
+        "zh": [
+          "曾经备受赞誉的车企保险车主老后悔了都转投传统保险公司了sohu",
+          "江西与昭通两地遭罚太平财险今年累计13度收监管处罚凤凰网",
+          "原中国银行保险监督管理委员会城市商业银行监管部一级巡视员李世谦受贿案一审宣判京报网"
+        ],
+        "fr": [
+          "jnr2026franceassureursmobiliséefaceauxinondations",
+          "avec115milliardsdeurosdecotisationsenaoût2026lassuranceviedemeureunlevieressentielpourfinancerléconomiefrançaiseeteuropéenne",
+          "avec154milliardsdeurosdecotisationsenseptembre2026lesfrançaisréaffirmentleurconfiancedanslasoliditédumodèledelassurancevie",
+          "leconseilconstitutionnelabrogelamesuredegeldestarifsdescomplémentairessantéen2026"
+        ]
+      }
+    },
+    {
       "date": "2026-11-13",
       "ids_by_language": {
         "en": [
