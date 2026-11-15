@@ -1,6 +1,45 @@
 {
   "editions": [
     {
+      "date": "2026-11-15",
+      "ids_by_language": {
+        "en": [
+          "https://www.businessinsurance.com/gard-covers-tanker-in-new-orleans-collision/",
+          "https://www.artemis.bm/news/california-earthquake-authority-lowers-pricing-again-for-still-900m-ursa-re-2026-1-cat-bond/?utm_source=rss&utm_medium=rss&utm_campaign=california-earthquake-authority-lowers-pricing-again-for-still-900m-ursa-re-2026-1-cat-bond",
+          "https://news.google.com/rss/articles/CBMivgFBVV95cUxPMWVhV0dZVnFqSG90ZTFfY190WXM0T015cGw3bmV0VWtISkkzY1ZQMHVTN2NiX182WkpQb1E3dm1yNDlqV2QwWkk0VllTd3AydFhXSnpVSjdwWUlUMnJkb2p2T1EyZmtuLW5SQTlZbS1ZTTZ0S3dJT0tncW1uQndUNzFwR3RYZElrR05nYWdUc29BNnpTWGhxZTc2VzVZeDlmZTY5eWlfVkFEbWFfZ2hRY2ZLbHBFWWhtbW1IdlZR?oc=5",
+          "https://www.insurancejournal.com/news/southcentral/2026/11/13/892594.htm"
+        ],
+        "zh": [
+          "https://news.google.com/rss/articles/CBMiYkFVX3lxTFBoUnFlZXNmM083clRyQVZZQ2phZWQ4Nmw1cTZyR3ZjQU1GZ0FLY09WblVRbXBmLW9iQlNFa2VQT1FmSmtHdzVPYndTTFM3T3ZLNG85Rkx2TjlacDVaZ0JMR193?oc=5",
+          "https://news.google.com/rss/articles/CBMiZkFVX3lxTFBEZEFJSUJhWWZVanlWNHA2VFhaTlhpQzRKNFBHMG5LUWJLOWRYcEsxMHJGT1EtQkFhLUhmdEhjSnVOZGRhZDZCdkRHSExNcXJzNncwQVpWNWE4YlZ0SmRCZi1Lb0YtUQ?oc=5"
+        ],
+        "fr": [
+          "https://www.franceassureurs.fr/actualites/assurement-margaux-le-podcast-pratique-de-france-assureurs/",
+          "https://www.franceassureurs.fr/espace-presse/les-communiques-de-presse/violences-urbaines-assureurs-se-mobilisent-pour-accompagner-assures-accelerer-indemnisation/",
+          "https://www.franceassureurs.fr/nos-chiffres-cles/emploi-dans-lassurance/lemploi-dans-lassurance-en-2025-publication-des-donnees-cles/",
+          "https://www.franceassureurs.fr/actualites/guide-professionnel-assurance-blanchiment-capitaux-financement-terrorisme/"
+        ]
+      },
+      "title_keys_by_language": {
+        "en": [
+          "gardcoverstankerinneworleanscollision",
+          "californiaearthquakeauthoritylowerspricingagainforstill900mursare20261catbond",
+          "globalpcreinsurersheadintoh226withstrongcapitalbutsofterpricingmorningstardbrsreinsurancenews",
+          "texasnextagvowstremendousscrutinyofteslaspacexdeal"
+        ],
+        "zh": [
+          "中保协推出首版商业保险药品清单医保局商业健康险创新药纳入9种财新",
+          "偿付能力充足前三季度财险业承保质量持续改善湖南红网"
+        ],
+        "fr": [
+          "assurémentmargauxlepodcastpratiquedefranceassureurs",
+          "violencesurbaineslesassureurssemobilisentpouraccompagnerleursassurésetaccélérerlindemnisation",
+          "lemploidanslassuranceen2025publicationdesdonnéesclés",
+          "lcbftunguidepourconnaîtrelesinformationsjustificatifsetdonnéespersonnellesquevotreprofessionneldelassurancepeutvousdemander"
+        ]
+      }
+    },
+    {
       "date": "2026-11-14",
       "ids_by_language": {
         "en": [
