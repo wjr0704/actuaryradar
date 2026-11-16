@@ -1,6 +1,45 @@
 {
   "editions": [
     {
+      "date": "2026-11-16",
+      "ids_by_language": {
+        "en": [
+          "https://www.artemis.bm/news/cortina-offers-tangible-benefits-for-bringing-third-party-capital-into-reinsurance-aons-nicholson/?utm_source=rss&utm_medium=rss&utm_campaign=cortina-offers-tangible-benefits-for-bringing-third-party-capital-into-reinsurance-aons-nicholson",
+          "https://www.claimsjournal.com/news/national/2026/11/16/341311.htm",
+          "https://www.artemis.bm/news/microsoft-365-outage-losses-expected-well-below-cyber-cat-bond-attachments-euler-ils/?utm_source=rss&utm_medium=rss&utm_campaign=microsoft-365-outage-losses-expected-well-below-cyber-cat-bond-attachments-euler-ils",
+          "https://www.businessinsurance.com/qib-seeks-to-acquire-axiom/"
+        ],
+        "zh": [
+          "https://news.google.com/rss/articles/CBMiYEFVX3lxTE0wd3VhZFo5VlFVRmQtc2hUZXZsOXhCRGx5V29uSzRyUEFnZHdvQUxoVzFwcjNWZlFxbm5iU0poQnBFSUdId2I2VDIydUxmSXY1aERuLXBUMmpDWnhNU1FKcw?oc=5",
+          "https://news.google.com/rss/articles/CBMimgFBVV95cUxQN2VmV1M5VzNQalVOTkZMNVhWYk9jYVVpZ0d3ek5Ec1JiUm9keDk3cGlJUTR0ZGFVc1ZKWHZGVGlXMlB4cS02RDJTdDBnVG0xQk5IVGUzWFpfS1NETF9fVjJNT3VlVGdvUXBLaTI3YVpsMkNvMFZPMjg4VFYycTJtZlpQSng2M2JhdHBMVEVnclRpNlNWVHdlSDdB?oc=5",
+          "https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=1278255&itemId=915&generaltype=0",
+          "https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=1278246&itemId=915&generaltype=0"
+        ],
+        "fr": [
+          "https://www.franceassureurs.fr/actualites/podcast-assurance-scolaire-obligatoire/",
+          "https://www.franceassureurs.fr/espace-presse/les-communiques-de-presse/cotisations-assurance-vie-juillet-2026/"
+        ]
+      },
+      "title_keys_by_language": {
+        "en": [
+          "cortinaofferstangiblebenefitsforbringingthirdpartycapitalintoreinsuranceaonsnicholson",
+          "twoarchitectsofkeystateailawscometowashingtontodoitagain",
+          "microsoft365outagelossesexpectedwellbelowcybercatbondattachmentseulerils",
+          "qibseekstoacquireaxiom"
+        ],
+        "zh": [
+          "中国太保产险黄垚新能源车险出海不能简单复制国内模式证券之星",
+          "中国太保寿险举办2026年客户节新华网客户端",
+          "国家金融监督管理总局就保险公司董事监事和高级管理人员任职资格管理办法征求意见稿公开征求意见",
+          "金融监管总局交通运输部等七部委联合印发关于加快航运保险高质量发展的指导意见"
+        ],
+        "fr": [
+          "nouvelépisodedassurémentmargauxassurancescolaireobligatoireoupas",
+          "avec188milliardsdeurosdecotisationsenjuillet2026lassuranceviemaintientsoncapauservicedufinancementdeléconomie"
+        ]
+      }
+    },
+    {
       "date": "2026-11-15",
       "ids_by_language": {
         "en": [
