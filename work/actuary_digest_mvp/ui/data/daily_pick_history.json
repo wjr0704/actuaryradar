@@ -1,6 +1,39 @@
 {
   "editions": [
     {
+      "date": "2026-11-17",
+      "ids_by_language": {
+        "en": [
+          "https://www.artemis.bm/news/normanmax-parametric-syndicate-3939-more-than-doubles-gwp-gets-65m-capacity-approved-for-2027/?utm_source=rss&utm_medium=rss&utm_campaign=normanmax-parametric-syndicate-3939-more-than-doubles-gwp-gets-65m-capacity-approved-for-2027",
+          "https://www.businessinsurance.com/high-street-acquires-players-health-retail-brokerage/",
+          "https://www.artemis.bm/news/pc-soft-market-deepens-but-profitability-cushion-will-gradually-erode-swiss-re/?utm_source=rss&utm_medium=rss&utm_campaign=pc-soft-market-deepens-but-profitability-cushion-will-gradually-erode-swiss-re",
+          "https://www.businessinsurance.com/commercial-insurance-premiums-fall-1-3-in-third-quarter-ciab/"
+        ],
+        "zh": [
+          "https://news.google.com/rss/articles/CBMiYkFVX3lxTE9VTGFwWnMzbklndEtNWEdjcE9jVWtRM0djTEJEYU5hWlEzRG9Ld2FuZ2VIRFB3dk5SeGtYV3gwTmtXUUMwM05EY3gzeUIzSnVsa1pfTE52MFZlbmJYSG5HTzdR?oc=5",
+          "https://news.google.com/rss/articles/CBMiYkFVX3lxTE40eVRXeDNsM3Uwckh0VnlZUlVmM09DWEVZTlJ1SDRZcFBzSVd6T3hTc09nelpUY3NfVEdUQTZJRXNVV29iZWlseXVaa1lJN0hNNWtpaFc4aDV1dnVCSEtSTW53?oc=5",
+          "https://news.google.com/rss/articles/CBMiVEFVX3lxTE0wcDBQUHczaWtqdHVaZGtnOVBzc0M0R3JpYm9xVlY0bVBlUnZfdzBlZnlqeC1VQ1gtSl8tRGhfWEczQmxvenN4SkdERjJzalJ5SXhXdg?oc=5",
+          "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5RdmQ5QU02Y0FaUEdYMTBuVEJiNktvcGlEU25Wd0NyUmlWWHYzWGg2allCODJCbVF4RmM4QjByYXFKYVRrUmd2Q1BnZ01IRnMzVmtMYWRxX3g0ZXY5N3pFTw?oc=5"
+        ],
+        "fr": []
+      },
+      "title_keys_by_language": {
+        "en": [
+          "normanmaxparametricsyndicate3939morethandoublesgwpgets65mcapacityapprovedfor2027",
+          "highstreetacquiresplayershealthretailbrokerage",
+          "pcsoftmarketdeepensbutprofitabilitycushionwillgraduallyerodeswissre",
+          "commercialinsurancepremiumsfall13inthirdquarterciab"
+        ],
+        "zh": [
+          "财知道平滑准备金金融报表里的以丰补歉保险与银行用法并不相同证券之星",
+          "提升财务数据真实性财险公司迎费用分摊新规财新",
+          "新能源车维修成本与保费上涨凸嘴车设计零整比与车险亏损引发行业关注虎嗅",
+          "最新财新周刊险企迎来商业健康险药品清单财新周刊"
+        ],
+        "fr": []
+      }
+    },
+    {
       "date": "2026-11-16",
       "ids_by_language": {
         "en": [
