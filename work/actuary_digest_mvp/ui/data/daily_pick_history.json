@@ -1,6 +1,49 @@
 {
   "editions": [
     {
+      "date": "2026-11-18",
+      "ids_by_language": {
+        "en": [
+          "https://www.insurancejournal.com/news/national/2026/11/18/892982.htm",
+          "https://www.claimsjournal.com/news/national/2026/11/18/341387.htm",
+          "https://www.artemis.bm/news/texas-farm-bureau-secures-400m-fish-pond-re-2026-1-cat-bond-at-reduced-pricing/?utm_source=rss&utm_medium=rss&utm_campaign=texas-farm-bureau-secures-400m-fish-pond-re-2026-1-cat-bond-at-reduced-pricing",
+          "https://www.commercialriskonline.com/us-commercial-insurance-premiums-fall-1-3-in-q3-ciab/"
+        ],
+        "zh": [
+          "https://news.google.com/rss/articles/CBMijwFBVV95cUxNWkM5T09ZS1l4cVh5UzlRUm4wTTVya0tIMEhDX3NuY0lSSVIwVWI4bEZUbGdBdUtCaXJSdmVtRWQ0MjRzS0FoZGhoVFE0RXpVRmduRjRfMFhPVzVTMkJveVNUbjdlU1c5c2lnLWJ2bEtqNWZYdGdWSmdRcmFtT2RocXNrYzBaQkdzMVEwQlBoSQ?oc=5",
+          "https://news.google.com/rss/articles/CBMieEFVX3lxTFBQTXdUTjJreVNPZ0RiQWgxRlpsaVdrTjBRZG8taUpocWtOd2tqQl9IQ2RnN0xfdjhDcTgyaGFSS1pkWlgxdmxNSjF5dlV3REtCSDZkbFZDTm5uQmtDeHRLeXFfNkNfaVFBcUFENWR3eGZ3ZTV5X0JQag?oc=5",
+          "https://news.google.com/rss/articles/CBMimgFBVV95cUxNcTlSaXdIZmlDTkFqN1N1Y0p4NGxDaEgwX3VyX2MyMF9FQm4xdHJrdUFMZ3RIT1g5dzFFVlctdGx5M21tZjZDaU5PLV9RYnItcXlaWGpzVnBCMG9Jano1a1JlZ1BfV1RBRG13bzA5VzFLXzlMZ2tSM1VndmY2RlZORkdSM0xEMnJJT2FBTV9nWm5HblpJb2FUaTZB?oc=5",
+          "https://news.google.com/rss/articles/CBMidEFVX3lxTFBCN21uT3lqLTJvdUllWkdIME85Unhwb0xpOVhtM0Z6aDk5YWR6ZmduVUhiZ0NqbEo2cXFNUW1UYzlVV0ZpeGVHMDVmZDJJZkQ0ZWQ2TmFqZFQwT2U1OUpsdU9XOW0tUU1lT085WHg4bVJMemJB?oc=5"
+        ],
+        "fr": [
+          "https://www.franceassureurs.fr/actualites/journee-nationale-resilience2026-france-assureurs-mobilisee-face-inondations/",
+          "https://www.franceassureurs.fr/espace-presse/les-communiques-de-presse/assurance-vie-cotisations-aout-2026/",
+          "https://www.franceassureurs.fr/espace-presse/les-communiques-de-presse/assurance-vie-cotisations-septembre2026/",
+          "https://www.franceassureurs.fr/espace-presse/les-communiques-de-presse/le-conseil-constitutionnel-abroge-la-mesure-de-gel-des-tarifs-des-complementaires-sante-en-2026/"
+        ]
+      },
+      "title_keys_by_language": {
+        "en": [
+          "commercialpropertypremiumdecreasesof62driveoverallsoftq3ciab",
+          "citisettlessexualharassmentclaimsbymanagingdirector",
+          "texasfarmbureausecures400mfishpondre20261catbondatreducedpricing",
+          "uscommercialinsurancepremiumsfall13inq3ciab"
+        ],
+        "zh": [
+          "智能网联新能源车险示范条款过审21财经",
+          "智能网联新能源车险示范条款过审三端影响或重新校准新浪财经金融信息服务商",
+          "中华财险服务北疆民生护产业护林业护基金新华网客户端",
+          "戴兵大使出席三星财险杯世界围棋大师赛开幕式中华人民共和国驻大韩民国大使馆"
+        ],
+        "fr": [
+          "jnr2026franceassureursmobiliséefaceauxinondations",
+          "avec115milliardsdeurosdecotisationsenaoût2026lassuranceviedemeureunlevieressentielpourfinancerléconomiefrançaiseeteuropéenne",
+          "avec154milliardsdeurosdecotisationsenseptembre2026lesfrançaisréaffirmentleurconfiancedanslasoliditédumodèledelassurancevie",
+          "leconseilconstitutionnelabrogelamesuredegeldestarifsdescomplémentairessantéen2026"
+        ]
+      }
+    },
+    {
       "date": "2026-11-17",
       "ids_by_language": {
         "en": [
