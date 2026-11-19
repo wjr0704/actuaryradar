@@ -1,6 +1,45 @@
 {
   "editions": [
     {
+      "date": "2026-11-19",
+      "ids_by_language": {
+        "en": [
+          "https://www.insurancejournal.com/news/west/2026/11/19/893129.htm",
+          "https://www.artemis.bm/news/axa-xl-hires-subramanian-to-alternative-capital-team-in-london/?utm_source=rss&utm_medium=rss&utm_campaign=axa-xl-hires-subramanian-to-alternative-capital-team-in-london",
+          "https://www.artemis.bm/news/vig-res-first-catastrophe-bond-an-important-retrocession-milestone-ceo-sonndorfer/?utm_source=rss&utm_medium=rss&utm_campaign=vig-res-first-catastrophe-bond-an-important-retrocession-milestone-ceo-sonndorfer",
+          "https://www.artemis.bm/news/capital-markets-signal-resilience-for-lloyds-despite-rate-softening-narratives-icmr/?utm_source=rss&utm_medium=rss&utm_campaign=capital-markets-signal-resilience-for-lloyds-despite-rate-softening-narratives-icmr"
+        ],
+        "zh": [
+          "https://news.google.com/rss/articles/CBMiWEFVX3lxTE5JeFp1SXMzcWVaeXdid0lORXJMREMyYkNvRGRfa21IZG9jMkJfQ1VtTTJDYkcyemE3X1RucUVlUnNQWjRSc25BTVI4a0pkeW95U1dfNDY5Rkw?oc=5",
+          "https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=1275881&itemId=915&generaltype=0"
+        ],
+        "fr": [
+          "https://www.franceassureurs.fr/actualites/assurement-margaux-le-podcast-pratique-de-france-assureurs/",
+          "https://www.franceassureurs.fr/espace-presse/les-communiques-de-presse/cout-violences-urbaines-octobre-2026-200millions/",
+          "https://www.franceassureurs.fr/espace-presse/les-communiques-de-presse/violences-urbaines-assureurs-se-mobilisent-pour-accompagner-assures-accelerer-indemnisation/",
+          "https://www.franceassureurs.fr/nos-chiffres-cles/emploi-dans-lassurance/lemploi-dans-lassurance-en-2025-publication-des-donnees-cles/"
+        ]
+      },
+      "title_keys_by_language": {
+        "en": [
+          "lawarnsofevacuationsasatmosphericriverhitscoast",
+          "axaxlhiressubramaniantoalternativecapitalteaminlondon",
+          "vigresfirstcatastrophebondanimportantretrocessionmilestoneceosonndorfer",
+          "capitalmarketssignalresilienceforlloydsdespiteratesofteningnarrativesicmr"
+        ],
+        "zh": [
+          "新能源车的前脸正在变成收费入口驱动之家",
+          "西藏那曲市巴青县发生70级地震金融监管总局启动保险业三级救灾应急响应"
+        ],
+        "fr": [
+          "assurémentmargauxlepodcastpratiquedefranceassureurs",
+          "lecoûtdesviolencesurbainesdes17et18octobre2026pourraitatteindreplusde200millionsdeuros",
+          "violencesurbaineslesassureurssemobilisentpouraccompagnerleursassurésetaccélérerlindemnisation",
+          "lemploidanslassuranceen2025publicationdesdonnéesclés"
+        ]
+      }
+    },
+    {
       "date": "2026-11-18",
       "ids_by_language": {
         "en": [
