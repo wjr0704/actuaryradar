@@ -1,6 +1,47 @@
 {
   "editions": [
     {
+      "date": "2026-11-20",
+      "ids_by_language": {
+        "en": [
+          "https://www.insurancejournal.com/news/east/2026/11/20/893257.htm",
+          "https://www.artemis.bm/news/allied-world-lowers-pricing-again-for-still-375m-2001-cat-re-2026-1-catastrophe-bond/?utm_source=rss&utm_medium=rss&utm_campaign=allied-world-lowers-pricing-again-for-still-375m-2001-cat-re-2026-1-catastrophe-bond",
+          "https://www.artemis.bm/news/nc-farm-bureau-sponsoring-its-third-catastrophe-bond-475m-blue-ridge-re-2026-1/?utm_source=rss&utm_medium=rss&utm_campaign=nc-farm-bureau-sponsoring-its-third-catastrophe-bond-475m-blue-ridge-re-2026-1",
+          "https://news.google.com/rss/articles/CBMirwFBVV95cUxPajN2TEhRZnQwRGhES2dqT0EwWS10MkhqY2Raa2d3aFlJVlFoRkVWVC1nUFpPREpvWXZzVlBTRE1yLW8tb0UyUWZxUkNFQkJnYzRGUHRnTVFJSnNRMDluY1lSN0dCMzRnaHBCYUotc3dCUUFQWlpUQXctbkRxLVZBUkJXX0VNcEdZa19Kb3Fud0Y4QndOdGNzVlFNR1VrUzJiOG11ODZ5TGMtdGUzNWVv?oc=5"
+        ],
+        "zh": [
+          "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBfaERfSTVTcFQwelJkaXBBNUsxUEVrTUdxUmEwdFdFWExKOWpmdG4zSVpLd2JNdWRISTRUenJyYWF0LTJXa1psbmE1R3hnWWR0RW9Cd2hfSTRXZjdwZWYtRg?oc=5",
+          "https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=1279786&itemId=915&generaltype=0",
+          "https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=1278255&itemId=915&generaltype=0",
+          "https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=1278246&itemId=915&generaltype=0"
+        ],
+        "fr": [
+          "https://www.franceassureurs.fr/actualites/smart-2026-programme/",
+          "https://www.franceassureurs.fr/actualites/guide-professionnel-assurance-blanchiment-capitaux-financement-terrorisme/",
+          "https://www.franceassureurs.fr/actualites/podcast-assurance-scolaire-obligatoire/"
+        ]
+      },
+      "title_keys_by_language": {
+        "en": [
+          "fmtosendworkerstomassachusettsaspartofheadquartersrelocation",
+          "alliedworldlowerspricingagainforstill375m2001catre20261catastrophebond",
+          "ncfarmbureausponsoringitsthirdcatastrophebond475mblueridgere20261",
+          "zurichinsurancebeazleychangestheearningsoutlookbuyconfirmedotcmktszurvyseekingalpha"
+        ],
+        "zh": [
+          "新能源车险定价精细化提速保险车型综合分级制度或将落地thepapercn",
+          "2026年三季度银行业保险业主要监管指标数据情况",
+          "国家金融监督管理总局就保险公司董事监事和高级管理人员任职资格管理办法征求意见稿公开征求意见",
+          "金融监管总局交通运输部等七部委联合印发关于加快航运保险高质量发展的指导意见"
+        ],
+        "fr": [
+          "smart2026dansunmondequichangeleschoixdaujourdhuifaçonnerontleséquilibresdedemain",
+          "lcbftunguidepourconnaîtrelesinformationsjustificatifsetdonnéespersonnellesquevotreprofessionneldelassurancepeutvousdemander",
+          "nouvelépisodedassurémentmargauxassurancescolaireobligatoireoupas"
+        ]
+      }
+    },
+    {
       "date": "2026-11-19",
       "ids_by_language": {
         "en": [
