@@ -1,6 +1,35 @@
 {
   "editions": [
     {
+      "date": "2026-11-21",
+      "ids_by_language": {
+        "en": [
+          "https://www.insurancejournal.com/news/southeast/2026/11/20/893311.htm",
+          "https://www.claimsjournal.com/news/national/2026/11/20/341444.htm",
+          "https://www.artemis.bm/news/liberty-mutual-targets-300m-multi-peril-reinsurance-with-twelfth-mystic-re-cat-bond/?utm_source=rss&utm_medium=rss&utm_campaign=liberty-mutual-targets-300m-multi-peril-reinsurance-with-twelfth-mystic-re-cat-bond",
+          "https://www.insurancejournal.com/news/midwest/2026/11/20/893316.htm"
+        ],
+        "zh": [
+          "https://news.google.com/rss/articles/CBMijwFBVV95cUxOSV8waXFvU1VLVVRWOUkyU2VIQzBnZG03Ujg5cDVIWFN1WF9iZGdBa09oY3FEaHdOY1ZIejAtcnJZUTZQT0dMY1ZDRkV2dFlMUGFWYllqTUVOQWJ2bFZwTnlKaU5NVEFtbElHeDl5QVF3ZG5YZ015aE1WVUhPYjlGMGNwZjRlQXF3Y09DcVBMOA?oc=5",
+          "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBzVG1velRWbXZwNlVCOGRVaEVaVUc3NDUtSjFkc2pvZUpLVWJFb3VGNDByVk9pdmRYSGFwUWVlQ3lmVnlCXzAtcG9Mejh6cnR5QkUyMWhjNTBqT0tCc2c?oc=5"
+        ],
+        "fr": []
+      },
+      "title_keys_by_language": {
+        "en": [
+          "breakingfloridacitizensceoceriotostepdowninjanuary",
+          "aifueledcyberattacksdriveclaimssurgeatjapaninsurers",
+          "libertymutualtargets300mmultiperilreinsurancewithtwelfthmysticrecatbond",
+          "minnesotaworkplaceinjuryandillnessratereachesrecordlow"
+        ],
+        "zh": [
+          "今年前三季度我国银行业保险业总资产继续增长21财经",
+          "中国太保产险黄垚新能源车险出海不能简单复制国内模式证券之星证券之星"
+        ],
+        "fr": []
+      }
+    },
+    {
       "date": "2026-11-20",
       "ids_by_language": {
         "en": [
