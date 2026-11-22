@@ -1,6 +1,47 @@
 {
   "editions": [
     {
+      "date": "2026-11-22",
+      "ids_by_language": {
+        "en": [
+          "https://www.businessinsurance.com/?p=836265",
+          "https://www.businessinsurance.com/?p=836249",
+          "https://www.artemis.bm/news/safepoint-raises-nature-coast-re-2026-4-cat-bond-target-again-to-225m/?utm_source=rss&utm_medium=rss&utm_campaign=safepoint-raises-nature-coast-re-2026-4-cat-bond-target-again-to-225m",
+          "https://www.insurancethoughtleadership.com/agent-broker/why-new-producers-stall-they-start"
+        ],
+        "zh": [
+          "https://news.google.com/rss/articles/CBMijwFBVV95cUxNWkM5T09ZS1l4cVh5UzlRUm4wTTVya0tIMEhDX3NuY0lSSVIwVWI4bEZUbGdBdUtCaXJSdmVtRWQ0MjRzS0FoZGhoVFE0RXpVRmduRjRfMFhPVzVTMkJveVNUbjdlU1c5c2lnLWJ2bEtqNWZYdGdWSmdRcmFtT2RocXNrYzBaQkdzMVEwQlBoSQ?oc=5",
+          "https://news.google.com/rss/articles/CBMiWEFVX3lxTE04dk44ZlowcjRIYWhDVW81RjdFTFhGMHF4NDlIZXV2blVJakoyX1FlM0RYUzJNcjU3b194aDdwY0EzcEladXpIQ0s1cVIxT0poTGVGLXpWSms?oc=5",
+          "https://news.google.com/rss/articles/CBMieEFVX3lxTFBQTXdUTjJreVNPZ0RiQWgxRlpsaVdrTjBRZG8taUpocWtOd2tqQl9IQ2RnN0xfdjhDcTgyaGFSS1pkWlgxdmxNSjF5dlV3REtCSDZkbFZDTm5uQmtDeHRLeXFfNkNfaVFBcUFENWR3eGZ3ZTV5X0JQag?oc=5"
+        ],
+        "fr": [
+          "https://www.franceassureurs.fr/actualites/journee-nationale-resilience2026-france-assureurs-mobilisee-face-inondations/",
+          "https://www.franceassureurs.fr/espace-presse/les-communiques-de-presse/assurance-vie-cotisations-aout-2026/",
+          "https://www.franceassureurs.fr/espace-presse/les-communiques-de-presse/assurance-vie-cotisations-septembre2026/",
+          "https://www.franceassureurs.fr/espace-presse/les-communiques-de-presse/le-conseil-constitutionnel-abroge-la-mesure-de-gel-des-tarifs-des-complementaires-sante-en-2026/"
+        ]
+      },
+      "title_keys_by_language": {
+        "en": [
+          "viewpointtimetogetcreative",
+          "whenaigoesroguewhoisliable",
+          "safepointraisesnaturecoastre20264catbondtargetagainto225m",
+          "whynewproducersstallbeforetheystart"
+        ],
+        "zh": [
+          "智能网联新能源车险示范条款过审21财经",
+          "保险研究主编黄志强应邀来保险学院交流对外经济贸易大学新闻网",
+          "智能网联新能源车险示范条款过审三端影响或重新校准新浪财经金融信息服务商"
+        ],
+        "fr": [
+          "jnr2026franceassureursmobiliséefaceauxinondations",
+          "avec115milliardsdeurosdecotisationsenaoût2026lassuranceviedemeureunlevieressentielpourfinancerléconomiefrançaiseeteuropéenne",
+          "avec154milliardsdeurosdecotisationsenseptembre2026lesfrançaisréaffirmentleurconfiancedanslasoliditédumodèledelassurancevie",
+          "leconseilconstitutionnelabrogelamesuredegeldestarifsdescomplémentairessantéen2026"
+        ]
+      }
+    },
+    {
       "date": "2026-11-21",
       "ids_by_language": {
         "en": [
