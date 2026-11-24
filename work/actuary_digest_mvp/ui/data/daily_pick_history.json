@@ -1,6 +1,45 @@
 {
   "editions": [
     {
+      "date": "2026-11-24",
+      "ids_by_language": {
+        "en": [
+          "https://www.insurancejournal.com/news/southcentral/2026/11/24/893652.htm",
+          "https://www.insurancethoughtleadership.com/six-things-commentary/when-customers-get-their-own-chatbot-agent",
+          "https://www.artemis.bm/news/howden-backed-novark-strengthens-bermuda-team-with-four-senior-appointments/?utm_source=rss&utm_medium=rss&utm_campaign=howden-backed-novark-strengthens-bermuda-team-with-four-senior-appointments",
+          "https://www.businessinsurance.com/beazley-seeks-200m-cyber-cat-bond/"
+        ],
+        "zh": [
+          "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9oUDZWemQtbFdyNGtCektLTkFNZnhYS1Q2c0JFbG5YZ3hlN0txQ3htNk9hZ0NZMjRGVFFzOGxsNkdCWTdPeldrclQ3VS1INDV0aXhxWUg3b1ZMODVOSVZsQklpaUQwZw?oc=5",
+          "https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=1279786&itemId=915&generaltype=0",
+          "https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=1278255&itemId=915&generaltype=0",
+          "https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=1278246&itemId=915&generaltype=0"
+        ],
+        "fr": [
+          "https://www.franceassureurs.fr/actualites/collection-fiches-prevention-collectivites-territoriales/",
+          "https://www.franceassureurs.fr/actualites/smart-2026-programme/"
+        ]
+      },
+      "title_keys_by_language": {
+        "en": [
+          "twolouisianamenchargedinseparateinsurancefraudinvestigations",
+          "whencustomersgettheirownchatbotagent",
+          "howdenbackednovarkstrengthensbermudateamwithfourseniorappointments",
+          "beazleyseeks200mcybercatbond"
+        ],
+        "zh": [
+          "人保财险青岛分公司领81万元罚单虚列费用虚挂中介违规跨区经营东方财富网",
+          "2026年三季度银行业保险业主要监管指标数据情况",
+          "国家金融监督管理总局就保险公司董事监事和高级管理人员任职资格管理办法征求意见稿公开征求意见",
+          "金融监管总局交通运输部等七部委联合印发关于加快航运保险高质量发展的指导意见"
+        ],
+        "fr": [
+          "lapréventionpourlescollectivitésterritorialesunecollectiondefichesàdécouvrir",
+          "smart2026dansunmondequichangeleschoixdaujourdhuifaçonnerontleséquilibresdedemain"
+        ]
+      }
+    },
+    {
       "date": "2026-11-23",
       "ids_by_language": {
         "en": [
