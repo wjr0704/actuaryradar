@@ -1,13 +1,13 @@
 {
   "archives": [
     {
-      "date": "2026-11-24",
-      "title": "2026-11-24",
+      "date": "2026-11-25",
+      "title": "2026-11-25",
       "mode": "rss",
-      "theme": "周二：健康险与医疗趋势",
-      "json": "./data/archive/2026-11-24.json",
-      "html": "./reports/2026-11-24.html",
-      "markdown": "./reports/2026-11-24.md"
+      "theme": "周三：财险、车险与巨灾风险",
+      "json": "./data/archive/2026-11-25.json",
+      "html": "./reports/2026-11-25.html",
+      "markdown": "./reports/2026-11-25.md"
     }
   ]
 }

@@ -1,6 +1,39 @@
 {
   "editions": [
     {
+      "date": "2026-11-25",
+      "ids_by_language": {
+        "en": [
+          "https://www.insurancejournal.com/news/southeast/2026/11/25/893780.htm",
+          "https://www.claimsjournal.com/news/national/2026/11/25/341527.htm",
+          "https://www.artemis.bm/news/reinsurance-renewals-running-later-than-usual-focus-remains-largely-on-price-althoff-hannover-re/?utm_source=rss&utm_medium=rss&utm_campaign=reinsurance-renewals-running-later-than-usual-focus-remains-largely-on-price-althoff-hannover-re",
+          "https://www.commercialriskonline.com/businesses-underestimate-cyber-risk-from-impersonation-attacks-qbe/"
+        ],
+        "zh": [
+          "https://news.google.com/rss/articles/CBMijwFBVV95cUxQS24tRkE2MkY0eU9KNzRLR0xoT2E0d3VTWXN0cWpTZ2t2bU9Tb3JRazRVRkVtUGlGYzJZRmZpbzFNVnlGVDFRY2hEZDlFemNMSkpkWlU5SDZYbjZaNkR6SnJtN2VXTFU5ZFc3akZQZ2V1WnJPU3NqNEdRX3Q4SEtvd0Nlb01mSHRiUGlXSHZSQQ?oc=5",
+          "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1xdnhvcE9XeGcxU2tfQ1kyLUU3bno0RkRlVlZlR3VVSGdsZGYzYkoxeDlFMFI2elMwQmpuNHhKTGdwM2VINF8yYlQtNnZVWU5pdDJhelhvX0F0U1dDNnc?oc=5",
+          "https://news.google.com/rss/articles/CBMiU0FVX3lxTFB1d3JmdjV2SEEwajg3NHFmaDVJR2dFTVRYOTNqNHNyV2NNUk5IaWlTZzZUc2RBd3NuOU5MdVJDSXgzMUxSN2FGTTZxNWNhY01RVWpF?oc=5",
+          "https://news.google.com/rss/articles/CBMiVkFVX3lxTE5HVXJzMDhKMXdKbTVrVC1qTEp3dnlZTUNQYnBpTjkwVDRwT0JqbXQ0N19IRjE4VFdPU2FBcjZsQXpLQi00S2NWczU2OXVITVlfTUtGLV9n?oc=5"
+        ],
+        "fr": []
+      },
+      "title_keys_by_language": {
+        "en": [
+          "withoutcitizenspoliciesfloridianslikelydroppedfloodcoverageattheworsttime",
+          "whatdoaidamageestimatesbringtotheclaimstable",
+          "reinsurancerenewalsrunninglaterthanusualfocusremainslargelyonpricealthoffhannoverre",
+          "businessesunderestimatecyberriskfromimpersonationattacksqbe"
+        ],
+        "zh": [
+          "平安产险王锷财险核心竞争力更在于风险减量的投入与实践21财经",
+          "2026年车险公司横向评测众安平安人保太平洋数据对比汽车之家",
+          "事关养老金工伤和失业保障社保基金监管条例公开征求意见华尔街见闻",
+          "平安产险联合复旦大学发布商业健康险创新实践与发展白皮书提出商业健康险发展实现新路径jiemiancom"
+        ],
+        "fr": []
+      }
+    },
+    {
       "date": "2026-11-24",
       "ids_by_language": {
         "en": [
