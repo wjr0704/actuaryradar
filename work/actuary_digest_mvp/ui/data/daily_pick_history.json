@@ -1,6 +1,49 @@
 {
   "editions": [
     {
+      "date": "2026-11-26",
+      "ids_by_language": {
+        "en": [
+          "https://www.artemis.bm/news/alignment-and-transparency-key-to-sustainable-casualty-sidecar-capacity-artex-ceo-faries/?utm_source=rss&utm_medium=rss&utm_campaign=alignment-and-transparency-key-to-sustainable-casualty-sidecar-capacity-artex-ceo-faries",
+          "https://www.businessinsurance.com/bms-group-sells-canadian-business-to-peloton-capital/",
+          "https://www.artemis.bm/news/arch-finalises-162m-bellemeade-re-2026-1-mortgage-ils-plus-40-5m-direct-reinsurance/?utm_source=rss&utm_medium=rss&utm_campaign=arch-finalises-162m-bellemeade-re-2026-1-mortgage-ils-plus-40-5m-direct-reinsurance",
+          "https://www.commercialriskonline.com/french-mid-market-firms-balance-growth-plans-against-mounting-risks-chubb/"
+        ],
+        "zh": [
+          "https://news.google.com/rss/articles/CBMiZkFVX3lxTFBsU0hsSkNWS2Q5T3hTN0NCUXhmaW9tN21MQmNsY1V3REFpc2tSdWpiOFNrU3RFTXdqeGc3RTVDNlo2MTFiME5CZUhKdnJZZklKbWZ4ZTVVRUEwdW5rblZUV29lNUcwdw?oc=5",
+          "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBnSl8tUlk3RXJIbTBULTlGYlNBM3hMUW9wTzY4RU1feFVYRTVldHA3UkxUUF9QVEREOWNxY2kySHo2ZmF0TU8wOTNzUVpvd1d0OUdVQlgtdnFrZWItRWhHTFl6czA?oc=5",
+          "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBfaERfSTVTcFQwelJkaXBBNUsxUEVrTUdxUmEwdFdFWExKOWpmdG4zSVpLd2JNdWRISTRUenJyYWF0LTJXa1psbmE1R3hnWWR0RW9Cd2hfSTRXZjdwZWYtRg?oc=5",
+          "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQSjJiV1lDelE2cGkxU2l6N1NyUzNqY2tnSlhqUzhSZkpMazVubklmOGJVQmxXclVnZ3prbGhTZ3Y3U3VTRVFfVFoxTnZyam55TVNzS0xrTDlXVDd0dVYwaHRjdmRDbjR2MVhPN0dZVFpzMWx2M09JRHFVaDQ1LURka0FUMzdxRGgwTGVv?oc=5"
+        ],
+        "fr": [
+          "https://www.franceassureurs.fr/actualites/journee-nationale-resilience2026-france-assureurs-mobilisee-face-inondations/",
+          "https://www.franceassureurs.fr/espace-presse/les-communiques-de-presse/communique-presse-assurance-vie-chiffres-octobre2026/",
+          "https://www.franceassureurs.fr/espace-presse/les-communiques-de-presse/assurance-vie-cotisations-septembre2026/",
+          "https://www.franceassureurs.fr/espace-presse/les-communiques-de-presse/le-conseil-constitutionnel-abroge-la-mesure-de-gel-des-tarifs-des-complementaires-sante-en-2026/"
+        ]
+      },
+      "title_keys_by_language": {
+        "en": [
+          "alignmentandtransparencykeytosustainablecasualtysidecarcapacityartexceofaries",
+          "bmsgroupsellscanadianbusinesstopelotoncapital",
+          "archfinalises162mbellemeadere20261mortgageilsplus405mdirectreinsurance",
+          "frenchmidmarketfirmsbalancegrowthplansagainstmountingriskschubb"
+        ],
+        "zh": [
+          "太平洋财险泰安中支被罚40万涉虚构中介业务套取费用等东方财富网",
+          "复衡保险经纪收监管罚单公司及高管合计被罚82万元新京报",
+          "新能源车险定价精细化提速保险车型综合分级制度或将落地thepapercn",
+          "新能源车电池出问题到底谁的锅汽车公社"
+        ],
+        "fr": [
+          "jnr2026franceassureursmobiliséefaceauxinondations",
+          "avec168milliardsdeurosenoctobre2026lescotisationsdassurancevieenregistrentleurdeuxièmeplushautniveaujamaisatteintpourunmoisdoctobre",
+          "avec154milliardsdeurosdecotisationsenseptembre2026lesfrançaisréaffirmentleurconfiancedanslasoliditédumodèledelassurancevie",
+          "leconseilconstitutionnelabrogelamesuredegeldestarifsdescomplémentairessantéen2026"
+        ]
+      }
+    },
+    {
       "date": "2026-11-25",
       "ids_by_language": {
         "en": [
