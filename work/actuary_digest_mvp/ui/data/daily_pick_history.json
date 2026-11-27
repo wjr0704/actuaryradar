@@ -1,6 +1,49 @@
 {
   "editions": [
     {
+      "date": "2026-11-27",
+      "ids_by_language": {
+        "en": [
+          "https://www.insurancejournal.com/news/national/2026/11/27/893817.htm",
+          "https://www.businessinsurance.com/macys-parade-postponement-raises-insurance-questions/",
+          "https://www.artemis.bm/news/boards-approve-scor-and-japan-post-insurances-reinsurance-vehicle-partnership/?utm_source=rss&utm_medium=rss&utm_campaign=boards-approve-scor-and-japan-post-insurances-reinsurance-vehicle-partnership",
+          "https://www.businessinsurance.com/south-korean-insurers-premiums-grow-13/"
+        ],
+        "zh": [
+          "https://news.google.com/rss/articles/CBMifEFVX3lxTFBIX2lLRGVDN3RnT3VnRzdaSjU5M0pOVmNJSVh0MW5wNDk1bGpSVUg1NzZiSjA2WjVJZURpTUxLdDJRenliQ01Za0tSZUI3Z1lBOW9TY3NMRTlhOG1sSWJzM1BKb3piX3Q0S2xkS2ctbWF6NFFQVU5UOTZOQVA?oc=5",
+          "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9Uc2dGTkhZTFlXM3MtUWR0OVJTdzFJUmRmNGhPNktzUnpSX0l3bDNOYzkzTFZXZ2JHZllZRVNwamRKQjE4NDZraXhfdVlUMW5wQk9yR1d3VWJEci1GRVN6Yk9FV3k?oc=5",
+          "https://news.google.com/rss/articles/CBMimAFBVV95cUxPMW1tOFdhR2F0MWNtc0ZtNTd6OUZMSmhtbDduMEZnX3VGb204QVNkd2taLURDanlUcHQxRVhEcGppQ1F0aW13LTR2dE93UDRYWkljVm1VOFRkMHk5Vk02Mnp1X2xxcm11OTdRa0tWZXBDN0NqLVVUUDRadWNrTVhoSFBwcHdUdWdoOGkxZ3NfSHN4ZVFfdDVnOA?oc=5",
+          "https://news.google.com/rss/articles/CBMiZkFVX3lxTE85c2FHRmVNLXZwRmtzN01lcmZYVjRKZGJYektaYnNXaXRHQ3RTUnRZWjJzNllkVmxmVmtDTll4U00yNDFCRkJ0WnBxWkQ2YmM2NTRWVFdXMjZrdXN0Mm1OLVFmMjItQQ?oc=5"
+        ],
+        "fr": [
+          "https://www.franceassureurs.fr/espace-presse/les-communiques-de-presse/cout-violences-urbaines-octobre-2026-200millions/",
+          "https://www.franceassureurs.fr/actualites/formation-professionnelle-innovations-pedagogiques-demoday/",
+          "https://www.franceassureurs.fr/espace-presse/les-communiques-de-presse/violences-urbaines-assureurs-se-mobilisent-pour-accompagner-assures-accelerer-indemnisation/",
+          "https://www.franceassureurs.fr/nos-chiffres-cles/emploi-dans-lassurance/lemploi-dans-lassurance-en-2025-publication-des-donnees-cles/"
+        ]
+      },
+      "title_keys_by_language": {
+        "en": [
+          "allstatecustomeragentaccessdisruptedbymultidaytechoutage",
+          "macysparadepostponementraisesinsurancequestions",
+          "boardsapprovescorandjapanpostinsurancesreinsurancevehiclepartnership",
+          "southkoreaninsurerspremiumsgrow13"
+        ],
+        "zh": [
+          "本初子午集团荷叶健康与腾讯云达成战略合作以ai共筑商业健康保险服务新基础设施中国日报网",
+          "券商聚焦国联民生保险偿付能力稳健投资端承压致利润下滑滚动新闻证券之星",
+          "监管部门通报典型保险不当销售行为引导行业合规开展2027年开门红新浪财经",
+          "监管通报八类保险不当销售行为五类涉线上消费场景暗藏扣费套路黑盒式弹窗被点名httpswwwmrjjxwcom"
+        ],
+        "fr": [
+          "lecoûtdesviolencesurbainesdes17et18octobre2026pourraitatteindreplusde200millionsdeuros",
+          "formationprofessionnellefranceassureursmetàlhonneurlesinnovationspédagogiqueslorsdundemoday",
+          "violencesurbaineslesassureurssemobilisentpouraccompagnerleursassurésetaccélérerlindemnisation",
+          "lemploidanslassuranceen2025publicationdesdonnéesclés"
+        ]
+      }
+    },
+    {
       "date": "2026-11-26",
       "ids_by_language": {
         "en": [
